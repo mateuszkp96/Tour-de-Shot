@@ -1,4 +1,4 @@
-package com.teamg.tourdeshot;
+package com.teamg.tourdeshot.core;
 
 import org.junit.jupiter.api.Test;
 
