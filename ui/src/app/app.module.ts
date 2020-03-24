@@ -6,6 +6,9 @@ import { NavComponent } from './nav/nav.component';
 import {RouterModule, Routes} from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { ContactComponent } from './footer/contact/contact.component';
+import { PrivacyComponent } from './footer/privacy/privacy.component';
+import { TeamComponent } from './footer/team/team.component';
 
 
 @NgModule({
@@ -14,7 +17,10 @@ import { HomeComponent } from './home/home.component';
     NavComponent,
    routingComponents,
    RegisterComponent,
-   HomeComponent
+   HomeComponent,
+   ContactComponent,
+   PrivacyComponent,
+   TeamComponent
   ],
   imports: [
     BrowserModule,
