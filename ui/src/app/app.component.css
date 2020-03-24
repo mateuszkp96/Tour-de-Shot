@@ -1,0 +1,96 @@
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+p {
+  margin: 0;
+}
+
+.spacer {
+  flex: 1;
+}
+
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 16px;
+  position: absolute;
+}
+
+.card {
+  border-radius: 4px;
+  align-content: center;
+  height: 30%;
+  width: 20%;
+  margin: 0 8px 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  transition: all 0.2s ease-in-out;
+  position:absolute;
+  left:10%;
+  top:20%;
+  font-size: 40px;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+
+a,
+a:visited,
+a:hover {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(46, 72, 197);
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #13163c;
+  color: white;
+  text-align: center;
+
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+}
+
+
+.button {
+  background-color: #884604; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 50%;
+  display: table;
+  margin: 20% auto;
+  font-size: large;
+}
