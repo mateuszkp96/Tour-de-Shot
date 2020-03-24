@@ -25,33 +25,6 @@ p {
 }
 
 
-li {
-  float: left;
-  width:100%;
-  align-items: center;
-  display:inline-block;
-}
-
-li a {
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  margin: 10px 10px 10px 10px;
-}
-
-li a,
-li a:visited,
-
-li a:hover {
-  color: #FFFFFF;
-  text-decoration: none;
-}
-
-li a:hover {
-  color: rgb(56, 96, 225);
-}
-
-
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -79,18 +52,48 @@ li a:hover {
 }
 
 
+a,
+a:visited,
+a:hover {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(46, 72, 197);
+}
+
 footer {
-  position:fixed;
-  width:100%;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(to right bottom, rgb(33, 26, 103), rgba(15, 10, 56, 0.94));
+  background-color: #13163c;
   color: white;
-  text-align: left;
-}
-
-footer li {
+  text-align: center;
 
 }
 
+footer a {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  background-color: #a94b24;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  width: 50%;
+  display: table;
+  margin: 20% auto;
+  font-size: large;
+}
+
+.button:hover {
+  background-color: #844202;
+}
