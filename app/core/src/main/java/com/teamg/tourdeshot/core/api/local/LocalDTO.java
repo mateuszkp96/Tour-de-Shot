@@ -1,13 +1,17 @@
-package com.teamg.tourdeshot.core.dto;
+package com.teamg.tourdeshot.core.api.local;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @Builder
-public class LocalWithDistanceDTO {
+public class LocalDTO {
 
     private Long id;
+
 }
