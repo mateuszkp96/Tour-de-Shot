@@ -3,7 +3,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(to right bottom, #2d1f89, #1b1651);
+  background: linear-gradient(to right bottom, rgb(33, 26, 103), rgba(15, 10, 56, 0.94));
   width: 100%;
 }
 
