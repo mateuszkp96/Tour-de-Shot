@@ -1,0 +1,37 @@
+{
+  "filters": {
+    "categories": [
+      {
+        "id": "kategoria 1",
+        "price_from": 0.01,
+        "price_to": 10.55
+      },
+      {
+        "id": "kategoria 2",
+        "price_from": 0,
+        "price_to": 10
+      }
+    ],
+    "localization": {
+      "lat": 50.01,
+      "lon": 230.55,
+      "distance": 400
+    },
+    "localAddress": {
+      "city": "miasto",
+      "street": "ulica",
+      "localNumber": "numer domu/numer mieszkania"
+    },
+    "localName": {
+      "name": "nazwa lokalu"
+    },
+    "ingredients": [
+      {
+        "id": "składnik 1"
+      },
+      {
+        "id": "składnik 2"
+      }
+    ]
+  }
+}
