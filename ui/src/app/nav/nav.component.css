@@ -1,56 +1,11 @@
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: linear-gradient(to right bottom, rgb(33, 26, 103), rgba(15, 10, 56, 0.94));
-  width: 100%;
+.navbar {
+  background-color: #1D2035;
 }
 
-a {
-  link: none;
-  text-align: center;
-  text-decoration: none;
-  padding: 14px 16px;
-  color: #ebeeff;
-  font-weight: bold;
+.btn-create-account {
+	background-image:linear-gradient(to right #f8be7c 5%, #ff5650 100%);
 }
 
-a:link {
-  text-decoration: none;
+.nav-item {
+  padding-left: 10px;
 }
-
-a:hover {
-  color: rgb(56, 96, 225);
-}
-
-li {
-  float: right;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-li a,
-li a:visited,
-
-li a:hover {
-  color: #FFFFFF;
-  text-decoration: none;
-}
-
-li a:hover {
-  color: rgb(56, 96, 225);
-}
-
-
-
-
-
-
