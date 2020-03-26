@@ -12,7 +12,7 @@ class DeserializationTest {
     @Test
     public void shouldDeserializeLocalRequestBody() {
         InputStream is = this.getClass().getResourceAsStream("/sampleLocalRequestBody.json");
-        LocalRequestBody body = TestUtils.deserializeJackson(is, LocalRequestBody.class);
+        FilterRequestBody body = TestUtils.deserializeJackson(is, FilterRequestBody.class);
         assertNotNull(body);
         LocalFilters filters = body.getFilters();
         assertNotNull(filters);
