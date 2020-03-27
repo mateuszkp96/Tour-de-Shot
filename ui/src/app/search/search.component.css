@@ -8,7 +8,10 @@
   font-family: 'Catamaran', sans-serif;
 }
 
-
+.sidebarnav {
+  position: absolute;
+  left: 0;
+}
 
 
 .btn-primary {
@@ -49,8 +52,7 @@
   padding-bottom: 1rem;
 }
 
-
-
-.container-fluid{
+.row{
+  width: 100%;
   position: relative;
 }

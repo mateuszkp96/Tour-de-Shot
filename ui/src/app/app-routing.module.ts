@@ -10,21 +10,13 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: SignInComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'privacy', component: PrivacyComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'team', component: TeamComponent},
-  
-
-  {path: 'signin',
-    loadChildren: () =>
-      import('./sign-in/sign-in-routing.module').then(
-        m => m.SignInRoutingModule
-      ),
-  },
-
+  {path: 'search', component: SearchComponent}
 ];
 
 @NgModule({
@@ -33,4 +25,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent,PrivacyComponent,ContactComponent,TeamComponent,
-  SignInComponent]
+  SignInComponent,SearchComponent]

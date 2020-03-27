@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule, routingComponents} from '../app-routing.module';
 import { SearchComponent } from '../search/search.component';
 import { AppComponent } from '../app.component';
-import { SignInComponent } from './sign-in.component';
 
 
 @NgModule({
@@ -15,6 +14,6 @@ import { SignInComponent } from './sign-in.component';
     AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [SignInComponent]
+  bootstrap: [AppComponent]
 })
 export class SignInModule { }

@@ -6,12 +6,5 @@ body, html {
   font-family: 'Catamaran', sans-serif;
 }
 
-.page-row{
-  width: 100%;
-  position: relative;
-}
 
-.sidebarnav {
-  position: absolute;
-  left: 0;
-}
+

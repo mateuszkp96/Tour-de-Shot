@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignInComponent implements OnInit {
 
   constructor(
-    private routerSignIn: Router,
+    private router: Router,
 
   ) {
   }
