@@ -11,8 +11,7 @@ const routesSignIn: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routesSignIn)],
-  exports: [RouterModule]
+  imports: [SignInModule, RouterModule.forChild(routesSignIn)],
+  exports: [RouterModule],
 })
-export class SignInRoutingModule { }
-export const SignInRoutingComponents = [SearchComponent]
+export class SignInRoutingModule {}

@@ -16,8 +16,15 @@ const routes: Routes = [
   {path: 'privacy', component: PrivacyComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'team', component: TeamComponent},
-  {path: 'signin', component: SignInComponent},
-  {path: 'signin/search', component: SearchComponent},
+  
+
+  {path: 'signin',
+    loadChildren: () =>
+      import('./sign-in/sign-in-routing.module').then(
+        m => m.SignInRoutingModule
+      ),
+  },
+
 ];
 
 @NgModule({
@@ -26,4 +33,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent,PrivacyComponent,ContactComponent,TeamComponent,
-  SignInComponent,SearchComponent]
+  SignInComponent]

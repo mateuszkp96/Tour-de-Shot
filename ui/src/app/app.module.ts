@@ -29,7 +29,7 @@ import { SearchComponent } from './search/search.component';
     TeamComponent,
     SignInComponent,
     SideNavComponent,
-    SearchComponent
+   
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@
 .container-fluid{
   padding-left: 0;
   padding-right: 0;
+  position: fixed;
 }
 
 
@@ -13,7 +14,7 @@
   position: relative;
   height: 40rem;
   padding-left: 0;
-  width: 100%;
+  width: 10rem;
 }
 
 
