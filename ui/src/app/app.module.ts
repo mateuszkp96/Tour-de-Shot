@@ -12,6 +12,7 @@ import { PrivacyComponent } from './footer/privacy/privacy.component';
 import { TeamComponent } from './footer/team/team.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
     ContactComponent,
     PrivacyComponent,
     TeamComponent,
-    SignInComponent
+    SignInComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,
