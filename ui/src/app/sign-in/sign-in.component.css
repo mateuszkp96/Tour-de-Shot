@@ -1,6 +1,6 @@
 .signinhead {
   padding-top: 0rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0rem;
 
   background-size: cover;
   background-position: center;
@@ -9,7 +9,8 @@
 }
 
 .sidebarnav {
-
+position: absolute;
+  left: 0;
 }
 
 
