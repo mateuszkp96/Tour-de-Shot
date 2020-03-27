@@ -10,13 +10,14 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
-  {path: '', component: SignInComponent},
+  {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'privacy', component: PrivacyComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'team', component: TeamComponent},
-  {path: 'search', component: SearchComponent}
+  {path: 'signin', component: SignInComponent},
+  {path: 'signin/search', component: SearchComponent},
 ];
 
 @NgModule({
