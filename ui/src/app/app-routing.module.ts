@@ -7,7 +7,7 @@ import { TeamComponent } from './footer/team/team.component';
 import { ContactComponent } from './footer/contact/contact.component';
 import { PrivacyComponent } from './footer/privacy/privacy.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {path: '', component: SignInComponent},
@@ -15,8 +15,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'privacy', component: PrivacyComponent},
   {path: 'contact', component: ContactComponent},
-  {path: 'team', component: TeamComponent}
-
+  {path: 'team', component: TeamComponent},
+  {path: 'search', component: SearchComponent}
 ];
 
 @NgModule({
@@ -25,4 +25,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent,PrivacyComponent,ContactComponent,TeamComponent,
-  SignInComponent]
+  SignInComponent,SearchComponent]

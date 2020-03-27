@@ -13,6 +13,7 @@ import { TeamComponent } from './footer/team/team.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     PrivacyComponent,
     TeamComponent,
     SignInComponent,
-    SideNavComponent
+    SideNavComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
