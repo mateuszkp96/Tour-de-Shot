@@ -1,0 +1,38 @@
+.signinhead {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Catamaran', sans-serif;
+}
+
+.btn-primary {
+  background-color: #676767 !important;
+  border-color: #676767 !important;
+  float: right;
+}
+
+.card{
+  border: none;
+}
+
+.card .card-header {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.map-container-5{
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+.map-container-5 iframe{
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
