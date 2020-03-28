@@ -16,55 +16,6 @@
   transition: all 0.3s ease;
 }
 
-.container-fluid{
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-top: 0;
-  min-height: 40rem;
-  position: relative;
-
-  overflow-x: hidden; /* Disable horizontal scroll */
-}
-
-/*----------------toggeled sidebar----------------*/
-.page-wrapper.toggled .sidebar-wrapper {
-  left: 0;
-  margin-left: 0;
-  position: relative;
-  height: 100%;
-  padding-left: 0;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-top: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-
-}
-
-
-/*----------------page-wrapper----------------*/
-.page-wrapper {
-  height: 100vh;
-}
-
-.page-wrapper .theme {
-  height: 40px;
-  display: inline-block;
-  border-radius: 4px;
-  margin: 2px;
-}
-
-.page-wrapper .theme.chiller-theme {
-  background: #1e2229;
-}
-
-/*----------------toggeled sidebar----------------*/
-.page-wrapper.toggled .sidebar-wrapper {
-  left: 0px;
-}
-
 /*----------------show sidebar button----------------*/
 #show-sidebar {
   position: relative;
@@ -72,14 +23,40 @@
   top: 10px;
   border-radius: 0 4px 4px 0px;
   width: 35px;
-
 }
 
 
-.page-wrapper.toggled #show-sidebar {
-  left: -40px;
+
+.container-fluid{
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+  min-height: 40rem;
+  position: relative;
+  width: 100%;
+
 }
-/*----------------sidebar-wrapper----------------*/
+
+/*----------------toggeled sidebar----------------*/
+
+/*----------------page-wrapper----------------*/
+
+.page-wrapper .theme.chiller-theme {
+  height: 40px;
+  display: inline-block;
+  border-radius: 4px;
+  margin: 2px;
+  background: #1e2229;
+  width: 100%;
+}
+
+/*----------------toggeled sidebar----------------*/
+.page-wrapper.toggled .sidebar-wrapper {
+  left: 0px;
+}
+
+/*----------------sidebar-wrapper--hidden--------------*/
 
 .sidebar-wrapper {
 
@@ -89,6 +66,7 @@
   top: 0;
   left: -300px;
   z-index: 999;
+
 }
 
 .sidebar-wrapper ul {
@@ -105,7 +83,7 @@
 /*----------------------sidebar-menu-------------------------*/
 
 .sidebar-wrapper .sidebar-menu {
-  padding-bottom: 10px;
+  padding-top: 20px;
 }
 
 .sidebar-wrapper .sidebar-menu .header-menu span {

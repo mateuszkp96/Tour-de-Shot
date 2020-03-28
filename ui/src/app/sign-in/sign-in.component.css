@@ -13,5 +13,9 @@
 .side-bar-nav{
   padding-bottom: 0;
   height: 100%;
-  
+}
+.col-md-2-5 {
+  width: 50%;
+  position: relative;
+  left: -300px;
 }
