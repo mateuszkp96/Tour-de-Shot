@@ -1,18 +1,25 @@
-<header class="signinhead">
 
-  <div class="row myrow">
+<div id="wrapper">
 
-    <div class="col-md-2 col-md-2-5">
-      <div class="side-bar-nav d-flex">
-        <app-side-nav></app-side-nav>
-      </div>
-    </div>
-
-
-    <div class="col-md-10">
-        <router-outlet></router-outlet>
-    </div>
-
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <app-side-nav></app-side-nav>
   </div>
 
-</header>
+
+  <!-- Page content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid page-content">
+      <div class="row">
+        <div class="col">
+          <a id="show-sidebar" class="btn btn-sm btn-dark" >
+            <i class="fas fa-bars" id="e" (click)="openAndCloseNav()"></i>
+          </a>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

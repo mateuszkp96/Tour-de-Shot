@@ -10,7 +10,6 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SearchComponent } from './search/search.component';
 import { AccountComponent } from './account/account.component';
 import { RouteComponent } from './route/route.component';
-import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,7 +28,6 @@ const routes: Routes = [
 
     ]},
 
-  {path: 'test', component: TestComponent},
 ];
 
 @NgModule({

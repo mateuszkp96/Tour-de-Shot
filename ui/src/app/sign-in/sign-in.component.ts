@@ -9,13 +9,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SignInComponent implements OnInit {
 
+
   constructor(
     private router: Router,
-
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
   }
 
+  openAndCloseNav() {
+        document.getElementById("wrapper").classList.toggle("menuHidden");
+  }
 }

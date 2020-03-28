@@ -1,12 +1,5 @@
-<a id="show-sidebar" class="btn btn-sm btn-dark" >
-  <i class="fas fa-bars" id="e" (click)="openAndCloseNav()"></i>
-</a>
-
-<div class="btn" (click)="openAndCloseNav()">Btn</div>
-
-<div class="container-fluid d-flex">
-  <div class="page-wrapper chiller-theme toggled d-flex" id="page-wrapper">
-  <nav id="sidebar" class="sidebar-wrapper chiller-theme toggled">
+ <div class="page-wrapper chiller-theme toggled d-flex" id="page-wrapper">
+  <nav id="sidebar" class="sidebar-wrapper chiller-theme toggled d-flex">
     <div class="sidebar-content">
 
       <div class="sidebar-menu" id="sidebar-menu">
@@ -50,7 +43,7 @@
             </div>
           </li>
           <li class="sidebar-dropdown">
-            <a href="signin/account" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+            <a href="signin/account" >
               <i class="far fa-user"></i>
               <span>Konto użytkownika</span>
             </a>
@@ -63,60 +56,11 @@
             </div>
           </li>
 
-
-          <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-user fa-fw mr-3"></span>
-              <span class="menu-collapsed">Profile</span>
-              <span class="submenu-icon ml-auto"></span>
-            </div>
-          </a>
-          <!-- Submenu content -->
-          <div id='submenu2' class="collapse sidebar-submenu">
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-              <span class="menu-collapsed">Settings</span>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-              <span class="menu-collapsed">Password</span>
-            </a>
-          </div>
-
-
-
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Services</span> <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Service A</a></li>
-              <li><a href="#">Service B</a></li>
-              <li class="dropdown-submenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">Service C</span><span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Service C1</a></li>
-                  <li><a href="#">Service C2</a></li>
-                  <li><a href="#">Service C3</a></li>
-                  <li><a href="#">Service C4</a></li>
-                  <li><a href="#">Service C5</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-
-
-
         </ul>
       </div>
     </div>
 
   </nav>
-
-</div>
 </div>
 
-
-<script>
-  $("#menu-toggle").click( function (e){
-    e.preventDefault();
-    $("#page.wrapper").toggleClass("menuDisplayed");
-  });
-</script>
 

@@ -16,7 +16,6 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { SearchComponent } from './search/search.component';
 import { AccountComponent } from './account/account.component';
 import { RouteComponent } from './route/route.component';
-import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -34,8 +33,7 @@ import { TestComponent } from './test/test.component';
     SideNavComponent,
     AccountComponent,
     RouteComponent,
-    TestComponent,
-   
+
   ],
   imports: [
     BrowserModule,
