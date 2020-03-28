@@ -16,15 +16,24 @@ export class SideNavComponent implements OnInit {
   openNav() {
 
 
-    document.getElementById("page-wrapper").classList.add("toggled");
+    document.getElementById("page-wrapper").classList.add('toggled');
+    console.log("open");
   }
 
+  
   /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-  closeNav() {
-
-
-    document.getElementById("page-wrapper").classList.remove("toggled");
+  openAndCloseNav() {
+    switch (this.isOpen) {
+      case true:
+        document.getElementById("page-wrapper").classList.remove('toggled');
+        this.isOpen = false;
+        console.log("close");
+        break;
+      case false:
+        document.getElementById("page-wrapper").classList.add('toggled');
+        this.isOpen = true;
+        console.log("open");
+        break;
     }
-
-
+  }
 }

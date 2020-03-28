@@ -1,10 +1,10 @@
 <a id="show-sidebar" class="btn btn-sm btn-dark" >
-  <i class="fas fa-bars" id="e" (click)="closeNav()"></i>
+  <i class="fas fa-bars" id="e" (click)="openAndCloseNav()"></i>
 </a>
 
-<button class="btn" id="d" (click)="openNav()">&#9776; Close Sidebar</button>
+<div class="btn" (click)="openAndCloseNav()">Btn</div>
 
-<div class="container-fluid d-flex" id="mySidebar">
+<div class="container-fluid d-flex">
   <div class="page-wrapper chiller-theme toggled d-flex" id="page-wrapper">
   <nav id="sidebar" class="sidebar-wrapper chiller-theme toggled">
     <div class="sidebar-content">
