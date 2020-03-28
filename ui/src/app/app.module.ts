@@ -14,6 +14,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { SearchComponent } from './search/search.component';
+import { AccountComponent } from './account/account.component';
+import { RouteComponent } from './route/route.component';
+import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -29,6 +32,9 @@ import { SearchComponent } from './search/search.component';
     TeamComponent,
     SignInComponent,
     SideNavComponent,
+    AccountComponent,
+    RouteComponent,
+    TestComponent,
    
   ],
   imports: [

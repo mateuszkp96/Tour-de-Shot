@@ -1,16 +1,10 @@
-.signinhead {
-  padding-top: 0rem;
-  padding-bottom: 0rem;
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  font-family: 'Catamaran', sans-serif;
-}
-
-.sidebarnav {
-  position: absolute;
-  left: 0;
+.row {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+  position: relative;
 }
 
 
@@ -52,7 +46,7 @@
   padding-bottom: 1rem;
 }
 
-.row{
-  width: 100%;
-  position: relative;
+.form-group{
+  padding-top: 0;
+  margin-top: 0;
 }
