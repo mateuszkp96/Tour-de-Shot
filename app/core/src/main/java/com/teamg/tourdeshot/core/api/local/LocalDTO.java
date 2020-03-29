@@ -14,4 +14,6 @@ public class LocalDTO {
 
     private Long id;
 
+    private String name;
+
 }
