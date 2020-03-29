@@ -1,0 +1,70 @@
+name: Frontend flow
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    paths:
+      - 'ui/**'
+  pull_request:
+    branches:
+      - master
+      - develop
+    paths:
+      - 'ui/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build frontend
+    strategy:
+      matrix:
+        node-version: [12.16.1]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version:  ${{ matrix.node-version }}
+
+      - name: Install dependencies and Build
+        run: |
+          npm --prefix ui install
+          npm --prefix ui run build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: package
+          path: ui/dist/ui
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy frontend image
+    if: github.event_name == 'push' && github.ref == 'master'
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download build package
+        uses: actions/download-artifact@v1
+        with:
+          name: package
+          path: ui/dist/ui
+
+      - name: Publish to DockerHub
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: mateusz43211/tourdeshot
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          workdir: ui
+          tags: "frontend"
