@@ -6,10 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { TeamComponent } from './footer/team/team.component';
 import { ContactComponent } from './footer/contact/contact.component';
 import { PrivacyComponent } from './footer/privacy/privacy.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SearchComponent } from './search/search.component';
-import { AccountComponent } from './account/account.component';
-import { RouteComponent } from './route/route.component';
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -17,17 +14,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'privacy', component: PrivacyComponent},
   {path: 'contact', component: ContactComponent},
-  {path: 'team', component: TeamComponent},
-  {path: 'search', component: SearchComponent},
-
-  {path: 'signin', component: SignInComponent,
-    children: [
-      { path: 'search', component: SearchComponent},
-      { path: 'account', component: AccountComponent},
-      { path: 'route', component: RouteComponent},
-
-    ]},
-
+  {path: 'team', component: TeamComponent}
 ];
 
 @NgModule({
@@ -35,5 +22,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent,PrivacyComponent,ContactComponent,TeamComponent,
-  SignInComponent,SearchComponent]
+export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent,PrivacyComponent,ContactComponent,TeamComponent]
