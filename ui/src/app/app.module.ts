@@ -11,12 +11,6 @@ import { ContactComponent } from './footer/contact/contact.component';
 import { PrivacyComponent } from './footer/privacy/privacy.component';
 import { TeamComponent } from './footer/team/team.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SideNavComponent } from './side-nav/side-nav.component';
-import { SearchComponent } from './search/search.component';
-import { AccountComponent } from './account/account.component';
-import { RouteComponent } from './route/route.component';
-import { SignInNavComponent } from './sign-in-nav/sign-in-nav.component';
 
 
 @NgModule({
@@ -29,13 +23,7 @@ import { SignInNavComponent } from './sign-in-nav/sign-in-nav.component';
     HomeComponent,
     ContactComponent,
     PrivacyComponent,
-    TeamComponent,
-    SignInComponent,
-    SideNavComponent,
-    AccountComponent,
-    RouteComponent,
-    SignInNavComponent,
-
+    TeamComponent
   ],
   imports: [
     BrowserModule,
