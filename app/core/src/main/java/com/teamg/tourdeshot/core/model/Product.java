@@ -8,6 +8,8 @@ import java.util.List;
 @Data
 public class Product {
 
+    private Category category;
+
     private String productName;
 
     private BigDecimal price;

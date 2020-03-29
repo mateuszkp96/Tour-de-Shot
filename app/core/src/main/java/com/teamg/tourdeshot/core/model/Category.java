@@ -2,12 +2,11 @@ package com.teamg.tourdeshot.core.model;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class Category {
 
-    private String categoryName;
+    private Long id;
 
-    private List<Product> products;
+    private String name;
+
 }

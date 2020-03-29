@@ -16,4 +16,6 @@ public class Local {
     private Address address;
 
     private Details details;
+
+    private Menu menu;
 }

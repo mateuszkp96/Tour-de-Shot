@@ -13,5 +13,4 @@ public class Details {
 
     private List<OpeningHours> openingHoursList;
 
-    private List<Category> categories;
 }
