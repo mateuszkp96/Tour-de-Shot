@@ -7,8 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
 
+export class SignInComponent implements OnInit {
 
   constructor(
     private router: Router,
@@ -17,7 +17,5 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openAndCloseNav() {
-        document.getElementById("wrapper").classList.toggle("menuHidden");
-  }
+
 }

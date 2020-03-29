@@ -1,0 +1,40 @@
+.navbar {
+  background-color: #1D2035;
+  height: 4rem;
+}
+
+.container{
+  padding-left: 0;
+  margin-left: 0;
+  width: 100%;
+}
+
+.navbar-brand
+{
+  padding-left: 20px;
+}
+.btn-create-account {
+  background-image:linear-gradient(to right #f8be7c 5%, #ff5650 100%);
+}
+
+.nav-item {
+  padding-left: 10px;
+}
+
+#e{
+  width: 2.5rem;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.container-fluid{
+  width: 100%;
+  position: relative;
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+.btn-dark{
+  padding-left: 0;
+  padding-right: 0;
+}
