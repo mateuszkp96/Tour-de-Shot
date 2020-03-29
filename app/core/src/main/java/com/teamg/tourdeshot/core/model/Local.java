@@ -1,13 +1,21 @@
 package com.teamg.tourdeshot.core.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 public class Local {
 
     private Long id;
+
+    private String name;
+
+    private Long ownerId;
+
+    private Coordinates coordinates;
+
+    private Address address;
+
+    private Details details;
+
+    private Menu menu;
 }
