@@ -11,6 +11,8 @@ import { ContactComponent } from './footer/contact/contact.component';
 import { PrivacyComponent } from './footer/privacy/privacy.component';
 import { TeamComponent } from './footer/team/team.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { SearchComponent } from './search/search.component';
@@ -18,17 +20,28 @@ import { AccountComponent } from './account/account.component';
 import { RouteComponent } from './route/route.component';
 import { SignInNavComponent } from './sign-in-nav/sign-in-nav.component';
 
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("415992652432-e26hktvg68cv3dto6e37j1p4tij8vk9s.apps.googleusercontent.com")
+  }
+]);
+ 
+export function provideConfig() {
+  return config;
+}
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     FooterComponent,
-    routingComponents,
     RegisterComponent,
     HomeComponent,
     ContactComponent,
     PrivacyComponent,
+    routingComponents,
     TeamComponent,
     SignInComponent,
     SideNavComponent,
@@ -41,8 +54,14 @@ import { SignInNavComponent } from './sign-in-nav/sign-in-nav.component';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
