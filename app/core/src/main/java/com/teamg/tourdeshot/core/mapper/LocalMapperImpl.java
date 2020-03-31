@@ -12,6 +12,7 @@ public class LocalMapperImpl implements LocalMapper {
     public LocalDTO toLocalDTO(Local local) {
         return LocalDTO.builder()
                 .id(local.getId())
+                .name(local.getName())
                 .build();
     }
 }
