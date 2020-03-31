@@ -19,6 +19,7 @@ import { SearchComponent } from './search/search.component';
 import { AccountComponent } from './account/account.component';
 import { RouteComponent } from './route/route.component';
 import { SignInNavComponent } from './sign-in-nav/sign-in-nav.component';
+import { LogoutComponent } from './logout/logout.component';
 
 let config = new AuthServiceConfig([
   {
@@ -48,6 +49,7 @@ export function provideConfig() {
     AccountComponent,
     RouteComponent,
     SignInNavComponent,
+    LogoutComponent,
 
   ],
   imports: [
