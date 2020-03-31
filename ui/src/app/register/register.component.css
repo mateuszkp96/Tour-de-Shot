@@ -15,8 +15,8 @@
   }
 
   .card-signin .card-title {
-    margin-bottom: 2rem;
-    font-weight: 300;
+    margin-bottom: 1rem;
+    font-weight: 900;
     font-size: 1.5rem;
   }
 
@@ -75,3 +75,7 @@
       color: #777;
     }
   } 
+
+  .fab {
+    margin-right: 10px;
+  }

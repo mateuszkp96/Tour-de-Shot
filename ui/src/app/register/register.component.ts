@@ -11,8 +11,8 @@ import { GoogleLoginProvider } from "angularx-social-login";
 })
 export class RegisterComponent implements OnInit {
 
-  private user: SocialUser;
-  private loggedIn: boolean;
+  public user: SocialUser;
+  public loggedIn: boolean;
 
   constructor(
     private router: Router,
@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (res) => {
         console.log("U are logged in!");
+        this.loggedIn = true;
         this.router.navigate(['signin']);
       });
       console.log('logged')

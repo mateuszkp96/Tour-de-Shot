@@ -1,5 +1,6 @@
-<app-nav *ngIf="isLoggedIn==false"></app-nav>
-<app-sign-in-nav *ngIf="isLoggedIn==true" (toggleBtnClickedEmmiter)="onToggleBtnClicked()"></app-sign-in-nav>
+<app-nav></app-nav>
+<!-- <app-sign-in-nav *ngIf="isLoggedIn==true" 
+    (toggleBtnClickedEmmiter)="onToggleBtnClicked()"></app-sign-in-nav> -->
 
 <router-outlet></router-outlet>
 

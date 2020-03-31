@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, SocialUser } from "angularx-social-login";
+
 
 @Component({
   selector: 'app-nav',
@@ -10,22 +11,16 @@ import { AuthService, SocialUser } from "angularx-social-login";
 export class NavComponent implements OnInit {
 
   appTitle = 'Tour de Shot';
+  public user: SocialUser;
+  public loggedIn: boolean; 
 
-  private user: SocialUser;
-  private loggedIn: boolean; 
+  @Output()
+  toggleBtnClickedEmmiter = new EventEmitter();
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private authService: AuthService
   ) { }
-
-  signOut(): void {
-    this.authService.signOut().then(
-      (res) => {
-        this.router.navigate(['']);
-      }
-    );
-  }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
@@ -34,5 +29,11 @@ export class NavComponent implements OnInit {
       this.loggedIn = (user != null);
     });
   }
+
+  toggleBtnClicked() {
+    this.toggleBtnClickedEmmiter.emit();
+  }
+
+
 
 }

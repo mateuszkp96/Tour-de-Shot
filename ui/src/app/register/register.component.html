@@ -1,20 +1,18 @@
 <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-          <div class="card card-signin my-5">
-            <div class="card-body">
-              <h5 class="card-title text-center">Sign In</h5>
-
-
-                    <button class="btn btn-lg btn-google btn-block text-uppercase" (click)="signInWithGoogle()" > Sign in with Google</button>
-
-
-
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Logowanie</h5>
+            <p class="card-text text-center">Skorzystaj z Tour de Shot przy użyciu<br> konta Google</p>
+              <button class="btn btn-lg btn-google btn-block" 
+                (click)="signInWithGoogle()">
+                <i class="fab fa-google-plus-g"></i> Użyj konta Google</button>
           </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 
