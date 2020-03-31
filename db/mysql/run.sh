@@ -10,7 +10,7 @@ character_set="utf8mb4"
 collation_server="utf8mb4_unicode_ci"
 
 docker run -ti \
-  --containerName ${containerName} \
+  --name ${containerName} \
   -e MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}" \
   -e TZ="${timezone}" \
   -p "${port_mapping}" \
