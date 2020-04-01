@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignInComponent } from '../sign-in/sign-in.component';
 import { LocalService } from '../services/local.service';
 import { WebLocalService } from '../services/web-local.service';
+import { Local } from '../models/Local';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -11,6 +12,8 @@ import { WebLocalService } from '../services/web-local.service';
 })
 export class SearchComponent implements OnInit {
 
+  local: Local;
+  localsList: Local[];
 
   constructor(
     private router: Router,
@@ -23,9 +26,8 @@ export class SearchComponent implements OnInit {
   }
 
 
-  test(){
-    this.localService.createLocal('newLocal').subscribe((response:any)=>{
-      console.log(response);
-    });
+  test() {
+    this.localService.getLocalsList().subscribe((list: Local[]) => this.localsList = list);
   }
+
 }
