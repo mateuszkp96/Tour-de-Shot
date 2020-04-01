@@ -20,6 +20,7 @@ import { AccountComponent } from './account/account.component';
 import { RouteComponent } from './route/route.component';
 import { SignInNavComponent } from './sign-in-nav/sign-in-nav.component';
 import { LogoutComponent } from './logout/logout.component';
+import { HttpClientModule} from '@angular/common/http';
 
 let config = new AuthServiceConfig([
   {
@@ -27,7 +28,7 @@ let config = new AuthServiceConfig([
     provider: new GoogleLoginProvider("415992652432-e26hktvg68cv3dto6e37j1p4tij8vk9s.apps.googleusercontent.com")
   }
 ]);
- 
+
 export function provideConfig() {
   return config;
 }
@@ -56,7 +57,9 @@ export function provideConfig() {
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    SocialLoginModule
+    SocialLoginModule,
+    HttpClientModule
+    
   ],
   providers: [
     {
