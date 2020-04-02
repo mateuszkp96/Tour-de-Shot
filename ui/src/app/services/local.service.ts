@@ -8,23 +8,22 @@ import { Local } from '../models/Local';
 })
 export class LocalService {
 
+  local: Local;
+  localsList: Local[];
+
   constructor(private webLocalService: WebLocalService) {
 
   }
 
-// for testing yet
-createLocal(local: Local){
-    return this.webLocalService.post('local', local );
-}
 
 getLocalsList() {
-  return this.webLocalService.get('local');
-}
+  this.webLocalService.get().subscribe(data => {
+    this.localsList = data as Local[];
+    console.log( this.localsList[1].name);
+  });
 
-findLocalById(id: number){
-    return this.webLocalService.get('local' + '/' + id);
-}
 
+}
 
 
 

@@ -5,6 +5,8 @@ import { SignInComponent } from '../sign-in/sign-in.component';
 import { LocalService } from '../services/local.service';
 import { WebLocalService } from '../services/web-local.service';
 import { Local } from '../models/Local';
+import * as locals  from  '../../locals-db.json';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -17,17 +19,32 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private localService: LocalService
+    private localService: LocalService,
+    private webLocalService: WebLocalService
   ) {}
 
 
   ngOnInit(): void {
-    this.test();
+    this.getLocalsList();
+    this.getLocalById(1);
+
   }
 
 
-  test() {
-    this.localService.getLocalsList().subscribe((list: Local[]) => this.localsList = list);
+  getLocalsList() {
+    this.webLocalService.get().subscribe(data => {
+      this.localsList = data as Local[];
+     console.log( data);
+    });
   }
+
+  getLocalById(id: number) {
+    this.webLocalService.get().subscribe(data => {
+      this.local = data[id] as Local;
+      console.log( this.local);
+    });
+  }
+
+
 
 }

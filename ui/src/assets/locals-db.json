@@ -1,0 +1,138 @@
+[
+  {
+    "id": 1,
+    "name": "Bolek",
+    "owner_id": 33,
+    "coordinates": {
+      "lat": 50.01,
+      "long": 40.02
+    },
+    "address": {
+      "city": "Miasto",
+      "street": "ulica",
+      "local_number": "1/1"
+    },
+    "details": {
+      "email": "email@lokal.com",
+      "phone_number": "+48666666666",
+      "opening_hours": [
+        {
+          "weekday": "Mon",
+          "open": "9:00",
+          "close": "23:00"
+        },
+        {
+          "weekday": "Tue",
+          "open": "9:00",
+          "close": "23:00"
+        },
+        {
+          "weekday": "Wed",
+          "open": "9:00",
+          "close": "23:00"
+        }
+      ]
+    },
+    "menu": [
+      {
+        "category": "kategoria",
+        "products": [
+          {
+            "product_name": "nazwa",
+            "price": 40,
+            "ingredients": [
+              "składnik 1"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "kategoria 2",
+        "products": [
+          {
+            "product_name": "nazwa 3",
+            "price": 60,
+            "ingredients": [
+              "składnik 3"
+            ]
+          },
+          {
+            "product_name": "nazwa 4",
+            "price": 60,
+            "ingredients": [
+              "składnik 4"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Lolek",
+    "owner_id": 33,
+    "coordinates": {
+      "lat": 50.01,
+      "long": 40.02
+    },
+    "address": {
+      "city": "Miasto",
+      "street": "ulica",
+      "local_number": "1/1"
+    },
+    "details": {
+      "email": "email@lokal.com",
+      "phone_number": "+48666666666",
+      "opening_hours": [
+        {
+          "weekday": "Mon",
+          "open": "9:00",
+          "close": "23:00"
+        },
+        {
+          "weekday": "Tue",
+          "open": "9:00",
+          "close": "23:00"
+        },
+        {
+          "weekday": "Wed",
+          "open": "9:00",
+          "close": "23:00"
+        }
+      ]
+    },
+    "menu": [
+      {
+        "category": "kategoria",
+        "products": [
+          {
+            "product_name": "nazwa",
+            "price": 40,
+            "ingredients": [
+              "składnik 1"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "kategoria 2",
+        "products": [
+          {
+            "product_name": "nazwa 3",
+            "price": 60,
+            "ingredients": [
+              "składnik 3"
+            ]
+          },
+          {
+            "product_name": "nazwa 4",
+            "price": 60,
+            "ingredients": [
+              "składnik 4"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
