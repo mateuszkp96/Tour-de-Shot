@@ -8,24 +8,10 @@ import { Local } from '../models/Local';
 })
 export class LocalService {
 
-  constructor(private webLocalService: WebLocalService) {
+  local: Local;
+  localsList: Local[];
 
-  }
-
-// for testing yet
-createLocal(local: Local){
-    return this.webLocalService.post('local', local );
-}
-
-getLocalsList() {
-  return this.webLocalService.get('local');
-}
-
-findLocalById(id: number){
-    return this.webLocalService.get('local' + '/' + id);
-}
-
-
+  constructor(private webLocalService: WebLocalService) {}
 
 
 }
