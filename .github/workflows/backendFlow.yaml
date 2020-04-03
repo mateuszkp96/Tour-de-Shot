@@ -71,7 +71,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy backend images
-#    if: github.event_name == 'push' && github.ref == 'master'
+    if: github.event_name == 'push' && github.ref == 'master'
     needs: build
     strategy:
       matrix:
