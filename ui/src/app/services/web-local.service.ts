@@ -10,12 +10,12 @@ export class WebLocalService {
   readonly ROOT_URL;
 
   constructor(private http: HttpClient) {
-    this.ROOT_URL = 'http://localhost:port/locals-db.json';
+    this.ROOT_URL = 'http://localhost:4200/assets/locals-db.json';
   }
 
 
   get(){
-    return this.http.get('http://localhost:4200/assets/locals-db.json');
+    return this.http.get(`${this.ROOT_URL}`);
   }
 
 

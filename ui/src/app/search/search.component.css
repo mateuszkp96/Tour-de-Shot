@@ -7,7 +7,6 @@
   position: relative;
 }
 
-
 .btn-primary {
   background-color: #676767 !important;
   border-color: #676767 !important;
@@ -29,13 +28,15 @@
   position:relative;
   height:0;
 }
+
 .map-container-5 iframe{
   left:0;
   top:0;
-  height:100%;
+  height:400px;
   width:100%;
   position:absolute;
 }
+
 
 .container-fluid{
   width: 100%;

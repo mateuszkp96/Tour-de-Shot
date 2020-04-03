@@ -2,20 +2,20 @@
   {
     "id": 1,
     "name": "Bolek",
-    "owner_id": 33,
+    "ownerId": 33,
     "coordinates": {
       "lat": 50.01,
       "long": 40.02
     },
     "address": {
-      "city": "Miasto",
-      "street": "ulica",
-      "local_number": "1/1"
+      "city": "Warszawa",
+      "street": "Połczyńska",
+      "localNumber": "1/1"
     },
     "details": {
       "email": "email@lokal.com",
-      "phone_number": "+48666666666",
-      "opening_hours": [
+      "phoneNumber": "+48666666666",
+      "openingHoursList": [
         {
           "weekday": "Mon",
           "open": "9:00",
@@ -38,7 +38,7 @@
         "category": "kategoria",
         "products": [
           {
-            "product_name": "nazwa",
+            "productName": "nazwa",
             "price": 40,
             "ingredients": [
               "składnik 1"
@@ -50,14 +50,14 @@
         "category": "kategoria 2",
         "products": [
           {
-            "product_name": "nazwa 3",
+            "productName": "nazwa 3",
             "price": 60,
             "ingredients": [
               "składnik 3"
             ]
           },
           {
-            "product_name": "nazwa 4",
+            "productName": "nazwa 4",
             "price": 60,
             "ingredients": [
               "składnik 4"
@@ -70,20 +70,20 @@
   {
     "id": 2,
     "name": "Lolek",
-    "owner_id": 33,
+    "ownerId": 33,
     "coordinates": {
       "lat": 50.01,
       "long": 40.02
     },
     "address": {
-      "city": "Miasto",
-      "street": "ulica",
-      "local_number": "1/1"
+      "city": "Warszawa",
+      "street": "Wolska",
+      "localNumber": "5"
     },
     "details": {
       "email": "email@lokal.com",
-      "phone_number": "+48666666666",
-      "opening_hours": [
+      "phoneNumber": "+48666666666",
+      "openingHoursList": [
         {
           "weekday": "Mon",
           "open": "9:00",
@@ -106,7 +106,7 @@
         "category": "kategoria",
         "products": [
           {
-            "product_name": "nazwa",
+            "productName": "nazwa",
             "price": 40,
             "ingredients": [
               "składnik 1"
@@ -118,14 +118,150 @@
         "category": "kategoria 2",
         "products": [
           {
-            "product_name": "nazwa 3",
+            "productName": "nazwa 3",
             "price": 60,
             "ingredients": [
               "składnik 3"
             ]
           },
           {
-            "product_name": "nazwa 4",
+            "productName": "nazwa 4",
+            "price": 60,
+            "ingredients": [
+              "składnik 4"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Setka",
+    "owner_id": 33,
+    "coordinates": {
+      "lat": 50.01,
+      "long": 40.02
+    },
+    "address": {
+      "city": "Warszawa",
+      "street": "Jana Pawła",
+      "localNumber": "17"
+    },
+    "details": {
+      "email": "email@lokal.com",
+      "phoneNumber": "+48666666666",
+      "openingHoursList": [
+        {
+          "weekday": "Mon",
+          "open": "9:00",
+          "close": "23:00"
+        },
+        {
+          "weekday": "Tue",
+          "open": "9:00",
+          "close": "23:00"
+        },
+        {
+          "weekday": "Wed",
+          "open": "9:00",
+          "close": "23:00"
+        }
+      ]
+    },
+    "menu": [
+      {
+        "category": "kategoria",
+        "products": [
+          {
+            "productName": "nazwa",
+            "price": 40,
+            "ingredients": [
+              "składnik 1"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "kategoria 2",
+        "products": [
+          {
+            "productName": "nazwa 3",
+            "price": 60,
+            "ingredients": [
+              "składnik 3"
+            ]
+          },
+          {
+            "productName": "nazwa 4",
+            "price": 60,
+            "ingredients": [
+              "składnik 4"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Figaro",
+    "owner_id": 33,
+    "coordinates": {
+      "lat": 50.01,
+      "long": 40.02
+    },
+    "address": {
+      "city": "Warszawa",
+      "street": "Przechodnia",
+      "localNumber": "20"
+    },
+    "details": {
+      "email": "email@lokal.com",
+      "phoneNumber": "+48666666666",
+      "openingHoursList": [
+        {
+          "weekday": "Mon",
+          "open": "9:00",
+          "close": "23:00"
+        },
+        {
+          "weekday": "Tue",
+          "open": "9:00",
+          "close": "23:00"
+        },
+        {
+          "weekday": "Wed",
+          "open": "9:00",
+          "close": "23:00"
+        }
+      ]
+    },
+    "menu": [
+      {
+        "category": "kategoria",
+        "products": [
+          {
+            "productName": "nazwa",
+            "price": 40,
+            "ingredients": [
+              "składnik 1"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "kategoria 2",
+        "products": [
+          {
+            "productName": "nazwa 3",
+            "price": 60,
+            "ingredients": [
+              "składnik 3"
+            ]
+          },
+          {
+            "productName": "nazwa 4",
             "price": 60,
             "ingredients": [
               "składnik 4"

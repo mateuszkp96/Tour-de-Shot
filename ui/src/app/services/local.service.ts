@@ -11,20 +11,7 @@ export class LocalService {
   local: Local;
   localsList: Local[];
 
-  constructor(private webLocalService: WebLocalService) {
-
-  }
-
-
-getLocalsList() {
-  this.webLocalService.get().subscribe(data => {
-    this.localsList = data as Local[];
-    console.log( this.localsList[1].name);
-  });
-
-
-}
-
+  constructor(private webLocalService: WebLocalService) {}
 
 
 }

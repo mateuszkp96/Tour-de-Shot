@@ -1,6 +1,6 @@
 
 <div class="row">
-    <div class="col-lg-5">
+    <div class="col-lg-6">
 
       <div class="card mt-2">
         <form>
@@ -21,15 +21,13 @@
       </div>
 
       <div class="card card-outline-secondary my-4">
-        <div class="card-header"> Wyniki </div>
-        <div class="card-body">
 
 
           <div *ngFor="let local of localsList">
-           <p>{{local.name}}</p>
+            <app-local-item [local]="local"></app-local-item>
           </div>
 
-        </div>
+
       </div>
       <!-- /.card -->
 

@@ -5,7 +5,7 @@ import { SignInComponent } from '../sign-in/sign-in.component';
 import { LocalService } from '../services/local.service';
 import { WebLocalService } from '../services/web-local.service';
 import { Local } from '../models/Local';
-import * as locals  from  '../../locals-db.json';
+import * as locals  from  '../../assets/locals-db.json';
 
 @Component({
   selector: 'app-search',
@@ -26,15 +26,13 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLocalsList();
-    this.getLocalById(1);
-
   }
 
 
   getLocalsList() {
     this.webLocalService.get().subscribe(data => {
       this.localsList = data as Local[];
-     console.log( data);
+      console.log( data);
     });
   }
 
