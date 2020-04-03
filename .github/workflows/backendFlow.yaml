@@ -17,14 +17,18 @@ on:
 jobs:
   compile:
     runs-on: ubuntu-latest
-    name: Compile services
+    name: Compile modules
+    strategy:
+      matrix:
+        module: [core, user]
     steps:
       - uses: actions/checkout@v2
       - name: Setup java
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - run: gradle -p app/core clean classes
+      - name: Compile module ${{ matrix.module }}
+        run: gradle -p app/${{ matrix.module }} clean classes
 
   build:
     runs-on: ubuntu-latest
@@ -55,14 +59,14 @@ jobs:
         with:
           java-version: 11
 
-      - name: Build and test module {{ matrix.module }}
+      - name: Build and test module ${{ matrix.module }}
         run: gradle -p app/${{ matrix.module }} clean build
 
-      - name: Upload package module {{ matrix.module }}
+      - name: Upload package module ${{ matrix.module }}
         uses: actions/upload-artifact@v1
         with:
-          name: package/{{ matrix.module }}
-          path: app/{{ matrix.module }}/build/libs
+          name: package_${{ matrix.module }}
+          path: app/${{ matrix.module }}/build/libs
 
   deploy:
     runs-on: ubuntu-latest
@@ -74,20 +78,20 @@ jobs:
         module: [core, user]
     steps:
       - uses: actions/checkout@v2
-      - name: Download build package module {{ matrix.module }}
+      - name: Download build package module ${{ matrix.module }}
         uses: actions/download-artifact@v1
         with:
-          name: package/{{ matrix.module }}
-          path: app/{{ matrix.module }}/build/libs
+          name: package_${{ matrix.module }}
+          path: app/${{ matrix.module }}/build/libs
 
-      - name: Create dependency folder module {{ matrix.module }}
-        run:  mkdir -p app/{{ matrix.module }}/build/dependency && (cd app/{{ matrix.module }}/build/dependency; jar -xf ../libs/*.jar)
+      - name: Create dependency folder module ${{ matrix.module }}
+        run:  mkdir -p app/${{ matrix.module }}/build/dependency && (cd app/${{ matrix.module }}/build/dependency; jar -xf ../libs/*.jar)
 
-      - name: Publish to DockerHub module {{ matrix.module }}
+      - name: Publish to DockerHub module ${{ matrix.module }}
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: mateusz43211/tourdeshot
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          workdir: app/{{ matrix.module }}
-          tags: {{ matrix.module }}
+          workdir: app/${{ matrix.module }}
+          tags: ${{ matrix.module }}
