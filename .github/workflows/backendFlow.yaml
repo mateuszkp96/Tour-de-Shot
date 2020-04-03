@@ -23,7 +23,7 @@ jobs:
       - name: Setup java
         uses: actions/setup-java@v1
         with:
-          java-version: 8
+          java-version: 11
       - run: gradle -p app/core clean classes
 
   build:
@@ -38,6 +38,9 @@ jobs:
           MONGO_INITDB_ROOT_PASSWORD: secret
         ports:
           - 27017:27017
+    strategy:
+      matrix:
+        module: [core, user]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
@@ -46,38 +49,45 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Set up JDK 8
+
+      - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
-          java-version: 8
-      - name: Build and test project
-        run: gradle -p app/core clean build
-      - uses: actions/upload-artifact@v1
+          java-version: 11
+
+      - name: Build and test module {{ matrix.module }}
+        run: gradle -p app/${{ matrix.module }} clean build
+
+      - name: Upload package module {{ matrix.module }}
+        uses: actions/upload-artifact@v1
         with:
-          name: package
-          path: app/core/build/libs
+          name: package/{{ matrix.module }}
+          path: app/{{ matrix.module }}/build/libs
 
   deploy:
     runs-on: ubuntu-latest
     name: Deploy backend images
     if: github.event_name == 'push' && github.ref == 'master'
     needs: build
+    strategy:
+      matrix:
+        module: [core, user]
     steps:
       - uses: actions/checkout@v2
-      - name: Download build package
+      - name: Download build package module {{ matrix.module }}
         uses: actions/download-artifact@v1
         with:
-          name: package
-          path: app/core/build/libs
+          name: package/{{ matrix.module }}
+          path: app/{{ matrix.module }}/build/libs
 
-      - name: Create dependency folder
-        run:  mkdir -p app/core/build/dependency && (cd app/core/build/dependency; jar -xf ../libs/*.jar)
+      - name: Create dependency folder module {{ matrix.module }}
+        run:  mkdir -p app/{{ matrix.module }}/build/dependency && (cd app/{{ matrix.module }}/build/dependency; jar -xf ../libs/*.jar)
 
-      - name: Publish to DockerHub
+      - name: Publish to DockerHub module {{ matrix.module }}
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: mateusz43211/tourdeshot
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          workdir: app/core
-          tags: "core"
+          workdir: app/{{ matrix.module }}
+          tags: {{ matrix.module }}
