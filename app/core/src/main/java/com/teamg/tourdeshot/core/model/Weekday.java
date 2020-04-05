@@ -1,4 +1,4 @@
-package com.teamg.tourdeshot.core.enums;
+package com.teamg.tourdeshot.core.model;
 
 public enum Weekday {
     MONDAY,
