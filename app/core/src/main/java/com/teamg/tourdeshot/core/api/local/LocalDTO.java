@@ -20,4 +20,6 @@ public class LocalDTO {
 
     private Coordinates coordinates;
 
+    private double distance;
+
 }
