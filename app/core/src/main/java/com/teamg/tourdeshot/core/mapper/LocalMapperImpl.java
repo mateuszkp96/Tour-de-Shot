@@ -13,6 +13,7 @@ public class LocalMapperImpl implements LocalMapper {
         return LocalDTO.builder()
                 .id(local.getId())
                 .name(local.getName())
+                .coordinates(local.getCoordinates())
                 .build();
     }
 }
