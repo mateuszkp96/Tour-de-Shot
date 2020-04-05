@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -38,14 +37,14 @@ public class LocalService {
     }
 
     public List<LocalDTO> findAllSortedByDistance(Coordinates coordinates) {
-        List<LocalDTO> localDTOList = localMapper.toLocalDTOs(localRepository.findAll());
-        List<LocalDTO> sortedLocalDTOList = localDTOList.stream().map(localDTO -> {
-            double distance = DistanceCalculator.calculate(coordinates, localDTO.getCoordinates());
-            localDTO.setDistance(distance);
-            return localDTO;
-        }).collect(toList());
-
-        return Utils.sortedList(sortedLocalDTOList, Comparator.comparingDouble(LocalDTO::getDistance));
+       return localRepository.findAll().stream()
+                .map(local -> {
+                    LocalDTO localDTO = localMapper.toLocalDTO(local);
+                    localDTO.setDistance(DistanceCalculator.calculate(coordinates, local.getCoordinates()));
+                    return localDTO;
+                })
+               .sorted(Comparator.comparing(LocalDTO::getDistance))
+               .collect(toList());
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -54,17 +53,17 @@ public class LocalService {
         Local local1 = new Local();
         local1.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         local1.setName("Setka");
-        local1.setCoordinates(new Coordinates(new BigDecimal(52.236663), new BigDecimal(21.014656)));
+        local1.setCoordinates(new Coordinates(new BigDecimal("52.236663"), new BigDecimal("21.014656")));
 
         Local local2 = new Local();
         local2.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         local2.setName("Pijalnia piwa i wódki");
-        local2.setCoordinates(new Coordinates(new BigDecimal(52.232380), new BigDecimal(21.019964)));
+        local2.setCoordinates(new Coordinates(new BigDecimal("52.232380"), new BigDecimal("21.019964")));
 
         Local local3 = new Local();
         local3.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         local3.setName("PiwPaw");
-        local3.setCoordinates(new Coordinates(new BigDecimal(52.228337), new BigDecimal(21.013993)));
+        local3.setCoordinates(new Coordinates(new BigDecimal("52.228337"), new BigDecimal("21.013993")));
 
         List<Local> locals = Arrays.asList(local1, local2, local3);
         localRepository.saveAll(locals);

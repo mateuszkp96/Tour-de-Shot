@@ -2,9 +2,12 @@ package com.teamg.tourdeshot.core.service.calculation;
 
 import com.teamg.tourdeshot.core.model.Coordinates;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class DistanceCalculator {
 
-    public static double calculate(Coordinates coordinate1, Coordinates coordinate2) {
+    public static BigDecimal calculate(Coordinates coordinate1, Coordinates coordinate2) {
 
         final int R = 6371; // Radius of the earth
         double lat1 = coordinate1.getLat().doubleValue();
@@ -19,7 +22,7 @@ public class DistanceCalculator {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double distance = R * c * 1000; // convert to meters
 
-        return distance;
+        return BigDecimal.valueOf(distance).setScale(0, RoundingMode.HALF_UP);
     }
 
 }

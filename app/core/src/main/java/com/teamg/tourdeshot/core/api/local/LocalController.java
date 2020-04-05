@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
@@ -28,13 +29,13 @@ public class LocalController {
 
     @GetMapping("/{id}")
     LocalDTO findLocalById(@PathVariable Long id) {
-        return new LocalDTO(id, "localName", new Coordinates(new BigDecimal(52.228337), new BigDecimal(21.013993)), 50.00);
+        return createDefault(id);
     }
 
     @PostMapping
     List<LocalDTO> filterLocals(@RequestBody FilterRequestBody requestBody) {
         List<LocalDTO> list = new ArrayList<>();
-        list.add(new LocalDTO(1L, "localName", new Coordinates(new BigDecimal(52.228337), new BigDecimal(21.013993)), 50.00));
+        list.add(createDefault(1L));
         return list;
     }
 
@@ -43,10 +44,13 @@ public class LocalController {
         return localService.findAllLocals();
     }
 
-    // TODO: 05.04.2020 metoda do usunięcia, utworzona w celach testowych 
     @GetMapping("/distance")
-    public List<LocalDTO> findAllLocalsByDistance(@RequestBody Coordinates coordinates) {
-        return localService.findAllSortedByDistance(coordinates);
+    public List<LocalDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
+        return localService.findAllSortedByDistance(new Coordinates(lat, lon));
+    }
+
+    private LocalDTO createDefault(Long id) {
+        return new LocalDTO(id, "localName", new Coordinates(new BigDecimal("52.228337"), new BigDecimal("21.013993")), BigDecimal.valueOf(50.00));
     }
 
 }

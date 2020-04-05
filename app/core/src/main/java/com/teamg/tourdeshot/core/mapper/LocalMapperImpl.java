@@ -6,7 +6,7 @@ import com.teamg.tourdeshot.core.model.Local;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LocalMapperImpl implements LocalMapper {
+public class  LocalMapperImpl implements LocalMapper {
 
     @Override
     public LocalDTO toLocalDTO(Local local) {
