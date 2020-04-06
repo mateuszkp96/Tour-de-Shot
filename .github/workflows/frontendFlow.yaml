@@ -67,4 +67,4 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           workdir: ui
-          tags: "frontend"
+          tags: "frontend_latest, frontend_${{ secrets.DOCKER_RELEASE_VERSION }}"
