@@ -1,38 +1,26 @@
 <div class="container mt-5">
 
-  <div class="row">
-
     <!-- Account Sidebar-->
-    <div class="col-md-5 col-xl-4">
-      <div class="wizard">
-        <nav class="list-group list-group-flush">
+  <ul class="nav nav-tabs" role="tablist">
+
           <a class="list-group-item" routerLink="account-general" routerLinkActive="active">
-            <div class="d-flex justify-content-between align-items-center">
-              <div><i class="fe-icon-shopping-bag mr-1 text-muted"></i>
-                <div class="d-inline-block font-weight-medium text-uppercase">Ogólne</div>
-              </div>
-            </div>
+            <div class="d-inline-block" >Ogólne</div>
           </a>
           <a class="list-group-item" routerLink="account-privacy" routerLinkActive="active">
-            <div class="d-flex justify-content-between align-items-center">
-              <div><i class="fe-icon-shopping-bag mr-1 text-muted"></i>
-                <div class="d-inline-block font-weight-medium text-uppercase" >Prywatność</div>
-              </div>
-            </div>
+                <div class="d-inline-block" ><span>Prywatność</span></div>
           </a>
 
-        </nav>
-      </div>
-    </div>
+    </ul>
 
     <!-- Account Detailed Settings-->
-    <div class="col-md-7 col-xl-8">
-      <div class="tab-content">
+
+      <div class="tab-content mt-4">
+        <div class="card shadow mb-4">
         <router-outlet></router-outlet>
+        </div>
       </div>
-    </div>
 
 
 
-  </div>
+
 </div>

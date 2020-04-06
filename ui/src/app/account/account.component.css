@@ -1,34 +1,18 @@
-
-
-.btn-style-1.btn-white {
-  background-color: #fff;
+.container{
+  margin: 0;
 }
+
 .list-group-item i {
-  display: inline-block;
   margin-top: -1px;
   margin-right: 8px;
   font-size: 1.2em;
   vertical-align: middle;
+  font-weight: 900;
 }
 .mr-1, .mx-1 {
   margin-right: .25rem !important;
 }
 
-
-.list-group-flush:last-child .list-group-item:last-child {
-  border-bottom: 0;
-}
-
-.list-group-flush .list-group-item {
-  border-right: 0 !important;
-  border-left: 0 !important;
-}
-
-.list-group-flush .list-group-item {
-  border-right: 0;
-  border-left: 0;
-  border-radius: 0;
-}
 
 .list-group-item.active {
   border-top-right-radius: 4px;
@@ -37,15 +21,6 @@
   color: #227fee;
 }
 
-.list-group-item:last-child {
-  margin-bottom: 0;
-  border-bottom-right-radius: .25rem;
-  border-bottom-left-radius: .25rem;
-}
-a.list-group-item, .list-group-item-action {
-  color: #404040;
-  font-weight: 600;
-}
 .list-group-item {
   padding-top: 16px;
   padding-bottom: 16px;
@@ -54,69 +29,31 @@ a.list-group-item, .list-group-item-action {
   border: 1px solid #e7e7e7 !important;
   border-radius: 0 !important;
   color: #404040;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 14px;
+
   letter-spacing: .08em;
-  text-transform: uppercase;
   text-decoration: none;
+
 }
 .list-group-item {
   position: relative;
-  display: block;
   padding: .75rem 1.25rem;
   margin-bottom: -1px;
-  background-color: #fff;
-  border: 1px solid rgba(0,0,0,0.125);
+  background-color: #EFEFEF;
 }
+
+
 .list-group-item.active:not(.disabled)::before {
   background-color: #227fee;
 }
 
 .list-group-item::before {
-  display: block;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
-  width: 3px;
-  height: 100%;
+  width: 100%;
+  height: 3px;
   background-color: transparent;
   content: '';
 }
-
-
-body{
-  margin-top:20px;
-  background:#F0F8FF;
-}
-.card {
-  margin-bottom: 1.5rem;
-  box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
-}
-.card {
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid #e5e9f2;
-  border-radius: .2rem;
-}
-.card-header:first-child {
-  border-radius: calc(.2rem - 1px) calc(.2rem - 1px) 0 0;
-}
-.card-header {
-  border-bottom-width: 1px;
-}
-.card-header {
-  padding: .75rem 1.25rem;
-  margin-bottom: 0;
-  color: inherit;
-  background-color: #fff;
-  border-bottom: 1px solid #e5e9f2;
-}
-
 
