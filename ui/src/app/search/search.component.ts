@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignInComponent } from '../sign-in/sign-in.component';
@@ -22,6 +22,8 @@ export class SearchComponent implements OnInit {
     private localService: LocalService,
     private webLocalService: WebLocalService
   ) {}
+
+
 
 
   ngOnInit(): void {

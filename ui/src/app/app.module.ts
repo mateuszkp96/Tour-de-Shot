@@ -22,6 +22,8 @@ import { SignInNavComponent } from './sign-in-nav/sign-in-nav.component';
 import { LogoutComponent } from './logout/logout.component';
 import { HttpClientModule} from '@angular/common/http';
 import { LocalItemComponent } from './local-item/local-item.component';
+import { AccountPrivacyComponent } from './account-privacy/account-privacy.component';
+import { AccountGeneralComponent } from './account-general/account-general.component';
 
 let config = new AuthServiceConfig([
   {
@@ -53,6 +55,8 @@ export function provideConfig() {
     SignInNavComponent,
     LogoutComponent,
     LocalItemComponent,
+    AccountPrivacyComponent,
+    AccountGeneralComponent,
 
   ],
   imports: [
