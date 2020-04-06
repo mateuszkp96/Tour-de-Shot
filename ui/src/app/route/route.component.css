@@ -1,4 +1,10 @@
-/* Sidebar */
+.fa-trash {
+  margin-left: 50px;
+}
+.table thead th {
+  border-top: none;
+}
+  /* Sidebar */
 #sidebar-wrapper {
   z-index: 1;
   position: relative;
