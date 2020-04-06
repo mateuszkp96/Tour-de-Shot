@@ -8,6 +8,15 @@
     background-color: #E8E8E8;
   }
 
+  .container-fluid, h6 {
+    color: black;
+  }
+
+  ul {
+    list-style: none;
+    text-align: right;
+  }
+
   .card-signin {
     border: 0;
     border-radius: 1rem;
@@ -74,8 +83,22 @@
     .form-label-group input:-ms-input-placeholder {
       color: #777;
     }
-  } 
+  }
 
   .fab {
     margin-right: 10px;
   }
+
+   .map-container-5{
+     overflow:hidden;
+     padding-bottom:56.25%;
+     position:relative;
+     height:0;
+   }
+   .map-container-5 iframe{
+     left:0;
+     top:0;
+     height:100%;
+     width:100%;
+     position:absolute;
+   }
