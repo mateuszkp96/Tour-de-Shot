@@ -24,6 +24,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { LocalItemComponent } from './local-item/local-item.component';
 import { AccountPrivacyComponent } from './account-privacy/account-privacy.component';
 import { AccountGeneralComponent } from './account-general/account-general.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import {AgmCoreModule} from '@agm/core'
 
 let config = new AuthServiceConfig([
   {
@@ -64,8 +66,11 @@ export function provideConfig() {
     AppRoutingModule,
     NgbModule,
     SocialLoginModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    GoogleMapsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE'
+    })
   ],
   providers: [
     {
