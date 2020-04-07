@@ -1,12 +1,3 @@
-.row {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: 100%;
-  position: relative;
-}
-
 .btn-primary {
   background-color: #676767 !important;
   border-color: #676767 !important;
@@ -38,14 +29,6 @@
 }
 
 
-.container-fluid{
-  width: 100%;
-  position: relative;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
 
 .form-group{
   padding-top: 0;

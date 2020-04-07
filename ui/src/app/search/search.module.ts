@@ -24,4 +24,4 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ]
 
 })
-export class SearchModule { }
+export class SearchModule {}
