@@ -1,7 +1,74 @@
+<div class="container-fluid">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="mt-4">Rozpocznij wyszukiwanie</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <form>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12 p-1">
+                    <input type="text" class="form-control search-slt" placeholder="Podaj punkt początkowy">
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12 p-1">
+                    <select class="form-control search-slt" id="exampleFormControlSelect1">
+                      <option>Określ promień</option>
+                      <option>1 km</option>
+                      <option>2 km</option>
+                      <option>3 km</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12 p-1">
+                    <button type="button" class="btn btn-primary">Szukaj</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold">Wyniki wyszukiwania</h6>
+        </div>
+        <div class="card-body">
+          <div class="card card-outline-secondary my-4">
+            <div *ngFor="let local of localsList">
+              <app-local-item [local]="local"></app-local-item>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 ml-auto">
+      <div class="card shadow mb-4 p-3">
+      <div id="map-container-google-9" class="z-depth-1-half map-container-5" style="height: 100%">
+        <iframe src="https://maps.google.com/maps?q=Madryt&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                style="border:0" allowfullscreen></iframe>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!--<div class="container-fluid">
 
 <div class="row">
-    <div class="col-lg-6">
 
+    <div class="col-lg-12">
       <div class="card mt-2">
         <form>
           <div class="form-group row">
@@ -29,13 +96,13 @@
 
 
       </div>
-      <!-- /.card -->
+
 
     </div>
 
 
     <div class="col-lg-5 ml-auto">
-      <!--Google map-->
+
       <div id="map-container-google-9" class="z-depth-1-half map-container-5" style="height: 100%">
         <iframe src="https://maps.google.com/maps?q=Madryt&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
                 style="border:0" allowfullscreen></iframe>
@@ -43,5 +110,5 @@
     </div>
 
   </div>
-
+</div> -->
 

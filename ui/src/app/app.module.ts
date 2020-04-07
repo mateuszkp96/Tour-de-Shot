@@ -53,15 +53,13 @@ export function provideConfig() {
     SignInNavComponent,
     LogoutComponent,
     LocalItemComponent,
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     SocialLoginModule,
-    HttpClientModule
-    
+    HttpClientModule,
   ],
   providers: [
     {
