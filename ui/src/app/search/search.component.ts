@@ -39,6 +39,7 @@ export class SearchComponent implements AfterViewInit {
   };
 
 
+  
 
 // localization manually set yet
   localizationLat = 52.229676;
@@ -56,8 +57,6 @@ export class SearchComponent implements AfterViewInit {
     title: "Your localization",
     icon: this.LocalizationIcon
   });
-
-
 
 
 
@@ -140,5 +139,5 @@ export class SearchComponent implements AfterViewInit {
     });
   }
 
-  
+
 }
