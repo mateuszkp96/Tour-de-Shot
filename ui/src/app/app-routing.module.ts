@@ -10,6 +10,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SearchComponent } from './search/search.component';
 import { AccountComponent } from './account/account.component';
 import { RouteComponent } from './route/route.component';
+import { AccountPrivacyComponent } from './account-privacy/account-privacy.component';
+import { AccountGeneralComponent } from './account-general/account-general.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -23,7 +25,12 @@ const routes: Routes = [
   {path: 'signin', component: SignInComponent,
     children: [
       { path: 'search', component: SearchComponent},
-      { path: 'account', component: AccountComponent},
+      { path: 'account', component: AccountComponent,
+        children: [
+          { path: 'account-general', component: AccountGeneralComponent},
+          { path: 'account-privacy', component: AccountPrivacyComponent},
+        ]
+      },
       { path: 'route', component: RouteComponent},
 
     ]},

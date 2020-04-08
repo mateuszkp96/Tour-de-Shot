@@ -8,6 +8,8 @@ import { LocalItemComponent } from '../local-item/local-item.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -20,7 +22,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     CommonModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    GoogleMapsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE'
+    })
   ]
 
 })
