@@ -2,8 +2,11 @@ package com.teamg.tourdeshot.core.api.local;
 
 import com.teamg.tourdeshot.core.api.local.request.FilterRequestBody;
 import com.teamg.tourdeshot.core.model.Coordinates;
+import com.teamg.tourdeshot.core.model.Local;
+import com.teamg.tourdeshot.core.model.Menu;
 import com.teamg.tourdeshot.core.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +32,7 @@ public class LocalController {
 
     @GetMapping("/{id}")
     LocalDTO findLocalById(@PathVariable Long id) {
-        return createDefault(id);
+        return localService.findLocalById(id);
     }
 
     @PostMapping
@@ -37,6 +40,16 @@ public class LocalController {
         List<LocalDTO> list = new ArrayList<>();
         list.add(createDefault(1L));
         return list;
+    }
+
+    @PostMapping
+    Local addLocal(@RequestBody LocalPostDTO local) {
+        return localService.addLocal(local);
+    }
+
+    @PostMapping("/{id}")
+    Menu addMenuToLocal(@RequestBody Menu menu, @PathVariable Long id) {
+        return localService.addMenuToLocal(menu, id);
     }
 
     @GetMapping
@@ -47,6 +60,16 @@ public class LocalController {
     @GetMapping("/distance")
     public List<LocalDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
         return localService.findAllSortedByDistance(new Coordinates(lat, lon));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAll(@PathVariable Long id) {
+        localService.deleteById(id);
+    }
+
+    @DeleteMapping()
+    public void deleteAll() {
+        localService.deleteAll();
     }
 
     private LocalDTO createDefault(Long id) {
