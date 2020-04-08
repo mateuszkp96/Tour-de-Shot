@@ -4,8 +4,8 @@
     "name": "Bolek",
     "ownerId": 33,
     "coordinates": {
-      "lat": 50.01,
-      "long": 40.02
+      "lat": 52.209676,
+      "long": 21.032229
     },
     "address": {
       "city": "Warszawa",
@@ -72,8 +72,8 @@
     "name": "Lolek",
     "ownerId": 33,
     "coordinates": {
-      "lat": 50.01,
-      "long": 40.02
+      "lat": 52.239676,
+      "long": 21
     },
     "address": {
       "city": "Warszawa",
@@ -140,8 +140,8 @@
     "name": "Setka",
     "owner_id": 33,
     "coordinates": {
-      "lat": 50.01,
-      "long": 40.02
+      "lat": 52.219676,
+      "long": 21.012229
     },
     "address": {
       "city": "Warszawa",
@@ -208,8 +208,8 @@
     "name": "Figaro",
     "owner_id": 33,
     "coordinates": {
-      "lat": 50.01,
-      "long": 40.02
+      "lat": 52.209676,
+      "long": 21.022229
     },
     "address": {
       "city": "Warszawa",
