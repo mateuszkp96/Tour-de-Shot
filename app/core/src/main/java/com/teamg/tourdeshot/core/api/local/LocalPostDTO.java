@@ -5,21 +5,14 @@ import com.teamg.tourdeshot.core.model.Address;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Details;
 import com.teamg.tourdeshot.core.model.Menu;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.math.BigDecimal;
-
 
 @Getter
 @Setter
-@AllArgsConstructor
-@Builder
-public class LocalDTO {
-
-    private Long id;
+@NoArgsConstructor
+public class LocalPostDTO {
 
     private String name;
 
@@ -32,7 +25,4 @@ public class LocalDTO {
     private Details details;
 
     private Menu menu;
-
-    private BigDecimal distance;
-
 }
