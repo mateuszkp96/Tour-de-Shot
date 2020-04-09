@@ -5,8 +5,6 @@ on:
     branches:
       - master
       - develop
-    paths:
-      - 'ui/**'
   pull_request:
     branches:
       - master
@@ -50,7 +48,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy frontend image
-    if: github.event_name == 'push' && github.ref == 'master'
+    if: github.ref == 'refs/heads/master'
     needs: build
     steps:
       - uses: actions/checkout@v2
