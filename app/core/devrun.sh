@@ -3,7 +3,7 @@
 mongoContainerName="devmongo"
 mongoContainerPort="27017"
 port_mapping="8080:8080"
-mongoNetwork="core_network"
+mongoNetwork="mongo_core_network"
 
 docker run --rm \
   -p "${port_mapping}" \
