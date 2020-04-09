@@ -25,7 +25,10 @@ import { LocalItemComponent } from './local-item/local-item.component';
 import { AccountPrivacyComponent } from './account-privacy/account-privacy.component';
 import { AccountGeneralComponent } from './account-general/account-general.component';
 import { GoogleMapsModule } from '@angular/google-maps';
-import {AgmCoreModule} from '@agm/core'
+import { AgmCoreModule } from '@agm/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalComponent } from './modal/modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 let config = new AuthServiceConfig([
   {
@@ -59,12 +62,15 @@ export function provideConfig() {
     LocalItemComponent,
     AccountPrivacyComponent,
     AccountGeneralComponent,
+    ModalComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
     SocialLoginModule,
     HttpClientModule,
     GoogleMapsModule,
@@ -78,6 +84,7 @@ export function provideConfig() {
       useFactory: provideConfig
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalComponent]
 })
 export class AppModule { }

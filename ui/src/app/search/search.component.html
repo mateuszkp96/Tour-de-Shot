@@ -40,7 +40,9 @@
           <div class="card card-outline-secondary my-4">
             <div *ngFor="let local of localsList">
               <app-local-item [local]="local"></app-local-item>
+              <button (click)='openDialog()'>Sczegóły</button>
             </div>
+
           </div>
         </div>
       </div>

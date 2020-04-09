@@ -8,6 +8,8 @@ import { Local } from '../models/Local';
 import * as locals  from  '../../assets/locals-db.json';
 import { } from '@angular/google-maps'
 import { Coordinates } from '../models/Coordinates';
+import { ModalComponent } from '../modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-search',
@@ -39,7 +41,7 @@ export class SearchComponent implements AfterViewInit {
   };
 
 
-  
+
 
 // localization manually set yet
   localizationLat = 52.229676;
@@ -63,20 +65,29 @@ export class SearchComponent implements AfterViewInit {
   constructor(
     private router: Router,
     private localService: LocalService,
-    private webLocalService: WebLocalService
+    private webLocalService: WebLocalService,
+    public dialog: MatDialog
   ) {}
 
+  openDialog() {
+    const dialogRef = this.dialog.open(ModalComponent);
+    console.log(this.localsList)
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 
   ngAfterViewInit(): void {
     this.getLocalsList();
     this.mapInitializer();
+    console.log("Search" + this.local)
   }
 
 
   getLocalsList() {
     this.webLocalService.get().subscribe(data => {
       this.localsList = data as Local[];
-      console.log(  this.localsList);
+      console.log(this.localsList);
 
       //saving locals coordinates as a markers
       this.getLocalsCoordinates();
