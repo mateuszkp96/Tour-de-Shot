@@ -1,13 +1,10 @@
-# Mongo docker container usage
+# How to manage mongodb container
 
-Run container with 
-`./run.sh`
+1. Start container  
+`docker-compose up`
 
-Datasource properties for container:
-```
-spring.data.mongodb.host=127.0.0.1
-spring.data.mongodb.port=27017
-spring.data.mongodb.authentication-database=admin
-spring.data.mongodb.username=mongoadmin
-spring.data.mongodb.password=secret
-```
+2. Stop container without removing data  
+`docker-compose stop`
+
+3. Stop container with removing data  
+`docker-compose down`
