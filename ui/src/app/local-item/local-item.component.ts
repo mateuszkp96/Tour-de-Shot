@@ -13,11 +13,9 @@ export class LocalItemComponent implements OnInit {
   @Input() local: Local;
   localsList: Local[];
 
-  constructor(
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
   }
-
-
+  
 }
