@@ -14,7 +14,11 @@ public class  LocalMapperImpl implements LocalMapper {
         return LocalDTO.builder()
                 .id(local.getId())
                 .name(local.getName())
+                .ownerId(local.getOwnerId())
                 .coordinates(local.getCoordinates())
+                .address(local.getAddress())
+                .details(local.getDetails())
+                .menu(local.getMenu())
                 .build();
     }
 
@@ -22,7 +26,11 @@ public class  LocalMapperImpl implements LocalMapper {
     public Local toLocal(LocalPostDTO localPostDTO) {
         return Local.builder()
                 .name(localPostDTO.getName())
+                .ownerId(localPostDTO.getOwnerId())
                 .coordinates(localPostDTO.getCoordinates())
+                .address(localPostDTO.getAddress())
+                .details(localPostDTO.getDetails())
+                .menu(localPostDTO.getMenu())
                 .build();
     }
 

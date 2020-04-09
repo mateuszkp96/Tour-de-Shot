@@ -4,6 +4,7 @@ import com.teamg.tourdeshot.core.api.local.request.FilterRequestBody;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.Menu;
+import com.teamg.tourdeshot.core.model.Product;
 import com.teamg.tourdeshot.core.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,25 +31,8 @@ public class LocalController {
     }
 
     @GetMapping("/{id}")
-    LocalDTO findLocalById(@PathVariable Long id) {
+    public LocalDTO findLocalById(@PathVariable Long id) {
         return localService.findLocalById(id);
-    }
-
-    @PostMapping
-    List<LocalDTO> filterLocals(@RequestBody FilterRequestBody requestBody) {
-        List<LocalDTO> list = new ArrayList<>();
-        list.add(createDefault(1L));
-        return list;
-    }
-
-    @PostMapping
-    Local addLocal(@RequestBody LocalPostDTO local) {
-        return localService.addLocal(local);
-    }
-
-    @PostMapping("/{id}")
-    Menu addMenuToLocal(@RequestBody Menu menu, @PathVariable Long id) {
-        return localService.addMenuToLocal(menu, id);
     }
 
     @GetMapping
@@ -62,18 +45,34 @@ public class LocalController {
         return localService.findAllSortedByDistance(new Coordinates(lat, lon));
     }
 
+    @PostMapping("/filter")
+    public List<LocalDTO> filterLocals(@RequestBody FilterRequestBody requestBody) {
+        return null;
+    }
+
+    @PostMapping
+    public Local addLocal(@RequestBody LocalPostDTO local) {
+        return localService.addLocal(local);
+    }
+
+    @PostMapping("/menu")
+    public Local addMenuToLocal(@RequestBody Menu menu, @RequestParam Long localId) {
+        return localService.addMenuToLocal(menu, localId);
+    }
+
+    @PostMapping("/product")
+    public Local addProductToLocal(@RequestBody Product product, @RequestParam Long localId) {
+        return localService.addProductToLocal(product, localId);
+    }
+
     @DeleteMapping("/{id}")
-    public void deleteAll(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long id) {
         localService.deleteById(id);
     }
 
     @DeleteMapping()
     public void deleteAll() {
         localService.deleteAll();
-    }
-
-    private LocalDTO createDefault(Long id) {
-        return new LocalDTO(id, "localName", new Coordinates(new BigDecimal("52.228337"), new BigDecimal("21.013993")), BigDecimal.valueOf(50.00));
     }
 
 }
