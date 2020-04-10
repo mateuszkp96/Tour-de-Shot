@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit,  ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit,  ViewChild, ElementRef, Output, EventEmitter, NgZone } from '@angular/core';
 import {Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignInComponent } from '../sign-in/sign-in.component';
@@ -10,19 +10,29 @@ import { } from '@angular/google-maps'
 import { Coordinates } from '../models/Coordinates';
 import { ModalComponent } from '../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MapsAPILoader } from '@agm/core';
+import { MapComponent } from '../map/map.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 
 export class SearchComponent implements AfterViewInit {
+  filteredBanks: Subject<any> = new Subject();
+  autocomplete: google.maps.places.Autocomplete;
 
-  local: Local;
+  public local: Local;
   localsList: Local[];
   localsCoordinates: Coordinates[];
   list: Coordinates[]=[];
+  public searchAddress: string;
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
+  @ViewChild("mapContainer2", { static: false }) gmap2: ElementRef;
 
   @ViewChild("mapContainer", { static: false }) gmap: ElementRef;
   map: google.maps.Map;
@@ -61,26 +71,53 @@ export class SearchComponent implements AfterViewInit {
   });
 
 
-
   constructor(
     private router: Router,
     private localService: LocalService,
     private webLocalService: WebLocalService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
+  ) {
 
-  openDialog() {
-    const dialogRef = this.dialog.open(ModalComponent);
+  }
+
+  openDialog(local:Local) {
+    const dialogRef = this.dialog.open(ModalComponent  );
     console.log(this.localsList)
+    dialogRef.componentInstance.local=local;
+
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+
   }
+
+
+  title: string = 'AGM project';
+  latitude: number;
+  longitude: number;
+  zoom: number;
+
+  address: string;
+  private geoCoder;
+
 
   ngAfterViewInit(): void {
     this.getLocalsList();
     this.mapInitializer();
     console.log("Search" + this.local)
+//this.modal.onOpenDialogClicked(this.local);
+
+
+
+   this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ["address"]});
+
+    this.autocomplete.addListener("place_changed", () => {
+      console.log(this.autocomplete);
+     // this.filteredBanks.next(autocomplete);
+    });
+
   }
 
 
@@ -149,6 +186,18 @@ export class SearchComponent implements AfterViewInit {
       marker.setMap(this.map);
     });
   }
+
+value:ElementRef;
+
+  onBtnSearchClicked(){
+
+    this.value=this.searchElementRef.nativeElement;
+    console.log("this autocomplite after btn clicked")
+    console.log(this.autocomplete)
+    this.filteredBanks.next(this.autocomplete)
+
+  }
+
 
 
 }
