@@ -1,157 +1,134 @@
-
-import { Component, OnInit, ViewChild, ElementRef, NgZone, Input } from '@angular/core';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { Local } from '../models/Local';
-import { Subject } from 'rxjs';
+import {Component, OnInit, ViewChild, ElementRef, NgZone, Input, AfterViewInit} from '@angular/core';
+import {MapsAPILoader, MouseEvent} from '@agm/core';
+import {Local} from '../models/Local';
+import {Coordinates} from '../models/Coordinates';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
-  @Input() searchElementRef: ElementRef;
-  @Input() filteredBanks: Subject<any>;
- // @Input() inputAddress: ElementRef;
 
-  title: string = 'AGM project';
-  latitude: number;
-  longitude: number;
-  zoom: number;
+export class MapComponent implements AfterViewInit {
 
-  address: string;
-  private geoCoder;
-
-
-// @ViewChild('search')
-//  public searchElementRef: ElementRef;
+  @Input() btnSearchClicked: Subject<any>;
+  @Input() localsList: Local[];
+  @ViewChild("mapContainer", {static: false}) gmap: ElementRef;
+  map: google.maps.Map;
+  markers: google.maps.Marker[] = [];
+  marker: google.maps.Marker;
   autocomplete: google.maps.places.Autocomplete;
   place: google.maps.places.PlaceResult;
+  private geoCoder;
+
+  //start map center
+  localizationLat: number = 52.229676;
+  localizationLong: number = 21.012229;
+  localizationCoordinates = new google.maps.LatLng(this.localizationLat, this.localizationLong);
+
+  mapOptions: google.maps.MapOptions = {
+    center: this.localizationCoordinates,
+    zoom: 12
+  };
+
+  localIcon = {
+    url: "../../assets/beer.png",
+    scaledSize: new google.maps.Size(40, 40)
+  };
+
+  localizationIcon = {
+    url: "../../assets/localization.png",
+    scaledSize: new google.maps.Size(40, 40)
+  };
+
+  localizationMarker = new google.maps.Marker({
+    map: this.map,
+    title: "Your localization",
+    icon: this.localizationIcon
+  });
+
+
 
   constructor(
-    private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
-  ) { }
+  ) {}
 
 
-  ngOnInit() {
-    this.zoom = 12;
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
-    this.filteredBanks.subscribe(event => {
-      console.log("subscribe")
-    this.autocomplete = event;
-      console.log("vlue from map")
-      console.log( this.autocomplete );
+  ngAfterViewInit() {
+    this.mapInitializer();
+    this.geoCoder = new google.maps.Geocoder;
 
-    //load Places Autocomplete
+    this.btnSearchClicked.subscribe(event => {
+      this.autocomplete = event;
 
+      this.ngZone.run(() => {
+        this.place = this.autocomplete.getPlace();
 
+        if (this.place.geometry === undefined || this.place.geometry === null) {
+          return;
+        }
 
-
-        console.log("search clicked");
-
-     // console.log(this.searchElementRef.nativeElement);
-
-
-        console.log(this.autocomplete);
-
-  // this.autocomplete.addListener("place_changed", () => {
-
-        this.ngZone.run(() => {
-          //get the place result
-         this.place = this.autocomplete.getPlace();
-
-          //verify result
-          if (this.place.geometry === undefined || this.place.geometry === null) {
-            return;
-          }
-
-          //set latitude, longitude and zoom
-          this.latitude = this.place.geometry.location.lat();
-          this.longitude = this.place.geometry.location.lng();
-          this.zoom = 12;
-        });
+        this.localizationLat = this.place.geometry.location.lat();
+        this.localizationLong = this.place.geometry.location.lng();
       });
+
+      this.localizationCoordinates = new google.maps.LatLng(this.localizationLat, this.localizationLong);
+      this.localizationMarker.setPosition(this.localizationCoordinates);
+      this.mapOptions.center = this.localizationCoordinates;
+      this.map.setCenter(this.localizationCoordinates);
+      this.localizationMarker.setMap(this.map);
     });
-  // });
 
   }
 
-  // Get Current Location Coordinates
-  private setCurrentLocation() {
-   if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 8;
-        this.getAddress(this.latitude, this.longitude);
+
+  getLocalsCoordinates() {
+    if (this.localsList) {
+      this.localsList.forEach(element => {
+        this.marker = new google.maps.Marker({
+          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
+          map: this.map,
+          title: element.name,
+          icon: this.localIcon
+        });
+
+        this.markers.push(this.marker);
       });
     }
   }
 
 
-  markerDragEnd($event: MouseEvent) {
-    console.log($event);
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-    this.getAddress(this.latitude, this.longitude);
-  }
+  mapInitializer(): void {
+    this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
 
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
-      if (status === 'OK') {
-        if (results[0]) {
-          this.zoom = 12;
-          this.address = results[0].formatted_address;
-        } else {
-          window.alert('No results found');
-        }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-
-    });
-  }
-  // Get Current Location Coordinates
-
-/*
-    this.filteredBanks.subscribe(event => {
-
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ["address"]});
-      console.log(this.searchElementRef.nativeElement);
-      console.log("child");
-      console.log(autocomplete);
-      this.ngZone.run(() => {
-        //get the place result
-        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-        //verify result
-        if (place.geometry === undefined || place.geometry === null) {
-          return;
-        }
-
-        //set latitude, longitude and zoom
-        this.latitude = place.geometry.location.lat();
-        this.longitude = place.geometry.location.lng();
-        this.zoom = 12;
+    this.localizationMarker.addListener("click", () => {
+      const infoWindow = new google.maps.InfoWindow({
+        content: this.localizationMarker.getTitle()
       });
+      infoWindow.open(this.localizationMarker.getMap(), this.localizationMarker);
     });
 
-    this.zoom = 12;
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
+    this.localizationMarker.setMap(this.map);
+    this.getLocalsCoordinates();
+    this.loadAllMarkers();
+  }
 
+
+  loadAllMarkers(): void {
+    this.markers.forEach(markerInfo => {
+      const marker = new google.maps.Marker({});
+
+      //creating a new info window with markers info
+      const infoWindow = new google.maps.InfoWindow({
+        content: marker.getTitle()
+      });
+
+      marker.setMap(this.map);
     });
   }
 
 
-
- */
-  }
+}
 
 

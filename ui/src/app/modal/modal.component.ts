@@ -12,17 +12,14 @@ import { Subject } from 'rxjs';
 })
 export class ModalComponent implements OnInit {
 
-localFromSearch: Local;
-
   @Input() local: Local
-  @Input() filteredBanks: Subject<any>;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ModalComponent)
   { }
 
   ngOnInit(): void {
-    
+
   }
 
-  
+
 }

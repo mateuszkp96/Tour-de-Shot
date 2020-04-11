@@ -49,17 +49,10 @@
     </div>
 
 
-
     <div class="col-lg-6 ml-auto">
-
       <div class="card shadow mb-4 p-3">
-        <div #mapContainer id="map"></div>
+        <app-map #mapContainer id="map" *ngIf="localsList" [localsList]="localsList" [btnSearchClicked]='btnSearchClicked'  ></app-map>
       </div>
-
-        <app-map [filteredBanks]='filteredBanks'  ></app-map>
-
-
-
     </div>
   </div>
 </div>
