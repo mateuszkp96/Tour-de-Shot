@@ -11,7 +11,7 @@
               <div class="col-lg-12">
                 <div class="row">
                   <div class="col-lg-4 col-md-4 col-sm-12 p-1">
-                    <input type="text" class="form-control search-slt" placeholder="Podaj punkt początkowy">
+                    <input type="text" class="form-control search-slt" #search  placeholder="Podaj punkt początkowy"  >
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 p-1">
                     <select class="form-control search-slt" id="exampleFormControlSelect1">
@@ -22,7 +22,7 @@
                     </select>
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 p-1">
-                    <button type="button" class="btn btn-primary">Szukaj</button>
+                    <button type="button" class="btn btn-primary" (click)="onBtnSearchClicked()" >Szukaj</button>
                   </div>
                 </div>
               </div>
@@ -40,16 +40,18 @@
           <div class="card card-outline-secondary my-4">
             <div *ngFor="let local of localsList">
               <app-local-item [local]="local"></app-local-item>
-              <button (click)='openDialog()'>Sczegóły</button>
+              <button (click)='openDialog(local)'>Sczegóły </button>
             </div>
 
           </div>
         </div>
       </div>
     </div>
+
+
     <div class="col-lg-6 ml-auto">
       <div class="card shadow mb-4 p-3">
-        <div #mapContainer id="map"></div>
+        <app-map #mapContainer id="map" *ngIf="localsList" [localsList]="localsList" [btnSearchClicked]='btnSearchClicked'  ></app-map>
       </div>
     </div>
   </div>

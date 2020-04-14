@@ -29,6 +29,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MapComponent } from './map/map.component';
 
 let config = new AuthServiceConfig([
   {
@@ -63,6 +64,7 @@ export function provideConfig() {
     AccountPrivacyComponent,
     AccountGeneralComponent,
     ModalComponent,
+    MapComponent,
 
   ],
   imports: [
