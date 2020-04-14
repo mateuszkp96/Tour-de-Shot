@@ -12,6 +12,7 @@ import { AccountComponent } from './account/account.component';
 import { RouteComponent } from './route/route.component';
 import { AccountPrivacyComponent } from './account-privacy/account-privacy.component';
 import { AccountGeneralComponent } from './account-general/account-general.component';
+import { MapComponent } from './map/map.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -34,7 +35,7 @@ const routes: Routes = [
       { path: 'route', component: RouteComponent},
 
     ]},
-
+  {path: 'map', component: MapComponent},
 ];
 
 @NgModule({
