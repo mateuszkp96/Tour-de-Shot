@@ -1,4 +1,4 @@
-###LocalMapDTO
+###SummaryDTO
 Example:
  ```json
 {

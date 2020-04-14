@@ -1,4 +1,4 @@
-###LocalMapDTO
+###LocalDTO
 Example:
  ```json
 {
