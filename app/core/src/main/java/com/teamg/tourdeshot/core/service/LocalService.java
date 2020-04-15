@@ -10,6 +10,8 @@ import com.teamg.tourdeshot.core.model.Product;
 import com.teamg.tourdeshot.core.repository.LocalRepositoryProxy;
 import com.teamg.tourdeshot.core.service.calculation.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -37,6 +39,10 @@ public class LocalService {
 
     public List<LocalDTO> findAllLocals() {
         return localMapper.toLocalDTOs(localRepository.findAll());
+    }
+
+    public List<LocalDTO> findAllPageable(Pageable pageable) {
+        return localMapper.toLocalDTOs(localRepository.findAllPageable(pageable).getContent());
     }
 
     public List<LocalDTO> findAllSortedByDistance(Coordinates coordinates) {
