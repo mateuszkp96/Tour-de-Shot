@@ -29,6 +29,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   public local: Local;
   public localsList: Local[];
+  public pageSize = 3;
+  public pageNumber = 2;
 
   constructor(
     private router: Router,

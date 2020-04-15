@@ -38,3 +38,9 @@
   height: 500px;
   width: 100%;
 }
+
+.square-image {
+  width:100px;
+  height:100px;
+  overflow:hidden
+}
