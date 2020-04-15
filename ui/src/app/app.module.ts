@@ -30,6 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MapComponent } from './map/map.component';
+import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 let config = new AuthServiceConfig([
   {
@@ -73,6 +75,8 @@ export function provideConfig() {
     NgbModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatListModule,
+    MatCheckboxModule,
     SocialLoginModule,
     HttpClientModule,
     GoogleMapsModule,
