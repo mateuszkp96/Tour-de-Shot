@@ -37,16 +37,16 @@
           <h6 class="m-0 font-weight-bold">Wyniki wyszukiwania</h6>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item" *ngFor="let local of localsList | slice: (pageNumber-1) * pageSize : (pageNumber-1) * pageSize + pageSize">
+          <li class="list-group-item" id="{{ 'listItem' + i }}" [style.background-color]="local.checked ? '#dbdeeb' : 'white'" *ngFor="let local of localsList | slice: (pageNumber-1) * pageSize : (pageNumber-1) * pageSize + pageSize ; index as i">
             <!-- Custom content-->
-            <div class="media d-flex align-items-center">
+            <div class="media d-flex align-items-center"  >
               <img src="src=../../assets/pub.jpg" class="mr-3 square-image" alt="...">
               <div class="media-body p-1">
                 <h5 class="m-0">{{local.name}}</h5>
                 <p class="mb-0">{{local.address.street}}</p>
                 <a [routerLink]="" (click)="openDialog(local)" class="stretched-link">szczegóły>></a>
               </div>
-              <mat-checkbox class="pr-3"></mat-checkbox>
+              <mat-checkbox class="pr-3" [checked]="local.checked" id="{{ 'checkbox' + i }}" (change)="onCheckboxClicked($event,local, i)"></mat-checkbox>
           </div>
           </li>
         </ul>
@@ -55,7 +55,11 @@
     </div>
     <div class="col-lg-7 ml-auto">
       <div class="card shadow mb-4 p-3">
-        <app-map #mapContainer id="map" *ngIf="localsList" [localsList]="localsList" [btnSearchClicked]='btnSearchClicked'  ></app-map>
+        <app-map #mapContainer id="map" *ngIf="localsList"
+                 [localsList]="localsList"
+                 [currentCheckedLocalsIdList]="currentCheckedLocalsIdList"
+                 [btnSearchClicked]='btnSearchClicked'>
+        </app-map>
       </div>
     </div>
   </div>

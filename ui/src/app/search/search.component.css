@@ -44,3 +44,7 @@
   height:100px;
   overflow:hidden
 }
+
+.checked{
+  background-color: rgba(226, 221, 41, 0.82);
+}
