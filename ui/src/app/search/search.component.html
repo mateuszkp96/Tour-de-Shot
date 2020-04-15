@@ -31,25 +31,29 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-6 mb-4">
+    <div class="col-lg-5 mx-auto">
       <div class="card shadow mb-4">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold">Wyniki wyszukiwania</h6>
         </div>
-        <div class="card-body">
-          <div class="card card-outline-secondary my-4">
-            <div *ngFor="let local of localsList">
-              <app-local-item [local]="local"></app-local-item>
-              <button (click)='openDialog(local)'>Sczegóły </button>
-            </div>
-
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let local of localsList | slice: (pageNumber-1) * pageSize : (pageNumber-1) * pageSize + pageSize">
+            <!-- Custom content-->
+            <div class="media d-flex align-items-center">
+              <img src="src=../../assets/pub.jpg" class="mr-3 square-image" alt="...">
+              <div class="media-body p-1">
+                <h5 class="m-0">{{local.name}}</h5>
+                <p class="mb-0">{{local.address.street}}</p>
+                <a [routerLink]="" (click)="openDialog(local)" class="stretched-link">szczegóły>></a>
+              </div>
+              <mat-checkbox class="pr-3"></mat-checkbox>
           </div>
-        </div>
-      </div>
+          </li>
+        </ul>
+        <ngb-pagination [pageSize] = "pageSize" [collectionSize]="4" [(page)]="pageNumber" aria-label="Default pagination" class="d-flex justify-content-end mt-4 pr-2"></ngb-pagination>
     </div>
-
-
-    <div class="col-lg-6 ml-auto">
+    </div>
+    <div class="col-lg-7 ml-auto">
       <div class="card shadow mb-4 p-3">
         <app-map #mapContainer id="map" *ngIf="localsList" [localsList]="localsList" [btnSearchClicked]='btnSearchClicked'  ></app-map>
       </div>
