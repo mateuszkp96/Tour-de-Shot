@@ -3,8 +3,6 @@ package com.teamg.tourdeshot.core.api.local;
 import com.teamg.tourdeshot.core.api.local.request.FilterRequestBody;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Local;
-import com.teamg.tourdeshot.core.model.Menu;
-import com.teamg.tourdeshot.core.model.Product;
 import com.teamg.tourdeshot.core.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -36,17 +34,12 @@ public class LocalController {
         return localService.findLocalById(id);
     }
 
-    @GetMapping
-    public List<LocalDTO> findAllLocals() {
-        return localService.findAllLocals();
-    }
-
     @GetMapping("/pageable")
     public List<LocalDTO> findAllLocalsPageable(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
         return localService.findAllPageable(PageRequest.of(page, pageSize));
     }
 
-    @GetMapping("/distance")
+    @GetMapping
     public List<LocalDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
         return localService.findAllSortedByDistance(new Coordinates(lat, lon));
     }
@@ -61,24 +54,9 @@ public class LocalController {
         return localService.addLocal(local);
     }
 
-    @PostMapping("/menu")
-    public Local addMenuToLocal(@RequestBody Menu menu, @RequestParam Long localId) {
-        return localService.addMenuToLocal(menu, localId);
-    }
-
-    @PostMapping("/product")
-    public Local addProductToLocal(@RequestBody Product product, @RequestParam Long localId) {
-        return localService.addProductToLocal(product, localId);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         localService.deleteById(id);
-    }
-
-    @DeleteMapping()
-    public void deleteAll() {
-        localService.deleteAll();
     }
 
 }

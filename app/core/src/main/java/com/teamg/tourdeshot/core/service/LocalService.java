@@ -5,12 +5,10 @@ import com.teamg.tourdeshot.core.api.local.LocalPostDTO;
 import com.teamg.tourdeshot.core.mapper.LocalMapper;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Local;
-import com.teamg.tourdeshot.core.model.Menu;
-import com.teamg.tourdeshot.core.model.Product;
-import com.teamg.tourdeshot.core.repository.LocalRepositoryProxy;
+import com.teamg.tourdeshot.core.repository.MongoLocalRepository;
+import com.teamg.tourdeshot.core.repository.LocalRepository;
 import com.teamg.tourdeshot.core.service.calculation.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +22,10 @@ public class LocalService {
 
     private final SequenceGeneratorService sequenceGeneratorService;
     private final LocalMapper localMapper;
-    private final LocalRepositoryProxy localRepository;
+    private final LocalRepository localRepository;
 
     @Autowired
-    public LocalService(SequenceGeneratorService sequenceGeneratorService, LocalMapper localMapper, LocalRepositoryProxy localRepository) {
+    public LocalService(SequenceGeneratorService sequenceGeneratorService, LocalMapper localMapper, MongoLocalRepository localRepository) {
         this.sequenceGeneratorService = sequenceGeneratorService;
         this.localMapper = localMapper;
         this.localRepository = localRepository;
@@ -62,20 +60,7 @@ public class LocalService {
         return localRepository.addLocal(local);
     }
 
-    public Local addMenuToLocal(Menu menu, Long localId) {
-        return localRepository.addMenuToLocal(menu, localId);
-    }
-
-    public Local addProductToLocal(Product product, Long localId) {
-        return localRepository.addProductToLocal(product, localId);
-    }
-
     public void deleteById(Long id) {
         localRepository.deleteById(id);
     }
-
-    public void deleteAll() {
-        localRepository.deleteAll();
-    }
-
 }
