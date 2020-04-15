@@ -7,6 +7,7 @@ import com.teamg.tourdeshot.core.model.Menu;
 import com.teamg.tourdeshot.core.model.Product;
 import com.teamg.tourdeshot.core.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,11 @@ public class LocalController {
     @GetMapping
     public List<LocalDTO> findAllLocals() {
         return localService.findAllLocals();
+    }
+
+    @GetMapping("/pageable")
+    public List<LocalDTO> findAllLocalsPageable(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+        return localService.findAllPageable(PageRequest.of(page, pageSize));
     }
 
     @GetMapping("/distance")
