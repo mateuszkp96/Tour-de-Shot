@@ -1,6 +1,10 @@
-package com.teamg.tourdeshot.core.repository;
+package com.teamg.tourdeshot.core.repository.mongo;
 
+import com.mongodb.client.result.DeleteResult;
 import com.teamg.tourdeshot.core.model.Local;
+import com.teamg.tourdeshot.core.repository.LocalRepository;
+import com.teamg.tourdeshot.core.repository.crud.delete.DeleteOperationResult;
+import com.teamg.tourdeshot.core.repository.crud.delete.DeleteResultInterpreter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -10,6 +14,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -18,6 +23,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 public class MongoLocalRepository implements LocalRepository {
 
     private final MongoOperations mongoOperations;
+    private final DeleteResultInterpreter<DeleteResult> deleteResultInterpreter = new MongoDeleteResultInterpreter();
 
     @Autowired
     public MongoLocalRepository(MongoOperations mongoOperations) {
@@ -25,8 +31,8 @@ public class MongoLocalRepository implements LocalRepository {
     }
 
     @Override
-    public Local findById(Long localId) {
-        return mongoOperations.findById(localId, Local.class);
+    public Optional<Local> findById(Long localId) {
+        return Optional.ofNullable(mongoOperations.findById(localId, Local.class));
     }
 
     @Override
@@ -44,12 +50,13 @@ public class MongoLocalRepository implements LocalRepository {
     }
 
     @Override
-    public Local addLocal(Local local) {
+    public Local save(Local local) {
         return mongoOperations.save(local);
     }
 
     @Override
-    public void deleteById(Long localId) {
-        mongoOperations.remove(query(where("id").is(localId)));
+    public DeleteOperationResult deleteById(Long localId) {
+        DeleteResult deleteResult = mongoOperations.remove(query(where("id").is(localId)), Local.class);
+        return deleteResultInterpreter.read(deleteResult);
     }
 }

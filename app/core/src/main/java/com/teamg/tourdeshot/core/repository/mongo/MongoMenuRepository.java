@@ -1,7 +1,8 @@
-package com.teamg.tourdeshot.core.repository;
+package com.teamg.tourdeshot.core.repository.mongo;
 
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.Menu;
+import com.teamg.tourdeshot.core.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;
