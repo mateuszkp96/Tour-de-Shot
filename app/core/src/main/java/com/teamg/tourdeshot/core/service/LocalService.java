@@ -2,14 +2,18 @@ package com.teamg.tourdeshot.core.service;
 
 import com.teamg.tourdeshot.core.api.local.LocalDTO;
 import com.teamg.tourdeshot.core.api.local.LocalPostDTO;
+import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.mapper.LocalMapper;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Local;
-import com.teamg.tourdeshot.core.repository.MongoLocalRepository;
 import com.teamg.tourdeshot.core.repository.LocalRepository;
+import com.teamg.tourdeshot.core.repository.crud.delete.DeleteOperationResult;
+import com.teamg.tourdeshot.core.repository.mongo.MongoLocalRepository;
 import com.teamg.tourdeshot.core.service.calculation.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -32,7 +36,9 @@ public class LocalService {
     }
 
     public LocalDTO findLocalById(Long id) {
-        return localMapper.toLocalDTO(localRepository.findById(id));
+        return localRepository.findById(id)
+                .map(localMapper::toLocalDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("Local", "id", id));
     }
 
     public List<LocalDTO> findAllLocals() {
@@ -57,10 +63,18 @@ public class LocalService {
     public Local addLocal(LocalPostDTO localPostDTO) {
         Local local = localMapper.toLocal(localPostDTO);
         local.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
-        return localRepository.addLocal(local);
+        return localRepository.save(local);
     }
 
-    public void deleteById(Long id) {
-        localRepository.deleteById(id);
+    public ResponseEntity<String> deleteById(Long id) {
+        DeleteOperationResult result = localRepository.deleteById(id);
+        switch (result.getStatus()) {
+            case SUCCESS:
+                return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
+            case NOT_FOUND:
+                return new ResponseEntity<>("Resource with id: " + id + "not found", HttpStatus.NOT_FOUND);
+            default:
+                return new ResponseEntity<>(result.getMessage(), HttpStatus.CONFLICT);
+        }
     }
 }
