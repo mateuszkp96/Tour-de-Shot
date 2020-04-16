@@ -32,6 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MapComponent } from './map/map.component';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 let config = new AuthServiceConfig([
   {
@@ -76,7 +78,9 @@ export function provideConfig() {
     BrowserAnimationsModule,
     MatDialogModule,
     MatListModule,
+    MatGridListModule,
     MatCheckboxModule,
+    MatFormFieldModule,
     SocialLoginModule,
     HttpClientModule,
     GoogleMapsModule,
