@@ -68,13 +68,7 @@ public class LocalService {
 
     public ResponseEntity<String> deleteById(Long id) {
         DeleteOperationResult result = localRepository.deleteById(id);
-        switch (result.getStatus()) {
-            case SUCCESS:
-                return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
-            case NOT_FOUND:
-                return new ResponseEntity<>("Resource with id: " + id + "not found", HttpStatus.NOT_FOUND);
-            default:
-                return new ResponseEntity<>(result.getMessage(), HttpStatus.CONFLICT);
-        }
+        return Utils.deleteOperationResultToResponseEntity(result, id);
     }
+
 }
