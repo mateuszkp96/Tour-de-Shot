@@ -12,7 +12,7 @@ import {ModalComponent} from '../modal/modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MapsAPILoader} from '@agm/core';
 import {MapComponent} from '../map/map.component';
-import {Subject} from 'rxjs';
+import {Subject, BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -29,8 +29,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   public local: Local;
   public localsList: Local[];
+  public checkedLocalsIdList: number[] = [];
   public pageSize = 3;
   public pageNumber = 2;
+
+  private checkedLocalsIdListSource = new BehaviorSubject<number[]>([]);
+  currentCheckedLocalsIdList = this.checkedLocalsIdListSource.asObservable();
 
   constructor(
     private router: Router,
@@ -39,7 +43,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getLocalsList();
@@ -73,7 +78,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   getLocalById(id: number) {
     this.webLocalService.get().subscribe(data => {
       this.local = data[id] as Local;
@@ -84,6 +88,28 @@ export class SearchComponent implements OnInit, AfterViewInit {
   onBtnSearchClicked() {
     this.btnSearchClicked.next(this.autocomplete)
   }
+
+
+  onCheckboxClicked(event, local, i) {
+    switch (event.checked) {
+      case true:
+        local.checked = true;
+        //document.getElementById("listItem" + i).classList.add("checked");
+        this.checkedLocalsIdList.push(local.id);
+        this.checkedLocalsIdListSource.next(this.checkedLocalsIdList);
+        break;
+
+      case false:
+        local.checked = false;
+        //document.getElementById("listItem" + i).classList.remove("checked");
+        const index =  this.checkedLocalsIdList.indexOf(local.id, 0);
+        this.checkedLocalsIdList.splice(index,1);
+        this.checkedLocalsIdListSource.next(this.checkedLocalsIdList);
+        break;
+    }
+
+  }
+
 
 
 }
