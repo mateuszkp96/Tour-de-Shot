@@ -14,6 +14,7 @@ Example:
         "street": "Świętokrzyska 4",
         "postCode": "02-100"
     },
+    "distance": 150,
     "image": "www.abcimage.com",
     "openingHours": {
         "openStatus": "Open",
