@@ -14,7 +14,7 @@
                     <input type="text" class="form-control search-slt" #search  placeholder="Podaj punkt początkowy"  >
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 p-1">
-                    <select class="form-control search-slt" id="exampleFormControlSelect1">
+                    <select class="form-control search-slt" id="radiusFormControl" (change)="onRadiusChanged($event)">
                       <option>Określ promień</option>
                       <option>1 km</option>
                       <option>2 km</option>
@@ -37,7 +37,7 @@
           <h6 class="m-0 font-weight-bold">Wyniki wyszukiwania</h6>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item" id="{{ 'listItem' + i }}" [style.background-color]="local.checked ? '#dbdeeb' : 'white'" *ngFor="let local of localsList | slice: (pageNumber-1) * pageSize : (pageNumber-1) * pageSize + pageSize ; index as i">
+          <li class="list-group-item" id="{{ 'listItem' + i }}" [style.background-color]="local.checked ? '#dbdeeb' : 'white'" *ngFor="let local of filteredByDistLocalsList | slice: (pageNumber-1) * pageSize : (pageNumber-1) * pageSize + pageSize ; index as i">
             <!-- Custom content-->
             <div class="media d-flex align-items-center"  >
               <img src="src=../../assets/pub.jpg" class="mr-3 square-image" alt="...">
@@ -57,6 +57,7 @@
       <div class="card shadow mb-4 p-3">
         <app-map #mapContainer id="map" *ngIf="localsList"
                  [localsList]="localsList"
+                 [currentFilteredByDistLocalsList]="currentFilteredByDistLocalsList"
                  [currentCheckedLocalsIdList]="currentCheckedLocalsIdList"
                  [btnSearchClicked]='btnSearchClicked'>
         </app-map>
