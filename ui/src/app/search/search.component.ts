@@ -51,12 +51,11 @@ export class SearchComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
-  ) {
-  }
+  ) {}
+
 
   ngOnInit(): void {
     this.getLocalsList();
-   // this.getLocalsCoordinates();
   }
 
   ngAfterViewInit(): void {
@@ -68,7 +67,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
     });
 
     this.autocomplete.addListener("place_changed", () => {
-      console.log(this.autocomplete);
 
       this.ngZone.run(() => {
         this.place = this.autocomplete.getPlace();
@@ -106,39 +104,35 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
 
-  filterLocalsByDist() {
-    if (this.localsList) {
-      this.localsList.forEach(element => {
-        let localCoordinates = new google.maps.LatLng(element.coordinates.lat, element.coordinates.long);
-        this.localsCoordinates.push(localCoordinates);
-        const  distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(localCoordinates, this.startPoint) / 1000;
-        console.log(distanceInKm)
-        if (distanceInKm < 4) {
-          console.log("distacne")
-          this.filteredByDistLocalsList.push(element);
-        }
-      });
-
-    }
-    console.log( this.filteredByDistLocalsList)
-  }
-
-
-
   getLocalById(id: number) {
     this.webLocalService.get().subscribe(data => {
       this.local = data[id] as Local;
     });
   }
 
+  filterLocalsByDist(radius: number) {
+    if (this.localsList) {
+      this.filteredByDistLocalsList = [];
+      this.localsList.forEach(element => {
+        let localCoordinates = new google.maps.LatLng(element.coordinates.lat, element.coordinates.long);
+        this.localsCoordinates.push(localCoordinates);
+        const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(localCoordinates, this.startPoint) / 1000;
+
+        if (distanceInKm < radius && (!this.filteredByDistLocalsList.includes(element))) {
+          this.filteredByDistLocalsList.push(element);
+        }
+      });
+    }
+  }
 
   onBtnSearchClicked() {
     this.btnSearchClicked.next(this.startPoint)
-    if (this.radius)
-      console.log(this.radius)
 
-  this.filterLocalsByDist();
+    this.filterLocalsByDist(this.radius);
+    console.log("filteredLocalsList")
+    console.log(this.filteredByDistLocalsList)
     this.filteredByDistLocalsListSource.next(this.filteredByDistLocalsList);
+    this.checkedLocalsIdList = [];
   }
 
 
@@ -146,20 +140,37 @@ export class SearchComponent implements OnInit, AfterViewInit {
     switch (event.checked) {
       case true:
         local.checked = true;
-        //document.getElementById("listItem" + i).classList.add("checked");
+        // document.getElementById("listItem" + i).classList.add("checked");
         this.checkedLocalsIdList.push(local.id);
         this.checkedLocalsIdListSource.next(this.checkedLocalsIdList);
         break;
 
       case false:
         local.checked = false;
-        //document.getElementById("listItem" + i).classList.remove("checked");
+        // document.getElementById("listItem" + i).classList.remove("checked");
         const index = this.checkedLocalsIdList.indexOf(local.id, 0);
         this.checkedLocalsIdList.splice(index, 1);
         this.checkedLocalsIdListSource.next(this.checkedLocalsIdList);
         break;
     }
+  }
 
+  getChecked(local) {
+    for (let i of this.checkedLocalsIdList) {
+      if (local.id == i) {
+        return true;
+        continue;
+      }
+    }
+  }
+
+  getBackgroundColor(local) {
+    for (let i of this.checkedLocalsIdList) {
+      if (local.id == i) {
+        return '#dbdeeb';
+        continue;
+      }
+    }
   }
 
   onRadiusChanged(event) {

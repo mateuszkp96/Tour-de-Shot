@@ -19,6 +19,8 @@
                       <option>1 km</option>
                       <option>2 km</option>
                       <option>3 km</option>
+                      <option>4 km</option>
+                      <option>5 km</option>
                     </select>
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 p-1">
@@ -36,8 +38,8 @@
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold">Wyniki wyszukiwania</h6>
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item" id="{{ 'listItem' + i }}" [style.background-color]="local.checked ? '#dbdeeb' : 'white'" *ngFor="let local of filteredByDistLocalsList | slice: (pageNumber-1) * pageSize : (pageNumber-1) * pageSize + pageSize ; index as i">
+        <ul class="list-group list-group-flush" id="list">
+          <li class="list-group-item" id="{{ 'listItem' + i }}"  *ngFor="let local of filteredByDistLocalsList | slice: (pageNumber-1) * pageSize : (pageNumber-1) * pageSize + pageSize ; index as i " [style.background-color]="getBackgroundColor(local)">
             <!-- Custom content-->
             <div class="media d-flex align-items-center"  >
               <img src="src=../../assets/pub.jpg" class="mr-3 square-image" alt="...">
@@ -46,7 +48,7 @@
                 <p class="mb-0">{{local.address.street}}</p>
                 <a [routerLink]="" (click)="openDialog(local)" class="stretched-link">szczegóły>></a>
               </div>
-              <mat-checkbox class="pr-3" [checked]="local.checked" id="{{ 'checkbox' + i }}" (change)="onCheckboxClicked($event,local, i)"></mat-checkbox>
+              <mat-checkbox class="pr-3" [checked]="getChecked(local)" id="{{ 'checkbox' + i }}" (change)="onCheckboxClicked($event,local, i)"></mat-checkbox>
           </div>
           </li>
         </ul>
