@@ -14,9 +14,13 @@ export class MapComponent implements AfterViewInit {
 
   @Input() btnSearchClicked: Subject<any>;
   @Input() currentCheckedLocalsIdList: BehaviorSubject<any>;
+  @Input() currentFilteredByDistLocalsList: BehaviorSubject<any>;
   @Input() localsList: Local[];
+  @Input() filteredByDistLocalsList: Local[];
   @Input() checkedLocalsIdList: number[];
   @ViewChild("mapContainer", {static: false}) gmap: ElementRef;
+
+
   map: google.maps.Map;
   markers: google.maps.Marker[] = [];
   marker: google.maps.Marker;
@@ -58,7 +62,8 @@ export class MapComponent implements AfterViewInit {
 
   constructor(
     private ngZone: NgZone
-  ) {}
+  ) {
+  }
 
 
   ngAfterViewInit() {
@@ -67,44 +72,18 @@ export class MapComponent implements AfterViewInit {
     this.geoCoder = new google.maps.Geocoder;
 
     this.btnSearchClicked.subscribe(event => {
-      this.autocomplete = event;
-
-      this.ngZone.run(() => {
-        this.place = this.autocomplete.getPlace();
-
-        if (this.place.geometry === undefined || this.place.geometry === null) {
-          return;
-        }
-
-        this.localizationLat = this.place.geometry.location.lat();
-        this.localizationLong = this.place.geometry.location.lng();
-      });
-
-      this.localizationCoordinates = new google.maps.LatLng(this.localizationLat, this.localizationLong);
+      this.localizationCoordinates = event;
       this.localizationMarker.setPosition(this.localizationCoordinates);
       this.mapOptions.center = this.localizationCoordinates;
       this.map.setCenter(this.localizationCoordinates);
       this.localizationMarker.setMap(this.map);
+
+      this.saveFilteredLocalsAsMarkers();
+      this.loadMarkers();
+
     });
 
-
     this.loadCheckedLocalsMarkers();
-  }
-
-
-  saveLocalsAsMarkers() {
-    if (this.localsList) {
-      this.localsList.forEach(element => {
-        this.marker = new google.maps.Marker({
-          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
-          map: this.map,
-          title: element.name,
-          icon: this.localIcon
-        });
-
-        this.markers.push(this.marker);
-      });
-    }
   }
 
 
@@ -120,41 +99,89 @@ export class MapComponent implements AfterViewInit {
 
     this.localizationMarker.setMap(this.map);
     this.saveLocalsAsMarkers();
-    this.loadAllMarkers();
+    this.loadMarkers();
+  }
+
+  saveLocalsAsMarkers() {
+    if (this.localsList) {
+      this.localsList.forEach(element => {
+        this.marker = new google.maps.Marker({
+          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
+          map: this.map,
+          title: element.name,
+          icon: this.localIcon
+        });
+
+        //setting marker id the same as local id
+        this.marker.set("id", element.id);
+        this.markers.push(this.marker);
+      });
+    }
+  }
+
+  saveFilteredLocalsAsMarkers() {
+    this.currentFilteredByDistLocalsList.subscribe(message => {
+      this.filteredByDistLocalsList = message;
+
+      if (this.filteredByDistLocalsList) {
+        this.clearMarkers();
+        this.markers = [];
+
+        this.filteredByDistLocalsList.forEach(element => {
+          this.marker = new google.maps.Marker({
+            position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
+            map: this.map,
+            title: element.name,
+            icon: this.localIcon,
+          });
+
+          this.marker.set("id", element.id);
+          this.markers.push(this.marker);
+        });
+      }
+    });
+
   }
 
 
-  loadAllMarkers(): void {
+  loadMarkers(): void {
     this.markers.forEach(markerInfo => {
       const marker = new google.maps.Marker({});
+      markerInfo.setMap(null);
 
-      //creating a new info window with markers info
       const infoWindow = new google.maps.InfoWindow({
         content: marker.getTitle()
       });
 
-      marker.setMap(this.map);
+      markerInfo.setMap(this.map);
+    });
+  }
+
+  clearMarkers(): void {
+    this.markers.forEach(markerInfo => {
+      const marker = new google.maps.Marker({});
+      markerInfo.setMap(null);
     });
   }
 
 
   loadCheckedLocalsMarkers() {
     this.currentCheckedLocalsIdList.subscribe(message => {
-        this.checkedLocalsIdList = message;
-        console.log(this.checkedLocalsIdList);
+      this.checkedLocalsIdList = message;
 
-        for (let j in this.markers) {
-          this.markers[j].setIcon(this.localIcon);
-          this.markers[j].setMap(this.map);
-        }
+      for (let j in this.markers) {
+        this.markers[j].setIcon(this.localIcon);
+        this.markers[j].setMap(this.map);
 
+        //changing marker icon when local is checked
         for (let i of this.checkedLocalsIdList) {
-          //i = locals are indexed from 1, markers are indexed from 0
-          this.markers[i - 1].setIcon(this.checkedLocalIcon);
-          this.markers[i - 1].setMap(this.map);
+          if (this.markers[j].get("id") == i) {
+            this.markers[j].setIcon(this.checkedLocalIcon);
+            this.markers[j].setMap(this.map);
+          }
         }
       }
-    );
+    });
   }
 
 

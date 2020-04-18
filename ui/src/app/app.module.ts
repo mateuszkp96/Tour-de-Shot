@@ -85,7 +85,8 @@ export function provideConfig() {
     HttpClientModule,
     GoogleMapsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE'
+    //  apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE',
+      libraries: ['geometry']
     })
   ],
   providers: [
