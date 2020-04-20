@@ -1,4 +1,4 @@
-package com.teamg.tourdeshot.core.api.local.request;
+package com.teamg.tourdeshot.core.api.local.filter;
 
 import lombok.Data;
 

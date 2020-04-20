@@ -1,4 +1,4 @@
-package com.teamg.tourdeshot.core.api.local.request;
+package com.teamg.tourdeshot.core.api.local.filter;
 
 import com.teamg.tourdeshot.core.TestUtils;
 import org.junit.jupiter.api.Test;
@@ -11,15 +11,14 @@ class DeserializationTest {
 
     @Test
     public void shouldDeserializeLocalRequestBody() {
-        InputStream is = this.getClass().getResourceAsStream("/sampleLocalRequestBody.json");
+        InputStream is = this.getClass().getResourceAsStream("/sampleLocalFilterRequestBody.json");
         FilterRequestBody body = TestUtils.deserializeJackson(is, FilterRequestBody.class);
         assertNotNull(body);
         LocalFilters filters = body.getFilters();
         assertNotNull(filters);
         assertNotNull(filters.getCategories());
-        assertNotNull(filters.getLocalAddress());
         assertNotNull(filters.getLocalization());
-        assertNotNull(filters.getIngredients());
+        assertNotNull(filters.getProductName());
     }
 
 }
