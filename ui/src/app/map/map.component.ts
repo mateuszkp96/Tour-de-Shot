@@ -14,10 +14,14 @@ import { StartPointService } from '../services/start-point.service';
 
 export class MapComponent implements AfterViewInit {
 
+  @Input() btnSearchClicked: Subject<any>;
+  @Input() currentCheckedLocalsIdList: BehaviorSubject<any>;
+  @Input() currentFilteredByDistLocalsList: BehaviorSubject<any>;
   @Input() localsList: Local[];
   @Input() filteredByDistLocalsList: Local[];
-  @Input() checkedLocalsIdList: number[];
+  @Input() checkedLocalsIdList: number[]=[];
   @ViewChild("mapContainer", {static: false}) gmap: ElementRef;
+
 
   map: google.maps.Map;
   markers: google.maps.Marker[] = [];
@@ -73,15 +77,15 @@ export class MapComponent implements AfterViewInit {
           this.map.setCenter(this.localizationCoordinates);
           this.localizationMarker.setMap(this.map);
 
-         // this.saveFilteredLocalsAsMarkers();
-         // this.loadMarkers();
+          this.saveFilteredLocalsAsMarkers();
+          this.loadMarkers();
         }});
 
     this.localService.getFilteredByDistLocalsList()
       .subscribe(mymessage => {
         this.filteredByDistLocalsList = mymessage;
         this.saveFilteredLocalsAsMarkers();
-        //this.loadMarkers();
+        this.loadMarkers();
       });
 
     this.localService.getCheckedLocalsIdList()
@@ -90,17 +94,14 @@ export class MapComponent implements AfterViewInit {
         this.loadCheckedLocalsMarkers();
       });
 
-
   }
 
 
   ngAfterViewInit() {
-
     this.mapInitializer();
     this.geoCoder = new google.maps.Geocoder;
 
-    this.loadCheckedLocalsMarkers();
-    this.localizationCoordinates = this.startPointService.getStartPointValue();
+   // this.localizationCoordinates = this.startPointService.getStartPointValue();
   }
 
 
@@ -116,7 +117,6 @@ export class MapComponent implements AfterViewInit {
     this.mapOptions.center = this.localizationCoordinates;
     this.map.setCenter(this.localizationCoordinates);
   }
-
 
   saveLocalsAsMarkers() {
     if (this.localsList) {
@@ -135,26 +135,12 @@ export class MapComponent implements AfterViewInit {
     }
   }
 
-
   saveFilteredLocalsAsMarkers() {
-    
+
     if (this.filteredByDistLocalsList) {
       this.clearMarkers();
       this.markers = [];
 
-        this.filteredByDistLocalsList.forEach(element => {
-          this.marker = new google.maps.Marker({
-            position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
-            map: this.map,
-            title: element.name,
-            icon: this.localIcon,
-          });
-
-          this.marker.set("id", element.id);
-          this.markers.push(this.marker);
-        });
-      }
-    });
       this.filteredByDistLocalsList.forEach(element => {
         this.marker = new google.maps.Marker({
           position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
@@ -167,7 +153,6 @@ export class MapComponent implements AfterViewInit {
         this.markers.push(this.marker);
       });
     }
-
 
   }
 
@@ -192,17 +177,11 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
-
   loadCheckedLocalsMarkers() {
-    this.currentCheckedLocalsIdList.subscribe(message => {
-      this.checkedLocalsIdList = message;
     for (let j in this.markers) {
       this.markers[j].setIcon(this.localIcon);
       this.markers[j].setMap(this.map);
 
-      for (let j in this.markers) {
-        this.markers[j].setIcon(this.localIcon);
-        this.markers[j].setMap(this.map);
       //changing marker icon when local is checked
       for (let i of this.checkedLocalsIdList) {
         if (this.markers[j].get("id") == i) {
@@ -213,32 +192,6 @@ export class MapComponent implements AfterViewInit {
     }
   }
 
-  loadOnlyCheckedLocalsMarkers() {
-    for (let j in this.markers) {
-      //this.markers[j].setMap(null);
-      this.markers[j].setIcon(this.localIcon);
-      this.markers[j].setMap(this.map);
-
-      //changing marker icon when local is checked
-
-        //changing marker icon when local is checked
-        for (let i of this.checkedLocalsIdList) {
-          if (this.markers[j].get("id") == i) {
-            this.markers[j].setIcon(this.checkedLocalIcon);
-            this.markers[j].setMap(this.map);
-          }
-      for (let i of this.checkedLocalsIdList) {
-        if (this.markers[j].get("id") == i) {
-          this.markers[j].setIcon(this.checkedLocalIcon);
-          this.markers[j].setMap(this.map);
-        }
-        else{
-          this.markers[j].setMap(null);
-        }
-      }
-    });
-    }
-  }
 
 
 }
