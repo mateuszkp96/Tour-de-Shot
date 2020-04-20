@@ -1,6 +1,6 @@
 package com.teamg.tourdeshot.core.api.local;
 
-import com.teamg.tourdeshot.core.api.local.request.FilterRequestBody;
+import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.service.LocalService;
