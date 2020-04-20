@@ -67,6 +67,19 @@ export class MapComponent implements AfterViewInit {
     private localService: LocalService,
     private startPointService: StartPointService,
   ) {
+    this.startPointService.getStartPoint()
+      .subscribe(mymessage => {
+        if(mymessage) {
+          this.localizationCoordinates = mymessage;
+
+          this.localizationMarker.setPosition(this.localizationCoordinates);
+          this.mapOptions.center = this.localizationCoordinates;
+          this.map.setCenter(this.localizationCoordinates);
+          this.localizationMarker.setMap(this.map);
+
+          this.saveFilteredLocalsAsMarkers();
+          this.loadMarkers();
+        }});
 
     this.localService.getFilteredByDistLocalsList()
       .subscribe(mymessage => {
@@ -74,7 +87,7 @@ export class MapComponent implements AfterViewInit {
         console.log("filter locals from map")
         console.log(this.filteredByDistLocalsList)
         this.saveFilteredLocalsAsMarkers();
-        this.loadMarkers();
+        //this.loadMarkers();
       });
 
     this.localService.getCheckedLocalsIdList()
@@ -84,19 +97,7 @@ export class MapComponent implements AfterViewInit {
       });
 
 
-    this.startPointService.getStartPoint()
-      .subscribe(mymessage => {
-        this.localizationCoordinates = mymessage;
-        console.log("start point from map")
-        console.log(this.localizationCoordinates)
-        this.localizationMarker.setPosition(this.localizationCoordinates);
-        this.mapOptions.center = this.localizationCoordinates;
-        this.map.setCenter(this.localizationCoordinates);
-        this.localizationMarker.setMap(this.map);
 
-        this.saveFilteredLocalsAsMarkers();
-        this.loadMarkers();
-      });
 
 
 
@@ -104,10 +105,10 @@ export class MapComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    
     this.mapInitializer();
     this.geoCoder = new google.maps.Geocoder;
 
+    this.localizationCoordinates = this.startPointService.getStartPointValue();
   }
 
 
@@ -120,10 +121,8 @@ export class MapComponent implements AfterViewInit {
       });
       infoWindow.open(this.localizationMarker.getMap(), this.localizationMarker);
     });
-
-    this.localizationMarker.setMap(this.map);
-    this.saveLocalsAsMarkers();
-    this.loadMarkers();
+    this.mapOptions.center = this.localizationCoordinates;
+    this.map.setCenter(this.localizationCoordinates);
   }
 
   saveLocalsAsMarkers() {
@@ -145,22 +144,22 @@ export class MapComponent implements AfterViewInit {
 
   saveFilteredLocalsAsMarkers() {
 
-      if (this.filteredByDistLocalsList) {
-        this.clearMarkers();
-        this.markers = [];
+    if (this.filteredByDistLocalsList) {
+      this.clearMarkers();
+      this.markers = [];
 
-        this.filteredByDistLocalsList.forEach(element => {
-          this.marker = new google.maps.Marker({
-            position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
-            map: this.map,
-            title: element.name,
-            icon: this.localIcon,
-          });
-
-          this.marker.set("id", element.id);
-          this.markers.push(this.marker);
+      this.filteredByDistLocalsList.forEach(element => {
+        this.marker = new google.maps.Marker({
+          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
+          map: this.map,
+          title: element.name,
+          icon: this.localIcon,
         });
-      }
+
+        this.marker.set("id", element.id);
+        this.markers.push(this.marker);
+      });
+    }
 
 
   }

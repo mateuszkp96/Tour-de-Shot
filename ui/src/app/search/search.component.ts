@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, NgZone} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, NgZone, ChangeDetectorRef} from '@angular/core';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SignInComponent} from '../sign-in/sign-in.component';
@@ -13,8 +13,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {MapsAPILoader} from '@agm/core';
 import {MapComponent} from '../map/map.component';
 import {Subject, BehaviorSubject, Observable} from 'rxjs';
-import { StartPointService } from '../services/start-point.service';
-import { Location } from '@angular/common';
+import {StartPointService} from '../services/start-point.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-search',
@@ -24,7 +24,7 @@ import { Location } from '@angular/common';
          {{product  | json}}`
 })
 
-export class SearchComponent implements  AfterViewInit {
+export class SearchComponent implements AfterViewInit {
 
   @ViewChild('search') public searchElementRef: ElementRef;
 
@@ -33,7 +33,6 @@ export class SearchComponent implements  AfterViewInit {
   public local: Local;
   public localsList: Local[];
   public filteredByDistLocalsList: Local[] = [];
-  public filteredByDistLocalsList2: Local[] = [];
   public checkedLocalsIdList: number[] = [];
   public pageSize = 3;
   public pageNumber = 2;
@@ -42,10 +41,6 @@ export class SearchComponent implements  AfterViewInit {
   public localsCoordinates: google.maps.LatLng[] = [];
   startPoint: google.maps.LatLng;
 
-
-  messageFromSibling: string = "";
-  state$: Observable<object>;
-  product:any;
 
   constructor(
     private router: Router,
@@ -56,10 +51,14 @@ export class SearchComponent implements  AfterViewInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     public activatedRoute: ActivatedRoute,
-private location:Location
+    private location: Location,
+    private cdRef:ChangeDetectorRef
   ) {
-      this.localService.getFilteredByDistLocalsList()
-      .subscribe(mymessage => this.filteredByDistLocalsList = mymessage);
+    this.localService.getFilteredByDistLocalsList()
+      .subscribe(mymessage => {
+        this.filteredByDistLocalsList = mymessage
+   // this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
+  });
 
     this.localService.getCheckedLocalsIdList()
       .subscribe(mymessage => {
@@ -73,30 +72,21 @@ private location:Location
         console.log(this.startPoint)
       });
 
-  //  this.state$ = this.activatedRoute.paramMap
-  //    .pipe(map(() => window.history.state))
-    this.activatedRoute.data.subscribe(d =>{
+    //  this.state$ = this.activatedRoute.paramMap
+    //    .pipe(map(() => window.history.state))
+    this.activatedRoute.data.subscribe(d => {
       console.log('data', d)
-      const { redirect } = window.history.state;
-     // this.router.navigateByUrl(redirect || '/');
+      const {redirect} = window.history.state;
+      // this.router.navigateByUrl(redirect || '/');
     });
 
   }
 
 
-
-
   ngAfterViewInit(): void {
+
     this.getLocalsList();
 
-    this.product=history.state;
-    console.log("location get state");
-    console.log(this.location.getState());
-
-    this.product=history.state;
-    console.log( this.product=history.state);
-
-    console.log("Search" + this.local)
 
     this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
       types: ["address"],
@@ -107,7 +97,6 @@ private location:Location
 
       this.ngZone.run(() => {
         this.place = this.autocomplete.getPlace();
-
         if (this.place.geometry === undefined || this.place.geometry === null) {
           return;
         }
@@ -117,6 +106,15 @@ private location:Location
 
       });
     });
+
+
+    this.startPoint = this.startPointService.getStartPointValue();
+    this.startPointService.updateStartPoint(this.startPoint);
+    this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
+    this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+    this.checkedLocalsIdList = this.localService.getCheckedLocalsIdListValues();
+    this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
+    this.cdRef.detectChanges();
 
 
   }
@@ -133,7 +131,14 @@ private location:Location
 
   }
 
+getF(){
+  this.localService.getFilteredByDistLocalsList()
+    .subscribe(mymessage => {
+      this.filteredByDistLocalsList = mymessage
+      // this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
+    });
 
+}
   getLocalsList() {
     this.webLocalService.get().subscribe(data => {
       this.localsList = data as Local[];
@@ -171,7 +176,6 @@ private location:Location
 
     this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
     this.checkedLocalsIdList = [];
-
 
   }
 

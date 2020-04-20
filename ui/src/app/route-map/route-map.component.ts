@@ -14,7 +14,6 @@ import { StartPointService } from '../services/start-point.service';
 export class RouteMapComponent implements AfterViewInit {
 
 
-  @Input() localsList: Local[];
   @Input() filteredByDistLocalsList: Local[];
   @Input() checkedLocalsIdList: number[]=[];
   @ViewChild("mapContainer", {static: false}) gmap: ElementRef;
@@ -79,8 +78,6 @@ export class RouteMapComponent implements AfterViewInit {
     this.localService.getFilteredByDistLocalsList()
       .subscribe(mymessage => {
         this.filteredByDistLocalsList = mymessage;
-        console.log("filter locals from map")
-        console.log(this.filteredByDistLocalsList)
         this.saveFilteredLocalsAsMarkers();
         //this.loadMarkers();
       });
@@ -95,21 +92,10 @@ export class RouteMapComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-
     this.mapInitializer();
-
-
-    this.saveFilteredLocalsAsMarkers();
-    this.loadMarkers();
-
-    this.saveFilteredLocalsAsMarkers();
-    this.loadMarkers();
     this.geoCoder = new google.maps.Geocoder;
-
-
-
-
   }
+
 
 
   mapInitializer(): void {
@@ -123,25 +109,8 @@ export class RouteMapComponent implements AfterViewInit {
     });
     this.mapOptions.center = this.localizationCoordinates;
     this.map.setCenter(this.localizationCoordinates);
-
   }
 
-  saveLocalsAsMarkers() {
-    if (this.localsList) {
-      this.localsList.forEach(element => {
-        this.marker = new google.maps.Marker({
-          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
-          map: this.map,
-          title: element.name,
-          icon: this.localIcon
-        });
-
-        //setting marker id the same as local id
-        this.marker.set("id", element.id);
-        this.markers.push(this.marker);
-      });
-    }
-  }
 
   saveFilteredLocalsAsMarkers() {
     if (this.filteredByDistLocalsList) {
@@ -160,7 +129,6 @@ export class RouteMapComponent implements AfterViewInit {
         this.markers.push(this.marker);
       });
     }
-
   }
 
 
@@ -187,9 +155,7 @@ export class RouteMapComponent implements AfterViewInit {
 
   loadOnlyCheckedLocalsMarkers() {
     for (let j in this.markers) {
-      //this.markers[j].setMap(null);
-      
-      //changing marker icon when local is checked
+      this.markers[j].setMap(null);
 
       for (let i of this.checkedLocalsIdList) {
         if (this.markers[j].get("id") == i) {

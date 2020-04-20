@@ -34,6 +34,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { LocalService } from './services/local.service';
+import { StartPointService } from './services/start-point.service';
+import { RouteMapComponent } from './route-map/route-map.component';
 
 let config = new AuthServiceConfig([
   {
@@ -69,6 +72,7 @@ export function provideConfig() {
     AccountGeneralComponent,
     ModalComponent,
     MapComponent,
+    RouteMapComponent,
 
   ],
   imports: [
@@ -92,9 +96,12 @@ export function provideConfig() {
   providers: [
     {
       provide: AuthServiceConfig,
-      useFactory: provideConfig
-    }
+      useFactory: provideConfig,
+    },
+    LocalService,
+    StartPointService
   ],
+
   bootstrap: [AppComponent],
   entryComponents: [ModalComponent]
 })

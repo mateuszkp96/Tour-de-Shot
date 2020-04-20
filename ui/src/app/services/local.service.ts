@@ -12,6 +12,7 @@ export class LocalService {
   filteredByDistLocalsList = new Subject<Local[]>();
   private checkedLocalsIdList = new Subject<number[]>();
   private checkedLocalsIdListValues: number[] = [];
+  private checkedLocalsListValues: Local[] = [];
   private filteredByDistLocalsListValues: Local[] = [];
   local: Local;
   localsList: Local[];
@@ -39,12 +40,15 @@ export class LocalService {
     this.checkedLocalsIdListValues = checkedlocalsList;
   }
 
-  getFilteredByDistLocalsListValues(){
+  getFilteredByDistLocalsListValues() {
     return this.filteredByDistLocalsListValues;
   }
 
-  getCheckedLocalsIdListValues(){
+  getCheckedLocalsIdListValues() {
     return this.checkedLocalsIdListValues;
   }
+
+
+
 
 }
