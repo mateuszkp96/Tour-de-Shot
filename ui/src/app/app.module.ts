@@ -105,4 +105,5 @@ export function provideConfig() {
   bootstrap: [AppComponent],
   entryComponents: [ModalComponent]
 })
+
 export class AppModule { }
