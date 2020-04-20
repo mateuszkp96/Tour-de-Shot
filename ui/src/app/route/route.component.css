@@ -56,3 +56,10 @@
 .sidebar-nav li a:hover {
   background: #16A085;
 }
+
+#map {
+  height: 500px;
+  width: 100%;
+}
+
+

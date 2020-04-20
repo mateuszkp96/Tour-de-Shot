@@ -16,6 +16,8 @@
                   <div class="col-lg-4 col-md-4 col-sm-12 p-1">
                     <select class="form-control search-slt" id="radiusFormControl" (change)="onRadiusChanged($event)">
                       <option>Określ promień</option>
+                    <select class="form-control search-slt" id="radiusFormControl" (change)="onRadiusChanged($event)">
+                      <option>Określ promień wyszukiwania</option>
                       <option>1 km</option>
                       <option>2 km</option>
                       <option>3 km</option>
@@ -63,6 +65,8 @@
                  [currentCheckedLocalsIdList]="currentCheckedLocalsIdList"
                  [btnSearchClicked]='btnSearchClicked'>
         </app-map>
+      <div class="card shadow mb-4 h-70">
+        <app-map #mapContainer id="map"></app-map>
       </div>
     </div>
   </div>

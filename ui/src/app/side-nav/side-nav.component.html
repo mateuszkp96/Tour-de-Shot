@@ -6,7 +6,7 @@
       <div class="sidebar-menu" id="sidebar-menu">
         <ul>
           <li class="sidebar-dropdown">
-            <a routerLink="search" routerLinkActive="active">
+            <a routerLink="search" [state]=product routerLinkActive="active" (click)="gotoDynamic()">
               <i class="fa fa-search"></i>
               <span>Wyszukiwanie</span>
             </a>
