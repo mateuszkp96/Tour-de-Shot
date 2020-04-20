@@ -1,50 +1,42 @@
-
 <h2 mat-dialog-title>Szczegóły lokalu</h2>
-
 <mat-dialog-content class="mat-typography">
-  <h3><strong>Dane kontaktowe</strong></h3>
-  <ul class="list-group">
-    <li class="list-group-item"><i class="fas fa-bookmark mr-2"></i><span class="h-3">Nazwa: <strong>{{local.name}}</strong></span></li>
-    <li class="list-group-item"><i class="fas fa-map-marker-alt mr-2"></i><span>Adres: <strong>{{local.address.street}} {{local.address.localNumber}}</strong></span></li>
-    <li class="list-group-item"><i class="fas fa-globe mr-2"></i><span>Strona internetowa: <strong>www.bolek.pl</strong></span></li>
-    <li class="list-group-item"><i class="fas fa-phone mr-2"></i><span>Kontakt: <strong>{{local.details.phoneNumber}}</strong></span></li>
-    <li class="list-group-item"><i class="fas fa-clock mr-2"></i><span>Godziny otwarcia:
-        <ul>
-          <li *ngFor="let detail of local.details.openingHoursList">
-            {{detail.weekday}}: {{detail.open}} - {{detail.close}}
-          </li>
-        </ul>
-      </span>
-    </li>
-  </ul>
-
-  <h3><strong>Menu:</strong></h3>
-  <div class="table-responsive table-striped">
-    <table class="table m-0">
-      <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nazwa drinka</th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Nazwa drinka</td>
-        <td>10 zł</td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col-lg-6">
+      <h3><strong>Dane kontaktowe</strong></h3>
+      <ul class="list-group ml-3">
+        <li class="list-group-item"><i class="fas fa-bookmark mr-2"></i><span class="h-3">Nazwa: <strong>{{local.name}}</strong></span></li>
+        <li class="list-group-item"><i class="fas fa-map-marker-alt mr-2"></i><span>Adres: <strong>{{local.address.street}} {{local.address.localNumber}}</strong></span></li>
+        <li class="list-group-item"><i class="fas fa-globe mr-2"></i><span>Strona internetowa: <strong>www.bolek.pl</strong></span></li>
+        <li class="list-group-item"><i class="fas fa-phone mr-2"></i><span>Kontakt: <strong>{{local.details.phoneNumber}}</strong></span></li>
+        <li class="list-group-item"><i class="fas fa-clock mr-2"></i><span>Godziny otwarcia:
+            <ul>
+              <li *ngFor="let detail of local.details.openingHoursList">
+                {{detail.weekday}}: {{detail.open}} - {{detail.close}}
+              </li>
+            </ul>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-lg-6">
+      <img src="src=../../assets/pub.jpg" class="img-fluid" alt="...">
+    </div>
   </div>
 
-  <h3>Incredible tooling</h3>
-  <p>Build features quickly with simple, declarative templates. Extend the template language with
-    your own components and use a wide array of existing components. Get immediate Angular-specific
-    help and feedback with nearly every IDE and editor. All this comes together so you can focus
-    on building amazing apps rather than trying to make the code work.</p>
+  <h3><strong>Menu:</strong></h3>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-plus mr-2"></i>Napoje alkoholowe</a></li>
+    <div class="collapse" id="collapseExample">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Piwo jasne</li>
+        <li class="list-group-item">Piwo ciemne</li>
 
+      </ul>
+    </div>
+    <li class="list-group-item mr-2"><i class="fas fa-plus"></i>Nowości</li>
+    <li class="list-group-item mr-2"><i class="fas fa-plus"></i>Polecane</li>
 
+  </ul>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
