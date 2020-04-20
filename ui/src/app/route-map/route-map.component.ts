@@ -7,16 +7,13 @@ import { LocalService } from '../services/local.service';
 import { StartPointService } from '../services/start-point.service';
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  selector: 'app-route-map',
+  templateUrl: './route-map.component.html',
+  styleUrls: ['./route-map.component.css']
 })
+export class RouteMapComponent implements AfterViewInit {
 
-export class MapComponent implements AfterViewInit {
 
-  @Input() btnSearchClicked: Subject<any>;
-  @Input() currentCheckedLocalsIdList: BehaviorSubject<any>;
-  @Input() currentFilteredByDistLocalsList: BehaviorSubject<any>;
   @Input() localsList: Local[];
   @Input() filteredByDistLocalsList: Local[];
   @Input() checkedLocalsIdList: number[]=[];
@@ -67,6 +64,17 @@ export class MapComponent implements AfterViewInit {
     private localService: LocalService,
     private startPointService: StartPointService,
   ) {
+    this.startPointService.getStartPoint()
+      .subscribe(mymessage => {
+        if(mymessage){
+          this.localizationCoordinates = mymessage;
+
+          this.localizationMarker.setPosition(this.localizationCoordinates);
+          this.mapOptions.center = this.localizationCoordinates;
+          this.map.setCenter(this.localizationCoordinates);
+          this.localizationMarker.setMap(this.map);
+        }
+      });
 
     this.localService.getFilteredByDistLocalsList()
       .subscribe(mymessage => {
@@ -74,39 +82,32 @@ export class MapComponent implements AfterViewInit {
         console.log("filter locals from map")
         console.log(this.filteredByDistLocalsList)
         this.saveFilteredLocalsAsMarkers();
-        this.loadMarkers();
+        //this.loadMarkers();
       });
 
     this.localService.getCheckedLocalsIdList()
       .subscribe(mymessage => {
         this.checkedLocalsIdList = mymessage;
-        this.loadCheckedLocalsMarkers();
+        this.loadOnlyCheckedLocalsMarkers();
       });
-
-
-    this.startPointService.getStartPoint()
-      .subscribe(mymessage => {
-        this.localizationCoordinates = mymessage;
-        console.log("start point from map")
-        console.log(this.localizationCoordinates)
-        this.localizationMarker.setPosition(this.localizationCoordinates);
-        this.mapOptions.center = this.localizationCoordinates;
-        this.map.setCenter(this.localizationCoordinates);
-        this.localizationMarker.setMap(this.map);
-
-        this.saveFilteredLocalsAsMarkers();
-        this.loadMarkers();
-      });
-
-
 
   }
 
 
   ngAfterViewInit() {
-    
+
     this.mapInitializer();
+
+
+    this.saveFilteredLocalsAsMarkers();
+    this.loadMarkers();
+
+    this.saveFilteredLocalsAsMarkers();
+    this.loadMarkers();
     this.geoCoder = new google.maps.Geocoder;
+
+
+
 
   }
 
@@ -120,10 +121,9 @@ export class MapComponent implements AfterViewInit {
       });
       infoWindow.open(this.localizationMarker.getMap(), this.localizationMarker);
     });
+    this.mapOptions.center = this.localizationCoordinates;
+    this.map.setCenter(this.localizationCoordinates);
 
-    this.localizationMarker.setMap(this.map);
-    this.saveLocalsAsMarkers();
-    this.loadMarkers();
   }
 
   saveLocalsAsMarkers() {
@@ -144,24 +144,22 @@ export class MapComponent implements AfterViewInit {
   }
 
   saveFilteredLocalsAsMarkers() {
+    if (this.filteredByDistLocalsList) {
+      this.clearMarkers();
+      this.markers = [];
 
-      if (this.filteredByDistLocalsList) {
-        this.clearMarkers();
-        this.markers = [];
-
-        this.filteredByDistLocalsList.forEach(element => {
-          this.marker = new google.maps.Marker({
-            position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
-            map: this.map,
-            title: element.name,
-            icon: this.localIcon,
-          });
-
-          this.marker.set("id", element.id);
-          this.markers.push(this.marker);
+      this.filteredByDistLocalsList.forEach(element => {
+        this.marker = new google.maps.Marker({
+          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
+          map: this.map,
+          title: element.name,
+          icon: this.localIcon,
         });
-      }
 
+        this.marker.set("id", element.id);
+        this.markers.push(this.marker);
+      });
+    }
 
   }
 
@@ -187,36 +185,16 @@ export class MapComponent implements AfterViewInit {
   }
 
 
-  loadCheckedLocalsMarkers() {
-    for (let j in this.markers) {
-      this.markers[j].setIcon(this.localIcon);
-      this.markers[j].setMap(this.map);
-
-      //changing marker icon when local is checked
-      for (let i of this.checkedLocalsIdList) {
-        if (this.markers[j].get("id") == i) {
-          this.markers[j].setIcon(this.checkedLocalIcon);
-          this.markers[j].setMap(this.map);
-        }
-      }
-    }
-  }
-
   loadOnlyCheckedLocalsMarkers() {
     for (let j in this.markers) {
       //this.markers[j].setMap(null);
-      this.markers[j].setIcon(this.localIcon);
-      this.markers[j].setMap(this.map);
-
+      
       //changing marker icon when local is checked
 
       for (let i of this.checkedLocalsIdList) {
         if (this.markers[j].get("id") == i) {
           this.markers[j].setIcon(this.checkedLocalIcon);
           this.markers[j].setMap(this.map);
-        }
-        else{
-          this.markers[j].setMap(null);
         }
       }
     }

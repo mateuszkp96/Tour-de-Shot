@@ -15,7 +15,7 @@
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 p-1">
                     <select class="form-control search-slt" id="radiusFormControl" (change)="onRadiusChanged($event)">
-                      <option>Określ promień</option>
+                      <option>Określ promień wyszukiwania</option>
                       <option>1 km</option>
                       <option>2 km</option>
                       <option>3 km</option>
@@ -58,10 +58,8 @@
     <div class="col-lg-7 ml-auto">
       <div class="card shadow mb-4 p-3">
         <app-map #mapContainer id="map" *ngIf="localsList"
-                 [localsList]="localsList"
-                 [currentFilteredByDistLocalsList]="currentFilteredByDistLocalsList"
-                 [currentCheckedLocalsIdList]="currentCheckedLocalsIdList"
-                 [btnSearchClicked]='btnSearchClicked'>
+                 [localsList]="localsList">
+
         </app-map>
       </div>
     </div>
