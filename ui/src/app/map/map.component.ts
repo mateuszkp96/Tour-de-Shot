@@ -14,16 +14,10 @@ import { StartPointService } from '../services/start-point.service';
 
 export class MapComponent implements AfterViewInit {
 
-  @Input() btnSearchClicked: Subject<any>;
-  @Input() currentCheckedLocalsIdList: BehaviorSubject<any>;
-  @Input() currentFilteredByDistLocalsList: BehaviorSubject<any>;
   @Input() localsList: Local[];
   @Input() filteredByDistLocalsList: Local[];
   @Input() checkedLocalsIdList: number[];
-  @Input() filteredByDistLocalsList: Local[];
-  @Input() checkedLocalsIdList: number[]=[];
   @ViewChild("mapContainer", {static: false}) gmap: ElementRef;
-
 
   map: google.maps.Map;
   markers: google.maps.Marker[] = [];
@@ -79,15 +73,13 @@ export class MapComponent implements AfterViewInit {
           this.map.setCenter(this.localizationCoordinates);
           this.localizationMarker.setMap(this.map);
 
-          this.saveFilteredLocalsAsMarkers();
-          this.loadMarkers();
+         // this.saveFilteredLocalsAsMarkers();
+         // this.loadMarkers();
         }});
 
     this.localService.getFilteredByDistLocalsList()
       .subscribe(mymessage => {
         this.filteredByDistLocalsList = mymessage;
-        console.log("filter locals from map")
-        console.log(this.filteredByDistLocalsList)
         this.saveFilteredLocalsAsMarkers();
         //this.loadMarkers();
       });
@@ -99,10 +91,6 @@ export class MapComponent implements AfterViewInit {
       });
 
 
-
-
-
-
   }
 
 
@@ -110,18 +98,6 @@ export class MapComponent implements AfterViewInit {
 
     this.mapInitializer();
     this.geoCoder = new google.maps.Geocoder;
-
-    this.btnSearchClicked.subscribe(event => {
-      this.localizationCoordinates = event;
-      this.localizationMarker.setPosition(this.localizationCoordinates);
-      this.mapOptions.center = this.localizationCoordinates;
-      this.map.setCenter(this.localizationCoordinates);
-      this.localizationMarker.setMap(this.map);
-
-      this.saveFilteredLocalsAsMarkers();
-      this.loadMarkers();
-
-    });
 
     this.loadCheckedLocalsMarkers();
     this.localizationCoordinates = this.startPointService.getStartPointValue();
@@ -141,20 +117,6 @@ export class MapComponent implements AfterViewInit {
     this.map.setCenter(this.localizationCoordinates);
   }
 
-  mapInitializer(): void {
-    this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
-
-    this.localizationMarker.addListener("click", () => {
-      const infoWindow = new google.maps.InfoWindow({
-        content: this.localizationMarker.getTitle()
-      });
-      infoWindow.open(this.localizationMarker.getMap(), this.localizationMarker);
-    });
-
-    this.localizationMarker.setMap(this.map);
-    this.saveLocalsAsMarkers();
-    this.loadMarkers();
-  }
 
   saveLocalsAsMarkers() {
     if (this.localsList) {
@@ -173,14 +135,9 @@ export class MapComponent implements AfterViewInit {
     }
   }
 
-  saveFilteredLocalsAsMarkers() {
-    this.currentFilteredByDistLocalsList.subscribe(message => {
-      this.filteredByDistLocalsList = message;
-  saveFilteredLocalsAsMarkers() {
 
-      if (this.filteredByDistLocalsList) {
-        this.clearMarkers();
-        this.markers = [];
+  saveFilteredLocalsAsMarkers() {
+    
     if (this.filteredByDistLocalsList) {
       this.clearMarkers();
       this.markers = [];

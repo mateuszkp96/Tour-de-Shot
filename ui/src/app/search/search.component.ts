@@ -39,10 +39,6 @@ export class SearchComponent implements AfterViewInit {
   public localsCoordinates: google.maps.LatLng[] = [];
   startPoint: google.maps.LatLng;
 
-  private checkedLocalsIdListSource = new BehaviorSubject<number[]>([]);
-  currentCheckedLocalsIdList = this.checkedLocalsIdListSource.asObservable();
-  private filteredByDistLocalsListSource = new BehaviorSubject<Local[]>([]);
-  currentFilteredByDistLocalsList = this.filteredByDistLocalsListSource.asObservable();
 
 
   constructor(
@@ -52,43 +48,28 @@ export class SearchComponent implements AfterViewInit {
     private webLocalService: WebLocalService,
     public dialog: MatDialog,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
-  ) {}
-
     private ngZone: NgZone,
-    public activatedRoute: ActivatedRoute,
-    private location: Location,
     private cdRef:ChangeDetectorRef
-  ) {
+  )
+  {
     this.localService.getFilteredByDistLocalsList()
-      .subscribe(mymessage => {
-        this.filteredByDistLocalsList = mymessage
-   // this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
-  });
+    .subscribe(mymessage => {
+      this.filteredByDistLocalsList = mymessage
+      // this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
+    });
 
     this.localService.getCheckedLocalsIdList()
       .subscribe(mymessage => {
         this.checkedLocalsIdList = mymessage;
-        console.log(this.checkedLocalsIdList)
       });
 
     this.startPointService.getStartPoint()
       .subscribe(mymessage => {
         this.startPoint = mymessage;
-        console.log(this.startPoint)
       });
-
-    //  this.state$ = this.activatedRoute.paramMap
-    //    .pipe(map(() => window.history.state))
-    this.activatedRoute.data.subscribe(d => {
-      console.log('data', d)
-      const {redirect} = window.history.state;
-      // this.router.navigateByUrl(redirect || '/');
-    });
-
-  ngOnInit(): void {
-    this.getLocalsList();
   }
+
+
 
   ngAfterViewInit(): void {
 
@@ -100,11 +81,6 @@ export class SearchComponent implements AfterViewInit {
     });
 
 
-    this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-      types: ["address"],
-      componentRestrictions: {country: 'pl'}
-    });
-
     this.autocomplete.addListener("place_changed", () => {
 
       this.ngZone.run(() => {
@@ -115,8 +91,6 @@ export class SearchComponent implements AfterViewInit {
         }
 
         this.startPoint = this.place.geometry.location;
-        console.log("start point changed")
-        console.log(this.startPoint)
       });
 
       this.ngZone.run(() => {
@@ -132,16 +106,15 @@ export class SearchComponent implements AfterViewInit {
     });
 
 
-
-
     this.startPoint = this.startPointService.getStartPointValue();
     this.startPointService.updateStartPoint(this.startPoint);
+
     this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
     this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+
     this.checkedLocalsIdList = this.localService.getCheckedLocalsIdListValues();
     this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
     this.cdRef.detectChanges();
-
 
   }
 
@@ -157,14 +130,7 @@ export class SearchComponent implements AfterViewInit {
 
   }
 
-getF(){
-  this.localService.getFilteredByDistLocalsList()
-    .subscribe(mymessage => {
-      this.filteredByDistLocalsList = mymessage
-      // this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
-    });
 
-}
   getLocalsList() {
     this.webLocalService.get().subscribe(data => {
       this.localsList = data as Local[];
@@ -194,18 +160,8 @@ getF(){
   }
 
   onBtnSearchClicked() {
-    this.btnSearchClicked.next(this.startPoint)
-
-    this.filterLocalsByDist(this.radius);
-    console.log("filteredLocalsList")
-    console.log(this.filteredByDistLocalsList)
-    this.filteredByDistLocalsListSource.next(this.filteredByDistLocalsList);
-    this.checkedLocalsIdList = [];
     this.startPointService.updateStartPoint(this.startPoint)
     this.filterLocalsByDist(this.radius);
-
-    console.log("filteredLocalsList")
-    console.log(this.filteredByDistLocalsList)
 
     this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
     this.checkedLocalsIdList = [];
@@ -224,11 +180,6 @@ getF(){
 
       case false:
         local.checked = false;
-        // document.getElementById("listItem" + i).classList.remove("checked");
-        const index = this.checkedLocalsIdList.indexOf(local.id, 0);
-        this.checkedLocalsIdList.splice(index, 1);
-        this.checkedLocalsIdListSource.next(this.checkedLocalsIdList);
-        // document.getElementById("listItem" + i).classList.remove("checked");
         const index = this.checkedLocalsIdList.indexOf(local.id, 0);
         this.checkedLocalsIdList.splice(index, 1);
         this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
