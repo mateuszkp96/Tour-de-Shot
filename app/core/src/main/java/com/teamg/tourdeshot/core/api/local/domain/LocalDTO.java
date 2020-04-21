@@ -32,8 +32,6 @@ public class LocalDTO {
 
     private OpeningHoursDTO openingHours;
 
-    private List<LabelDTO> labels;
-
     private String website;
 
     private ContactDTO contact;

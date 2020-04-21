@@ -26,12 +26,11 @@ public class LocalSimpleDTO {
 
     private String image;
 
-    private List<OpeningHoursDTO> openingHours;
+    private OpeningHoursDTO openingHours;
 
     private List<String> localCategories;
 
     private int priceCategory;
 
-    private List<LabelDTO> labels;
 
 }
