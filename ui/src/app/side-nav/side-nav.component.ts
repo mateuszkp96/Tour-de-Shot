@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
@@ -7,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
   isOpen: boolean;
-  constructor() { }
+  product: any;
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
     this.isOpen = true;
+    this.product = 'kot';
   }
-  
+
+  gotoDynamic() {
+    //this.router.navigateByUrl('/dynamic', { state: { id:1 , name:'Angular' } });
+    this.router.navigateByUrl('signin/search', { state: this.product });
+  }
+
 }

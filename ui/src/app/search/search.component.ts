@@ -1,5 +1,5 @@
-import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, NgZone} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, NgZone, ChangeDetectorRef} from '@angular/core';
+import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SignInComponent} from '../sign-in/sign-in.component';
 import {LocalService} from '../services/local.service';
@@ -12,7 +12,9 @@ import {ModalComponent} from '../modal/modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MapsAPILoader} from '@agm/core';
 import {MapComponent} from '../map/map.component';
-import {Subject, BehaviorSubject} from 'rxjs';
+import {Subject, BehaviorSubject, Observable} from 'rxjs';
+import {StartPointService} from '../services/start-point.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-search',
@@ -20,11 +22,10 @@ import {Subject, BehaviorSubject} from 'rxjs';
   styleUrls: ['./search.component.css'],
 })
 
-export class SearchComponent implements OnInit, AfterViewInit {
+export class SearchComponent implements AfterViewInit {
 
   @ViewChild('search') public searchElementRef: ElementRef;
 
-  btnSearchClicked: Subject<any> = new Subject();
   autocomplete: google.maps.places.Autocomplete;
 
   public local: Local;
@@ -38,33 +39,47 @@ export class SearchComponent implements OnInit, AfterViewInit {
   public localsCoordinates: google.maps.LatLng[] = [];
   startPoint: google.maps.LatLng;
 
-  private checkedLocalsIdListSource = new BehaviorSubject<number[]>([]);
-  currentCheckedLocalsIdList = this.checkedLocalsIdListSource.asObservable();
-  private filteredByDistLocalsListSource = new BehaviorSubject<Local[]>([]);
-  currentFilteredByDistLocalsList = this.filteredByDistLocalsListSource.asObservable();
 
 
   constructor(
     private router: Router,
     private localService: LocalService,
+    private startPointService: StartPointService,
     private webLocalService: WebLocalService,
     public dialog: MatDialog,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
-  ) {}
+    private ngZone: NgZone,
+    private cdRef:ChangeDetectorRef
+  )
+  {
+    this.localService.getFilteredByDistLocalsList()
+    .subscribe(mymessage => {
+      this.filteredByDistLocalsList = mymessage
+      // this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
+    });
 
+    this.localService.getCheckedLocalsIdList()
+      .subscribe(mymessage => {
+        this.checkedLocalsIdList = mymessage;
+      });
 
-  ngOnInit(): void {
-    this.getLocalsList();
+    this.startPointService.getStartPoint()
+      .subscribe(mymessage => {
+        this.startPoint = mymessage;
+      });
   }
 
+
+
   ngAfterViewInit(): void {
-    console.log("Search" + this.local)
+
+    this.getLocalsList();
 
     this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
       types: ["address"],
       componentRestrictions: {country: 'pl'}
     });
+
 
     this.autocomplete.addListener("place_changed", () => {
 
@@ -76,11 +91,30 @@ export class SearchComponent implements OnInit, AfterViewInit {
         }
 
         this.startPoint = this.place.geometry.location;
-        console.log("start point changed")
-        console.log(this.startPoint)
+      });
+
+      this.ngZone.run(() => {
+        this.place = this.autocomplete.getPlace();
+        if (this.place.geometry === undefined || this.place.geometry === null) {
+          return;
+        }
+
+        this.startPoint = this.place.geometry.location;
+        this.onBtnSearchClicked();
+
       });
     });
 
+
+    this.startPoint = this.startPointService.getStartPointValue();
+    this.startPointService.updateStartPoint(this.startPoint);
+
+    this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
+    this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+
+    this.checkedLocalsIdList = this.localService.getCheckedLocalsIdListValues();
+    this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
+    this.cdRef.detectChanges();
 
   }
 
@@ -126,13 +160,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   onBtnSearchClicked() {
-    this.btnSearchClicked.next(this.startPoint)
-
+    this.startPointService.updateStartPoint(this.startPoint)
     this.filterLocalsByDist(this.radius);
-    console.log("filteredLocalsList")
-    console.log(this.filteredByDistLocalsList)
-    this.filteredByDistLocalsListSource.next(this.filteredByDistLocalsList);
+
+    this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
     this.checkedLocalsIdList = [];
+
   }
 
 
@@ -142,15 +175,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
         local.checked = true;
         // document.getElementById("listItem" + i).classList.add("checked");
         this.checkedLocalsIdList.push(local.id);
-        this.checkedLocalsIdListSource.next(this.checkedLocalsIdList);
+        this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
         break;
 
       case false:
         local.checked = false;
-        // document.getElementById("listItem" + i).classList.remove("checked");
         const index = this.checkedLocalsIdList.indexOf(local.id, 0);
         this.checkedLocalsIdList.splice(index, 1);
-        this.checkedLocalsIdListSource.next(this.checkedLocalsIdList);
+        this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
         break;
     }
   }
