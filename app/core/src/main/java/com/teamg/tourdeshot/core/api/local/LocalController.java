@@ -1,5 +1,8 @@
 package com.teamg.tourdeshot.core.api.local;
 
+import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Local;
@@ -36,17 +39,20 @@ public class LocalController {
     }
 
     @GetMapping("/pageable")
-    public List<LocalDTO> findAllLocalsPageable(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+    public List<LocalSimpleDTO> findAllLocalsPageable(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
         return localService.findAllPageable(PageRequest.of(page, pageSize));
     }
 
     @GetMapping
-    public List<LocalDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
+    public List<LocalSimpleDTO> findAllLocals() { return localService.findAllLocals();}
+
+    @GetMapping("/distance")
+    public List<LocalSimpleDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
         return localService.findAllSortedByDistance(new Coordinates(lat, lon));
     }
 
     @PostMapping("/filter")
-    public List<LocalDTO> filterLocals(@RequestBody FilterRequestBody requestBody) {
+    public List<LocalSimpleDTO> filterLocals(@RequestBody FilterRequestBody requestBody) {
         return null;
     }
 

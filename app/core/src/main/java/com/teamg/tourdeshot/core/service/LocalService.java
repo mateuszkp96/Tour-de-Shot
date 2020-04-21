@@ -1,7 +1,8 @@
 package com.teamg.tourdeshot.core.service;
 
-import com.teamg.tourdeshot.core.api.local.LocalDTO;
-import com.teamg.tourdeshot.core.api.local.LocalPostDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.mapper.LocalMapper;
 import com.teamg.tourdeshot.core.model.Coordinates;
@@ -12,7 +13,6 @@ import com.teamg.tourdeshot.core.repository.mongo.MongoLocalRepository;
 import com.teamg.tourdeshot.core.service.calculation.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -41,22 +41,22 @@ public class LocalService {
                 .orElseThrow(() -> new ResourceNotFoundException("Local", "id", id));
     }
 
-    public List<LocalDTO> findAllLocals() {
-        return localMapper.toLocalDTOs(localRepository.findAll());
+    public List<LocalSimpleDTO> findAllLocals() {
+        return localMapper.toLocalSimpleDTOs(localRepository.findAll());
     }
 
-    public List<LocalDTO> findAllPageable(Pageable pageable) {
-        return localMapper.toLocalDTOs(localRepository.findAllPageable(pageable).getContent());
+    public List<LocalSimpleDTO> findAllPageable(Pageable pageable) {
+        return localMapper.toLocalSimpleDTOs(localRepository.findAllPageable(pageable).getContent());
     }
 
-    public List<LocalDTO> findAllSortedByDistance(Coordinates coordinates) {
+    public List<LocalSimpleDTO> findAllSortedByDistance(Coordinates coordinates) {
         return localRepository.findAll().stream()
                 .map(local -> {
-                    LocalDTO localDTO = localMapper.toLocalDTO(local);
+                    LocalSimpleDTO localDTO = localMapper.toLocalSimpleDTO(local);
                     localDTO.setDistance(DistanceCalculator.calculate(coordinates, local.getCoordinates()));
                     return localDTO;
                 })
-                .sorted(Comparator.comparing(LocalDTO::getDistance))
+                .sorted(Comparator.comparing(LocalSimpleDTO::getDistance))
                 .collect(toList());
     }
 

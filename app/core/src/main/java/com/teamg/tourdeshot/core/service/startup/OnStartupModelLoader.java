@@ -1,12 +1,11 @@
 package com.teamg.tourdeshot.core.service.startup;
 
-import com.teamg.tourdeshot.core.api.local.LocalPostDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
 import com.teamg.tourdeshot.core.model.Address;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Details;
 import com.teamg.tourdeshot.core.model.OpeningHours;
 import com.teamg.tourdeshot.core.model.ProductCategory;
-import com.teamg.tourdeshot.core.model.Weekday;
 import com.teamg.tourdeshot.core.service.LocalService;
 import com.teamg.tourdeshot.core.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.List;
 
@@ -91,13 +91,13 @@ public class OnStartupModelLoader {
     }
 
     private List<OpeningHours> createDefaultOpeningHours() {
-        OpeningHours mon = new OpeningHours(Weekday.MONDAY, "9:00", "23:00");
-        OpeningHours tue = new OpeningHours(Weekday.TUESDAY, "9:00", "23:00");
-        OpeningHours wed = new OpeningHours(Weekday.WEDNESDAY, "9:00", "23:00");
-        OpeningHours thu = new OpeningHours(Weekday.THURSDAY, "9:00", "23:00");
-        OpeningHours fri = new OpeningHours(Weekday.FRIDAY, "9:00", "23:00");
-        OpeningHours sat = new OpeningHours(Weekday.SATURDAY, "9:00", "23:00");
-        OpeningHours sun = new OpeningHours(Weekday.SUNDAY, "9:00", "23:00");
+        OpeningHours mon = new OpeningHours(DayOfWeek.MONDAY, "9:00", "23:00");
+        OpeningHours tue = new OpeningHours(DayOfWeek.TUESDAY, "9:00", "23:00");
+        OpeningHours wed = new OpeningHours(DayOfWeek.WEDNESDAY, "9:00", "23:00");
+        OpeningHours thu = new OpeningHours(DayOfWeek.THURSDAY, "9:00", "23:00");
+        OpeningHours fri = new OpeningHours(DayOfWeek.FRIDAY, "9:00", "23:00");
+        OpeningHours sat = new OpeningHours(DayOfWeek.SATURDAY, "9:00", "23:00");
+        OpeningHours sun = new OpeningHours(DayOfWeek.SUNDAY, "9:00", "23:00");
         return Arrays.asList(mon, tue, wed, thu, fri, sat, sun);
     }
 
