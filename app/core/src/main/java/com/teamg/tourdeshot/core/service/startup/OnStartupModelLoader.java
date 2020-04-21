@@ -1,6 +1,6 @@
 package com.teamg.tourdeshot.core.service.startup;
 
-import com.teamg.tourdeshot.core.api.local.LocalPostDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
 import com.teamg.tourdeshot.core.model.Address;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Details;
