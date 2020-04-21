@@ -7,17 +7,13 @@ import { LocalService } from '../services/local.service';
 import { StartPointService } from '../services/start-point.service';
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  selector: 'app-route-map',
+  templateUrl: './route-map.component.html',
+  styleUrls: ['./route-map.component.css']
 })
+export class RouteMapComponent implements AfterViewInit {
 
-export class MapComponent implements AfterViewInit {
 
-  @Input() btnSearchClicked: Subject<any>;
-  @Input() currentCheckedLocalsIdList: BehaviorSubject<any>;
-  @Input() currentFilteredByDistLocalsList: BehaviorSubject<any>;
-  @Input() localsList: Local[];
   @Input() filteredByDistLocalsList: Local[];
   @Input() checkedLocalsIdList: number[]=[];
   @ViewChild("mapContainer", {static: false}) gmap: ElementRef;
@@ -69,29 +65,27 @@ export class MapComponent implements AfterViewInit {
   ) {
     this.startPointService.getStartPoint()
       .subscribe(mymessage => {
-        if(mymessage) {
+        if(mymessage){
           this.localizationCoordinates = mymessage;
 
           this.localizationMarker.setPosition(this.localizationCoordinates);
           this.mapOptions.center = this.localizationCoordinates;
           this.map.setCenter(this.localizationCoordinates);
           this.localizationMarker.setMap(this.map);
-
-          this.saveFilteredLocalsAsMarkers();
-          this.loadMarkers();
-        }});
+        }
+      });
 
     this.localService.getFilteredByDistLocalsList()
       .subscribe(mymessage => {
         this.filteredByDistLocalsList = mymessage;
         this.saveFilteredLocalsAsMarkers();
-        this.loadMarkers();
+        //this.loadMarkers();
       });
 
     this.localService.getCheckedLocalsIdList()
       .subscribe(mymessage => {
         this.checkedLocalsIdList = mymessage;
-        this.loadCheckedLocalsMarkers();
+        this.loadOnlyCheckedLocalsMarkers();
       });
 
   }
@@ -100,9 +94,8 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.mapInitializer();
     this.geoCoder = new google.maps.Geocoder;
-
-   // this.localizationCoordinates = this.startPointService.getStartPointValue();
   }
+
 
 
   mapInitializer(): void {
@@ -118,25 +111,8 @@ export class MapComponent implements AfterViewInit {
     this.map.setCenter(this.localizationCoordinates);
   }
 
-  saveLocalsAsMarkers() {
-    if (this.localsList) {
-      this.localsList.forEach(element => {
-        this.marker = new google.maps.Marker({
-          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
-          map: this.map,
-          title: element.name,
-          icon: this.localIcon
-        });
-
-        //setting marker id the same as local id
-        this.marker.set("id", element.id);
-        this.markers.push(this.marker);
-      });
-    }
-  }
 
   saveFilteredLocalsAsMarkers() {
-
     if (this.filteredByDistLocalsList) {
       this.clearMarkers();
       this.markers = [];
@@ -153,7 +129,6 @@ export class MapComponent implements AfterViewInit {
         this.markers.push(this.marker);
       });
     }
-
   }
 
 
@@ -177,12 +152,11 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
-  loadCheckedLocalsMarkers() {
-    for (let j in this.markers) {
-      this.markers[j].setIcon(this.localIcon);
-      this.markers[j].setMap(this.map);
 
-      //changing marker icon when local is checked
+  loadOnlyCheckedLocalsMarkers() {
+    for (let j in this.markers) {
+      this.markers[j].setMap(null);
+
       for (let i of this.checkedLocalsIdList) {
         if (this.markers[j].get("id") == i) {
           this.markers[j].setIcon(this.checkedLocalIcon);
@@ -191,7 +165,6 @@ export class MapComponent implements AfterViewInit {
       }
     }
   }
-
 
 
 }
