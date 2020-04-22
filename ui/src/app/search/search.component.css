@@ -1,9 +1,3 @@
-.btn-primary {
-  background-color: #676767 !important;
-  border-color: #676767 !important;
-  float: right;
-}
-
 .card{
   border: none;
 }
@@ -47,4 +41,8 @@
 
 .checked{
   background-color: rgba(226, 221, 41, 0.82);
+}
+
+.btn-main {
+  padding: .575rem 2.75rem;
 }
