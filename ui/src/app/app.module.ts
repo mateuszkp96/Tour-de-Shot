@@ -34,6 +34,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { LocalService } from './services/local.service';
 import { StartPointService } from './services/start-point.service';
 import { RouteMapComponent } from './route-map/route-map.component';
@@ -92,6 +93,8 @@ export function provideConfig() {
     SocialLoginModule,
     TreeViewModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     GoogleMapsModule,
     AgmCoreModule.forRoot({
     //  apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE',

@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, NgZone, ChangeDetectorRef} from '@angular/core';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+
 import {SignInComponent} from '../sign-in/sign-in.component';
 import {LocalService} from '../services/local.service';
 import {WebLocalService} from '../services/web-local.service';
@@ -38,9 +39,11 @@ export class SearchComponent implements AfterViewInit {
   place: google.maps.places.PlaceResult;
   public localsCoordinates: google.maps.LatLng[] = [];
   startPoint: google.maps.LatLng;
+  startPointForm: FormGroup;
 
-
-
+  startData =  { name: '', selectRadius: ''};
+  
+  
   constructor(
     private router: Router,
     private localService: LocalService,
@@ -51,6 +54,7 @@ export class SearchComponent implements AfterViewInit {
     private ngZone: NgZone,
     private cdRef:ChangeDetectorRef
   )
+
   {
     this.localService.getFilteredByDistLocalsList()
     .subscribe(mymessage => {
@@ -69,6 +73,16 @@ export class SearchComponent implements AfterViewInit {
       });
   }
 
+  ngOnInit():void {
+    this.startPointForm = new FormGroup({
+      'name': new FormControl (this.startData.name, Validators.required),
+      'selectRadius': new FormControl (this.startData.selectRadius, Validators.required)
+    });
+    console.log(this.radius)
+  }
+
+  get name() { return this.startPointForm.get('name'); }
+  get selectRadius() { return this.startPointForm.get('selectRadius'); }
 
 
   ngAfterViewInit(): void {
@@ -104,7 +118,6 @@ export class SearchComponent implements AfterViewInit {
 
       });
     });
-
 
     this.startPoint = this.startPointService.getStartPointValue();
     this.startPointService.updateStartPoint(this.startPoint);
@@ -166,6 +179,8 @@ export class SearchComponent implements AfterViewInit {
     this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
     this.checkedLocalsIdList = [];
 
+    console.log(this.place);
+
   }
 
 
@@ -207,6 +222,11 @@ export class SearchComponent implements AfterViewInit {
 
   onRadiusChanged(event) {
     this.radius = event.currentTarget.valueOf().value.replace(/\D/g, '');
+  }
+
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.warn(this.startPointForm.value);
   }
 
 
