@@ -1,8 +1,9 @@
 package com.teamg.tourdeshot.core.mapper;
 
 
-import com.teamg.tourdeshot.core.api.local.LocalDTO;
-import com.teamg.tourdeshot.core.api.local.LocalPostDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.model.Local;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +15,14 @@ public class  LocalMapperImpl implements LocalMapper {
         return LocalDTO.builder()
                 .id(local.getId())
                 .name(local.getName())
-                .ownerId(local.getOwnerId())
-                .coordinates(local.getCoordinates())
-                .address(local.getAddress())
-                .details(local.getDetails())
-                .menu(local.getMenu())
+                .build();
+    }
+
+    @Override
+    public LocalSimpleDTO toLocalSimpleDTO(Local local) {
+        return LocalSimpleDTO.builder()
+                .id(local.getId())
+                .name(local.getName())
                 .build();
     }
 

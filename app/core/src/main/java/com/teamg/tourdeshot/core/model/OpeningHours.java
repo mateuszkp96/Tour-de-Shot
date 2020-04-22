@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.DayOfWeek;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class OpeningHours {
 
-    private Weekday weekday;
+    private DayOfWeek weekday;
 
     private String open;
 
