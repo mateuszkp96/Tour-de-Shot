@@ -37,6 +37,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { LocalService } from './services/local.service';
 import { StartPointService } from './services/start-point.service';
 import { RouteMapComponent } from './route-map/route-map.component';
+import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
+import { TreeComponent } from './tree/tree.component';
 
 let config = new AuthServiceConfig([
   {
@@ -73,6 +75,8 @@ export function provideConfig() {
     ModalComponent,
     MapComponent,
     RouteMapComponent,
+    TreeComponent,
+    RouteMapComponent,
 
   ],
   imports: [
@@ -86,6 +90,7 @@ export function provideConfig() {
     MatCheckboxModule,
     MatFormFieldModule,
     SocialLoginModule,
+    TreeViewModule,
     HttpClientModule,
     GoogleMapsModule,
     AgmCoreModule.forRoot({
