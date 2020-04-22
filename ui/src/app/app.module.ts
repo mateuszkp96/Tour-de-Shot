@@ -39,9 +39,6 @@ import { StartPointService } from './services/start-point.service';
 import { RouteMapComponent } from './route-map/route-map.component';
 import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
 import { TreeComponent } from './tree/tree.component';
-import { LocalService } from './services/local.service';
-import { StartPointService } from './services/start-point.service';
-import { RouteMapComponent } from './route-map/route-map.component';
 
 let config = new AuthServiceConfig([
   {
