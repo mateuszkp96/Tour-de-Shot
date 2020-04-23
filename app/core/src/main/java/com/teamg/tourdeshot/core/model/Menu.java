@@ -11,5 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Menu {
 
-    List<Product> products;
+    private String menuHeader;
+
+    private List<MenuItem> items;
 }

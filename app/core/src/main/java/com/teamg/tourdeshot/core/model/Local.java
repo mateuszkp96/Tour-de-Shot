@@ -1,13 +1,21 @@
 package com.teamg.tourdeshot.core.model;
 
+import com.teamg.tourdeshot.core.api.local.domain.AddressDTO;
+import com.teamg.tourdeshot.core.api.local.domain.ContactDTO;
+import com.teamg.tourdeshot.core.api.local.domain.CoordinatesDTO;
+import com.teamg.tourdeshot.core.api.local.domain.MenuDTO;
+import com.teamg.tourdeshot.core.api.local.domain.OpeningHoursDTO;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
-@Builder
+@NoArgsConstructor
 @Document(collection = "locals")
 public class Local {
 
@@ -25,7 +33,18 @@ public class Local {
 
     private Address address;
 
-    private Details details;
+    private String image;
+
+    private List<String> localCategories;
+
+    private int priceCategory;
+
+    private OpeningHours openingHours;
+
+    private String website;
+
+    private Contact contact;
 
     private Menu menu;
+
 }

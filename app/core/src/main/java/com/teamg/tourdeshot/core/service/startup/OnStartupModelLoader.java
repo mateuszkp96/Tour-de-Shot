@@ -1,9 +1,13 @@
 package com.teamg.tourdeshot.core.service.startup;
 
-import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
+import com.teamg.tourdeshot.core.api.local.domain.AddressDTO;
+import com.teamg.tourdeshot.core.api.local.domain.ContactDTO;
+import com.teamg.tourdeshot.core.api.local.domain.CoordinatesDTO;
 import com.teamg.tourdeshot.core.model.Address;
+import com.teamg.tourdeshot.core.model.Contact;
 import com.teamg.tourdeshot.core.model.Coordinates;
-import com.teamg.tourdeshot.core.model.Details;
+import com.teamg.tourdeshot.core.model.DaySchedule;
+import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.OpeningHours;
 import com.teamg.tourdeshot.core.model.ProductCategory;
 import com.teamg.tourdeshot.core.service.LocalService;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,15 +51,15 @@ public class OnStartupModelLoader {
     }
 
     private void fillLocalsDatabase() {
-        LocalPostDTO setka = createDefault("Setka", 1L,
+        Local setka = createDefault("Setka", 1L,
                 new Coordinates(new BigDecimal("52.236663"), new BigDecimal("21.014656")));
         localService.addLocal(setka);
 
-        LocalPostDTO pijalnia = createDefault("Pijalnia Wodki i Piwa", 2L,
+        Local pijalnia = createDefault("Pijalnia Wodki i Piwa", 2L,
                 new Coordinates(new BigDecimal("52.232380"), new BigDecimal("21.019964")));
         localService.addLocal(pijalnia);
 
-        LocalPostDTO piwpaw = createDefault("PiwPaw", 1L,
+        Local piwpaw = createDefault("PiwPaw", 1L,
                 new Coordinates(new BigDecimal("52.228337"), new BigDecimal("21.013993")));
         localService.addLocal(piwpaw);
     }
@@ -76,29 +81,33 @@ public class OnStartupModelLoader {
         productCategoryService.addCategory(productCategory7);
     }
 
-    private LocalPostDTO createDefault(String name, Long ownerId, Coordinates coordinates) {
-        LocalPostDTO localPostDTO = new LocalPostDTO();
-        Address address = new Address("Warszawa", "Zlota", "33/31");
-        List<OpeningHours> openingHours = createDefaultOpeningHours();
-        Details details = new Details("local@local.com", "666000111", openingHours);
-        localPostDTO.setName(name);
-        localPostDTO.setOwnerId(ownerId);
-        localPostDTO.setCoordinates(coordinates);
-        localPostDTO.setAddress(address);
-        localPostDTO.setDetails(details);
+    private Local createDefault(String name, Long ownerId, Coordinates coordinates) {
+        Local local = new Local();
+        Address address = new Address("Warszawa", "Zlota 33/31", "00-711");
+        OpeningHours openingHours = createDefaultOpeningHours();
+        Contact contact = new Contact("local@local.com", "666000111");
+        local.setName(name);
+        local.setOwnerId(ownerId);
+        local.setCoordinates(coordinates);
+        local.setAddress(address);
+        local.setContact(contact);
+        local.setOpeningHours(openingHours);
 
-        return localPostDTO;
+        return local;
     }
 
-    private List<OpeningHours> createDefaultOpeningHours() {
-        OpeningHours mon = new OpeningHours(DayOfWeek.MONDAY, "9:00", "23:00");
-        OpeningHours tue = new OpeningHours(DayOfWeek.TUESDAY, "9:00", "23:00");
-        OpeningHours wed = new OpeningHours(DayOfWeek.WEDNESDAY, "9:00", "23:00");
-        OpeningHours thu = new OpeningHours(DayOfWeek.THURSDAY, "9:00", "23:00");
-        OpeningHours fri = new OpeningHours(DayOfWeek.FRIDAY, "9:00", "23:00");
-        OpeningHours sat = new OpeningHours(DayOfWeek.SATURDAY, "9:00", "23:00");
-        OpeningHours sun = new OpeningHours(DayOfWeek.SUNDAY, "9:00", "23:00");
-        return Arrays.asList(mon, tue, wed, thu, fri, sat, sun);
+    private OpeningHours createDefaultOpeningHours() {
+        OpeningHours openingHours =  new OpeningHours();
+        DaySchedule mon = new DaySchedule(1, DayOfWeek.MONDAY, LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule tue = new DaySchedule(2, DayOfWeek.TUESDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule wed = new DaySchedule(3, DayOfWeek.WEDNESDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule thu = new DaySchedule(4, DayOfWeek.THURSDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule fri = new DaySchedule(5, DayOfWeek.FRIDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule sat = new DaySchedule(6, DayOfWeek.SATURDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule sun = new DaySchedule(7, DayOfWeek.SUNDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        List<DaySchedule> schedule = Arrays.asList(mon, thu, wed, tue, fri, sat, sun);
+        openingHours.setSchedule(schedule);
+        return openingHours;
     }
 
 }
