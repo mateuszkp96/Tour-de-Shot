@@ -4,17 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Details {
-
-    private String email;
+public class Contact {
 
     private String phoneNumber;
 
-    private List<OpeningHours> openingHoursList;
-
+    private String email;
 }

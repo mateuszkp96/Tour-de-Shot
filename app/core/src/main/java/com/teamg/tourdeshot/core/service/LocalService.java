@@ -1,7 +1,6 @@
 package com.teamg.tourdeshot.core.service;
 
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
-import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.mapper.LocalMapper;
@@ -60,8 +59,7 @@ public class LocalService {
                 .collect(toList());
     }
 
-    public Local addLocal(LocalPostDTO localPostDTO) {
-        Local local = localMapper.toLocal(localPostDTO);
+    public Local addLocal(Local local) {
         local.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         return localRepository.save(local);
     }

@@ -1,7 +1,6 @@
 package com.teamg.tourdeshot.core.api.local;
 
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
-import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.model.Coordinates;
@@ -56,10 +55,6 @@ public class LocalController {
         return null;
     }
 
-    @PostMapping
-    public Local addLocal(@RequestBody LocalPostDTO local) {
-        return localService.addLocal(local);
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {

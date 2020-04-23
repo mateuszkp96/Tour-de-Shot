@@ -1,7 +1,6 @@
 package com.teamg.tourdeshot.core.mapper;
 
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
-import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.model.Local;
 
@@ -14,8 +13,6 @@ public interface LocalMapper {
     LocalDTO toLocalDTO(Local local);
 
     LocalSimpleDTO toLocalSimpleDTO(Local local);
-
-    Local toLocal(LocalPostDTO localPostDTO);
 
     default List<LocalDTO> toLocalDTOs(List<Local> locals) {
         return locals.stream()
