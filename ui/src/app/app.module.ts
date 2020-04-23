@@ -107,7 +107,7 @@ export function provideConfig() {
       useFactory: provideConfig,
     },
     LocalService,
-    StartPointService
+    StartPointService,
   ],
 
   bootstrap: [AppComponent],
