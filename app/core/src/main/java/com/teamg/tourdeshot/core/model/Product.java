@@ -3,6 +3,7 @@ package com.teamg.tourdeshot.core.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,11 +13,17 @@ import java.util.List;
 @AllArgsConstructor
 public class Product {
 
+    private Long productId;
+
+    @DBRef
     private ProductCategory productCategory;
 
-    private String productName;
+    private String name;
 
     private BigDecimal price;
 
-    private List<Ingredient> ingredients;
+    private List<String> ingredients;
+
+    private String description;
+    
 }

@@ -4,10 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ingredient {
+public class MenuItem {
 
-    private String name;
+    private int orderNumber;
+
+    private String categoryHeader;
+
+    List<Product> products;
 }
