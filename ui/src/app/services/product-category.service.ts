@@ -13,7 +13,10 @@ export class ProductCategoryService {
 
   getProductCategory(): Observable<ProductCategory[]> {
 
-    return this.http.get('/local/product-category').pipe(
+
+  //  return this.http.get('/local/product-category').pipe(
+
+    return this.http.get('http://localhost:3000').pipe(
       map((result: any) => {
         return result;
       })

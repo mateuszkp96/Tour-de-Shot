@@ -1,8 +1,8 @@
 {
-  "/local": {
-    "target": "http://localhost:80/api/local/",
+  "http://localhost:80/api/local": {
+    "target": "http://localhost:80/api/local",
     "secure": false,
-    "pathRewrite": {"^/local" : ""},
+
     "changeOrigin": true,
     "logLevel": "debug"
   }

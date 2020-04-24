@@ -21,19 +21,26 @@ export class WebLocalService {
     //this.ROOT_URL = 'http://localhost:4200/assets/locals-db.json';
     this.LOCAL_API_URL = env.localApiUrl;
 
-
   }
 
 
   get(): Observable<Local[]> {
     console.log(this.LOCAL_API_URL)
-    
-    return this.http.get('/local/local/1').pipe(
+    return this.http.get( this.LOCAL_API_URL).pipe(
+      map((result: any) => {
+        return [result];
+      })
+    );
+    /*
+
+    return this.http.get( this.LOCAL_API_URL + '/local/1').pipe(
       map((result: any) => {
         return [result];
       })
     );
 
+
+     */
   }
 
 

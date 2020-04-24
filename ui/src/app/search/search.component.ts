@@ -87,6 +87,8 @@ export class SearchComponent implements AfterViewInit {
       'selectRadius': new FormControl (this.startData.selectRadius, Validators.required)
     });
     console.log(this.radius)
+
+
   }
 
   get name() { return this.startPointForm.get('name'); }
