@@ -89,13 +89,13 @@ export class SearchComponent implements AfterViewInit {
     });
 
     console.log(this.radius)
-
-
   }
 
 
 
   ngAfterViewInit(): void {
+
+
     this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
       types: ["address"],
       componentRestrictions: {country: 'pl'}

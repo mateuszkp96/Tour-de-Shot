@@ -108,7 +108,8 @@ export function provideConfig() {
     },
     LocalService,
     StartPointService,
-    //Http
+   // GoogleMapsModule,
+
   ],
 
   bootstrap: [AppComponent],
