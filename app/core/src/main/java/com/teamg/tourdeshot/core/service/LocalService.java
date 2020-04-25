@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -35,23 +36,27 @@ public class LocalService {
     }
 
     public LocalDTO findLocalById(Long id) {
+        LocalDateTime now = LocalDateTime.now();
         return localRepository.findById(id)
-                .map(localMapper::toLocalDTO)
+                .map(local -> localMapper.toLocalDTO(local, now))
                 .orElseThrow(() -> new ResourceNotFoundException("Local", "id", id));
     }
 
     public List<LocalSimpleDTO> findAllLocals() {
-        return localMapper.toLocalSimpleDTOs(localRepository.findAll());
+        LocalDateTime now = LocalDateTime.now();
+        return localMapper.toLocalSimpleDTOs(localRepository.findAll(), now);
     }
 
     public List<LocalSimpleDTO> findAllPageable(Pageable pageable) {
-        return localMapper.toLocalSimpleDTOs(localRepository.findAllPageable(pageable).getContent());
+        LocalDateTime now = LocalDateTime.now();
+        return localMapper.toLocalSimpleDTOs(localRepository.findAllPageable(pageable).getContent(), now);
     }
 
     public List<LocalSimpleDTO> findAllSortedByDistance(Coordinates coordinates) {
+        LocalDateTime now = LocalDateTime.now();
         return localRepository.findAll().stream()
                 .map(local -> {
-                    LocalSimpleDTO localDTO = localMapper.toLocalSimpleDTO(local);
+                    LocalSimpleDTO localDTO = localMapper.toLocalSimpleDTO(local, now);
                     localDTO.setDistance(DistanceCalculator.calculate(coordinates, local.getCoordinates()));
                     return localDTO;
                 })

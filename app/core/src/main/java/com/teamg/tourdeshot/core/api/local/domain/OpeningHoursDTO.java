@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class OpeningHoursDTO {
 
-    private OpenStatus openStatus;
+    private String openStatus;
 
     private int presentDayIndex;
 

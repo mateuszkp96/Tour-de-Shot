@@ -1,8 +1,5 @@
 package com.teamg.tourdeshot.core.service.startup;
 
-import com.teamg.tourdeshot.core.api.local.domain.AddressDTO;
-import com.teamg.tourdeshot.core.api.local.domain.ContactDTO;
-import com.teamg.tourdeshot.core.api.local.domain.CoordinatesDTO;
 import com.teamg.tourdeshot.core.model.Address;
 import com.teamg.tourdeshot.core.model.Contact;
 import com.teamg.tourdeshot.core.model.Coordinates;
@@ -92,19 +89,19 @@ public class OnStartupModelLoader {
         local.setAddress(address);
         local.setContact(contact);
         local.setOpeningHours(openingHours);
-
+        local.setPriceCategory(1);
         return local;
     }
 
     private OpeningHours createDefaultOpeningHours() {
         OpeningHours openingHours =  new OpeningHours();
-        DaySchedule mon = new DaySchedule(1, DayOfWeek.MONDAY, LocalTime.of(9,0), LocalTime.of(23, 0));
-        DaySchedule tue = new DaySchedule(2, DayOfWeek.TUESDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
-        DaySchedule wed = new DaySchedule(3, DayOfWeek.WEDNESDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
-        DaySchedule thu = new DaySchedule(4, DayOfWeek.THURSDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
-        DaySchedule fri = new DaySchedule(5, DayOfWeek.FRIDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
-        DaySchedule sat = new DaySchedule(6, DayOfWeek.SATURDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
-        DaySchedule sun = new DaySchedule(7, DayOfWeek.SUNDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule mon = new DaySchedule(0, DayOfWeek.MONDAY, LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule tue = new DaySchedule(1, DayOfWeek.TUESDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule wed = new DaySchedule(2, DayOfWeek.WEDNESDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule thu = new DaySchedule(3, DayOfWeek.THURSDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule fri = new DaySchedule(4, DayOfWeek.FRIDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule sat = new DaySchedule(5, DayOfWeek.SATURDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
+        DaySchedule sun = new DaySchedule(6, DayOfWeek.SUNDAY,  LocalTime.of(9,0), LocalTime.of(23, 0));
         List<DaySchedule> schedule = Arrays.asList(mon, thu, wed, tue, fri, sat, sun);
         openingHours.setSchedule(schedule);
         return openingHours;
