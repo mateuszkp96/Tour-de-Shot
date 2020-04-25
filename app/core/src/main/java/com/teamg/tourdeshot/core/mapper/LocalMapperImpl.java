@@ -7,6 +7,8 @@ import com.teamg.tourdeshot.core.model.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class  LocalMapperImpl implements LocalMapper {
 
@@ -17,7 +19,11 @@ public class  LocalMapperImpl implements LocalMapper {
     private final OpeningHoursMapper openingHoursMapper;
 
     @Autowired
-    public LocalMapperImpl(CoordinatesMapper coordinatesMapper, AddressMapper addressMapper, ContactMapper contactMapper, MenuMapper menuMapper, OpeningHoursMapper openingHoursMapper) {
+    public LocalMapperImpl(CoordinatesMapper coordinatesMapper,
+                           AddressMapper addressMapper,
+                           ContactMapper contactMapper,
+                           MenuMapper menuMapper,
+                           OpeningHoursMapper openingHoursMapper) {
         this.coordinatesMapper = coordinatesMapper;
         this.addressMapper = addressMapper;
         this.contactMapper = contactMapper;
@@ -26,7 +32,7 @@ public class  LocalMapperImpl implements LocalMapper {
     }
 
     @Override
-    public LocalDTO toLocalDTO(Local local) {
+    public LocalDTO toLocalDTO(Local local, LocalDateTime now) {
         return LocalDTO.builder()
                 .id(local.getId())
                 .name(local.getName())
@@ -37,13 +43,13 @@ public class  LocalMapperImpl implements LocalMapper {
                 .priceCategory(local.getPriceCategory())
                 .website(local.getWebsite())
                 .contact(contactMapper.toContactDTO(local.getContact()))
-                .openingHours(openingHoursMapper.toOpeningHoursDTO(local.getOpeningHours()))
+                .openingHours(openingHoursMapper.toOpeningHoursDTO(local.getOpeningHours(), now))
                 .menu(menuMapper.toMenuDTO(local.getMenu()))
                 .build();
     }
 
     @Override
-    public LocalSimpleDTO toLocalSimpleDTO(Local local) {
+    public LocalSimpleDTO toLocalSimpleDTO(Local local, LocalDateTime now) {
         return LocalSimpleDTO.builder()
                 .id(local.getId())
                 .name(local.getName())
@@ -52,7 +58,7 @@ public class  LocalMapperImpl implements LocalMapper {
                 .image(local.getImage())
                 .localCategories(local.getLocalCategories())
                 .priceCategory(local.getPriceCategory())
-                .openingHours(openingHoursMapper.toOpeningHoursDTO(local.getOpeningHours()))
+                .openingHours(openingHoursMapper.toOpeningHoursDTO(local.getOpeningHours(), now))
                 .build();
     }
 

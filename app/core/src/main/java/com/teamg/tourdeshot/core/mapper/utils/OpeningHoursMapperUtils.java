@@ -2,28 +2,27 @@ package com.teamg.tourdeshot.core.mapper.utils;
 
 import com.teamg.tourdeshot.core.api.local.domain.OpenStatus;
 import com.teamg.tourdeshot.core.model.DaySchedule;
-import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 
-@Component
 public class OpeningHoursMapperUtils {
 
-    public DaySchedule getDayScheduleByDayOfWeek(DayOfWeek day, List<DaySchedule> schedule) {
+    public static DaySchedule getDayScheduleByDayOfWeek(DayOfWeek day, List<DaySchedule> schedule) {
         return schedule.stream()
                 .filter(daySchedule -> daySchedule.getDayOfWeek().equals(day))
                 .findAny().orElse(null);
     }
 
-    public OpenStatus getOpenStatus(LocalTime open, LocalTime close, LocalTime now) {
-
+    public static OpenStatus getOpenStatusByTime(LocalTime open, LocalTime close, LocalDateTime now) {
+        LocalTime currentTime = LocalTime.of(now.getHour(), now.getMinute());
         if (Objects.nonNull(open) && Objects.nonNull(close)) {
-            if (now.isAfter(open) && now.isBefore(close)) {
-                if (ChronoUnit.MINUTES.between(now, close) < 15) {
+            if (currentTime.isAfter(open) && currentTime.isBefore(close)) {
+                if (ChronoUnit.MINUTES.between(now, close) < 60) {
                     return OpenStatus.CLOSING_SOON;
                 }
                 return OpenStatus.OPEN;
