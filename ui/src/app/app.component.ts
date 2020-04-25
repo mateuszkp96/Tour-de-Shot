@@ -12,6 +12,7 @@ export class AppComponent implements OnInit{
   title = 'Tour de Shot';
   public user: SocialUser;
   public loggedIn = true;
+  public userChecked = false;
 
   constructor(
     private authService: AuthService,
@@ -20,10 +21,12 @@ export class AppComponent implements OnInit{
 
 ngOnInit(): void {
   this.authService.authState.subscribe((user) => {
+    this.userChecked = true;
     this.user = user;
     this.loggedIn = (user != null);
-    if(this.user)
-     // this.router.navigate(['/search']);
+    if(this.user) {
+      this.router.navigate(['/search']);
+    }
     console.log("logged in from app");
     console.log(this.loggedIn);
   });

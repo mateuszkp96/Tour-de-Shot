@@ -30,14 +30,14 @@ public field: object;
     this.productCategoryService.getProductCategory().subscribe(data => {
       this.productCategoryList = data as object[]
       this.countries =   this.productCategoryList;
-      
+
       console.log("prductCategoryList")
       console.log(this.productCategoryList)
       // maps the appropriate column to fields property
       let field: object = { dataSource: this.productCategoryList, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild' };
       // set the CheckBox to the TreeView
       let showCheckBox = true;
-      this.field = { dataSource: this.countries, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild' };
+      this.field = { dataSource: this.countries, id: 'id', parentID: 'parentId', text: 'name', hasChildren: 'hasChild' };
       this.showCheckBox = true;
       // set the CheckBox to the TreeView
     });
@@ -59,6 +59,9 @@ public field: object;
       let field: object = { dataSource: this.productCategoryList, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild' };
       // set the CheckBox to the TreeView
       let showCheckBox = true;
+      this.field = { dataSource: this.countries, id: 'id', parentID: 'parentId', text: 'name', hasChildren: 'hasChild' };
+      this.showCheckBox = true;
+      // set the CheckBox to the TreeView
     });
 
   }

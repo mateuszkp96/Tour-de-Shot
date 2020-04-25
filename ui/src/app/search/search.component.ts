@@ -79,7 +79,6 @@ export class SearchComponent implements AfterViewInit {
 
   ngOnInit():void {
     console.log( this.startData)
-    this.getLocalsList();
   //  this.getProductCategoryList();
     this.startData =  { name: '', selectRadius: ''};
 
@@ -180,6 +179,8 @@ export class SearchComponent implements AfterViewInit {
   }
 
   filterLocalsByDist(radius: number) {
+    this.getLocalsList();
+
     if (this.localsList) {
       this.filteredByDistLocalsList = [];
       this.localsList.forEach(element => {
