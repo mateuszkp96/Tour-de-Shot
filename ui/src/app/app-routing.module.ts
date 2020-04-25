@@ -6,7 +6,6 @@ import { HomeComponent } from './home/home.component';
 import { TeamComponent } from './footer/team/team.component';
 import { ContactComponent } from './footer/contact/contact.component';
 import { PrivacyComponent } from './footer/privacy/privacy.component';
-import { SignInComponent } from './sign-in/sign-in.component';
 import { SearchComponent } from './search/search.component';
 import { AccountComponent } from './account/account.component';
 import { RouteComponent } from './route/route.component';
@@ -22,19 +21,14 @@ const routes: Routes = [
   {path: 'contact', component: ContactComponent},
   {path: 'team', component: TeamComponent},
   {path: 'search', component: SearchComponent},
-
-  {path: 'signin', component: SignInComponent,
+  { path: 'account', component: AccountComponent,
     children: [
-      { path: 'search', component: SearchComponent},
-      { path: 'account', component: AccountComponent,
-        children: [
-          { path: 'account-general', component: AccountGeneralComponent},
-          { path: 'account-privacy', component: AccountPrivacyComponent},
-        ]
-      },
-      { path: 'route', component: RouteComponent},
+      { path: 'account-general', component: AccountGeneralComponent},
+      { path: 'account-privacy', component: AccountPrivacyComponent},
+    ]
+  },
+  { path: 'route', component: RouteComponent},
 
-    ]},
   {path: 'map', component: MapComponent},
 ];
 
@@ -44,4 +38,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent,PrivacyComponent,ContactComponent,TeamComponent,
-  SignInComponent,SearchComponent]
+  SearchComponent]

@@ -12,7 +12,7 @@ import { StartPointService } from '../services/start-point.service';
   styleUrls: ['./map.component.css']
 })
 
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit {
 
   @Input() btnSearchClicked: Subject<any>;
   @Input() currentCheckedLocalsIdList: BehaviorSubject<any>;
@@ -97,11 +97,15 @@ export class MapComponent implements AfterViewInit {
   }
 
 
-  ngAfterViewInit() {
-    this.mapInitializer();
+  ngOnInit() {
+    console.log("map is load")
+
     this.geoCoder = new google.maps.Geocoder;
 
    // this.localizationCoordinates = this.startPointService.getStartPointValue();
+  }
+  ngAfterViewInit(){
+    this.mapInitializer();
   }
 
 

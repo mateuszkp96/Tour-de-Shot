@@ -13,7 +13,6 @@ import { TeamComponent } from './footer/team/team.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
-import { SignInComponent } from './sign-in/sign-in.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { SearchComponent } from './search/search.component';
 import { AccountComponent } from './account/account.component';
@@ -65,7 +64,6 @@ export function provideConfig() {
     PrivacyComponent,
     routingComponents,
     TeamComponent,
-    SignInComponent,
     SideNavComponent,
     AccountComponent,
     RouteComponent,
@@ -99,7 +97,7 @@ export function provideConfig() {
     ReactiveFormsModule,
     GoogleMapsModule,
     AgmCoreModule.forRoot({
-    //  apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE',
+      apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE',
       libraries: ['geometry']
     })
   ],

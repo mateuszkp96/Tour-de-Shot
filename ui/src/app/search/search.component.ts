@@ -2,7 +2,6 @@ import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, Output, EventEm
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 
-import {SignInComponent} from '../sign-in/sign-in.component';
 import {LocalService} from '../services/local.service';
 import {WebLocalService} from '../services/web-local.service';
 import {Local} from '../models/Local';
@@ -79,20 +78,21 @@ export class SearchComponent implements AfterViewInit {
   }
 
   ngOnInit():void {
+    console.log( this.startData)
     this.getLocalsList();
-    this.getProductCategoryList();
+  //  this.getProductCategoryList();
+    this.startData =  { name: '', selectRadius: ''};
 
     this.startPointForm = new FormGroup({
       'name': new FormControl (this.startData.name, Validators.required),
       'selectRadius': new FormControl (this.startData.selectRadius, Validators.required)
     });
+
     console.log(this.radius)
 
 
   }
 
-  get name() { return this.startPointForm.get('name'); }
-  get selectRadius() { return this.startPointForm.get('selectRadius'); }
 
 
   ngAfterViewInit(): void {
@@ -138,6 +138,8 @@ export class SearchComponent implements AfterViewInit {
 
   }
 
+  get name() { return this.startPointForm.get('name'); }
+  get selectRadius() { return this.startPointForm.get('selectRadius'); }
 
   openDialog(local: Local) {
     const dialogRef = this.dialog.open(ModalComponent);

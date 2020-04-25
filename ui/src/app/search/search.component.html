@@ -6,37 +6,38 @@
     <div class="col-lg-12 mb-4">
       <div class="card shadow mb-4">
         <div class="card-header py-3">
+
           <form [formGroup]="startPointForm" (ngSubmit)="onSubmit()">
             <div class="form-row" >
-              
-                <div class="form-group col-md-6">
-                  <label for="name" class="font-weight-bold">Punkt początkowy *</label>
-                  <input type="text" id="name" class="form-control search-slt" #search formControlName="name" required placeholder="Podaj punkt początkowy">
-                     <div *ngIf="name.invalid && (name.dirty || name.touched)"class="text-danger">
-                      <div *ngIf="name.errors.required" class="mt-1">Pole wymagane</div>
-                    </div>
-                </div>
 
-                <div class="form-group col-md-4">
-                  <label for="selectRadius" class="font-weight-bold">Promień *</label>
-                  <select class="form-control search-slt" id="selectRadius" formControlName="selectRadius" 
-                          required (change)="onRadiusChanged($event)" placeholder="Określ promień wyszukiwania">
-                    <option>1 km</option>
-                    <option>2 km</option>
-                    <option>3 km</option>
-                    <option>4 km</option>
-                    <option>5 km</option>
-                  </select>
-
-                  <div *ngIf="selectRadius.invalid && selectRadius.touched" class="text-danger">
-                    <div *ngIf="selectRadius.errors.required" class="mt-1">Pole wymagane</div>
-                  </div>
+              <div class="form-group col-md-6">
+                <label for="name" class="font-weight-bold">Punkt początkowy *</label>
+                <input type="text" id="name" class="form-control search-slt" #search formControlName="name" required placeholder="Podaj punkt początkowy">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)"class="text-danger">
+                  <div *ngIf="name.errors.required" class="mt-1">Pole wymagane</div>
                 </div>
+              </div>
 
-                <div class="col-md-2 mt-4 align-items-center">
-                  <button type="submit" class="btn btn-primary btn-block mt-2" 
-                          [disabled]="startPointForm.invalid" (click)="onBtnSearchClicked()" >Szukaj</button>
+              <div class="form-group col-md-4">
+                <label for="selectRadius" class="font-weight-bold">Promień *</label>
+                <select class="form-control search-slt" id="selectRadius" formControlName="selectRadius"
+                        required (change)="onRadiusChanged($event)" placeholder="Określ promień wyszukiwania">
+                  <option>1 km</option>
+                  <option>2 km</option>
+                  <option>3 km</option>
+                  <option>4 km</option>
+                  <option>5 km</option>
+                </select>
+
+                <div *ngIf="selectRadius.invalid && selectRadius.touched" class="text-danger">
+                  <div *ngIf="selectRadius.errors.required" class="mt-1">Pole wymagane</div>
                 </div>
+              </div>
+
+              <div class="col-md-2 mt-4 align-items-center">
+                <button type="submit" class="btn btn-primary btn-block mt-2"
+                        [disabled]="startPointForm.invalid" (click)="onBtnSearchClicked()" >Szukaj</button>
+              </div>
             </div>
           </form>
         </div>
@@ -66,13 +67,11 @@
     </div>
     <div class="col-lg-7 ml-auto">
       <div class="card shadow mb-4 p-3">
-        <app-map #mapContainer id="map"></app-map>
+        <app-map *ngIf="autocomplete" #mapContainer id="map"></app-map>
       </div>
     </div>
   </div>
 </div>
-
-
 
 
 

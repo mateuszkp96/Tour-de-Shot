@@ -12,9 +12,8 @@ export class SideNavComponent implements OnInit {
   constructor(private router : Router) { }
 
   ngOnInit(): void {
-    this.isOpen = true;
-    this.product = 'kot';
+
   }
-  
+
 
 }

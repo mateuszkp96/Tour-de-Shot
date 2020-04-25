@@ -2,7 +2,16 @@
 <!-- <app-sign-in-nav *ngIf="isLoggedIn==true"
     (toggleBtnClickedEmmiter)="onToggleBtnClicked()"></app-sign-in-nav> -->
 
-<router-outlet></router-outlet>
+<div class="row">
+  <div class="col-lg-2" *ngIf="user">
+    <app-side-nav></app-side-nav>
+  </div>
+
+  <div class="col">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
 
 <app-footer></app-footer>
 
