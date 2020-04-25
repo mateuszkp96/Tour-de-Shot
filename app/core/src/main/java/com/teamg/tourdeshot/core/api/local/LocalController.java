@@ -4,7 +4,6 @@ import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.model.Coordinates;
-import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
