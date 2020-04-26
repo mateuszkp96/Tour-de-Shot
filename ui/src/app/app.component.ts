@@ -26,6 +26,9 @@ ngOnInit(): void {
     this.loggedIn = (user != null);
     if(this.user) {
       this.router.navigate(['/search']);
+    }else
+    {
+      this.router.navigate(['']);
     }
     console.log("logged in from app");
     console.log(this.loggedIn);
