@@ -41,9 +41,7 @@ export class SearchComponent implements AfterViewInit {
   public localsCoordinates: google.maps.LatLng[] = [];
   startPoint: google.maps.LatLng;
   startPointForm: FormGroup;
-
   startData =  { name: '', selectRadius: ''};
-
   public productCategoryList: ProductCategory[];
 
 
@@ -94,12 +92,10 @@ export class SearchComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-
     this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
       types: ["address"],
       componentRestrictions: {country: 'pl'}
     });
-
 
     this.autocomplete.addListener("place_changed", () => {
 
@@ -121,7 +117,6 @@ export class SearchComponent implements AfterViewInit {
 
         this.startPoint = this.place.geometry.location;
         this.onBtnSearchClicked();
-
       });
     });
 
@@ -137,6 +132,8 @@ export class SearchComponent implements AfterViewInit {
 
   }
 
+
+
   get name() { return this.startPointForm.get('name'); }
   get selectRadius() { return this.startPointForm.get('selectRadius'); }
 
@@ -148,15 +145,12 @@ export class SearchComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-
   }
 
 
   getLocalsList() {
     this.webLocalService.get().subscribe(data => {
       this.localsList = data as Local[]
-      console.log(this.localsList[0])
-
     });
   }
 
@@ -169,7 +163,6 @@ export class SearchComponent implements AfterViewInit {
 
     });
   }
-
 
 
   getLocalById(id: number) {
@@ -203,7 +196,6 @@ export class SearchComponent implements AfterViewInit {
     this.checkedLocalsIdList = [];
 
     console.log(this.place);
-
   }
 
 
