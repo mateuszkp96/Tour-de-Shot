@@ -2,7 +2,6 @@ import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, Output, EventEm
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 
-import {SignInComponent} from '../sign-in/sign-in.component';
 import {LocalService} from '../services/local.service';
 import {WebLocalService} from '../services/web-local.service';
 import {Local} from '../models/Local';
@@ -16,6 +15,8 @@ import {MapComponent} from '../map/map.component';
 import {Subject, BehaviorSubject, Observable} from 'rxjs';
 import {StartPointService} from '../services/start-point.service';
 import {Location} from '@angular/common';
+import { ProductCategoryService } from '../services/product-category.service';
+import { ProductCategory } from '../models/ProductCategory';
 
 @Component({
   selector: 'app-search',
@@ -42,13 +43,16 @@ export class SearchComponent implements AfterViewInit {
   startPointForm: FormGroup;
 
   startData =  { name: '', selectRadius: ''};
-  
-  
+
+  public productCategoryList: ProductCategory[];
+
+
   constructor(
     private router: Router,
     private localService: LocalService,
     private startPointService: StartPointService,
     private webLocalService: WebLocalService,
+    private productCategoryService: ProductCategoryService,
     public dialog: MatDialog,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
@@ -74,20 +78,22 @@ export class SearchComponent implements AfterViewInit {
   }
 
   ngOnInit():void {
+    console.log( this.startData)
+  //  this.getProductCategoryList();
+    this.startData =  { name: '', selectRadius: ''};
+
     this.startPointForm = new FormGroup({
       'name': new FormControl (this.startData.name, Validators.required),
       'selectRadius': new FormControl (this.startData.selectRadius, Validators.required)
     });
+
     console.log(this.radius)
   }
 
-  get name() { return this.startPointForm.get('name'); }
-  get selectRadius() { return this.startPointForm.get('selectRadius'); }
 
 
   ngAfterViewInit(): void {
 
-    this.getLocalsList();
 
     this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
       types: ["address"],
@@ -131,6 +137,8 @@ export class SearchComponent implements AfterViewInit {
 
   }
 
+  get name() { return this.startPointForm.get('name'); }
+  get selectRadius() { return this.startPointForm.get('selectRadius'); }
 
   openDialog(local: Local) {
     const dialogRef = this.dialog.open(ModalComponent);
@@ -146,9 +154,22 @@ export class SearchComponent implements AfterViewInit {
 
   getLocalsList() {
     this.webLocalService.get().subscribe(data => {
-      this.localsList = data as Local[];
+      this.localsList = data as Local[]
+      console.log(this.localsList[0])
+
     });
   }
+
+  getProductCategoryList() {
+    this.productCategoryService.getProductCategory().subscribe(data => {
+      this.productCategoryList = data as ProductCategory[]
+
+      console.log("prductCategoryList")
+      console.log(this.productCategoryList)
+
+    });
+  }
+
 
 
   getLocalById(id: number) {
@@ -158,10 +179,12 @@ export class SearchComponent implements AfterViewInit {
   }
 
   filterLocalsByDist(radius: number) {
+    this.getLocalsList();
+
     if (this.localsList) {
       this.filteredByDistLocalsList = [];
       this.localsList.forEach(element => {
-        let localCoordinates = new google.maps.LatLng(element.coordinates.lat, element.coordinates.long);
+        let localCoordinates = new google.maps.LatLng(element.coordinates.lat, element.coordinates.lon);
         this.localsCoordinates.push(localCoordinates);
         const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(localCoordinates, this.startPoint) / 1000;
 

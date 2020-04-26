@@ -12,7 +12,7 @@ import { StartPointService } from '../services/start-point.service';
   styleUrls: ['./map.component.css']
 })
 
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit {
 
   @Input() btnSearchClicked: Subject<any>;
   @Input() currentCheckedLocalsIdList: BehaviorSubject<any>;
@@ -97,11 +97,15 @@ export class MapComponent implements AfterViewInit {
   }
 
 
-  ngAfterViewInit() {
-    this.mapInitializer();
+  ngOnInit() {
+    console.log("map is load")
+
     this.geoCoder = new google.maps.Geocoder;
 
    // this.localizationCoordinates = this.startPointService.getStartPointValue();
+  }
+  ngAfterViewInit(){
+    this.mapInitializer();
   }
 
 
@@ -116,13 +120,16 @@ export class MapComponent implements AfterViewInit {
     });
     this.mapOptions.center = this.localizationCoordinates;
     this.map.setCenter(this.localizationCoordinates);
+
+    //this.saveLocalsAsMarkers();
+    //this.loadMarkers();
   }
 
   saveLocalsAsMarkers() {
     if (this.localsList) {
       this.localsList.forEach(element => {
         this.marker = new google.maps.Marker({
-          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
+          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.lon),
           map: this.map,
           title: element.name,
           icon: this.localIcon
@@ -143,7 +150,7 @@ export class MapComponent implements AfterViewInit {
 
       this.filteredByDistLocalsList.forEach(element => {
         this.marker = new google.maps.Marker({
-          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.long),
+          position: new google.maps.LatLng(element.coordinates.lat, element.coordinates.lon),
           map: this.map,
           title: element.name,
           icon: this.localIcon,
@@ -152,6 +159,7 @@ export class MapComponent implements AfterViewInit {
         this.marker.set("id", element.id);
         this.markers.push(this.marker);
       });
+
     }
 
   }

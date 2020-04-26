@@ -1,0 +1,10 @@
+{
+  "http://localhost:80/api/local": {
+    "target": "http://localhost:80/api/local",
+    "secure": false,
+
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
+
