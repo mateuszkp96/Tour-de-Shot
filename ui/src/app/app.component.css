@@ -1,0 +1,4 @@
+#side-menu-bar.col-lg-2.menuHidden{
+  max-width: 0 !important;
+  padding-left: -500px;
+}

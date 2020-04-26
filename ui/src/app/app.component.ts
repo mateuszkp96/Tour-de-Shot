@@ -36,7 +36,7 @@ ngOnInit(): void {
 }
 
   onToggleBtnClicked() {
-    document.getElementById("wrapper").classList.toggle("menuHidden");
+    document.getElementById("side-menu-bar").classList.toggle("menuHidden");
     console.log("open");
   }
 }

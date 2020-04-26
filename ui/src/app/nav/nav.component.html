@@ -1,10 +1,12 @@
 <nav class="navbar navbar-expand-lg static-top">
-  <div class="container">
-    <div class="btn btn-dark" >
-      <div class="container-fluid d-flex">
-        <i class="fas fa-bars" id="e" (click)="toggleBtnClicked()"></i>
-      </div>
+
+  <div class="btn btn-dark" *ngIf="user" (click)="toggleBtnClicked()">
+    <div class="container-fluid d-flex">
+      <i class="fas fa-bars" id="toggle-button-icon"></i>
     </div>
+  </div>
+
+  <div class="container">
 
     <a class="navbar-brand" href="#">
       <img src="../../assets/logo.png" alt="">

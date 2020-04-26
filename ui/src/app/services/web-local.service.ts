@@ -39,16 +39,6 @@ export class WebLocalService {
       })
     );
 
-    /*
-
-    return this.http.get( this.LOCAL_API_URL + '/local/1').pipe(
-      map((result: any) => {
-        return [result];
-      })
-    );
-
-
-     */
   }
 
 

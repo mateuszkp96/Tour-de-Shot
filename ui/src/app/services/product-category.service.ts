@@ -14,10 +14,6 @@ export class ProductCategoryService {
   }
 
   getProductCategory(): Observable<ProductCategory[]> {
-
-
-  //  return this.http.get('/local/product-category').pipe(
-
     return this.http.get(this.LOCAL_API_URL + '/product-category').pipe(
       map((result: any) => {
         return result;

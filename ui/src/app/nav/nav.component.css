@@ -15,3 +15,26 @@
   position: relative;
   color: white;
 }
+
+.btn-dark{
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.container-fluid{
+  width: 100%;
+  position: relative;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
+#toggle-button-icon{
+  width: 2.5rem;
+  margin-left: 0;
+  padding-left: 0;
+}

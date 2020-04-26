@@ -223,3 +223,14 @@ li:hover {
 h3 {
   font-size: 15px;
 }
+.menuHidden{
+  background-color: red;
+}
+
+#wrapper.menuHidden {
+  width: 0;
+}
+
+#wrapper.menuHidden  {
+  padding-left: 0;
+}
