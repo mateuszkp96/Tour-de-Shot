@@ -5,7 +5,7 @@
     "ownerId": 33,
     "coordinates": {
       "lat": 52.209676,
-      "long": 21.032229
+      "lon": 21.032229
     },
     "address": {
       "city": "Warszawa",
@@ -73,7 +73,7 @@
     "ownerId": 33,
     "coordinates": {
       "lat": 52.239676,
-      "long": 21
+      "lon": 21
     },
     "address": {
       "city": "Warszawa",
@@ -141,7 +141,7 @@
     "owner_id": 33,
     "coordinates": {
       "lat": 52.219676,
-      "long": 21.012229
+      "lon": 21.012229
     },
     "address": {
       "city": "Warszawa",
@@ -209,7 +209,7 @@
     "owner_id": 33,
     "coordinates": {
       "lat": 52.209676,
-      "long": 21.022229
+      "lon": 21.022229
     },
     "address": {
       "city": "Warszawa",
