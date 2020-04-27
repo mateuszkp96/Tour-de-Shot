@@ -1,12 +1,12 @@
 
-<div class="page-wrapper chiller-theme toggled d-flex" id="page-wrapper" [style.height.%]="100">
+<div class="page-wrapper chiller-theme toggled d-flex" id="wrapper" >
   <nav id="sidebar" class="sidebar-wrapper chiller-theme toggled d-flex" [style.height.%]="100">
     <div class="sidebar-content" [style.height.%]="100">
 
       <div class="sidebar-menu" id="sidebar-menu">
         <ul>
           <li class="sidebar-dropdown">
-            <a routerLink="search" [state]=product routerLinkActive="active" (click)="gotoDynamic()">
+            <a routerLink="search" [state]=product routerLinkActive="active">
               <i class="fa fa-search"></i>
               <span>Wyszukiwanie</span>
             </a>

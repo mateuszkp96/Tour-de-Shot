@@ -13,7 +13,6 @@ import { TeamComponent } from './footer/team/team.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
-import { SignInComponent } from './sign-in/sign-in.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { SearchComponent } from './search/search.component';
 import { AccountComponent } from './account/account.component';
@@ -40,6 +39,7 @@ import { StartPointService } from './services/start-point.service';
 import { RouteMapComponent } from './route-map/route-map.component';
 import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
 import { TreeComponent } from './tree/tree.component';
+import { Http, HttpModule } from '@angular/http';
 
 let config = new AuthServiceConfig([
   {
@@ -64,7 +64,6 @@ export function provideConfig() {
     PrivacyComponent,
     routingComponents,
     TeamComponent,
-    SignInComponent,
     SideNavComponent,
     AccountComponent,
     RouteComponent,
@@ -93,11 +92,12 @@ export function provideConfig() {
     SocialLoginModule,
     TreeViewModule,
     HttpClientModule,
+    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     GoogleMapsModule,
     AgmCoreModule.forRoot({
-    //  apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE',
+      apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE',
       libraries: ['geometry']
     })
   ],
@@ -107,7 +107,9 @@ export function provideConfig() {
       useFactory: provideConfig,
     },
     LocalService,
-    StartPointService
+    StartPointService,
+   // GoogleMapsModule,
+
   ],
 
   bootstrap: [AppComponent],

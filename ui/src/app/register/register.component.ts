@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
       (res) => {
         console.log("U are logged in!");
         this.loggedIn = true;
-        this.router.navigate(['signin/search']);
+        this.router.navigate(['/search']);
       });
       console.log('logged')
   }

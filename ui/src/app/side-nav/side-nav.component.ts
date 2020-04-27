@@ -12,13 +12,8 @@ export class SideNavComponent implements OnInit {
   constructor(private router : Router) { }
 
   ngOnInit(): void {
-    this.isOpen = true;
-    this.product = 'kot';
+
   }
 
-  gotoDynamic() {
-    //this.router.navigateByUrl('/dynamic', { state: { id:1 , name:'Angular' } });
-    this.router.navigateByUrl('signin/search', { state: this.product });
-  }
 
 }
