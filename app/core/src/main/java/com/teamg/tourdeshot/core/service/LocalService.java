@@ -2,6 +2,7 @@ package com.teamg.tourdeshot.core.service;
 
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
+import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.mapper.LocalMapper;
 import com.teamg.tourdeshot.core.model.Coordinates;
@@ -11,6 +12,8 @@ import com.teamg.tourdeshot.core.repository.crud.delete.DeleteOperationResult;
 import com.teamg.tourdeshot.core.repository.mongo.MongoLocalRepository;
 import com.teamg.tourdeshot.core.service.calculation.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -47,9 +50,10 @@ public class LocalService {
         return localMapper.toLocalSimpleDTOs(localRepository.findAll(), now);
     }
 
-    public List<LocalSimpleDTO> findAllPageable(Pageable pageable) {
+    public Page<LocalSimpleDTO> findAllPageable(Pageable pageable) {
         LocalDateTime now = LocalDateTime.now();
-        return localMapper.toLocalSimpleDTOs(localRepository.findAllPageable(pageable).getContent(), now);
+        return localRepository.findAllPageable(pageable)
+                .map(local -> localMapper.toLocalSimpleDTO(local, now));
     }
 
     public List<LocalSimpleDTO> findAllSortedByDistance(Coordinates coordinates) {
@@ -74,4 +78,7 @@ public class LocalService {
         return Utils.deleteOperationResultToResponseEntity(result, id);
     }
 
+    public Page<LocalSimpleDTO> filterLocals(FilterRequestBody requestBody, PageRequest pageRequest) {
+        return null;
+    }
 }

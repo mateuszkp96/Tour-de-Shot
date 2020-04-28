@@ -6,6 +6,8 @@ import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,16 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/local")
 public class LocalController {
 
     private final LocalService localService;
+    private Integer defaultPage;
+    private Integer defaultPageSize;
 
     @Autowired
-    public LocalController(LocalService localService) {
+    public LocalController(LocalService localService,
+                           @Value("${app.page}") Integer defaultPage,
+                           @Value("${app.pageSize}") Integer defaultPageSize) {
         this.localService = localService;
+        this.defaultPage = Objects.requireNonNullElse(defaultPage, 0);
+        this.defaultPageSize = Objects.requireNonNullElse(defaultPageSize, 5);
     }
 
     @GetMapping("/{id}")
@@ -37,8 +46,9 @@ public class LocalController {
     }
 
     @GetMapping("/pageable")
-    public List<LocalSimpleDTO> findAllLocalsPageable(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
-        return localService.findAllPageable(PageRequest.of(page, pageSize));
+    public Page<LocalSimpleDTO> findAllLocalsPageable(@RequestParam(value = "page", required = false) Integer page,
+                                                      @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+        return localService.findAllPageable(createPageRequest(page, pageSize));
     }
 
     @GetMapping
@@ -50,14 +60,20 @@ public class LocalController {
     }
 
     @PostMapping("/filter")
-    public List<LocalSimpleDTO> filterLocals(@RequestBody FilterRequestBody requestBody) {
-        return null;
+    public Page<LocalSimpleDTO> filterLocals(@RequestBody FilterRequestBody requestBody,
+                                             @RequestParam(value = "page", required = false) int page,
+                                             @RequestParam(value = "pageSize", required = false) int pageSize) {
+        return localService.filterLocals(requestBody, createPageRequest(page, pageSize));
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         return localService.deleteById(id);
+    }
+
+    private PageRequest createPageRequest(Integer page, Integer pageSize) {
+        return PageRequest.of(Objects.requireNonNullElse(page, defaultPage),
+                Objects.requireNonNullElse(pageSize, defaultPageSize));
     }
 
 }
