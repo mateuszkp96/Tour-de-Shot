@@ -11,3 +11,9 @@ export class RemoveStartData {
 
   constructor(public payload: number) {}
 }
+
+export class RemoveAllStartData {
+  static readonly type = '[StartData] AllRemove'
+
+  constructor() {}
+}
