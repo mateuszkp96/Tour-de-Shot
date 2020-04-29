@@ -8,7 +8,8 @@ import {
   EventEmitter,
   NgZone,
   ChangeDetectorRef,
-  HostListener
+  HostListener,
+  OnDestroy
 } from '@angular/core';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
@@ -41,7 +42,7 @@ import {async} from 'rxjs/internal/scheduler/async';
   styleUrls: ['./search.component.css'],
 })
 
-export class SearchComponent implements AfterViewInit {
+export class SearchComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('search') public searchElementRef: ElementRef;
 
@@ -186,7 +187,7 @@ export class SearchComponent implements AfterViewInit {
   // this works also while changing tabs
   ngOnDestroy() {
     this.store.dispatch(new RemoveAllStartData());
-    // this.store.reset(state => state.StartData.tutorials)
+    //this.store.reset(state => state.StartData.tutorials)
     this.stateSubscription.unsubscribe();
   }
 
