@@ -118,7 +118,8 @@ export class SearchComponent implements AfterViewInit {
 
     this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
       types: ["address"],
-      componentRestrictions: {country: 'pl'}
+      componentRestrictions: {country: 'pl'},
+      fields: ['geometry','address_component', 'formatted_address']
     });
 
     this.autocomplete.addListener("place_changed", () => {
@@ -182,20 +183,27 @@ export class SearchComponent implements AfterViewInit {
   }
 
 
-  /* this works also while changing tabs
+  // this works also while changing tabs
   ngOnDestroy() {
     this.store.dispatch(new RemoveAllStartData());
-    this.store.reset(state => state.StartData.tutorials)
+    // this.store.reset(state => state.StartData.tutorials)
     this.stateSubscription.unsubscribe();
   }
-*/
 
-  /* this works also while refreshing
-  @HostListener('window:beforeunload', ['$event'])
-  beforeUnloadHandler(event) {
-    this.store.dispatch(new RemoveAllStartData());
-  }
-*/
+  /*
+    // this works also while refreshing
+    @HostListener('window:beforeunload', ['$event'])
+    beforeUnloadHandler(event) {
+     // this.store.dispatch(new RemoveAllStartData());
+      this.store.dispatch(new AddStartData({
+        id: this.startDataNumber++,
+        radius: this.radius,
+        startPointLat: this.startPoint.lat(),
+        startPointLon: this.startPoint.lng(),
+        startPlace: this.startPlace
+      }))
+    }
+  */
 
   get name() {
     return this.startPointForm.get('name');
