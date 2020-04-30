@@ -79,6 +79,8 @@ public class LocalService {
     }
 
     public Page<LocalSimpleDTO> filterLocals(FilterRequestBody requestBody, PageRequest pageRequest) {
-        return null;
+        LocalDateTime now = LocalDateTime.now();
+        return localRepository.findAllPageable(pageRequest)
+                .map(local -> localMapper.toLocalSimpleDTO(local, now));
     }
 }
