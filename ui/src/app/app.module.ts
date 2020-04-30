@@ -40,7 +40,11 @@ import { RouteMapComponent } from './route-map/route-map.component';
 import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
 import { TreeComponent } from './tree/tree.component';
 import { Http, HttpModule } from '@angular/http';
-
+import { NgxsModule } from '@ngxs/store';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { StartDataState } from './states/StartData.state';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -99,7 +103,15 @@ export function provideConfig() {
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE',
       libraries: ['geometry']
-    })
+    }),
+    NgxsModule.forRoot([
+      StartDataState
+    ]),
+    NgxsStoragePluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot()
+
+
   ],
   providers: [
     {

@@ -1,4 +1,16 @@
-import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter, NgZone, ChangeDetectorRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  Output,
+  EventEmitter,
+  NgZone,
+  ChangeDetectorRef,
+  HostListener,
+  OnDestroy
+} from '@angular/core';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 
@@ -12,11 +24,17 @@ import {ModalComponent} from '../modal/modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MapsAPILoader} from '@agm/core';
 import {MapComponent} from '../map/map.component';
-import {Subject, BehaviorSubject, Observable} from 'rxjs';
+import {Subject, BehaviorSubject, Observable, Subscription} from 'rxjs';
 import {StartPointService} from '../services/start-point.service';
 import {Location} from '@angular/common';
-import { ProductCategoryService } from '../services/product-category.service';
-import { ProductCategory } from '../models/ProductCategory';
+import {ProductCategoryService} from '../services/product-category.service';
+import {ProductCategory} from '../models/ProductCategory';
+import {Store, Select} from '@ngxs/store';
+import {AddStartData, RemoveStartData, RemoveAllStartData} from '../actions/StartData.actions'
+import {StartData} from '../models/StartData';
+import {StartDataState, StartDataStateModel} from '../states/StartData.state';
+import {map, filter, catchError, mergeMap, takeUntil} from 'rxjs/operators';
+import {async} from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'app-search',
@@ -24,7 +42,7 @@ import { ProductCategory } from '../models/ProductCategory';
   styleUrls: ['./search.component.css'],
 })
 
-export class SearchComponent implements AfterViewInit {
+export class SearchComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('search') public searchElementRef: ElementRef;
 
@@ -33,6 +51,7 @@ export class SearchComponent implements AfterViewInit {
   public local: Local;
   public localsList: Local[];
   public filteredByDistLocalsList: Local[] = [];
+  public filteredByDistLocalsListObs: Observable<any>
   public checkedLocalsIdList: number[] = [];
   public pageSize = 3;
   public pageNumber = 2;
@@ -40,10 +59,15 @@ export class SearchComponent implements AfterViewInit {
   place: google.maps.places.PlaceResult;
   public localsCoordinates: google.maps.LatLng[] = [];
   startPoint: google.maps.LatLng;
+  startPlace: google.maps.places.PlaceResult;
   startPointForm: FormGroup;
-  startData =  { name: '', selectRadius: ''};
+  startData = {name: '', selectRadius: ''};
   public productCategoryList: ProductCategory[];
-
+  public test: string;
+  tutorials$: Observable<StartDataState>
+  startDataNumber = 0;
+  localCoordinates: google.maps.LatLng;
+  stateSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -54,15 +78,14 @@ export class SearchComponent implements AfterViewInit {
     public dialog: MatDialog,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private cdRef:ChangeDetectorRef
-  )
-
-  {
+    private cdRef: ChangeDetectorRef,
+    private store: Store
+  ) {
     this.localService.getFilteredByDistLocalsList()
-    .subscribe(mymessage => {
-      this.filteredByDistLocalsList = mymessage
-      // this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
-    });
+      .subscribe(mymessage => {
+        this.filteredByDistLocalsList = mymessage
+        // this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
+      });
 
     this.localService.getCheckedLocalsIdList()
       .subscribe(mymessage => {
@@ -75,30 +98,32 @@ export class SearchComponent implements AfterViewInit {
       });
   }
 
-  ngOnInit():void {
-    console.log( this.startData)
-  //  this.getProductCategoryList();
-    this.startData =  { name: '', selectRadius: ''};
 
+  ngOnInit(): void {
+
+    // if(window.open())
+    console.log("wind")
+
+
+    //this.startData =  { name: '', selectRadius: ''};
     this.startPointForm = new FormGroup({
-      'name': new FormControl (this.startData.name, Validators.required),
-      'selectRadius': new FormControl (this.startData.selectRadius, Validators.required)
+      'name': new FormControl(this.startData.name, Validators.required),
+      'selectRadius': new FormControl(this.startData.selectRadius, Validators.required)
     });
 
-    console.log(this.radius)
-  }
 
+  }
 
 
   ngAfterViewInit(): void {
 
     this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
       types: ["address"],
-      componentRestrictions: {country: 'pl'}
+      componentRestrictions: {country: 'pl'},
+      fields: ['geometry','address_component', 'formatted_address']
     });
 
     this.autocomplete.addListener("place_changed", () => {
-
       this.ngZone.run(() => {
         this.place = this.autocomplete.getPlace();
 
@@ -107,18 +132,44 @@ export class SearchComponent implements AfterViewInit {
         }
 
         this.startPoint = this.place.geometry.location;
-      });
-
-      this.ngZone.run(() => {
-        this.place = this.autocomplete.getPlace();
-        if (this.place.geometry === undefined || this.place.geometry === null) {
-          return;
-        }
-
-        this.startPoint = this.place.geometry.location;
+        this.startPlace = this.place;
         this.onBtnSearchClicked();
       });
     });
+
+
+    this.stateSubscription = this.store.select(state => state.StartData.tutorials).subscribe(async val => {
+      console.log("STATES")
+      if (val.length > 0) {
+        this.startPoint = new google.maps.LatLng(val[val.length - 1].startPointLat, val[val.length - 1].startPointLon)
+        this.startPlace = val[val.length - 1].startPlace
+        this.radius = val[val.length - 1].radius
+
+        console.log(val)
+
+        this.startData.name = this.startPlace.formatted_address;
+        if (this.radius) {
+          this.startData.selectRadius = this.radius.toString() + ' km'
+        }
+        console.log("LAST POINT")
+        console.log([this.startData.name, this.radius])
+
+        this.startPointService.updateStartPoint(this.startPoint)
+        await this.filterLocalsByDist(this.radius);
+        if (this.filteredByDistLocalsList) {
+          this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
+          this.checkedLocalsIdList = [];
+        }
+
+      }
+
+      //if number of stored states is > 10 -> remove first 5
+      if (val.length > 10)
+        this.store.dispatch(new RemoveStartData(5))
+
+
+    });
+
 
     this.startPoint = this.startPointService.getStartPointValue();
     this.startPointService.updateStartPoint(this.startPoint);
@@ -133,9 +184,35 @@ export class SearchComponent implements AfterViewInit {
   }
 
 
+  // this works also while changing tabs
+  ngOnDestroy() {
+    this.store.dispatch(new RemoveAllStartData());
+    //this.store.reset(state => state.StartData.tutorials)
+    this.stateSubscription.unsubscribe();
+  }
 
-  get name() { return this.startPointForm.get('name'); }
-  get selectRadius() { return this.startPointForm.get('selectRadius'); }
+  /*
+    // this works also while refreshing
+    @HostListener('window:beforeunload', ['$event'])
+    beforeUnloadHandler(event) {
+     // this.store.dispatch(new RemoveAllStartData());
+      this.store.dispatch(new AddStartData({
+        id: this.startDataNumber++,
+        radius: this.radius,
+        startPointLat: this.startPoint.lat(),
+        startPointLon: this.startPoint.lng(),
+        startPlace: this.startPlace
+      }))
+    }
+  */
+
+  get name() {
+    return this.startPointForm.get('name');
+  }
+
+  get selectRadius() {
+    return this.startPointForm.get('selectRadius');
+  }
 
   openDialog(local: Local) {
     const dialogRef = this.dialog.open(ModalComponent);
@@ -148,8 +225,8 @@ export class SearchComponent implements AfterViewInit {
   }
 
 
-  getLocalsList() {
-    this.webLocalService.get().subscribe(data => {
+  async getLocalsList() {
+    await this.webLocalService.get().then(data => {
       this.localsList = data as Local[]
     });
   }
@@ -166,36 +243,46 @@ export class SearchComponent implements AfterViewInit {
 
 
   getLocalById(id: number) {
-    this.webLocalService.get().subscribe(data => {
+    this.webLocalService.get().then(data => {
       this.local = data[id] as Local;
     });
   }
 
-  filterLocalsByDist(radius: number) {
-    this.getLocalsList();
+
+  async filterLocalsByDist(radius: number) {
+    await this.getLocalsList();
 
     if (this.localsList) {
       this.filteredByDistLocalsList = [];
       this.localsList.forEach(element => {
-        let localCoordinates = new google.maps.LatLng(element.coordinates.lat, element.coordinates.lon);
-        this.localsCoordinates.push(localCoordinates);
-        const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(localCoordinates, this.startPoint) / 1000;
 
+        this.localCoordinates = new google.maps.LatLng(element.coordinates.lat, element.coordinates.lon);
+        const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(this.localCoordinates, this.startPoint) / 1000;
         if (distanceInKm < radius && (!this.filteredByDistLocalsList.includes(element))) {
           this.filteredByDistLocalsList.push(element);
         }
       });
+
     }
+
   }
 
   onBtnSearchClicked() {
     this.startPointService.updateStartPoint(this.startPoint)
-    this.filterLocalsByDist(this.radius);
 
+    this.filterLocalsByDist(this.radius);
     this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
+    console.log(this.filteredByDistLocalsList);
     this.checkedLocalsIdList = [];
 
-    console.log(this.place);
+    this.store.dispatch(new AddStartData({
+      id: this.startDataNumber++,
+      radius: this.radius,
+      startPointLat: this.startPoint.lat(),
+      startPointLon: this.startPoint.lng(),
+      startPlace: this.startPlace
+    }))
+
   }
 
 
@@ -237,6 +324,8 @@ export class SearchComponent implements AfterViewInit {
 
   onRadiusChanged(event) {
     this.radius = event.currentTarget.valueOf().value.replace(/\D/g, '');
+
+
   }
 
   onSubmit() {
