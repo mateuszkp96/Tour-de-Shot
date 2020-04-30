@@ -12,7 +12,7 @@
 
               <div class="form-group col-md-6">
                 <label for="name" class="font-weight-bold">Punkt początkowy *</label>
-                <input type="text" id="name" class="form-control search-slt" #search formControlName="name" required placeholder="Podaj punkt początkowy">
+                <input type="text" id="name" class="form-control search-slt" #search formControlName="name"  [(ngModel)]="startData.name" required placeholder="Podaj punkt początkowy">
                 <div *ngIf="name.invalid && (name.dirty || name.touched)"class="text-danger">
                   <div *ngIf="name.errors.required" class="mt-1">Pole wymagane</div>
                 </div>
@@ -21,12 +21,13 @@
               <div class="form-group col-md-4">
                 <label for="selectRadius" class="font-weight-bold">Promień *</label>
                 <select class="form-control search-slt" id="selectRadius" formControlName="selectRadius"
-                        required (change)="onRadiusChanged($event)" placeholder="Określ promień wyszukiwania">
+                        required (change)="onRadiusChanged($event)" [(ngModel)]="startData.selectRadius" placeholder="Określ promień wyszukiwania">
                   <option>1 km</option>
                   <option>2 km</option>
                   <option>3 km</option>
                   <option>4 km</option>
                   <option>5 km</option>
+
                 </select>
 
                 <div *ngIf="selectRadius.invalid && selectRadius.touched" class="text-danger">

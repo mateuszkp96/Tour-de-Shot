@@ -28,6 +28,10 @@
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@material/dialog": "^5.1.0",
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
+    "@ngxs/devtools-plugin": "^3.6.2",
+    "@ngxs/logger-plugin": "^3.6.2",
+    "@ngxs/storage-plugin": "^3.6.2",
+    "@ngxs/store": "^3.6.2",
     "@syncfusion/ej2-angular-charts": "*",
     "@syncfusion/ej2-angular-diagrams": "*",
     "@syncfusion/ej2-angular-grids": "*",
@@ -62,6 +66,7 @@
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
+    "tslint-immutable": "^6.0.1",
     "typescript": "~3.7.5"
   }
 }
