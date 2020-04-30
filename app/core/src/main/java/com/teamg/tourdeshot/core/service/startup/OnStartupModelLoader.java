@@ -5,8 +5,12 @@ import com.teamg.tourdeshot.core.model.Contact;
 import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.DaySchedule;
 import com.teamg.tourdeshot.core.model.Local;
+import com.teamg.tourdeshot.core.model.Menu;
+import com.teamg.tourdeshot.core.model.MenuItem;
 import com.teamg.tourdeshot.core.model.OpeningHours;
+import com.teamg.tourdeshot.core.model.Product;
 import com.teamg.tourdeshot.core.model.ProductCategory;
+import com.teamg.tourdeshot.core.repository.ProductCategoryRepository;
 import com.teamg.tourdeshot.core.service.LocalService;
 import com.teamg.tourdeshot.core.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +33,13 @@ public class OnStartupModelLoader {
 
     private final ProductCategoryService productCategoryService;
 
+    private final ProductCategoryRepository productCategoryRepository;
+
     @Autowired
-    public OnStartupModelLoader(LocalService localService, ProductCategoryService productCategoryService) {
+    public OnStartupModelLoader(LocalService localService, ProductCategoryService productCategoryService, ProductCategoryRepository productCategoryRepository) {
         this.localService = localService;
         this.productCategoryService = productCategoryService;
+        this.productCategoryRepository = productCategoryRepository;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -59,6 +66,14 @@ public class OnStartupModelLoader {
         Local piwpaw = createDefault("PiwPaw", 1L,
                 new Coordinates(new BigDecimal("52.228337"), new BigDecimal("21.013993")));
         localService.addLocal(piwpaw);
+
+        Local freta33 = createDefault("Freta33", 2L,
+                new Coordinates(new BigDecimal("52.252686"), new BigDecimal("21.007523")));
+        localService.addLocal(freta33);
+
+        Local warsawpub = createDefault("WarSaw Pub", 1L,
+                new Coordinates(new BigDecimal("52.249641"), new BigDecimal("21.010732")));
+        localService.addLocal(warsawpub);
     }
 
     private void fillProductCategoryDatabase() {
@@ -90,6 +105,10 @@ public class OnStartupModelLoader {
         local.setContact(contact);
         local.setOpeningHours(openingHours);
         local.setPriceCategory(1);
+        local.setImage("image");
+        local.setWebsite("www.bar.com");
+        local.setMenu(createDefaultMenu());
+        local.setLocalCategories(Arrays.asList("bar", "pub"));
         return local;
     }
 
@@ -107,4 +126,54 @@ public class OnStartupModelLoader {
         return openingHours;
     }
 
+    private Menu createDefaultMenu() {
+        List <ProductCategory> productCategories = productCategoryRepository.findAll();
+        Menu menu =  new Menu();
+        MenuItem menuItem1 = new MenuItem();
+        MenuItem menuItem2 = new MenuItem();
+        Product product1 = createDefaultProduct(1L,
+                "Sobieski",
+                findByName(productCategories, "wodka"),
+                "opis",
+                BigDecimal.valueOf(12.00));
+        Product product2 = createDefaultProduct(2L,
+                "Soplica",
+                findByName(productCategories, "wodka"),
+                "opis",
+                BigDecimal.valueOf(12.00));
+        Product product3 = createDefaultProduct(3L,
+                "Monte Santi",
+                findByName(productCategories, "wino"),
+                "opis",
+                BigDecimal.valueOf(30.00));
+
+        menuItem1.setCategoryHeader("Nazwa kategorii 1");
+        menuItem1.setOrderNumber(1);
+        menuItem1.setProducts(Arrays.asList(product1, product2, product3));
+
+        menuItem2.setCategoryHeader("Nazwa kategorii 2");
+        menuItem2.setOrderNumber(2);
+        menuItem2.setProducts(Arrays.asList(product1, product2, product3));
+
+        menu.setMenuHeader("Menu");
+        menu.setItems(Arrays.asList(menuItem1, menuItem2));
+
+        return menu;
+    }
+
+    private Product createDefaultProduct(Long id, String name, ProductCategory productCategory, String desc, BigDecimal price) {
+        Product product = new Product();
+        product.setProductId(id);
+        product.setName(name);
+        product.setProductCategory(productCategory);
+        product.setDescription(desc);
+        product.setPrice(price);
+        return product;
+    }
+
+    private ProductCategory findByName(List<ProductCategory> productCategories, String name) {
+        return productCategories.stream()
+                .filter(productCategory -> productCategory.getName().equals(name))
+                .findAny().orElse(null);
+    }
 }
