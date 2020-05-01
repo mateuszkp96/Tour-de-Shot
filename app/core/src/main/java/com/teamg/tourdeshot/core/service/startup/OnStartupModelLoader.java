@@ -135,25 +135,34 @@ public class OnStartupModelLoader {
                 "Sobieski",
                 findByName(productCategories, "wodka"),
                 "opis",
-                BigDecimal.valueOf(12.00));
+                BigDecimal.valueOf(12.00),
+                Arrays.asList("wódka", "lód"));
         Product product2 = createDefaultProduct(2L,
                 "Soplica",
                 findByName(productCategories, "wodka"),
                 "opis",
-                BigDecimal.valueOf(12.00));
+                BigDecimal.valueOf(12.00),
+                Arrays.asList("wódka", "lód"));
         Product product3 = createDefaultProduct(3L,
                 "Monte Santi",
                 findByName(productCategories, "wino"),
                 "opis",
-                BigDecimal.valueOf(30.00));
+                BigDecimal.valueOf(30.00),
+                Arrays.asList("wino", "syrop brzoskwiniowy"));
+        Product product4 = createDefaultProduct(4L,
+                "Carlo Rossi",
+                findByName(productCategories, "wino"),
+                "opis",
+                BigDecimal.valueOf(30.00),
+                Arrays.asList("wino", "syrop brzoskwiniowy"));
 
-        menuItem1.setCategoryHeader("Nazwa kategorii 1");
+        menuItem1.setCategoryHeader("Wódki");
         menuItem1.setOrderNumber(1);
         menuItem1.setProducts(Arrays.asList(product1, product2, product3));
 
-        menuItem2.setCategoryHeader("Nazwa kategorii 2");
+        menuItem2.setCategoryHeader("Wina");
         menuItem2.setOrderNumber(2);
-        menuItem2.setProducts(Arrays.asList(product1, product2, product3));
+        menuItem2.setProducts(Arrays.asList(product3, product4));
 
         menu.setMenuHeader("Menu");
         menu.setItems(Arrays.asList(menuItem1, menuItem2));
@@ -161,11 +170,12 @@ public class OnStartupModelLoader {
         return menu;
     }
 
-    private Product createDefaultProduct(Long id, String name, ProductCategory productCategory, String desc, BigDecimal price) {
+    private Product createDefaultProduct(Long id, String name, ProductCategory productCategory, String desc, BigDecimal price, List<String> ingredients) {
         Product product = new Product();
         product.setProductId(id);
         product.setName(name);
         product.setProductCategory(productCategory);
+        product.setIngredients(ingredients);
         product.setDescription(desc);
         product.setPrice(price);
         return product;
