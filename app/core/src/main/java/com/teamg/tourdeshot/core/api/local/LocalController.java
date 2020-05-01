@@ -45,14 +45,11 @@ public class LocalController {
         return localService.findLocalById(id);
     }
 
-    @GetMapping("/pageable")
-    public Page<LocalSimpleDTO> findAllLocalsPageable(@RequestParam(value = "page", required = false) Integer page,
+    @GetMapping
+    public Page<LocalSimpleDTO> findAllLocals(@RequestParam(value = "page", required = false) Integer page,
                                                       @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         return localService.findAllPageable(createPageRequest(page, pageSize));
     }
-
-    @GetMapping
-    public List<LocalSimpleDTO> findAllLocals() { return localService.findAllLocals();}
 
     @GetMapping("/distance")
     public List<LocalSimpleDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
@@ -61,8 +58,8 @@ public class LocalController {
 
     @PostMapping("/filter")
     public Page<LocalSimpleDTO> filterLocals(@RequestBody FilterRequestBody requestBody,
-                                             @RequestParam(value = "page", required = false) int page,
-                                             @RequestParam(value = "pageSize", required = false) int pageSize) {
+                                             @RequestParam(value = "page", required = false) Integer page,
+                                             @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         return localService.filterLocals(requestBody, createPageRequest(page, pageSize));
     }
 

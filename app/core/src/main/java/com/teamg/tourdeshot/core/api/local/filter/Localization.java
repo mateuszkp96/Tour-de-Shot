@@ -2,13 +2,15 @@ package com.teamg.tourdeshot.core.api.local.filter;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class Localization {
 
-    private double lat;
+    private BigDecimal lat;
 
-    private double lon;
+    private BigDecimal lon;
 
-    private double maxDistance;
+    private BigDecimal maxDistance;
 
 }
