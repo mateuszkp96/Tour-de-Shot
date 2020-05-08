@@ -1,4 +1,4 @@
-<app-nav (toggleBtnClickedEmmiter)="onToggleBtnClicked()"></app-nav>
+<app-nav *ngIf="userChecked" (toggleBtnClickedEmmiter)="onToggleBtnClicked()"></app-nav>
 <!-- <app-sign-in-nav *ngIf="isLoggedIn==true"
     (toggleBtnClickedEmmiter)="onToggleBtnClicked()"></app-sign-in-nav> -->
 
@@ -13,5 +13,5 @@
 </div>
 
 
-<app-footer></app-footer>
+<app-footer *ngIf="userChecked"></app-footer>
 
