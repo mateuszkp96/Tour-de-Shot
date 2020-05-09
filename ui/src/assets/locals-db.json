@@ -35,22 +35,24 @@
     },
     "menu": [
       {
-        "category": "kategoria",
+        "category": "Piwa",
         "products": [
           {
-            "productName": "nazwa",
+            "productName": "Piwo ciemne",
             "price": 40,
             "ingredients": [
+              "składnik 1",
+              "składnik 1",
               "składnik 1"
             ]
           }
         ]
       },
       {
-        "category": "kategoria 2",
+        "category": "Drinki",
         "products": [
           {
-            "productName": "nazwa 3",
+            "productName": "Mohito",
             "price": 60,
             "ingredients": [
               "składnik 3"
