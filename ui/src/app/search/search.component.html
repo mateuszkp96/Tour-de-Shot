@@ -50,7 +50,7 @@
           <h6 class="m-0 font-weight-bold">Wyniki wyszukiwania</h6>
         </div>
         <ul class="list-group list-group-flush" id="list">
-          <li class="list-group-item" id="{{ 'listItem' + i }}"  *ngFor="let local of filteredByDistLocalsList | slice: (pageNumber-1) * pageSize : (pageNumber-1) * pageSize + pageSize ; index as i " [style.background-color]="getBackgroundColor(local)">
+          <li class="list-group-item" id="{{ 'listItem' + i }}" *ngFor="let local of localsByPage; index as i " [style.background-color]="getBackgroundColor(local)">
             <!-- Custom content-->
             <div class="media d-flex align-items-center"  >
               <img src="src=../../assets/pub.jpg" class="mr-3 square-image" alt="...">
@@ -63,7 +63,7 @@
             </div>
           </li>
         </ul>
-        <ngb-pagination [pageSize] = "pageSize" [collectionSize]="4" [(page)]="pageNumber" aria-label="Default pagination" class="d-flex justify-content-end mt-4 pr-2"></ngb-pagination>
+        <ngb-pagination [pageSize] = "pageSize" [collectionSize]="filteredByDistLocalsList.length" [(page)]="pageNumber" (pageChange)="onChangePage($event, pageNumber, pageSize)" aria-label="Default pagination" class="d-flex justify-content-end mt-4 pr-2"></ngb-pagination>
       </div>
     </div>
     <div class="col-lg-7 ml-auto">

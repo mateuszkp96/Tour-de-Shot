@@ -7,4 +7,5 @@ export interface StartData {
   startPointLon: number
   startPlace: google.maps.places.PlaceResult;
   radius: number;
+  pageNumber: number;
 }

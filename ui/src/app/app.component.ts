@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService, SocialUser } from 'angularx-social-login';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {AuthService, SocialUser} from 'angularx-social-login';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
   template: `<app-sign-in-nav (toggleBtnClickedEmmiter)='onToggleBtnClicked($event)'></app-sign-in-nav>`
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'Tour de Shot';
   public user: SocialUser;
   public loggedIn = true;
@@ -17,23 +17,26 @@ export class AppComponent implements OnInit{
   constructor(
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {
+  }
 
-ngOnInit(): void {
-  this.authService.authState.subscribe((user) => {
-    this.userChecked = true;
-    this.user = user;
-    this.loggedIn = (user != null);
-    if(this.user) {
-      this.router.navigate(['/search']);
-    }else
-    {
-      this.router.navigate(['']);
-    }
-    console.log("logged in from app");
-    console.log(this.loggedIn);
-  });
-}
+  ngOnInit(): void {
+
+    console.log("Button Zaloguj not active yet")
+
+    this.authService.authState.subscribe((user) => {
+      this.userChecked = true;
+      this.user = user;
+      this.loggedIn = (user != null);
+      if (this.user) {
+        this.router.navigate(['/search']);
+      } else {
+        this.router.navigate(['']);
+      }
+      console.log("logged in from app");
+      console.log(this.loggedIn);
+    });
+  }
 
   onToggleBtnClicked() {
     document.getElementById("side-menu-bar").classList.toggle("menuHidden");
