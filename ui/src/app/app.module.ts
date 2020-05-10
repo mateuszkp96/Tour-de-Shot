@@ -45,10 +45,12 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { StartDataState } from './states/StartData.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { environment } from '../environments/environment'
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("415992652432-e26hktvg68cv3dto6e37j1p4tij8vk9s.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider(environment.googleAuthProvider)
   }
 ]);
 
