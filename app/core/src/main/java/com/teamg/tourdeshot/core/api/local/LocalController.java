@@ -33,8 +33,8 @@ public class LocalController {
 
     @Autowired
     public LocalController(LocalService localService,
-                           @Value("${app.page}") Integer defaultPage,
-                           @Value("${app.pageSize}") Integer defaultPageSize) {
+                           @Value("${app.local.defaultPage}") Integer defaultPage,
+                           @Value("${app.local.pageSize}") Integer defaultPageSize) {
         this.localService = localService;
         this.defaultPage = Objects.requireNonNullElse(defaultPage, 0);
         this.defaultPageSize = Objects.requireNonNullElse(defaultPageSize, 5);
@@ -47,7 +47,7 @@ public class LocalController {
 
     @GetMapping
     public Page<LocalSimpleDTO> findAllLocals(@RequestParam(value = "page", required = false) Integer page,
-                                                      @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+                                              @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         return localService.findAllPageable(createPageRequest(page, pageSize));
     }
 
