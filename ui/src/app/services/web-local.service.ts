@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClientModule, HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {Subject, Observable} from 'rxjs';
-import {env} from '../../assets/env';
+import {environment} from '../../environments/environment';
 import {RequestOptions, Request, Headers, Http} from '@angular/http';
 import {Local} from '../models/Local';
 import {map, filter, catchError, mergeMap} from 'rxjs/operators';
@@ -16,8 +16,7 @@ export class WebLocalService {
   readonly LOCAL_API_URL;
 
   constructor(private http: HttpClient) {
-    this.LOCAL_API_URL = env.localApiUrl;
-
+    this.LOCAL_API_URL = environment.localApiUrl;
   }
 
 
