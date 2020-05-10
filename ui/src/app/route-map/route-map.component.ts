@@ -5,6 +5,7 @@ import {Coordinates} from '../models/Coordinates';
 import {Subject, BehaviorSubject} from 'rxjs';
 import { LocalService } from '../services/local.service';
 import { StartPointService } from '../services/start-point.service';
+import { WebLocalService } from '../services/web-local.service';
 
 @Component({
   selector: 'app-route-map',
@@ -30,37 +31,49 @@ export class RouteMapComponent implements AfterViewInit {
   localizationLat: number = 52.229676;
   localizationLong: number = 21.012229;
   localizationCoordinates = new google.maps.LatLng(this.localizationLat, this.localizationLong);
+  destinations: google.maps.LatLng[] = [];
+  destinationsId: number[] = [];
 
   mapOptions: google.maps.MapOptions = {
     center: this.localizationCoordinates,
-    zoom: 12
+    zoom: 12.7
   };
 
   localIcon = {
     url: "../../assets/beer.png",
-    scaledSize: new google.maps.Size(40, 40),
+    scaledSize: new google.maps.Size(34, 34),
+    anchor: new google.maps.Point(17, 30)
   };
 
   checkedLocalIcon = {
     url: "../../assets/checkedBeer.png",
-    scaledSize: new google.maps.Size(40, 40),
+    scaledSize: new google.maps.Size(34, 34),
+    anchor: new google.maps.Point(17, 30)
   };
 
   localizationIcon = {
     url: "../../assets/localization.png",
-    scaledSize: new google.maps.Size(40, 40)
+    scaledSize: new google.maps.Size(34, 34),
+    anchor: new google.maps.Point(17, 30)
   };
-
   localizationMarker = new google.maps.Marker({
     map: this.map,
     title: "Your localization",
     icon: this.localizationIcon
   });
 
+  routePolyline = new google.maps.Polyline({
+    path: this.destinations,
+    geodesic: true,
+    strokeColor: '#1a3fff',
+    strokeOpacity: 0.8,
+    strokeWeight: 4.5
+  });
 
   constructor(
     private ngZone: NgZone,
     private localService: LocalService,
+    private webLocalService: WebLocalService,
     private startPointService: StartPointService,
   ) {
     this.startPointService.getStartPoint()
@@ -86,6 +99,7 @@ export class RouteMapComponent implements AfterViewInit {
       .subscribe(mymessage => {
         this.checkedLocalsIdList = mymessage;
         this.loadOnlyCheckedLocalsMarkers();
+        this.drawRoute();
       });
 
   }
@@ -166,6 +180,32 @@ export class RouteMapComponent implements AfterViewInit {
     }
   }
 
+  async drawRoute() {
+    this.routePolyline.setMap(null);
+    this.destinations = [];
+    this.destinationsId = [];
+    console.log("this.destinationsIdList")
+    console.log(this.checkedLocalsIdList)
+    if (this.checkedLocalsIdList.length > 1) {
+      for (let i of this.checkedLocalsIdList) {
+        await this.webLocalService.getLocalById(i).then(local => {
+          this.destinationsId.push(local.id)
+          this.destinations.push(new google.maps.LatLng(local.coordinates.lat, local.coordinates.lon))
+          console.log("this.destinationsId")
+          console.log(this.destinationsId)
+
+          this.routePolyline.setPath(this.destinations)
+          this.routePolyline.setMap(this.map);
+
+
+          console.log("this.destinationsId")
+          console.log(this.destinationsId)
+
+        });
+      }
+
+    }
+  }
 
 }
 

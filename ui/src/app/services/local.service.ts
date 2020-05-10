@@ -15,10 +15,18 @@ export class LocalService {
   private checkedLocalsListValues: Local[] = [];
   private filteredByDistLocalsListValues: Local[] = [];
   local: Local;
-  localsList: Local[];
+  localsList: Local[]
 
   constructor(private webLocalService: WebLocalService) {
 
+  }
+
+  async getLocalsList() {
+    await this.webLocalService.getLocalsJson().then(data => {
+      this.localsList = data["content"]
+    });
+
+    return this.localsList
   }
 
 
@@ -48,8 +56,6 @@ export class LocalService {
   getCheckedLocalsIdListValues() {
     return this.checkedLocalsIdListValues;
   }
-
-
 
 
 }
