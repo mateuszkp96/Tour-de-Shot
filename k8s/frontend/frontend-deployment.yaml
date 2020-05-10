@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: mateusz43211/tourdeshot:frontend_latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: GOOGLE_AUTH_PROVIDER
+              valueFrom:
+                secretKeyRef:
+                  name: frontend-conf
+                  key: google-auth-provider
+            - name: LOCAL_API_URL
+              value: https://tourdeshot.teamg.com
+            - name: USER_API_URL
+              value: https://tourdeshot.teamg.com
