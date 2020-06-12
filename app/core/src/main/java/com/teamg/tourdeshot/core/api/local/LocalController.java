@@ -52,8 +52,8 @@ public class LocalController {
     }
 
     @GetMapping("/distance")
-    public List<LocalSimpleDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
-        return localService.findAllSortedByDistance(new Coordinates(lat, lon));
+    public Page<LocalSimpleDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
+        return localService.findAllSortedByDistance(PageRequest.of(0, 5), new Coordinates(lat, lon));
     }
 
     @PostMapping("/filter")

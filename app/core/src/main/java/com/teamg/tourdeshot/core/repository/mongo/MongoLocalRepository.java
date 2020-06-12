@@ -1,14 +1,30 @@
 package com.teamg.tourdeshot.core.repository.mongo;
 
 import com.mongodb.client.result.DeleteResult;
+import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
+import com.teamg.tourdeshot.core.api.local.filter.Localization;
+import com.teamg.tourdeshot.core.mapper.filter.LocalFiltersInterpreter;
+import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Local;
+import com.teamg.tourdeshot.core.model.LocalWithDistance;
 import com.teamg.tourdeshot.core.repository.LocalRepository;
 import com.teamg.tourdeshot.core.repository.crud.delete.DeleteOperationResult;
 import com.teamg.tourdeshot.core.repository.crud.delete.DeleteResultInterpreter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.GeoNearOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.SortOperation;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
+import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
@@ -24,10 +40,12 @@ public class MongoLocalRepository implements LocalRepository {
 
     private final MongoOperations mongoOperations;
     private final DeleteResultInterpreter<DeleteResult> deleteResultInterpreter = new MongoDeleteResultInterpreter();
+    private final LocalFiltersInterpreter localFiltersInterpreter;
 
     @Autowired
-    public MongoLocalRepository(MongoOperations mongoOperations) {
+    public MongoLocalRepository(MongoOperations mongoOperations, LocalFiltersInterpreter localFiltersInterpreter) {
         this.mongoOperations = mongoOperations;
+        this.localFiltersInterpreter = localFiltersInterpreter;
     }
 
     @Override
@@ -43,6 +61,40 @@ public class MongoLocalRepository implements LocalRepository {
                 localList,
                 pageable,
                 () -> mongoOperations.count(Query.of(query).limit(-1).skip(-1), Local.class));
+    }
+
+    @Override
+    public Page<LocalWithDistance> findAllByDistance(Pageable pageable, Coordinates coordinates) {
+        Point point = new Point(coordinates.getLat().doubleValue(), coordinates.getLon().doubleValue());
+        Distance distance = new Distance(1, Metrics.KILOMETERS);
+        NearQuery query = NearQuery.near(point).maxDistance(distance).with(pageable);
+        GeoNearOperation operation = Aggregation.geoNear(query, "distance");
+        SortOperation sortByLocalId = Aggregation.sort(Sort.by(Sort.Direction.ASC, "id"));
+        TypedAggregation<Local> typedAggregation = new TypedAggregation<>(Local.class, operation, sortByLocalId);
+        AggregationResults<LocalWithDistance> results = mongoOperations.aggregate(typedAggregation, Local.class, LocalWithDistance.class);
+
+        return PageableExecutionUtils.getPage(
+                results.getMappedResults(),
+                pageable,
+                () -> results.getMappedResults().size());
+    }
+
+    @Override
+    public Page<LocalWithDistance> filterLocals(Pageable pageable, FilterRequestBody requestBody) {
+        Localization geoFilterData = localFiltersInterpreter.extractLocalizationData(requestBody);
+        Point point = new Point(geoFilterData.getLat().doubleValue(), geoFilterData.getLon().doubleValue());
+        Distance distance = new Distance(geoFilterData.getMaxDistance().doubleValue(), Metrics.KILOMETERS);
+        NearQuery query = NearQuery.near(point).maxDistance(distance).with(pageable);
+        GeoNearOperation operation = Aggregation.geoNear(query, "distance");
+//        SortOperation sortByLocalId = Aggregation.sort(Sort.by(Sort.Direction.ASC, "id"));
+        MatchOperation matchOperation = Aggregation.match(localFiltersInterpreter.criteriaBuilder(requestBody));
+        TypedAggregation<Local> typedAggregation = new TypedAggregation<>(Local.class, operation, matchOperation);
+        AggregationResults<LocalWithDistance> results = mongoOperations.aggregate(typedAggregation, Local.class, LocalWithDistance.class);
+
+        return PageableExecutionUtils.getPage(
+                results.getMappedResults(),
+                pageable,
+                () -> results.getMappedResults().size());
     }
 
     @Override

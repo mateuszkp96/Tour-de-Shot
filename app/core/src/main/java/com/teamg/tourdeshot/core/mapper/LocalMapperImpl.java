@@ -4,10 +4,13 @@ package com.teamg.tourdeshot.core.mapper;
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.model.Local;
+import com.teamg.tourdeshot.core.model.LocalWithDistance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Component
 public class  LocalMapperImpl implements LocalMapper {
@@ -54,6 +57,21 @@ public class  LocalMapperImpl implements LocalMapper {
                 .id(local.getId())
                 .name(local.getName())
                 .coordinates(coordinatesMapper.toCoordinatesDTO(local.getCoordinates()))
+                .address(addressMapper.toAddressDTO(local.getAddress()))
+                .image(local.getImage())
+                .localCategories(local.getLocalCategories())
+                .priceCategory(local.getPriceCategory())
+                .openingHours(openingHoursMapper.toOpeningHoursDTO(local.getOpeningHours(), now))
+                .build();
+    }
+
+    @Override
+    public LocalSimpleDTO toLocalSimpleDTOFromLocalWithDistance(LocalWithDistance local, LocalDateTime now) {
+        return LocalSimpleDTO.builder()
+                .id(local.getId())
+                .name(local.getName())
+                .coordinates(coordinatesMapper.toCoordinatesDTO(local.getCoordinates()))
+                .distance(Objects.nonNull(local.getDistance()) ? local.getDistance() : null)
                 .address(addressMapper.toAddressDTO(local.getAddress()))
                 .image(local.getImage())
                 .localCategories(local.getLocalCategories())
