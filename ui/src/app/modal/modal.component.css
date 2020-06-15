@@ -5,3 +5,11 @@ li {
 img {
   height: 400px;
 }
+
+.number-picker{
+  width: 15%;
+}
+
+.quantity-input{
+  width: 15%;
+}

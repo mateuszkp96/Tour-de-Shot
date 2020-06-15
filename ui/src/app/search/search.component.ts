@@ -227,11 +227,11 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   }
 
   async getLocalsList() {
-    await this.localService.getLocalsList().then(data => {
-      this.localsList = data as Local[]
+    await this.webLocalService.getLocalsJson().then(data => {
+      this.localsList = data as Local
     });
   }
-
+  
   getLocalsByPage(pageNumber: number, pageSize: number) {
     this.webLocalService.getLocalsByPage(pageNumber - 1, pageSize).then(data => {
       this.localsByPage = data["content"] as Local[];

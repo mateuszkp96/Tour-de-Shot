@@ -14,14 +14,17 @@ import {map, filter, catchError, mergeMap} from 'rxjs/operators';
 export class WebLocalService {
 
   readonly LOCAL_API_URL;
+  readonly ROOT_URL;
 
   constructor(private http: HttpClient) {
     this.LOCAL_API_URL = environment.localApiUrl;
+    this.ROOT_URL = 'http://localhost:4200/assets/locals-db.json';
   }
 
 
   async getLocalsJson(): Promise<any> {
-    return await this.http.get(this.LOCAL_API_URL + '/local').toPromise()
+    //return await this.http.get(this.LOCAL_API_URL + '/local').toPromise()
+    return await this.http.get(this.ROOT_URL).toPromise()
   }
 
   getLocalById(id: number): Promise<any> {
