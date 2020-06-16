@@ -1,8 +1,25 @@
 server:
   port: 8081
-keycloak:
-  realm: FirstApp
-  resource: user-app
-  public-client: true
-  auth-server-url: http://localhost:8080/auth
-  principal-attribute: preferred_username
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          user-app:
+            client-id: user-app
+            client-secret: 3245072c-02f5-41bc-9396-6bc83faa155c
+            client-name: User service
+            scope: openid
+            redirect-uri: http://localhost:8081/login/oauth2/code/user-app
+            client-authentication-method: basic
+            authorization-grant-type: authorization_code
+            provider: user-app-provider
+        provider:
+          user-app-provider:
+            issuer-uri: http://localhost:8080/auth/realms/FirstApp
+logging:
+  level:
+    root: INFO
+    com.memorynotfound: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO

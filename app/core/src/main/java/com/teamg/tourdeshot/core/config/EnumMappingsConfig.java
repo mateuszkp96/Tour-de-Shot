@@ -1,9 +1,9 @@
 package com.teamg.tourdeshot.core.config;
 
+import com.teamg.tourdeshot.core.api.local.domain.OpenStatus;
 import com.teamg.tourdeshot.core.exception.ConfigException;
 import com.teamg.tourdeshot.core.mapper.utils.DayOfWeekMappings;
 import com.teamg.tourdeshot.core.mapper.utils.MappingProvider;
-import com.teamg.tourdeshot.core.api.local.domain.OpenStatus;
 import com.teamg.tourdeshot.core.mapper.utils.OpenStatusMappings;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
