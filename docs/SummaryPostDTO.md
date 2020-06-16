@@ -1,4 +1,4 @@
-###SummaryDTO
+###SummaryPostDTO
 Example:
  ```json
 {   

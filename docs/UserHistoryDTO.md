@@ -1,4 +1,4 @@
-###SummaryDTO
+###UserHistoryHDTO
 Example:
  ```json
 {
