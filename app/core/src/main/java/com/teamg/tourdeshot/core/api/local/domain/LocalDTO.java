@@ -1,6 +1,8 @@
 package com.teamg.tourdeshot.core.api.local.domain;
 
 
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
