@@ -3,9 +3,17 @@ Example:
  ```json
 {
     "id": "exampleId",
+    "name": "name",
+    "timestamp": "FORMAT", 
     "items": [
-        {
+        {   
+            "orderNumber": 1,
             "localId": "localId",
+            "localName": "localname",
+            "coordinates": {
+                "lat": 12.22,
+                "lon": 13.33
+            },
             "products": [
                 {
                     "productId": "productId",
@@ -21,8 +29,14 @@ Example:
                 }
             ]
         },
-        {
+        {   
+            "orderNumber": 2,
             "localId": "localId",
+            "localName": "localname",
+            "coordinates": {
+                "lat": 12.22,
+                "lon": 13.33
+            },
             "products": [
                 {
                     "productId": "productId",
