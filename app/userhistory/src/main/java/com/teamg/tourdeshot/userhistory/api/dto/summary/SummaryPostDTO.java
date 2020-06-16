@@ -1,4 +1,4 @@
-package com.teamg.tourdeshot.userhistory.api.dto;
+package com.teamg.tourdeshot.userhistory.api.dto.summary;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

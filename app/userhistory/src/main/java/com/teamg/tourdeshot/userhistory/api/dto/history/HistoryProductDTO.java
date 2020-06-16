@@ -1,4 +1,4 @@
-package com.teamg.tourdeshot.userhistory.api.dto;
+package com.teamg.tourdeshot.userhistory.api.dto.history;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @Builder
-public class ProductSummaryDTO {
-    private String productId;
+public class HistoryProductDTO {
+    private Long productId;
     private String name;
     private BigDecimal price;
     private Integer quantity;

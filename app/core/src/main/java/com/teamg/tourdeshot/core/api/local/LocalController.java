@@ -3,7 +3,6 @@ package com.teamg.tourdeshot.core.api.local;
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
-import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 
 @RestController
