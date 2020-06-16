@@ -9,11 +9,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocalHistory {
+public class HistoryItem {
 
-    private Long orderNumber;
+    private Integer orderNumber;
 
-    private String localId;
+    private Long localId;
 
-    private List<Product> products;
+    private List<ProductSummary> products;
 }
