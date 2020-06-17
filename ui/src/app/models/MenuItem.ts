@@ -1,6 +1,6 @@
 import { Product } from './Product';
 
-export interface MenuItem {
+export class MenuItem {
   categoryHeader: string
   orderNumber: number
   products: Array<Product>
