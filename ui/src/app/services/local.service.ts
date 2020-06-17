@@ -25,15 +25,12 @@ export class LocalService {
   }
 
   async getLocalsList() {
-    /*
     await this.webLocalService.getLocalsJson().then(data => {
       this.localsList = data["content"]
     });
 
     return this.localsList
 
-     */
-    await this.webLocalService.getLocalsJson();
   }
 
 

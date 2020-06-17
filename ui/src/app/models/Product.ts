@@ -2,8 +2,9 @@ import { ProductCategory } from './ProductCategory';
 import { Ingredient } from './Ingredient';
 
 export interface Product {
-  category: ProductCategory;
-  productName: string;
-  price: number;
+  productId: number
+  name: string
+  price: number
+  description: string
   ingredients: Array<Ingredient>;
 }
