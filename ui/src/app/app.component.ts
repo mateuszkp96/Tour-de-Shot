@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
       if (this.user) {
         this.router.navigate(['/search']);
       } else {
-        this.router.navigate(['']);
+        //this.router.navigate(['']);
       }
       console.log("logged in from app");
       console.log(this.loggedIn);
