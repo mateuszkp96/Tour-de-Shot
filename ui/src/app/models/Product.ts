@@ -1,7 +1,7 @@
 import { ProductCategory } from './ProductCategory';
 import { Ingredient } from './Ingredient';
 
-export class Product {
+export interface Product {
   productId: number
   name: string
   price: number

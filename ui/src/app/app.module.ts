@@ -45,9 +45,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { StartDataState } from './states/StartData.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { environment } from '../environments/environment';
-import { LocalComponent } from './local/local.component';
-import { MenuAddModalComponent } from './menu-add-modal/menu-add-modal.component'
+import { environment } from '../environments/environment'
 
 let config = new AuthServiceConfig([
   {
@@ -85,8 +83,6 @@ export function provideConfig() {
     RouteMapComponent,
     TreeComponent,
     RouteMapComponent,
-    LocalComponent,
-    MenuAddModalComponent,
 
   ],
   imports: [
@@ -131,7 +127,7 @@ export function provideConfig() {
   ],
 
   bootstrap: [AppComponent],
-  entryComponents: [ModalComponent, MenuAddModalComponent]
+  entryComponents: [ModalComponent]
 })
 
 export class AppModule { }
