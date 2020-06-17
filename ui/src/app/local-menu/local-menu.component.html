@@ -1,0 +1,33 @@
+<div *ngIf="local "class="container">
+  <div class="col-lg-12 mb-5">
+    <h2><strong>Menu Twojego lokalu:</strong></h2>
+    <div class=""  *ngFor="let item of local.menu.items; let i = index">
+      <div class="card-header mb-2">
+        <a data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="false" class="text-dark font-weight-bold">
+          <i class="fas fa-plus mr-2"></i>{{item.categoryHeader}}
+        </a>
+      </div>
+      <div class="collapse" id="collapseExample{{i}}">
+        <div class="card-body p-0">
+          <li class="list-group-item p-0 ml-5"  *ngFor="let product of item.products; let j = index">
+            <ul class="list-inline d-flex justify-content-between mb-0">
+              <p class="product-name m-0">{{product.name}}</p>
+              <ul class="list-inline d-flex justify-content-end">
+                <p class="product-name font-weight-bold m-0 mr-2">{{product.price}}zł</p>
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="modifyMenuItemProduct(product, i, j)"><i class="fa fa-pencil"></i></button>
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="removeMenuItemProduct(product)"><i class="fa fa-trash-o"></i></button>
+              </ul>
+            </ul>
+            <ul class="list-inline">
+              <li class="list-inline-item text-primary font-italic p-0">{{product.ingredients}}</li>
+            </ul>
+          </li>
+          <ul class="list-inline d-flex justify-content-end mt-1">
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddMenuItemClick()">Dodaj produkt</button>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

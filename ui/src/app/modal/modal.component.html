@@ -10,11 +10,9 @@
         <li class="list-group-item"><i class="fas fa-phone mr-2"></i><span>Kontakt: <strong>{{local.contact.phoneNumber}}</strong></span></li>
         <li class="list-group-item"><i class="fas fa-clock mr-2"></i><span>Godziny otwarcia:
             <ul>
-              <!--
-              <li *ngFor="let detail of local.openingHours">
-               {{detail.weekday}}: {{detail.open}} - {{detail.close}}
+              <li *ngFor="let detail of local.openingHours.schedule">
+               {{detail.dayOfWeek}}: {{detail.time}}
               </li>
-              -->
             </ul>
           </span>
         </li>
@@ -35,7 +33,7 @@
         <div class="card-body p-0">
           <li class="list-group-item p-0 ml-5"  *ngFor="let product of item.products; let j = index">
             <ul class="list-inline d-flex justify-content-between mb-0">
-              <p class="product-name m-0">{{product.productName}}</p>
+              <p class="product-name m-0">{{product.name}}</p>
               <ul class="list-inline d-flex justify-content-end">
                 <p class="product-name font-weight-bold m-0 mr-2">{{product.price}}zł</p>
                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="addProductToSummary(product, 'add', i, j)"><i class="fas fa-plus"></i></button>

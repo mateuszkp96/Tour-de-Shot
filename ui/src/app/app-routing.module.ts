@@ -13,6 +13,7 @@ import {AccountPrivacyComponent} from './account-privacy/account-privacy.compone
 import {AccountGeneralComponent} from './account-general/account-general.component';
 import {MapComponent} from './map/map.component';
 import { LocalComponent } from './local/local.component';
+import { LocalMenuComponent } from './local-menu/local-menu.component';
 
 const routes: Routes = [
 
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: 'route', component: RouteComponent},
   {path: 'map', component: MapComponent},
   {path: 'local', component: LocalComponent},
+  {path: 'local/menu', component: LocalMenuComponent},
 ];
 
 @NgModule({
@@ -44,4 +46,4 @@ export class AppRoutingModule {
 }
 
 export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent, PrivacyComponent, ContactComponent, TeamComponent,
-  SearchComponent, LocalComponent]
+  SearchComponent, LocalComponent, LocalMenuComponent]

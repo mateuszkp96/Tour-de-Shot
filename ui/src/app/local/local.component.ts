@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuService } from '../services/menu.service';
-import { Local } from '../models/Local';
 import { WebLocalService } from '../services/web-local.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItem } from '../models/MenuItem';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MenuAddModalComponent } from '../menu-add-modal/menu-add-modal.component';
 import { Product } from '../models/Product';
+import { InitialMenuItem } from '../models/InitialMenuItem';
+import { LocalDetailed } from '../models/LocalDetailed';
 
 @Component({
   selector: 'app-local',
@@ -16,8 +17,8 @@ import { Product } from '../models/Product';
 })
 export class LocalComponent implements OnInit {
 
-  local: Local
-  menuItemToAdd: MenuItem
+  local: LocalDetailed
+  menuItemToAdd: InitialMenuItem
 
   constructor(
     private router: Router,
@@ -31,7 +32,7 @@ export class LocalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLocal(1)    //todo: changing to appropriate local
-    this.menuItemToAdd = new MenuItem()
+    this.menuItemToAdd = new InitialMenuItem()
 
 
   }
