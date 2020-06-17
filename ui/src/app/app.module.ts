@@ -137,7 +137,7 @@ export function provideConfig() {
   ],
 
   bootstrap: [AppComponent],
-  entryComponents: [ModalComponent, MenuAddModalComponent]
+  entryComponents: [ModalComponent, MenuAddModalComponent, ProductAddModalComponent]
 })
 
 export class AppModule { }

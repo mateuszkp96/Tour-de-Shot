@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog } from '@angular/material/dialog';
 import { Product } from '../models/Product';
 import { LocalDetailed } from '../models/LocalDetailed';
+import { ProductAddModalComponent } from '../localApp/product-add-modal/product-add-modal.component';
 
 @Component({
   selector: 'app-local-menu',
@@ -17,7 +18,7 @@ import { LocalDetailed } from '../models/LocalDetailed';
 export class LocalMenuComponent implements OnInit {
 
   local: LocalDetailed
-  menuItemToAdd: InitialMenuItem
+  productToAdd: Product
 
   constructor(
     private router: Router,
@@ -30,7 +31,7 @@ export class LocalMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLocal(2)    //todo: changing to appropriate local
-    this.menuItemToAdd = new InitialMenuItem()
+    this.productToAdd = new Product()
 
 
   }
@@ -44,21 +45,20 @@ export class LocalMenuComponent implements OnInit {
   //  this.modalService.open(modal, {ariaLabelledBy: 'modal-basic-title'});
   //}
 
-  onAddMenuItemClick() {
-    const dialogRef = this.dialog.open(MenuAddModalComponent);
+  onAddProductClick(categoryHeader: string) {
+    const dialogRef = this.dialog.open(ProductAddModalComponent);
     //console.log(this.local)
-    dialogRef.componentInstance.menuItemToAdd = this.menuItemToAdd;
-
+    dialogRef.componentInstance.categoryHeader = categoryHeader
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
-  removeMenuItemProduct(product: Product){
+  removeProduct(product: Product){
     console.log("Product remove")
   }
 
-  modifyMenuItemProduct(product: Product, i: number, j: number){
+  modifyProduct(product: Product, i: number, j: number){
     console.log("Product modify")
 
   }

@@ -14,8 +14,8 @@
               <p class="product-name m-0">{{product.name}}</p>
               <ul class="list-inline d-flex justify-content-end">
                 <p class="product-name font-weight-bold m-0 mr-2">{{product.price}}zł</p>
-                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="modifyMenuItemProduct(product, i, j)"><i class="fa fa-pencil"></i></button>
-                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="removeMenuItemProduct(product)"><i class="fa fa-trash-o"></i></button>
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="modifyProduct(product, i, j)"><i class="fa fa-pencil"></i></button>
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="removeProduct(product)"><i class="fa fa-trash-o"></i></button>
               </ul>
             </ul>
             <ul class="list-inline">
@@ -23,7 +23,7 @@
             </ul>
           </li>
           <ul class="list-inline d-flex justify-content-end mt-1">
-            <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddMenuItemClick()">Dodaj produkt</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddProductClick(item.categoryHeader)">Dodaj produkt</button>
           </ul>
         </div>
       </div>

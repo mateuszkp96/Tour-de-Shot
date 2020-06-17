@@ -7,4 +7,5 @@ export class Product {
   price: number
   description: string
   ingredients: Array<Ingredient>;
+  productCategory: ProductCategory;
 }
