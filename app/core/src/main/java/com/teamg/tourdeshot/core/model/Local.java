@@ -1,5 +1,11 @@
 package com.teamg.tourdeshot.core.model;
 
+import com.teamg.tourdeshot.core.api.local.domain.AddressDTO;
+import com.teamg.tourdeshot.core.api.local.domain.ContactDTO;
+import com.teamg.tourdeshot.core.api.local.domain.CoordinatesDTO;
+import com.teamg.tourdeshot.core.api.local.domain.MenuDTO;
+import com.teamg.tourdeshot.core.api.local.domain.OpeningHoursDTO;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;

@@ -1,6 +1,15 @@
 package com.teamg.tourdeshot.core.service.startup;
 
-import com.teamg.tourdeshot.core.model.*;
+import com.teamg.tourdeshot.core.model.Address;
+import com.teamg.tourdeshot.core.model.Contact;
+import com.teamg.tourdeshot.core.model.Coordinates;
+import com.teamg.tourdeshot.core.model.DaySchedule;
+import com.teamg.tourdeshot.core.model.Local;
+import com.teamg.tourdeshot.core.model.Menu;
+import com.teamg.tourdeshot.core.model.MenuItem;
+import com.teamg.tourdeshot.core.model.OpeningHours;
+import com.teamg.tourdeshot.core.model.Product;
+import com.teamg.tourdeshot.core.model.ProductCategory;
 import com.teamg.tourdeshot.core.repository.ProductCategoryRepository;
 import com.teamg.tourdeshot.core.service.LocalService;
 import com.teamg.tourdeshot.core.service.ProductCategoryService;

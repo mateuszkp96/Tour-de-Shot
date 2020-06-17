@@ -6,14 +6,3 @@ spring:
       password: secret
       authentication-database: admin
 ---
-
-app:
-  url:
-    local: http://localhost:8081/local
-    user: http://localhost:8082
-
-  history:
-    defaultPage: 0
-    pageSize: 5
-  cors:
-    allowedOrigins:
