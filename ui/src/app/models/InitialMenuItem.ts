@@ -2,15 +2,15 @@ import {Product} from './Product';
 
 export class InitialProduct {
   productId = null
-  name = ""
+  name = null
   price = null
-  description = ""
-  ingredients = [""]
+  description = null
+  ingredients = [null]
   productCategory = null
 }
 
 export class InitialMenuItem {
-  categoryHeader = ""
+  categoryHeader = null
   orderNumber = null
   products = [new InitialProduct()]
 }

@@ -56,5 +56,8 @@ export class ProductModifyModalComponent implements OnInit {
     this.dialogRef.close()
   }
 
+  trackByFn(index: any, item: any) {
+    return index;
+  }
 
 }

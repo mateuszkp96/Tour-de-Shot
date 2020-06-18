@@ -22,7 +22,7 @@
             <span class="input-group-text">Składniki</span>
           </div>
           <div class="aParent">
-            <div  class= "ingredient-class" *ngFor="let ingredient of productToModify.ingredients; let i = index">
+            <div  class= "ingredient-class" *ngFor="let ingredient of productToModify.ingredients; let i = index; trackBy: trackByFn">
               <input class="input-class" type="text" [(ngModel)]="productToModify.ingredients[i]" [ngModelOptions]="{standalone: true}" placeholder="" [name]="productToModify.ingredients[i]">
               <button type="button" class="btn btn-outline-primary btn-sm" (click)="onDeleteIngredientClick(i)"><i class="fas fa-minus"></i></button>
               <button  *ngIf="i==0" class="btn btn-outline-primary btn-sm" (click)="onAddIngredientClick()"><i class="fas fa-plus"></i></button>

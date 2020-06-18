@@ -54,4 +54,8 @@ export class ProductAddModalComponent implements OnInit {
     let productsCategoryId = event.map(a=> (parseInt(a)))
     console.log(productsCategoryId)
   }
+
+  trackByFn(index: any, item: any) {
+    return index;
+  }
 }
