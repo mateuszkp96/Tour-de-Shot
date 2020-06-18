@@ -1,14 +1,14 @@
 import {Component, OnInit, Input, Inject, Output, EventEmitter, SimpleChange} from '@angular/core';
-import {Local} from '../models/Local';
-import {LocalService} from '../services/local.service';
-import {WebLocalService} from '../services/web-local.service';
+import {Local} from '../../models/Local';
+import {LocalService} from '../../services/local.service';
+import {WebLocalService} from '../../services/web-local.service';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog'
 import {Subject} from 'rxjs';
-import {LocalDetailed} from '../models/LocalDetailed';
-import {MenuItem} from '../models/MenuItem';
-import {MenuService} from '../services/menu.service';
+import {LocalDetailed} from '../../models/LocalDetailed';
+import {MenuItem} from '../../models/MenuItem';
+import {MenuService} from '../../services/menu.service';
 import construct = Reflect.construct;
-import { InitialMenuItem } from '../models/InitialMenuItem';
+import { InitialMenuItem } from '../../models/InitialMenuItem';
 
 
 @Component({

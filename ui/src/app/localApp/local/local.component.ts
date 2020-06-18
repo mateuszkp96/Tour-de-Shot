@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuService } from '../services/menu.service';
-import { WebLocalService } from '../services/web-local.service';
+import { MenuService } from '../../services/menu.service';
+import { WebLocalService } from '../../services/web-local.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MenuItem } from '../models/MenuItem';
+import { MenuItem } from '../../models/MenuItem';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MenuAddModalComponent } from '../menu-add-modal/menu-add-modal.component';
-import { Product } from '../models/Product';
-import { InitialMenuItem } from '../models/InitialMenuItem';
-import { LocalDetailed } from '../models/LocalDetailed';
+import { Product } from '../../models/Product';
+import { InitialMenuItem } from '../../models/InitialMenuItem';
+import { LocalDetailed } from '../../models/LocalDetailed';
 
 @Component({
   selector: 'app-local',

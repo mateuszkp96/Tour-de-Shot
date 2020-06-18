@@ -46,13 +46,13 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { StartDataState } from './states/StartData.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from '../environments/environment';
-import { LocalComponent } from './local/local.component';
-import { MenuAddModalComponent } from './menu-add-modal/menu-add-modal.component';
-import { LocalSideNavComponent } from './local-side-nav/local-side-nav.component';
-import { LocalMenuComponent } from './local-menu/local-menu.component';
 import { ProductAddModalComponent } from './localApp/product-add-modal/product-add-modal.component';
 import { ProductModifyModalComponent } from './localApp/product-modify-modal/product-modify-modal.component';
 import { LocalInformationsComponent } from './localApp/local-informations/local-informations.component'
+import { LocalComponent } from './localApp/local/local.component';
+import { MenuAddModalComponent } from './localApp/menu-add-modal/menu-add-modal.component';
+import { LocalSideNavComponent } from './localApp/local-side-nav/local-side-nav.component';
+import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
 
 let config = new AuthServiceConfig([
   {

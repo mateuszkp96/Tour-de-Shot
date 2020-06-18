@@ -1,15 +1,15 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import { MenuAddModalComponent } from '../menu-add-modal/menu-add-modal.component';
-import { InitialMenuItem } from '../models/InitialMenuItem';
-import { WebLocalService } from '../services/web-local.service';
-import { MenuService } from '../services/menu.service';
+import { InitialMenuItem } from '../../models/InitialMenuItem';
+import { WebLocalService } from '../../services/web-local.service';
+import { MenuService } from '../../services/menu.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog } from '@angular/material/dialog';
-import { Product } from '../models/Product';
-import { LocalDetailed } from '../models/LocalDetailed';
-import { ProductAddModalComponent } from '../localApp/product-add-modal/product-add-modal.component';
-import { ProductModifyModalComponent } from '../localApp/product-modify-modal/product-modify-modal.component';
+import { Product } from '../../models/Product';
+import { LocalDetailed } from '../../models/LocalDetailed';
+import { ProductAddModalComponent } from '../product-add-modal/product-add-modal.component';
+import { ProductModifyModalComponent } from '../product-modify-modal/product-modify-modal.component';
 
 @Component({
   selector: 'app-local-menu',

@@ -12,9 +12,9 @@ import {RouteComponent} from './route/route.component';
 import {AccountPrivacyComponent} from './account-privacy/account-privacy.component';
 import {AccountGeneralComponent} from './account-general/account-general.component';
 import {MapComponent} from './map/map.component';
-import { LocalComponent } from './local/local.component';
-import { LocalMenuComponent } from './local-menu/local-menu.component';
 import { LocalInformationsComponent } from './localApp/local-informations/local-informations.component';
+import { LocalComponent } from './localApp/local/local.component';
+import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
 
 const routes: Routes = [
 
