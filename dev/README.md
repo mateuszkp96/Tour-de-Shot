@@ -17,7 +17,7 @@
 Usage of backend:  
 `localhost:80/api/local` -- access to local microservice  
 `localhost:80/api/user` -- access to user microservice  
-`localhost:80/api/history` -- access to user microservice  
+`localhost:80/api/history` -- access to userhistory microservice  
 
 Example:  
 1. Get list of locals: `localhost:80/api/local/local`
