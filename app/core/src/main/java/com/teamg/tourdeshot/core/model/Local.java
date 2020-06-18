@@ -1,15 +1,10 @@
 package com.teamg.tourdeshot.core.model;
 
-import com.teamg.tourdeshot.core.api.local.domain.AddressDTO;
-import com.teamg.tourdeshot.core.api.local.domain.ContactDTO;
-import com.teamg.tourdeshot.core.api.local.domain.CoordinatesDTO;
-import com.teamg.tourdeshot.core.api.local.domain.MenuDTO;
-import com.teamg.tourdeshot.core.api.local.domain.OpeningHoursDTO;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -29,7 +24,8 @@ public class Local {
 
     private Long ownerId;
 
-    private Coordinates coordinates;
+    @GeoSpatialIndexed
+    private Double[] coordinates;
 
     private Address address;
 
@@ -37,7 +33,7 @@ public class Local {
 
     private List<String> localCategories;
 
-    private int priceCategory;
+    private Integer priceCategory;
 
     private OpeningHours openingHours;
 

@@ -51,11 +51,6 @@ public class LocalController {
         return localService.findAllPageable(createPageRequest(page, pageSize));
     }
 
-    @GetMapping("/distance")
-    public List<LocalSimpleDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
-        return localService.findAllSortedByDistance(new Coordinates(lat, lon));
-    }
-
     @PostMapping("/filter")
     public Page<LocalSimpleDTO> filterLocals(@RequestBody FilterRequestBody requestBody,
                                              @RequestParam(value = "page", required = false) Integer page,
