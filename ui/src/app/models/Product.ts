@@ -6,6 +6,6 @@ export class Product {
   name: string
   price: number
   description: string
-  ingredients: Array<Ingredient>;
+  ingredients: Array<string>;
   productCategory: ProductCategory;
 }

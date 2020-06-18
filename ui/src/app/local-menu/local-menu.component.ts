@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Product } from '../models/Product';
 import { LocalDetailed } from '../models/LocalDetailed';
 import { ProductAddModalComponent } from '../localApp/product-add-modal/product-add-modal.component';
+import { ProductModifyModalComponent } from '../localApp/product-modify-modal/product-modify-modal.component';
 
 @Component({
   selector: 'app-local-menu',
@@ -61,6 +62,12 @@ export class LocalMenuComponent implements OnInit {
   modifyProduct(product: Product, i: number, j: number){
     console.log("Product modify")
 
+    const dialogRef = this.dialog.open(ProductModifyModalComponent);
+    //console.log(this.local)
+    dialogRef.componentInstance.productToModify = product
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }
