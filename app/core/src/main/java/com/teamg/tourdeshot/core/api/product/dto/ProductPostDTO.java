@@ -1,10 +1,8 @@
-package com.teamg.tourdeshot.core.model;
+package com.teamg.tourdeshot.core.api.product.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -12,14 +10,11 @@ import java.util.List;
 
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+@Builder
+public class ProductPostDTO {
 
-    private Long productId;
-
-    private ProductCategory productCategory;
+    private Long categoryId;
 
     private String name;
 
@@ -28,5 +23,4 @@ public class Product {
     private List<String> ingredients;
 
     private String description;
-    
 }

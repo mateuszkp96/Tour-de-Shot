@@ -1,6 +1,6 @@
 package com.teamg.tourdeshot.core.mapper;
 
-import com.teamg.tourdeshot.core.api.productcategory.ProductCategoryDTO;
+import com.teamg.tourdeshot.core.api.productcategory.dto.ProductCategoryDTO;
 import com.teamg.tourdeshot.core.model.ProductCategory;
 
 import java.util.List;
