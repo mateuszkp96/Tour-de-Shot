@@ -6,26 +6,21 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
+
 
 @Data
 @NoArgsConstructor
 @Document(collection = "histories")
-public class History {
+public class UserHistory {
 
     @Transient
-    public static final String SEQUENCE_NAME = "history_sequence";
+    public static final String SEQUENCE_NAME = "userhistory_sequence";
 
     @Id
     private Long id;
 
-    private String name;
+    private String userId;
 
-    private LocalDateTime timestamp;
-
-    private List<HistoryItem> items;
-
-    private BigDecimal cost;
+    private Map<Long, History> histories;
 }

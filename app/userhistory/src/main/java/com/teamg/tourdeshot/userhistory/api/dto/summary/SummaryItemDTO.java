@@ -1,4 +1,4 @@
-package com.teamg.tourdeshot.userhistory.api.dto;
+package com.teamg.tourdeshot.userhistory.api.dto.summary;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class SummaryItemDTO {
     private Integer orderNumber;
-    private String localId;
+    private Long localId;
     private List<ProductSummaryDTO> products;
-
 }

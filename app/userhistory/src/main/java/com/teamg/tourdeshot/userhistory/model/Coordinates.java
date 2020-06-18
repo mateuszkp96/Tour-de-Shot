@@ -9,13 +9,9 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductSummary {
+public class Coordinates {
 
-    private Long productId;
+    private BigDecimal lat;
 
-    private String productName;
-
-    private BigDecimal price;
-
-    private Integer quantity;
+    private BigDecimal lon;
 }

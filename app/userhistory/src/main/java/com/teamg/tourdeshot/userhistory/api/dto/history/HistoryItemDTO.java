@@ -1,5 +1,6 @@
-package com.teamg.tourdeshot.userhistory.api.dto;
+package com.teamg.tourdeshot.userhistory.api.dto.history;
 
+import com.teamg.tourdeshot.userhistory.api.dto.summary.ProductSummaryDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,6 @@ public class HistoryItemDTO {
     private Integer orderNumber;
     private Long localId;
     private String localName;
-    private BigDecimal lat;
-    private BigDecimal lon;
-    private List<ProductSummaryDTO> products;
+    private CoordinatesDTO coordinates;
+    private List<HistoryProductDTO> products;
 }
