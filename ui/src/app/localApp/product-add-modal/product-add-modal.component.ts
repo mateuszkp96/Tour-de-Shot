@@ -2,7 +2,7 @@ import {Component, OnInit, Inject, Input} from '@angular/core';
 import {MenuService} from 'src/app/services/menu.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Product} from 'src/app/models/Product';
-import {InitialProduct, InitialIngredient} from 'src/app/models/InitialMenuItem';
+import {InitialProduct} from 'src/app/models/InitialMenuItem';
 
 @Component({
   selector: 'app-product-add-modal',
@@ -25,7 +25,7 @@ export class ProductAddModalComponent implements OnInit {
   }
 
   onAddIngredientClick() {
-    this.productToAdd.ingredients.push(new InitialIngredient())
+    this.productToAdd.ingredients.push("")
     console.log(this.productToAdd.ingredients)
   }
 

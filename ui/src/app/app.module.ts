@@ -51,7 +51,8 @@ import { MenuAddModalComponent } from './menu-add-modal/menu-add-modal.component
 import { LocalSideNavComponent } from './local-side-nav/local-side-nav.component';
 import { LocalMenuComponent } from './local-menu/local-menu.component';
 import { ProductAddModalComponent } from './localApp/product-add-modal/product-add-modal.component';
-import { ProductModifyModalComponent } from './localApp/product-modify-modal/product-modify-modal.component'
+import { ProductModifyModalComponent } from './localApp/product-modify-modal/product-modify-modal.component';
+import { LocalInformationsComponent } from './localApp/local-informations/local-informations.component'
 
 let config = new AuthServiceConfig([
   {
@@ -95,6 +96,7 @@ export function provideConfig() {
     LocalMenuComponent,
     ProductAddModalComponent,
     ProductModifyModalComponent,
+    LocalInformationsComponent,
 
   ],
   imports: [

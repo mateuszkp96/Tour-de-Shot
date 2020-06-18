@@ -1,5 +1,4 @@
 import { ProductCategory } from './ProductCategory';
-import { Ingredient } from './Ingredient';
 
 export class Product {
   productId: number

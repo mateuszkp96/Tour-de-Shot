@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuService } from '../services/menu.service';
 import { WebLocalService } from '../services/web-local.service';
@@ -17,6 +17,7 @@ import { LocalDetailed } from '../models/LocalDetailed';
 })
 export class LocalComponent implements OnInit {
 
+  @Input() localId: number
   local: LocalDetailed
   menuItemToAdd: InitialMenuItem
 
@@ -31,7 +32,9 @@ export class LocalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLocal(1)    //todo: changing to appropriate local
+    this.localId = 2; // hardcoded here yet
+
+    this.getLocal(this.localId)
     this.menuItemToAdd = new InitialMenuItem()
 
 

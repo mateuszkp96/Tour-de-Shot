@@ -8,16 +8,12 @@ export class InitialProductCategory {
   parentId = false;
 }
 
-export class InitialIngredient {
-  name = ""
-}
-
 export class InitialProduct {
   productId = 1
   name = ""
   price = null
   description = ""
-  ingredients = [new InitialIngredient()]
+  ingredients = [""]
   productCategory = new InitialProductCategory()
 }
 

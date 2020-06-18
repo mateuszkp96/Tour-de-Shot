@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import { MenuAddModalComponent } from '../menu-add-modal/menu-add-modal.component';
 import { InitialMenuItem } from '../models/InitialMenuItem';
@@ -18,6 +18,7 @@ import { ProductModifyModalComponent } from '../localApp/product-modify-modal/pr
 })
 export class LocalMenuComponent implements OnInit {
 
+  @Input() localId: number
   local: LocalDetailed
   productToAdd: Product
 
@@ -31,7 +32,10 @@ export class LocalMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLocal(2)    //todo: changing to appropriate local
+    this.localId = 2; // hardcoded here yet 
+    
+    console.log(this.localId)
+    this.getLocal(this.localId)    //todo: changing to appropriate local
     this.productToAdd = new Product()
 
 
