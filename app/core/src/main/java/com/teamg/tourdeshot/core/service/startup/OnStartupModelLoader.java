@@ -138,28 +138,28 @@ public class OnStartupModelLoader {
         MenuItem menuItem1 = new MenuItem();
         MenuItem menuItem2 = new MenuItem();
         Product product1 = createDefaultProduct(1L,
-                "Sobieski",
+                "Bols",
                 findByName(productCategories, "wodka"),
                 "opis",
-                BigDecimal.valueOf(12.00),
+                15.00,
                 Arrays.asList("wódka", "lód"));
         Product product2 = createDefaultProduct(2L,
                 "Soplica",
                 findByName(productCategories, "wodka"),
                 "opis",
-                BigDecimal.valueOf(12.00),
+                15.00,
                 Arrays.asList("wódka", "lód"));
         Product product3 = createDefaultProduct(3L,
                 "Monte Santi",
                 findByName(productCategories, "wino"),
                 "opis",
-                BigDecimal.valueOf(30.00),
+                30.00,
                 Arrays.asList("wino", "syrop brzoskwiniowy"));
         Product product4 = createDefaultProduct(4L,
                 "Carlo Rossi",
                 findByName(productCategories, "wino"),
                 "opis",
-                BigDecimal.valueOf(30.00),
+                30.00,
                 Arrays.asList("wino", "syrop brzoskwiniowy"));
 
         menuItem1.setCategoryHeader("Wódki");
@@ -182,37 +182,37 @@ public class OnStartupModelLoader {
         MenuItem menuItem1 = new MenuItem();
         MenuItem menuItem2 = new MenuItem();
         Product product1 = createDefaultProduct(1L,
-                "Sobieski",
-                findByName(productCategories, "wodka"),
+                "Perła",
+                findByName(productCategories, "piwo"),
                 "opis",
-                BigDecimal.valueOf(12.00),
-                Arrays.asList("wódka", "lód"));
+                10.00,
+                Arrays.asList("piwo", "sok"));
         Product product2 = createDefaultProduct(2L,
-                "Soplica",
-                findByName(productCategories, "wodka"),
+                "Harnaś",
+                findByName(productCategories, "piwo"),
                 "opis",
-                BigDecimal.valueOf(12.00),
-                Arrays.asList("wódka", "lód"));
+                12.00,
+                Arrays.asList("piwo"));
         Product product3 = createDefaultProduct(3L,
                 "Monte Santi",
                 findByName(productCategories, "wino"),
                 "opis",
-                BigDecimal.valueOf(30.00),
+                50.00,
                 Arrays.asList("wino", "syrop brzoskwiniowy"));
         Product product4 = createDefaultProduct(4L,
                 "Carlo Rossi",
                 findByName(productCategories, "wino"),
                 "opis",
-                BigDecimal.valueOf(30.00),
+                50.00,
                 Arrays.asList("wino", "syrop brzoskwiniowy"));
         Product product5 = createDefaultProduct(5L,
-                "Baczewski",
-                findByName(productCategories, "wódka"),
+                "Trybunalskie",
+                findByName(productCategories, "piwo"),
                 "opis",
-                BigDecimal.valueOf(10.00),
-                Arrays.asList("wino", "syrop brzoskwiniowy"));
+                10.00,
+                Arrays.asList("piwo", "miód"));
 
-        menuItem1.setCategoryHeader("Wódki");
+        menuItem1.setCategoryHeader("Piwa");
         menuItem1.setOrderNumber(1);
         menuItem1.setProducts(Arrays.asList(product1, product2, product5));
 
@@ -226,7 +226,7 @@ public class OnStartupModelLoader {
         return menu;
     }
 
-    private Product createDefaultProduct(Long id, String name, ProductCategory productCategory, String desc, BigDecimal price, List<String> ingredients) {
+    private Product createDefaultProduct(Long id, String name, ProductCategory productCategory, String desc, Double price, List<String> ingredients) {
         Product product = new Product();
         product.setProductId(id);
         product.setName(name);

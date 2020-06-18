@@ -4,6 +4,7 @@ import com.teamg.tourdeshot.core.api.local.domain.ProductDTO;
 import com.teamg.tourdeshot.core.model.Product;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Component
@@ -17,7 +18,7 @@ public class ProductMapperImpl implements ProductMapper {
                 .productId(product.getProductId())
                 .name(product.getName())
                 .description(product.getDescription())
-                .price(product.getPrice())
+                .price(BigDecimal.valueOf(product.getPrice()))
                 .ingredients(product.getIngredients())
                 .build();
     }

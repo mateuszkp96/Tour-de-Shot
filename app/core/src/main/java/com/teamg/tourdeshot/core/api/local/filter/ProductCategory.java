@@ -9,8 +9,8 @@ public class ProductCategory {
 
     private String id;
 
-    private BigDecimal priceFrom;
+    private Double priceFrom;
 
-    private BigDecimal priceTo;
+    private Double priceTo;
 
 }

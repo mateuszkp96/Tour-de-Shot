@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +18,7 @@ public class ProductCategoryFilterInterpreterImpl implements ProductCategoryFilt
     public ProductCategoryFilterInterpreterImpl(@Value("${app.categoryFilter.minPrice}") Double defaultMinPrice,
                                                 @Value("${app.categoryFilter.maxPrice}") Double defaultMaxPrice) {
         this.defaultMinPrice = Objects.requireNonNullElse(defaultMinPrice, 0.0);;
-        this.defaultMaxPrice = Objects.requireNonNullElse(defaultMaxPrice, 1000000.0);;
+        this.defaultMaxPrice = Objects.requireNonNullElse(defaultMaxPrice, 1000.0);;
     }
 
     @Override
@@ -28,35 +27,35 @@ public class ProductCategoryFilterInterpreterImpl implements ProductCategoryFilt
         productCategoryList
                 .forEach(productCategory -> {
                     if (Objects.nonNull(productCategory.getId())) {
-                        criteriaList.add(Criteria.where("menu.items.categoryHeader")
-                                .is(productCategory.getId())
-                                .and("menu.items.products.price")
-                                .gte(checkFromPrice(productCategory))
-                                .lte(checkToPrice(productCategory)));
+                        Criteria nameCriteria = Criteria.where("menu.items.products.productCategory.name").is(productCategory.getId());
+//                        Criteria priceCriteria = Criteria.where("menu.items.products.price")
+//                                .gte(checkFromPrice(productCategory))
+//                                .lte(checkToPrice(productCategory));
+                        criteriaList.add( new Criteria().andOperator(nameCriteria));
                     }
                 });
 
         return new Criteria().andOperator(criteriaList.toArray(new Criteria[criteriaList.size()]));
     }
 
-    private BigDecimal checkFromPrice(ProductCategory productCategory) {
+    private Double checkFromPrice(ProductCategory productCategory) {
         if (Objects.isNull(productCategory.getPriceFrom())) {
-            return BigDecimal.valueOf(defaultMinPrice);
+            return defaultMinPrice;
         } else {
-            if(productCategory.getPriceFrom().doubleValue() < 0) {
-                return BigDecimal.valueOf(defaultMinPrice);
+            if(productCategory.getPriceFrom() < 0) {
+                return defaultMinPrice;
             }
             return productCategory.getPriceFrom();
         }
     }
 
-    private BigDecimal checkToPrice(ProductCategory productCategory) {
+    private Double checkToPrice(ProductCategory productCategory) {
         if (Objects.isNull(productCategory.getPriceTo())) {
-            return BigDecimal.valueOf(defaultMaxPrice);
+            return defaultMaxPrice;
         } else {
-            if((productCategory.getPriceTo().doubleValue() < 0)
-                    || (productCategory.getPriceTo().doubleValue() < checkFromPrice(productCategory).doubleValue())) {
-                return BigDecimal.valueOf(defaultMaxPrice);
+            if((productCategory.getPriceTo() < 0)
+                    || (productCategory.getPriceTo() < checkFromPrice(productCategory))) {
+                return defaultMaxPrice;
             }
             return productCategory.getPriceTo();
         }

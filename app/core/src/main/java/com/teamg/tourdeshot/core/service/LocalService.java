@@ -5,7 +5,6 @@ import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.mapper.LocalMapper;
-import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.repository.LocalRepository;
 import com.teamg.tourdeshot.core.repository.crud.delete.DeleteOperationResult;
@@ -54,12 +53,6 @@ public class LocalService {
                 .map(local -> localMapper.toLocalSimpleDTO(local, now));
     }
 
-    public Page<LocalSimpleDTO> findAllSortedByDistance(Pageable pageable, Coordinates coordinates) {
-        LocalDateTime now = LocalDateTime.now();
-        return localRepository.findAllByDistance(pageable,coordinates)
-                .map(local -> localMapper.toLocalSimpleDTO(local, now));
-    }
-
     public Local addLocal(Local local) {
         local.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         return localRepository.save(local);
@@ -73,6 +66,6 @@ public class LocalService {
     public Page<LocalSimpleDTO> filterLocals(FilterRequestBody requestBody, PageRequest pageRequest) {
         LocalDateTime now = LocalDateTime.now();
         return localRepository.filterLocals(pageRequest, requestBody)
-                .map(local -> localMapper.toLocalSimpleDTO(local, now));
+                .map(local -> localMapper.toLocalSimpleDTOFromLocalWithDistance(local, now));
     }
 }
