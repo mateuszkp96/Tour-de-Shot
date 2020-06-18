@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,31 +32,31 @@ public class ProductCategoryFilterInterpreterImpl implements ProductCategoryFilt
 //                        Criteria priceCriteria = Criteria.where("menu.items.products.price")
 //                                .gte(checkFromPrice(productCategory))
 //                                .lte(checkToPrice(productCategory));
-                        criteriaList.add( new Criteria().andOperator(nameCriteria));
+                        criteriaList.add(nameCriteria);
                     }
                 });
 
         return new Criteria().andOperator(criteriaList.toArray(new Criteria[criteriaList.size()]));
     }
 
-    private Double checkFromPrice(ProductCategory productCategory) {
+    private BigDecimal checkFromPrice(ProductCategory productCategory) {
         if (Objects.isNull(productCategory.getPriceFrom())) {
-            return defaultMinPrice;
+            return BigDecimal.valueOf(defaultMinPrice);
         } else {
-            if(productCategory.getPriceFrom() < 0) {
-                return defaultMinPrice;
+            if(productCategory.getPriceFrom().doubleValue() < 0) {
+                return BigDecimal.valueOf(defaultMinPrice);
             }
             return productCategory.getPriceFrom();
         }
     }
 
-    private Double checkToPrice(ProductCategory productCategory) {
+    private BigDecimal checkToPrice(ProductCategory productCategory) {
         if (Objects.isNull(productCategory.getPriceTo())) {
-            return defaultMaxPrice;
+            return BigDecimal.valueOf(defaultMaxPrice);
         } else {
-            if((productCategory.getPriceTo() < 0)
-                    || (productCategory.getPriceTo() < checkFromPrice(productCategory))) {
-                return defaultMaxPrice;
+            if((productCategory.getPriceTo().doubleValue() < 0)
+                    || (productCategory.getPriceTo().doubleValue() < checkFromPrice(productCategory).doubleValue())) {
+                return BigDecimal.valueOf(defaultMaxPrice);
             }
             return productCategory.getPriceTo();
         }
