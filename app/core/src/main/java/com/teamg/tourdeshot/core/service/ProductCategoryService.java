@@ -1,6 +1,6 @@
 package com.teamg.tourdeshot.core.service;
 
-import com.teamg.tourdeshot.core.api.productcategory.ProductCategoryDTO;
+import com.teamg.tourdeshot.core.api.productcategory.dto.ProductCategoryDTO;
 import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.mapper.ProductCategoryMapper;
 import com.teamg.tourdeshot.core.model.ProductCategory;

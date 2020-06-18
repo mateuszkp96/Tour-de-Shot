@@ -1,5 +1,6 @@
 package com.teamg.tourdeshot.core.api.productcategory;
 
+import com.teamg.tourdeshot.core.api.productcategory.dto.ProductCategoryDTO;
 import com.teamg.tourdeshot.core.model.ProductCategory;
 import com.teamg.tourdeshot.core.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

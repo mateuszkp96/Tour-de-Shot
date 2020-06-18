@@ -1,6 +1,7 @@
 package com.teamg.tourdeshot.core.mapper;
 
 import com.teamg.tourdeshot.core.api.local.domain.ProductDTO;
+import com.teamg.tourdeshot.core.api.product.dto.ProductPostDTO;
 import com.teamg.tourdeshot.core.model.Product;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,16 @@ public class ProductMapperImpl implements ProductMapper {
                 .description(product.getDescription())
                 .price(product.getPrice())
                 .ingredients(product.getIngredients())
+                .build();
+    }
+
+    @Override
+    public Product toProduct(ProductPostDTO productPostDTO) {
+        return Product.builder()
+                .price(productPostDTO.getPrice())
+                .name(productPostDTO.getName())
+                .ingredients(productPostDTO.getIngredients())
+                .description(productPostDTO.getDescription())
                 .build();
     }
 }

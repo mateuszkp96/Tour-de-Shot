@@ -1,4 +1,4 @@
-package com.teamg.tourdeshot.core.api.productcategory;
+package com.teamg.tourdeshot.core.api.productcategory.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
