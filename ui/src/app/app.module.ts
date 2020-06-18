@@ -22,6 +22,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { HttpClientModule} from '@angular/common/http';
 import { LocalItemComponent } from './local-item/local-item.component';
 import { AccountPrivacyComponent } from './account-privacy/account-privacy.component';
+import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { AccountGeneralComponent } from './account-general/account-general.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { AgmCoreModule } from '@agm/core';
@@ -77,6 +78,7 @@ export function provideConfig() {
     LogoutComponent,
     LocalItemComponent,
     AccountPrivacyComponent,
+    CookiesPolicyComponent,
     AccountGeneralComponent,
     ModalComponent,
     MapComponent,
