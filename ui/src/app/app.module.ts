@@ -54,6 +54,7 @@ import { LocalComponent } from './localApp/local/local.component';
 import { MenuAddModalComponent } from './localApp/menu-add-modal/menu-add-modal.component';
 import { LocalSideNavComponent } from './localApp/local-side-nav/local-side-nav.component';
 import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
+import { LocalTreeComponent } from './localApp/local-tree/local-tree.component';
 
 let config = new AuthServiceConfig([
   {
@@ -99,7 +100,7 @@ export function provideConfig() {
     ProductAddModalComponent,
     ProductModifyModalComponent,
     LocalInformationsComponent,
-
+    LocalTreeComponent
   ],
   imports: [
     BrowserModule,

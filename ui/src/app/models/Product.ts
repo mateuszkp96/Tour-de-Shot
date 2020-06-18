@@ -2,9 +2,9 @@ import { ProductCategory } from './ProductCategory';
 
 export class Product {
   productId: number
+  productCategoryName: string
   name: string
   price: number
-  description: string
   ingredients: Array<string>;
-  productCategory: ProductCategory;
+  description: string
 }

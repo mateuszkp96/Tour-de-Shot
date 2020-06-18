@@ -1,15 +1,16 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Router} from '@angular/router';
-import { MenuAddModalComponent } from '../menu-add-modal/menu-add-modal.component';
-import { InitialMenuItem } from '../../models/InitialMenuItem';
-import { WebLocalService } from '../../services/web-local.service';
-import { MenuService } from '../../services/menu.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatDialog } from '@angular/material/dialog';
-import { Product } from '../../models/Product';
-import { LocalDetailed } from '../../models/LocalDetailed';
-import { ProductAddModalComponent } from '../product-add-modal/product-add-modal.component';
-import { ProductModifyModalComponent } from '../product-modify-modal/product-modify-modal.component';
+import {MenuAddModalComponent} from '../menu-add-modal/menu-add-modal.component';
+import {InitialMenuItem} from '../../models/InitialMenuItem';
+import {WebLocalService} from '../../services/web-local.service';
+import {MenuService} from '../../services/menu.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MatDialog} from '@angular/material/dialog';
+import {Product} from '../../models/Product';
+import {LocalDetailed} from '../../models/LocalDetailed';
+import {ProductAddModalComponent} from '../product-add-modal/product-add-modal.component';
+import {ProductModifyModalComponent} from '../product-modify-modal/product-modify-modal.component';
+import {TreeComponent} from 'src/app/tree/tree.component';
 
 @Component({
   selector: 'app-local-menu',
@@ -21,6 +22,7 @@ export class LocalMenuComponent implements OnInit {
   @Input() localId: number
   local: LocalDetailed
   productToAdd: Product
+  tree: TreeComponent
 
   constructor(
     private router: Router,
@@ -41,8 +43,8 @@ export class LocalMenuComponent implements OnInit {
 
   }
 
-  getLocal(id: number){
-    this.webLocalService.getLocalById(id).then(local=>
+  getLocal(id: number) {
+    this.webLocalService.getLocalById(id).then(local =>
       this.local = local)
   }
 
@@ -50,20 +52,19 @@ export class LocalMenuComponent implements OnInit {
   //  this.modalService.open(modal, {ariaLabelledBy: 'modal-basic-title'});
   //}
 
-  onAddProductClick(categoryHeader: string) {
+  onAddProductClick() {
     const dialogRef = this.dialog.open(ProductAddModalComponent);
     //console.log(this.local)
-    dialogRef.componentInstance.categoryHeader = categoryHeader
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
-  removeProduct(product: Product){
+  removeProduct(product: Product) {
     console.log("Product remove")
   }
 
-  modifyProduct(product: Product, i: number, j: number){
+  modifyProduct(product: Product, i: number, j: number) {
     console.log("Product modify")
     const dialogRef = this.dialog.open(ProductModifyModalComponent);
     //console.log(this.local)
@@ -73,11 +74,11 @@ export class LocalMenuComponent implements OnInit {
     });
   }
 
-  onAddMenuItemClick(){
+  onAddMenuItemClick() {
     console.log("Add menu category clicked")
     const dialogRef = this.dialog.open(MenuAddModalComponent);
     //console.log(this.local)
-   // dialogRef.componentInstance.productToModify = product
+    // dialogRef.componentInstance.productToModify = product
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

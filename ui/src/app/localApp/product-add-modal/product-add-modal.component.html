@@ -1,8 +1,14 @@
 <div class="container">
-<h2 mat-dialog-title>Dodaj produkt do kategorii:  {{categoryHeader}}</h2>
+<h2 mat-dialog-title>Dodaj nowy produkt do menu</h2>
 <mat-dialog-content class="mat-typography">
   <form>
     <div class="form-group">
+      <div class="input-group mt-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Kategoria</span>
+        </div>
+        <app-local-tree (onCategoryChecked)="categoryChecked($event)"></app-local-tree>
+      </div>
       <div class="input-group mt-3">
         <div class="input-group-prepend">
           <span class="input-group-text">Nazwa</span>
@@ -16,7 +22,6 @@
         <input class="input-class" type="text" [(ngModel)]="productToAdd.description" placeholder="" name="description">
       </div>
 
-
         <div class="input-group mt-3">
           <div class="input-group-prepend">
             <span class="input-group-text">Składniki</span>
@@ -29,7 +34,7 @@
           </div>
          </div>
         </div>
-      
+
 
       <div class="input-group mt-3">
         <div class="input-group-prepend">
