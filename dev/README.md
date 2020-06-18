@@ -17,6 +17,7 @@
 Usage of backend:  
 `localhost:80/api/local` -- access to local microservice  
 `localhost:80/api/user` -- access to user microservice  
+`localhost:80/api/history` -- access to user microservice  
 
 Example:  
 1. Get list of locals: `localhost:80/api/local/local`
@@ -25,10 +26,14 @@ Example:
 
 Swagger:
 1. Local Service: `localhost:80/api/local/swagger-ui.html`
-
+2. History Service: `localhost:80/api/history/swagger-ui.html`
 
 Direct access to microservices:  
 1. Local - `localhost:9090` - swagger `localhost:9090/swagger-ui.html`  
 2. user - `localhost:9091`
+3. history - 'localhost:9092' - swagger `localhost:9092/swagger-ui.html`   
 
-
+Check if spring boot up is running
+1. Core - `localhost:9090/actuator/health` - and then check `localhost:80/api/local/actuator/health`
+2. User - `localhost:9091/actuator/health` - and then check `localhost:80/api/user/actuator/health`
+3. UserHistory - `localhost:9092/actuator/health` - and then check `localhost:80/api/history/actuator/health`
