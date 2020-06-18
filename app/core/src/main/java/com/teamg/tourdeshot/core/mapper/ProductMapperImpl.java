@@ -11,7 +11,7 @@ public class ProductMapperImpl implements ProductMapper {
 
     @Override
     public ProductDTO toProductDTO(Product product) {
-        if(Objects.isNull(product))
+        if (Objects.isNull(product))
             return null;
         return ProductDTO.builder()
                 .productId(product.getProductId())

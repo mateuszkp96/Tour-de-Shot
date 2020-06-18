@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class DaySchedule {
 
-    private int orderNumber;
+    private Integer orderNumber;
 
     private DayOfWeek dayOfWeek;
 

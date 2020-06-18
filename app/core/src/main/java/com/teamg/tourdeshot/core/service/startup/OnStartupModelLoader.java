@@ -17,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -35,15 +37,18 @@ public class OnStartupModelLoader {
 
     private final ProductCategoryRepository productCategoryRepository;
 
+    private final MongoOperations mongoOperations;
+
     @Autowired
-    public OnStartupModelLoader(LocalService localService, ProductCategoryService productCategoryService, ProductCategoryRepository productCategoryRepository) {
+    public OnStartupModelLoader(LocalService localService, ProductCategoryService productCategoryService, ProductCategoryRepository productCategoryRepository, MongoOperations mongoOperations) {
         this.localService = localService;
         this.productCategoryService = productCategoryService;
         this.productCategoryRepository = productCategoryRepository;
+        this.mongoOperations = mongoOperations;
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void onStart() {
+    public void onStart() throws IOException {
 
         if(productCategoryService.findAll().getBody().isEmpty()) {
             fillProductCategoryDatabase();
@@ -73,6 +78,7 @@ public class OnStartupModelLoader {
 
         Local warsawpub = createDefault("WarSaw Pub", 1L,
                 new Coordinates(new BigDecimal("52.249641"), new BigDecimal("21.010732")));
+        warsawpub.setMenu(createDefaultMenu2());
         localService.addLocal(warsawpub);
     }
 
@@ -100,7 +106,7 @@ public class OnStartupModelLoader {
         Contact contact = new Contact("local@local.com", "666000111");
         local.setName(name);
         local.setOwnerId(ownerId);
-        local.setCoordinates(coordinates);
+        local.setCoordinates(new Double[]{coordinates.getLat().doubleValue(), coordinates.getLon().doubleValue()});
         local.setAddress(address);
         local.setContact(contact);
         local.setOpeningHours(openingHours);
@@ -132,16 +138,16 @@ public class OnStartupModelLoader {
         MenuItem menuItem1 = new MenuItem();
         MenuItem menuItem2 = new MenuItem();
         Product product1 = createDefaultProduct(1L,
-                "Sobieski",
+                "Bols",
                 findByName(productCategories, "wodka"),
                 "opis",
-                BigDecimal.valueOf(12.00),
+                BigDecimal.valueOf(15.00),
                 Arrays.asList("wódka", "lód"));
         Product product2 = createDefaultProduct(2L,
                 "Soplica",
                 findByName(productCategories, "wodka"),
                 "opis",
-                BigDecimal.valueOf(12.00),
+                BigDecimal.valueOf(15.00),
                 Arrays.asList("wódka", "lód"));
         Product product3 = createDefaultProduct(3L,
                 "Monte Santi",
@@ -158,7 +164,57 @@ public class OnStartupModelLoader {
 
         menuItem1.setCategoryHeader("Wódki");
         menuItem1.setOrderNumber(1);
-        menuItem1.setProducts(Arrays.asList(product1, product2, product3));
+        menuItem1.setProducts(Arrays.asList(product1, product2));
+
+        menuItem2.setCategoryHeader("Wina");
+        menuItem2.setOrderNumber(2);
+        menuItem2.setProducts(Arrays.asList(product3, product4));
+
+        menu.setMenuHeader("Menu");
+        menu.setItems(Arrays.asList(menuItem1, menuItem2));
+
+        return menu;
+    }
+
+    private Menu createDefaultMenu2() {
+        List <ProductCategory> productCategories = productCategoryRepository.findAll();
+        Menu menu =  new Menu();
+        MenuItem menuItem1 = new MenuItem();
+        MenuItem menuItem2 = new MenuItem();
+        Product product1 = createDefaultProduct(1L,
+                "Perła",
+                findByName(productCategories, "piwo"),
+                "opis",
+                BigDecimal.valueOf(10.00),
+                Arrays.asList("piwo", "sok"));
+        Product product2 = createDefaultProduct(2L,
+                "Harnaś",
+                findByName(productCategories, "piwo"),
+                "opis",
+                BigDecimal.valueOf(12.00),
+                Arrays.asList("piwo"));
+        Product product3 = createDefaultProduct(3L,
+                "Monte Santi",
+                findByName(productCategories, "wino"),
+                "opis",
+                BigDecimal.valueOf(50.00),
+                Arrays.asList("wino", "syrop brzoskwiniowy"));
+        Product product4 = createDefaultProduct(4L,
+                "Carlo Rossi",
+                findByName(productCategories, "wino"),
+                "opis",
+                BigDecimal.valueOf(50.00),
+                Arrays.asList("wino", "syrop brzoskwiniowy"));
+        Product product5 = createDefaultProduct(5L,
+                "Trybunalskie",
+                findByName(productCategories, "piwo"),
+                "opis",
+                BigDecimal.valueOf(10.00),
+                Arrays.asList("piwo", "miód"));
+
+        menuItem1.setCategoryHeader("Piwa");
+        menuItem1.setOrderNumber(1);
+        menuItem1.setProducts(Arrays.asList(product1, product2, product5));
 
         menuItem2.setCategoryHeader("Wina");
         menuItem2.setOrderNumber(2);

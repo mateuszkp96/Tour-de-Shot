@@ -21,7 +21,7 @@
           <logout-dropmenu></logout-dropmenu>
         </li>
         <li class="nav-item">
-          <button class="btn btn-primary" *ngIf="!user">Zaloguj się</button>
+          <button class="btn btn-primary" *ngIf="!user"(click)="onRegisterClick()" >Zaloguj się</button>
         </li>
       </ul>
     </div>
