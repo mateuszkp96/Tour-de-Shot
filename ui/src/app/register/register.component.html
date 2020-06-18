@@ -6,8 +6,11 @@
           <div class="card-body">
             <h5 class="card-title text-center">Logowanie</h5>
             <p class="card-text text-center">Skorzystaj z Tour de Shot przy użyciu<br> konta Google</p>
-              <button class="btn btn-lg btn-google btn-block" 
-                (click)="signInWithGoogle()">
+            <p class="card-text text-left"><strong>Uwaga!</strong> Aplikacja jest przeznaczona tylko dla pełnoletnich użytkowników. Potwierdź ukończenie 18 lat.</p>
+            <input #isAdult ngModel type="checkbox" class="mr-2"/><label>Tak, mam ukończone 18 lat</label>
+              <button class="btn btn-lg btn-google btn-block"
+                (click)="signInWithGoogle()"
+                [disabled]="!isAdult.checked">
                 <i class="fab fa-google-plus-g"></i> Użyj konta Google</button>
           </div>
         </div>
