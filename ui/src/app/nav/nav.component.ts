@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, SocialUser } from "angularx-social-login";
+import { environment } from "../../environments/environment"
 
 
 @Component({
@@ -12,7 +13,7 @@ export class NavComponent implements OnInit {
 
   appTitle = 'Tour de Shot';
   public user: SocialUser;
-  public loggedIn: boolean; 
+  public loggedIn: boolean;
 
   @Output()
   toggleBtnClickedEmmiter = new EventEmitter();
@@ -34,6 +35,12 @@ export class NavComponent implements OnInit {
     this.toggleBtnClickedEmmiter.emit();
   }
 
+  onRegisterClick() {
+    //How read values from environment, TODO - remove it
+    console.log("LOCAL API URL: " + environment.localApiUrl)
+    console.log("USER API URL: " + environment.userApiUrl)
+    this.router.navigate(['register']);
+  }
 
 
 }
