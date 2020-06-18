@@ -17,7 +17,7 @@ export class InitialProduct {
   name = ""
   price = null
   description = ""
-  ingredients = new InitialIngredient()
+  ingredients = [new InitialIngredient()]
   productCategory = new InitialProductCategory()
 }
 

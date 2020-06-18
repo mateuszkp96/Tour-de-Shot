@@ -1,10 +1,47 @@
+.container{
+  width: 570px;
+}
+
 .input-group-prepend{
   width: 100px;
 }
+
+.input-group{
+  padding: 0;
+  margin: 0;
+}
 .input-group-text{
   width: 100px;
+  height: 30px;
 }
 
 .input-class{
-  width: 200px;
+  width: 400px;
+  height: 30px;
 }
+
+.aParent{
+  clear: none;
+  margin-right: 0;
+  padding: 0;
+  position: relative;
+
+}
+
+.ingredient{
+  height: 36px;
+  padding: 0;
+  margin: 0;
+}
+
+.btn{
+  margin-left: 3px;
+  margin-right: 0;
+alignment: right;
+}
+
+.container{
+  margin: 0;
+  padding: 0;
+  }
+
