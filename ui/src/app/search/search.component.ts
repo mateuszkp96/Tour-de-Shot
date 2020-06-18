@@ -217,13 +217,18 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   }
 
   openDialog(local: Local) {
-    const dialogRef = this.dialog.open(ModalComponent);
-    console.log(this.localsList)
-    dialogRef.componentInstance.local = local;
+    let id = local.id
+    this.webLocalService.getLocalById(id).then(local => {
+      let localById = local
+      const dialogRef = this.dialog.open(ModalComponent);
+      console.log(this.localsList)
+      dialogRef.componentInstance.local = localById;
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    })
+
   }
 
   async getLocalsList() {

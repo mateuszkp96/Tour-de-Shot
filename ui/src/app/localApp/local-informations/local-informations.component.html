@@ -1,0 +1,33 @@
+<div class="container">
+  <div *ngIf="local" class="col-lg-12 mb-5">
+    <div class="mb-4"><h2><strong>Dane kontaktowe Twojego lokalu:</strong></h2></div>
+    <div class="row">
+      <div class="col-lg-6">
+        <ul class="list-group ml-3">
+          <li class="list-group-item"><i class="fas fa-bookmark mr-2"></i><span class="h-3">Nazwa: <strong>{{local.name}}</strong></span></li>
+          <li class="list-group-item"><i class="fas fa-map-marker-alt mr-2"></i><span>Adres: <strong>{{local.address.street}}</strong></span></li>
+          <li class="list-group-item"><i class="fas fa-globe mr-2"></i><span>Strona internetowa: <strong>www.bolek.pl</strong></span></li>
+          <li class="list-group-item"><i class="fas fa-phone mr-2"></i><span>Kontakt: <strong>{{local.contact.phoneNumber}}</strong></span></li>
+          <li class="list-group-item"><i class="fas fa-clock mr-2"></i><span>Godziny otwarcia:
+            <ul>
+              <li *ngFor="let detail of local.openingHours.schedule">
+               {{detail.dayOfWeek}}: {{detail.time}}
+              </li>
+            </ul>
+          </span>
+          </li>
+        </ul>
+        <ul class="list-inline d-flex justify-content-end mt-2">
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onModifyClick()"><b>Modyfikuj</b></button>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <img src="src=../../assets/pub.jpg" class="img-fluid" alt="...">
+      </div>
+    </div>
+
+    </div>
+
+  </div>
+
+

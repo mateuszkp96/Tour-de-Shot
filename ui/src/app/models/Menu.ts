@@ -1,5 +1,7 @@
 import { ProductCategory } from './ProductCategory';
+import { MenuItem } from './MenuItem';
 
 export interface Menu {
-  products: Array<ProductCategory>;
-} 
+  menuHeader: string
+  items: Array<MenuItem>
+}

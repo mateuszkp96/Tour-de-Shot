@@ -45,7 +45,14 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { StartDataState } from './states/StartData.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+import { ProductAddModalComponent } from './localApp/product-add-modal/product-add-modal.component';
+import { ProductModifyModalComponent } from './localApp/product-modify-modal/product-modify-modal.component';
+import { LocalInformationsComponent } from './localApp/local-informations/local-informations.component'
+import { LocalComponent } from './localApp/local/local.component';
+import { MenuAddModalComponent } from './localApp/menu-add-modal/menu-add-modal.component';
+import { LocalSideNavComponent } from './localApp/local-side-nav/local-side-nav.component';
+import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
 
 let config = new AuthServiceConfig([
   {
@@ -83,6 +90,13 @@ export function provideConfig() {
     RouteMapComponent,
     TreeComponent,
     RouteMapComponent,
+    LocalComponent,
+    MenuAddModalComponent,
+    LocalSideNavComponent,
+    LocalMenuComponent,
+    ProductAddModalComponent,
+    ProductModifyModalComponent,
+    LocalInformationsComponent,
 
   ],
   imports: [
@@ -127,7 +141,7 @@ export function provideConfig() {
   ],
 
   bootstrap: [AppComponent],
-  entryComponents: [ModalComponent]
+  entryComponents: [ModalComponent, MenuAddModalComponent, ProductAddModalComponent,ProductModifyModalComponent]
 })
 
 export class AppModule { }
