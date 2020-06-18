@@ -12,6 +12,7 @@ import { Product } from 'src/app/models/Product';
 export class ProductModifyModalComponent implements OnInit {
 
   @Input() productToModify: Product
+  productToModifyName: string
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
@@ -21,25 +22,39 @@ export class ProductModifyModalComponent implements OnInit {
   ngOnInit(): void {
     console.log("Product to modify")
     console.log(this.productToModify)
-    console.log(this.productToModify.ingredients[0])
+    this.productToModifyName = this.productToModify.name
+    console.log(this.productToModifyName)
 
   }
 
 
   onAddIngredientClick() {
-  //  this.productToAdd.ingredients.push(new InitialIngredient())
     console.log("add ingredient")
+    this.productToModify.ingredients.push("")
+    console.log(this.productToModify.ingredients)
+    console.log(this.productToModify.ingredients[0])
+    console.log(this.productToModify.ingredients[1])
   }
 
   onDeleteIngredientClick(id: number) {
-  //  this.productToAdd.ingredients.splice(id, 1);
     console.log("delete ingredient")
+    console.log(this.productToModify.ingredients)
+    if(this.productToModify.ingredients.length>1)
+    {
+      this.productToModify.ingredients.splice(id, 1);
+    }
+    console.log(this.productToModify.ingredients)
+    console.log(this.productToModify.ingredients[0])
+    console.log(this.productToModify.ingredients[1])
+
   }
 
   saveProduct() {
     console.log("Saving product")
     console.log(this.productToModify)
-    // put to backend
+    // service to send to backend
     this.dialogRef.close()
   }
+
+
 }

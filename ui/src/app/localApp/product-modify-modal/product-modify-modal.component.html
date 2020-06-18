@@ -1,5 +1,5 @@
-<div  *ngIf="productToModify" class="container">
-  <h2 mat-dialog-title>Modyfikuj produkt:  {{productToModify.name}}</h2>
+<div  *ngIf="productToModify && productToModifyName" class="container">
+  <h2 mat-dialog-title>Modyfikuj produkt: {{productToModifyName}}</h2>
   <mat-dialog-content class="mat-typography">
     <form>
       <div class="form-group">
@@ -23,7 +23,7 @@
           </div>
           <div class="aParent">
             <div  class= "ingredient-class" *ngFor="let ingredient of productToModify.ingredients; let i = index">
-              <input class="input-class" type="text" [(ngModel)]="productToModify.ingredients[i]" placeholder="" name="ingredient{{i}}">
+              <input class="input-class" type="text" [(ngModel)]="productToModify.ingredients[i]" [ngModelOptions]="{standalone: true}" placeholder="" [name]="productToModify.ingredients[i]">
               <button type="button" class="btn btn-outline-primary btn-sm" (click)="onDeleteIngredientClick(i)"><i class="fas fa-minus"></i></button>
               <button  *ngIf="i==0" class="btn btn-outline-primary btn-sm" (click)="onAddIngredientClick()"><i class="fas fa-plus"></i></button>
             </div>
