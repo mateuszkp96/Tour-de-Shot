@@ -32,8 +32,8 @@ export class LocalMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.localId = 2; // hardcoded here yet 
-    
+    this.localId = 2; // hardcoded here yet
+
     console.log(this.localId)
     this.getLocal(this.localId)    //todo: changing to appropriate local
     this.productToAdd = new Product()
@@ -65,10 +65,19 @@ export class LocalMenuComponent implements OnInit {
 
   modifyProduct(product: Product, i: number, j: number){
     console.log("Product modify")
-
     const dialogRef = this.dialog.open(ProductModifyModalComponent);
     //console.log(this.local)
     dialogRef.componentInstance.productToModify = product
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  onAddMenuItemClick(){
+    console.log("Add menu category clicked")
+    const dialogRef = this.dialog.open(MenuAddModalComponent);
+    //console.log(this.local)
+   // dialogRef.componentInstance.productToModify = product
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

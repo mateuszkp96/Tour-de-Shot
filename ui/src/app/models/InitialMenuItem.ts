@@ -2,14 +2,14 @@ import {Product} from './Product';
 
 
 export class InitialProductCategory {
-  id = 0;
+  id = null;
   name = "";
   hasChild = false;
   parentId = false;
 }
 
 export class InitialProduct {
-  productId = 1
+  productId = null
   name = ""
   price = null
   description = ""
@@ -19,6 +19,6 @@ export class InitialProduct {
 
 export class InitialMenuItem {
   categoryHeader = ""
-  orderNumber = 1
-  products = new InitialProduct()
+  orderNumber = null
+  products = [new InitialProduct()]
 }

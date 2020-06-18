@@ -18,7 +18,7 @@ import { InitialMenuItem } from '../models/InitialMenuItem';
 })
 export class MenuAddModalComponent implements OnInit {
 
-  @Input() menuItemToAdd: InitialMenuItem
+  menuItemToAdd: InitialMenuItem
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: MenuAddModalComponent,
               private menuService: MenuService) {
@@ -26,11 +26,11 @@ export class MenuAddModalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.menuItemToAdd)
+    this.menuItemToAdd = new InitialMenuItem()
   }
 
-  saveMenuItem() {
-    console.log(this.menuItemToAdd)
-   // this.menuService.addMenuItem(1, this.menuItemToAdd)
+  saveMenuCategory() {
+    console.log("Adding menu category not active yet")
   }
 
 }

@@ -26,4 +26,18 @@ strong{
   alignment: right;
 }
 
+.hr{
+  padding: 0;
+  margin: 0;
+}
+
+.add-button{
+  margin-top: 5px;
+  padding: 0;
+}
+
+.under-menu{
+  height: 20px;
+}
+
 
