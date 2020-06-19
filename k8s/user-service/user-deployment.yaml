@@ -16,7 +16,36 @@ spec:
     spec:
       containers:
         - name: user
-          image: mateusz43211/tourdeshot:user_latest
+          image: mateusz43211/tourdeshot:user_1.6
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_DATA_MONGODB_HOST
+              value: mongo-user
+            - name: SPRING_DATA_MONGODB_PORT
+              value: '27017'
+            - name: SPRING_DATA_MONGODB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-user-config
+                  key: MONGODB_TDS_DBNAME
+            - name: SPRING_DATA_MONGODB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-user
+                  key: db-username
+            - name: SPRING_DATA_MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-user
+                  key: db-password
+            - name: SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-user-config
+                  key: MONGODB_TDS_DBNAME
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+            - name: APP_CORS_ALLOWEDORIGINS_0
+              value: https://tourdeshot.teamg.com

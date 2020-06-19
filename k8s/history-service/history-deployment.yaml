@@ -1,53 +1,56 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: core-deployment
+  name: history-deployment
   labels:
-    app: core
+    app: history
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: core
+      app: history
   template:
     metadata:
       labels:
-        app: core
+        app: history
     spec:
       containers:
-        - name: core
-          image: mateusz43211/tourdeshot:core_1.8
+        - name: history
+          image: mateusz43211/tourdeshot:userhistory_1.8
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
             - name: SPRING_DATA_MONGODB_HOST
-              value: mongo-core
+              value: mongo-history
             - name: SPRING_DATA_MONGODB_PORT
               value: '27017'
             - name: SPRING_DATA_MONGODB_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: mongo-core-config
+                  name: mongo-history-config
                   key: MONGODB_TDS_DBNAME
             - name: SPRING_DATA_MONGODB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: mongo-core
+                  name: mongo-history
                   key: db-username
             - name: SPRING_DATA_MONGODB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mongo-core
+                  name: mongo-history
                   key: db-password
             - name: SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: mongo-core-config
+                  name: mongo-history-config
                   key: MONGODB_TDS_DBNAME
             - name: SPRING_PROFILES_ACTIVE
               value: dev
-            - name: APP_CORS_ALLOWEDORIGINS_0
-              value: https://tourdeshot.teamg.com
+
             - name: SERVER_SERVLET_CONTEXTPATH
               value: /api
+            - name: APP_CORS_ALLOWEDORIGINS_0
+              value: https://tourdeshot.teamg.com
+            - name: APP_URL_LOCAL
+              value: http://core:8080

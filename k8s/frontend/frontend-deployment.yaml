@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: mateusz43211/tourdeshot:frontend_latest
+          image: mateusz43211/tourdeshot:frontend_1.8
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -27,6 +27,6 @@ spec:
                   name: frontend-conf
                   key: google-auth-provider
             - name: LOCAL_API_URL
-              value: https://tourdeshot.teamg.com
+              value: https://tourdeshot.teamg.com/api
             - name: USER_API_URL
-              value: https://tourdeshot.teamg.com
+              value: https://tourdeshot.teamg.com/api
