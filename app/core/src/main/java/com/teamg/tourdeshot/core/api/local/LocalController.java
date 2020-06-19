@@ -3,7 +3,6 @@ package com.teamg.tourdeshot.core.api.local;
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
-import com.teamg.tourdeshot.core.model.Coordinates;
 import com.teamg.tourdeshot.core.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -49,11 +46,6 @@ public class LocalController {
     public Page<LocalSimpleDTO> findAllLocals(@RequestParam(value = "page", required = false) Integer page,
                                               @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         return localService.findAllPageable(createPageRequest(page, pageSize));
-    }
-
-    @GetMapping("/distance")
-    public List<LocalSimpleDTO> findAllLocalsByDistance(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon) {
-        return localService.findAllSortedByDistance(new Coordinates(lat, lon));
     }
 
     @PostMapping("/filter")

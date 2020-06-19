@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,9 +23,9 @@ public class History {
 
     private String name;
 
-    private String userId;
-
     private LocalDateTime timestamp;
 
     private List<HistoryItem> items;
+
+    private BigDecimal cost;
 }

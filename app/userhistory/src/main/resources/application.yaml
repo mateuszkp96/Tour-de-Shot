@@ -5,11 +5,13 @@ spring:
       username: mongoadmin
       password: secret
       authentication-database: admin
+  http:
+    log-request-details: true
 ---
 
 app:
   url:
-    local: http://localhost:8081/local
+    local: http://localhost:8080
     user: http://localhost:8082
 
   history:

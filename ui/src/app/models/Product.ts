@@ -1,9 +1,10 @@
 import { ProductCategory } from './ProductCategory';
-import { Ingredient } from './Ingredient';
 
-export interface Product {
-  category: ProductCategory;
-  productName: string;
-  price: number;
-  ingredients: Array<Ingredient>;
+export class Product {
+  productId: number
+  name: string
+  price: number
+  description: string
+  ingredients: Array<string>;
+  productCategory: ProductCategory;
 }

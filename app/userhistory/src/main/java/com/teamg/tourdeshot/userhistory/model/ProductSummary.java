@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class ProductSummary {
 
-    private String productId;
+    private Long productId;
 
     private String productName;
 

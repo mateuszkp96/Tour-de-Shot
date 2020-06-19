@@ -4,6 +4,7 @@ import { LocalService } from '../services/local.service';
 import { WebLocalService } from '../services/web-local.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Subject } from 'rxjs';
+import { LocalDetailed } from '../models/LocalDetailed';
 
 @Component({
   selector: 'app-modal',
@@ -12,14 +13,25 @@ import { Subject } from 'rxjs';
 })
 export class ModalComponent implements OnInit {
 
-  @Input() local: Local
+  @Input() local: LocalDetailed
+  summaryProductList: Array<{name: any, price: number, quantity: number}> = [];
+  totalCost: number = 0;
+  numberValue: number = 0;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ModalComponent)
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ModalComponent,
+              private localService: LocalService)
   { }
 
   ngOnInit(): void {
-
+    
   }
 
+  addProductToSummary(product, method: string, i, j){
+    this.localService.updateSummaryProductList(product, method)
+  }
+
+  removeProductFromSummary(product, method: string){
+    this.localService.updateSummaryProductList(product, method)
+  }
 
 }

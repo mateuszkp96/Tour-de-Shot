@@ -16,6 +16,9 @@ export class LocalService {
   private filteredByDistLocalsListValues: Local[] = [];
   local: Local;
   localsList: Local[]
+  summaryProductList: Array<{ name: any, price: number, quantity: number }> = [];
+  totalCost: number = 0;
+
 
   constructor(private webLocalService: WebLocalService) {
 
@@ -27,6 +30,7 @@ export class LocalService {
     });
 
     return this.localsList
+
   }
 
 
@@ -57,5 +61,42 @@ export class LocalService {
     return this.checkedLocalsIdListValues;
   }
 
+  updateSummaryProductList(selectedProduct, method) {
+    const name = selectedProduct.productName
+    const price = selectedProduct.price
+    let quantity;
+    const productExistInSummary = this.summaryProductList.find(el => el.name === name);
+
+    switch (method) {
+      case "add":
+        if (!productExistInSummary) {
+          quantity = 1
+          this.summaryProductList.push({name, price, quantity})
+        } else {
+          productExistInSummary.quantity += 1;
+        }
+        this.totalCost += selectedProduct.price
+        console.log(this.summaryProductList)
+        break
+      case "remove":
+        if (!productExistInSummary) {
+          console.log('Brak itemu')
+        } else {
+          productExistInSummary.quantity -= 1;
+        }
+        this.totalCost -= selectedProduct.price
+        console.log(this.summaryProductList)
+        break
+
+    }
+  }
+
+  getSummaryProductListValues() {
+    return this.summaryProductList;
+  }
+
+  getTotalCost() {
+    return this.totalCost
+  }
 
 }

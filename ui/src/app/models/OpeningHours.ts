@@ -1,5 +1,7 @@
+import { OpeningHoursSchedule } from './OpeningHoursSchedule';
+
 export interface OpeningHours {
-  weekday: string;
-  open: string;
-  close: string;
+  openStatus: string
+  presentDayIndex: number
+  schedule: Array<OpeningHoursSchedule>
 }

@@ -6,13 +6,21 @@ import {Router} from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  template: `<app-sign-in-nav (toggleBtnClickedEmmiter)='onToggleBtnClicked($event)'></app-sign-in-nav>`
+  template: `
+              <app-sign-in-nav (toggleBtnClickedEmmiter)='onToggleBtnClicked($event)'></app-sign-in-nav>
+              <app-local [localId]="localId"></app-local>
+              <app-local-menu [localId]="localId"></app-local-menu>`
+
 })
 export class AppComponent implements OnInit {
   title = 'Tour de Shot';
   public user: SocialUser;
   public loggedIn = true;
   public userChecked = false;
+
+  // hardcoded yet
+  public localLoggedIn = true;
+  public localId = 2;
 
   constructor(
     private authService: AuthService,
@@ -31,11 +39,12 @@ export class AppComponent implements OnInit {
       if (this.user) {
         this.router.navigate(['/search']);
       } else {
-        this.router.navigate(['']);
+        //this.router.navigate(['']);
       }
       console.log("logged in from app");
       console.log(this.loggedIn);
     });
+
   }
 
   onToggleBtnClicked() {

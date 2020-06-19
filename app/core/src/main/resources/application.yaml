@@ -11,5 +11,13 @@ app:
   local:
     defaultPage: 0
     pageSize: 5
+  localizationFilter:
+    latitude: 52.236216
+    longitude: 21.012059
+    maxDistance: 1.0
+  categoryFilter:
+    minPrice: 0.0
+    maxPrice: 1000000.0
+
   cors:
     allowedOrigins:

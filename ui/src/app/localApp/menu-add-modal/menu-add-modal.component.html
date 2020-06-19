@@ -1,0 +1,20 @@
+<div *ngIf = "menuItemToAdd" class="container">
+  <h2 mat-dialog-title>Dodaj nową kategorię do menu</h2>
+  <mat-dialog-content class="mat-typography">
+    <form>
+      <div class="form-group">
+        <div class="input-group mt-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Nazwa</span>
+          </div>
+          <input class="input-class" type="text" [(ngModel)]="menuItemToAdd.categoryHeader" placeholder="" name="categoryHeader">
+        </div>
+      </div>
+    </form>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="saveMenuCategory()"><b>Dodaj</b></button>
+    <button mat-type="button" class="btn btn-outline-primary btn-sm" [mat-dialog-close]="true"><b>Zamknij</b></button>
+  </mat-dialog-actions>
+</div>
