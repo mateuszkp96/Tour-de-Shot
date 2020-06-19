@@ -1,33 +1,34 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: ingress-initial
+  name: ingress
+  namespace: default
 spec:
-  tls:
-    - secretName: tourdeshot-teamg-com-tls
-    - hosts:
-        - tourdeshot.teamg.com
   rules:
     - host: tourdeshot.teamg.com
       http:
         paths:
           - path: /
-#            pathType: Prefix
             backend:
               serviceName: frontend
               servicePort: 80
-          - path: /local
-#            pathType: Prefix
+          - path: /api/local
             backend:
               serviceName: core
               servicePort: 8080
-          - path: /product-category
-#            pathType: Prefix
+          - path: /api/product-category
             backend:
               serviceName: core
               servicePort: 8080
-          - path: /menu
-#            pathType: Prefix
+          - path: /api/menu
             backend:
               serviceName: core
+              servicePort: 8080
+          - path: /api/userhistory
+            backend:
+              serviceName: history
+              servicePort: 8080
+          - path: /api/summary
+            backend:
+              serviceName: history
               servicePort: 8080
