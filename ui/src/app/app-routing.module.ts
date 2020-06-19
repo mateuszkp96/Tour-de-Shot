@@ -15,6 +15,7 @@ import {MapComponent} from './map/map.component';
 import { LocalInformationsComponent } from './localApp/local-informations/local-informations.component';
 import { LocalComponent } from './localApp/local/local.component';
 import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
+import { LocalSettingsComponent } from './localApp/local-settings/local-settings.component';
 
 const routes: Routes = [
 
@@ -37,7 +38,9 @@ const routes: Routes = [
   {path: 'map', component: MapComponent},
   {path: 'local', component: LocalComponent},
   {path: 'menu', component: LocalMenuComponent},
-  {path: 'informations', component: LocalInformationsComponent}
+  {path: 'informations', component: LocalInformationsComponent},
+  {path: 'settings', component: LocalSettingsComponent},
+
 ];
 
 @NgModule({
@@ -48,4 +51,4 @@ export class AppRoutingModule {
 }
 
 export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent, PrivacyComponent, ContactComponent, TeamComponent,
-  SearchComponent, LocalComponent, LocalMenuComponent, LocalInformationsComponent]
+  SearchComponent, LocalComponent, LocalMenuComponent, LocalInformationsComponent, LocalSettingsComponent]
