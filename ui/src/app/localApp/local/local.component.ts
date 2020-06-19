@@ -5,9 +5,7 @@ import { WebLocalService } from '../../services/web-local.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItem } from '../../models/MenuItem';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MenuAddModalComponent } from '../menu-add-modal/menu-add-modal.component';
 import { Product } from '../../models/Product';
-import { InitialMenuItem } from '../../models/InitialMenuItem';
 import { LocalDetailed } from '../../models/LocalDetailed';
 
 @Component({
@@ -19,7 +17,6 @@ export class LocalComponent implements OnInit {
 
   @Input() localId: number
   local: LocalDetailed
-  menuItemToAdd: InitialMenuItem
 
   constructor(
     private router: Router,
@@ -33,9 +30,7 @@ export class LocalComponent implements OnInit {
 
   ngOnInit(): void {
     this.localId = 2; // hardcoded here yet
-
     this.getLocal(this.localId)
-    this.menuItemToAdd = new InitialMenuItem()
 
 
   }
@@ -45,19 +40,7 @@ export class LocalComponent implements OnInit {
     this.local = local)
   }
 
-  //onAddReportClick(modal) {
-  //  this.modalService.open(modal, {ariaLabelledBy: 'modal-basic-title'});
-  //}
 
-  onAddMenuItemClick() {
-      const dialogRef = this.dialog.open(MenuAddModalComponent);
-      console.log(this.local)
-      dialogRef.componentInstance.menuItemToAdd = this.menuItemToAdd;
 
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-      });
-
-  }
 
 }
