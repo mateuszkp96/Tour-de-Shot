@@ -57,6 +57,7 @@ export class LocalMenuComponent implements OnInit {
     //console.log(this.local)
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.getLocalMenu(this.localId)
     });
   }
 
@@ -74,6 +75,6 @@ export class LocalMenuComponent implements OnInit {
       this.getLocalMenu(this.localId)
     });
   }
-  
+
 
 }

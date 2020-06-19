@@ -5,6 +5,7 @@ import {Product} from 'src/app/models/Product';
 import {ProductCategoryService} from 'src/app/services/product-category.service';
 import {ProductCategory} from 'src/app/models/ProductCategory';
 import {initialProduct} from 'src/app/models/InitialMenuItem';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-add-modal',
@@ -17,16 +18,19 @@ export class ProductAddModalComponent implements OnInit {
   @Input() categoryHeader: string
   productCategories: ProductCategory[]
   productsCategoryId: number[]
+localId: number
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
               private menuService: MenuService,
-              private productCategoryService: ProductCategoryService) {
+              private productCategoryService: ProductCategoryService,
+              private productService: ProductService) {
   }
 
   ngOnInit(): void {
     this.productToAdd = initialProduct
     this.getProductCategories()
+    this.localId = 2
   }
 
   getProductCategories() {
@@ -46,8 +50,9 @@ export class ProductAddModalComponent implements OnInit {
 
   saveProduct() {
     console.log("Product to add")
-    this.productToAdd.productCategory = this.productsCategoryId[0]
+    this.productToAdd.categoryId = this.productsCategoryId[0]
     console.log(this.productToAdd)
+    this.productService.addProduct(this.localId, this.productToAdd.categoryId, this.productToAdd)
     this.dialogRef.close()
   }
 
