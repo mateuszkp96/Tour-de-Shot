@@ -1,17 +1,16 @@
 import {Component, OnInit, ViewChild, Output, EventEmitter} from '@angular/core';
 import {enableRipple} from '@syncfusion/ej2-base';
-import {ProductCategoryService} from '../services/product-category.service';
-import {ProductCategory} from '../models/ProductCategory';
 import {TreeViewComponent, NodeKeyPressEventArgs, NodeClickEventArgs} from '@syncfusion/ej2-angular-navigations';
+import {ProductCategoryService} from 'src/app/services/product-category.service';
 
 enableRipple(true);
 
 @Component({
-  selector: 'app-tree',
+  selector: 'app-local-tree',
   // specifies the template string for the TreeView component with CheckBox
-  template: `<div id='treeparent'><ejs-treeview #treeview="" id='treeelement' [fields]='field' [showCheckBox]='showCheckBox'  (nodeChecked)='nodeChecked($event)'></ejs-treeview></div>`
+  template: `<div id='treeparent'><ejs-treeview #treeview="" id='treeelement' [fields]='field' [showCheckBox]='showCheckBox'  (nodeClicked)='nodeCheck($event)'></ejs-treeview></div>`
 })
-export class TreeComponent implements OnInit {
+export class LocalTreeComponent implements OnInit {
   public productCategoryList: object[];
   @Output() onCategoryChecked: EventEmitter<any> = new EventEmitter<any>();
 
@@ -50,8 +49,12 @@ export class TreeComponent implements OnInit {
   }
 
 
-  nodeChecked(args): void {
-    console.log("The checked node's id is: " + this.tree.checkedNodes);
+  public nodeCheck(args: NodeKeyPressEventArgs | NodeClickEventArgs): void {
+    this.onCategoryChecked.emit(this.tree.checkedNodes)
+    let checkedNode = this.tree.getAllCheckedNodes()
+    let toUncheck = this.tree.checkedNodes.filter(a => a != this.tree.checkedNodes[this.tree.checkedNodes.length - 1])
+    this.tree.uncheckAll(toUncheck);
     this.onCategoryChecked.emit(this.tree.checkedNodes)
   }
+
 }

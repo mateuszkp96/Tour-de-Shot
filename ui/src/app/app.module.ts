@@ -51,9 +51,9 @@ import { ProductAddModalComponent } from './localApp/product-add-modal/product-a
 import { ProductModifyModalComponent } from './localApp/product-modify-modal/product-modify-modal.component';
 import { LocalInformationsComponent } from './localApp/local-informations/local-informations.component'
 import { LocalComponent } from './localApp/local/local.component';
-import { MenuAddModalComponent } from './localApp/menu-add-modal/menu-add-modal.component';
 import { LocalSideNavComponent } from './localApp/local-side-nav/local-side-nav.component';
 import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
+import { LocalTreeComponent } from './localApp/local-tree/local-tree.component';
 
 let config = new AuthServiceConfig([
   {
@@ -93,13 +93,12 @@ export function provideConfig() {
     TreeComponent,
     RouteMapComponent,
     LocalComponent,
-    MenuAddModalComponent,
     LocalSideNavComponent,
     LocalMenuComponent,
     ProductAddModalComponent,
     ProductModifyModalComponent,
     LocalInformationsComponent,
-
+    LocalTreeComponent
   ],
   imports: [
     BrowserModule,
@@ -143,7 +142,7 @@ export function provideConfig() {
   ],
 
   bootstrap: [AppComponent],
-  entryComponents: [ModalComponent, MenuAddModalComponent, ProductAddModalComponent,ProductModifyModalComponent]
+  entryComponents: [ModalComponent, ProductAddModalComponent,ProductModifyModalComponent]
 })
 
 export class AppModule { }

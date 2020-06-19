@@ -2,32 +2,100 @@
   <div *ngIf="local" class="col-lg-12 mb-5">
     <div class="mb-4"><h2><strong>Dane kontaktowe Twojego lokalu:</strong></h2></div>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-8">
         <ul class="list-group ml-3">
-          <li class="list-group-item"><i class="fas fa-bookmark mr-2"></i><span class="h-3">Nazwa: <strong>{{local.name}}</strong></span></li>
-          <li class="list-group-item"><i class="fas fa-map-marker-alt mr-2"></i><span>Adres: <strong>{{local.address.street}}</strong></span></li>
-          <li class="list-group-item"><i class="fas fa-globe mr-2"></i><span>Strona internetowa: <strong>www.bolek.pl</strong></span></li>
-          <li class="list-group-item"><i class="fas fa-phone mr-2"></i><span>Kontakt: <strong>{{local.contact.phoneNumber}}</strong></span></li>
-          <li class="list-group-item"><i class="fas fa-clock mr-2"></i><span>Godziny otwarcia:
-            <ul>
-              <li *ngFor="let detail of local.openingHours.schedule">
-               {{detail.dayOfWeek}}: {{detail.time}}
-              </li>
-            </ul>
-          </span>
+
+          <li class="list-group-item">
+            <div class="input-group mt-2 mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-bookmark mr-2"></i>Nazwa:</span>
+              </div>
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.name" placeholder=""
+                     name="local.name" id="inputLocalName">
+            </div>
           </li>
+
+          <li class="list-group-item">
+            <div class="input-group mt-2 mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-map-marker-alt mr-2"></i>Adres:</span>
+              </div>
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.address.street"
+                     placeholder="" name="local.address.street" id="inputLocalAddressStreet">
+            </div>
+          </li>
+
+          <li class="list-group-item">
+            <div class="input-group mt-2 mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fas fa-globe mr-2"></i>Strona internetowa:</span>
+              </div>
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.website" placeholder=""
+                     name="local.website" id="inputLocalWebsite">
+            </div>
+          </li>
+
+
+          <li class="list-group-item">
+            <div class="input-group mt-2 mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fa fa-envelope mr-2"></i>Email:</span>
+              </div>
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.contact.email"
+                     placeholder="" name="local.contact.email" id="inputLocalEmail">
+            </div>
+          </li>
+          
+          <li class="list-group-item">
+            <div class="input-group mt-2 mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fas fa-phone mr-2"></i>Telefon:</span>
+              </div>
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.contact.phoneNumber"
+                     placeholder="" name="local.contact.phoneNumber" id="inputLocalPhoneNumber">
+            </div>
+          </li>
+
+          <li class="list-group-item">
+            <div class="input-group mt-2 mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text"> <i class="fas fa-clock mr-2"></i>Godziny otwarcia:</span>
+              </div>
+              <div class="input-class timeclass">
+              <ul>
+                <li *ngFor="let detail of local.openingHours.schedule; let i = index">
+                  <div class="input-group mt-2 mb-2">
+                  <div class="time-group-prepend">
+                    <span class="time"> <i class="fas fa-clock mr-2"></i>{{detail.dayOfWeek}}:</span>
+                  </div>
+                  <input [disabled]="isDisable" class="input-class-time" type="text" [(ngModel)]="detail.time"
+                         placeholder="" name="detail.time" id="inputLocalDetailTime{{i}}">
+                  </div>
+                </li>
+
+              </ul>
+              </div>
+            </div>
+          </li>
+
         </ul>
-        <ul class="list-inline d-flex justify-content-end mt-2">
-          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onModifyClick()"><b>Modyfikuj</b></button>
+        <ul *ngIf="isDisable==true" class="list-inline d-flex justify-content-end mt-2">
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onModifyClick()"><b>Modyfikuj</b>
+          </button>
+        </ul>
+        <ul *ngIf="isDisable==false" class="list-inline d-flex justify-content-end mt-2">
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSaveClick()"><b>Zapisz</b></button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCancelClick()"><b>Anuluj</b></button>
+
         </ul>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-4">
         <img src="src=../../assets/pub.jpg" class="img-fluid" alt="...">
       </div>
     </div>
 
-    </div>
-
   </div>
+
+</div>
 
 

@@ -3,11 +3,11 @@
     <div class="mb-4"><h2><strong>Menu Twojego lokalu:</strong></h2></div>
     <div class=""  *ngFor="let item of local.menu.items; let i = index">
       <div class="card-header mb-2">
-        <a data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="false" class="text-dark font-weight-bold">
+        <a data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="true" class="text-dark font-weight-bold">
           <i class="fas fa-plus mr-2"></i>{{item.categoryHeader}}
         </a>
       </div>
-      <div class="collapse" id="collapseExample{{i}}">
+      <div class="collapse" [ngbCollapse]="isCollapsed" id="collapseExample{{i}}">
         <div class="card-body p-0">
           <li class="list-group-item p-0 ml-5"  *ngFor="let product of item.products; let j = index">
             <ul class="list-inline d-flex justify-content-between mb-0">
@@ -22,15 +22,14 @@
               <li class="list-inline-item text-primary font-italic p-0">{{product.ingredients}}</li>
             </ul>
           </li>
-          <ul class="list-inline d-flex justify-content-end mt-2">
-            <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddProductClick(item.categoryHeader)"><b>Dodaj produkt</b></button>
-          </ul>
         </div>
       </div>
+      <ul class="add-button list-inline d-flex justify-content-end"></ul>
     </div>
     <div class="under-menu"></div>
     <ul class="add-button list-inline d-flex justify-content-end">
-    <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddMenuItemClick()"><b>Dodaj kategorię</b></button>
+      <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddProductClick()"><b>Dodaj produkt</b></button>
     </ul>
   </div>
+
 </div>
