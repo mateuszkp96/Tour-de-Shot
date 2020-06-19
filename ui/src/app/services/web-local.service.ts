@@ -30,8 +30,13 @@ export class WebLocalService {
   getLocalById(id: number): Promise<any> {
     return this.http.get(this.LOCAL_API_URL + '/local/' + id).toPromise()
   }
-  
+
   getLocalsByPage(page: number, pageSize): Promise<any> {
     return this.http.get(this.LOCAL_API_URL + '/local?page=' + page + '&pageSize=' + pageSize).toPromise()
   }
+
+  deleteLocalById(id: number): Promise<any> {
+    return this.http.delete(this.LOCAL_API_URL + '/local/' + id).toPromise();
+  }
+
 }

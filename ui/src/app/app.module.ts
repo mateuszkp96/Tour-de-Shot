@@ -54,6 +54,8 @@ import { LocalComponent } from './localApp/local/local.component';
 import { LocalSideNavComponent } from './localApp/local-side-nav/local-side-nav.component';
 import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
 import { LocalTreeComponent } from './localApp/local-tree/local-tree.component';
+import { LocalSettingsComponent } from './localApp/local-settings/local-settings.component';
+import { ConfirmLocalDeleteModalComponent } from './localApp/confirm-local-delete-modal/confirm-local-delete-modal.component';
 
 let config = new AuthServiceConfig([
   {
@@ -98,7 +100,9 @@ export function provideConfig() {
     ProductAddModalComponent,
     ProductModifyModalComponent,
     LocalInformationsComponent,
-    LocalTreeComponent
+    LocalTreeComponent,
+    LocalSettingsComponent,
+    ConfirmLocalDeleteModalComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +146,7 @@ export function provideConfig() {
   ],
 
   bootstrap: [AppComponent],
-  entryComponents: [ModalComponent, ProductAddModalComponent,ProductModifyModalComponent]
+  entryComponents: [ModalComponent, ProductAddModalComponent,ProductModifyModalComponent, ConfirmLocalDeleteModalComponent]
 })
 
 export class AppModule { }
