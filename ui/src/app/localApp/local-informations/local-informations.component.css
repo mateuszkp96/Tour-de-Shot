@@ -1,26 +1,27 @@
-.number-picker{
+.number-picker {
   width: 15%;
 }
 
-.quantity-input{
+.quantity-input {
   width: 15%;
 }
 
-.container{
+.container {
   padding-top: 30px;
   margin-left: 0;
   min-height: 600px;
 }
 
-.btn-primary{
+.btn-primary {
   right: 0;
   margin: 0;
 }
-strong{
+
+strong {
   font-size: 22px !important;
 }
 
-.btn{
+.btn {
   margin-left: 5px;
   margin-right: 0;
   alignment: right;
@@ -30,3 +31,52 @@ img {
   height: 500px;
 }
 
+.input-class {
+  font-size: 16px !important;
+  background-color: transparent;
+  border-style: ridge;
+  border-width: thin;
+  width: 300px;
+}
+
+.input-class-time {
+  font-size: 16px !important;
+  background-color: transparent;
+  border-style: ridge;
+  border-width: thin;
+  width: 120px;
+}
+
+.input-group-prepend {
+  width: 200px;
+}
+
+.time-group-prepend {
+  width: 120px;
+}
+
+.input-group {
+  padding: 0;
+  margin: 0;
+  background-color: transparent !important;
+
+}
+
+.input-group-text {
+  width: 400px;
+  height: 30px;
+  background-color: transparent !important;
+  border: none;
+}
+
+time {
+  width: 100px;
+}
+
+.timeclass {
+  border: none;
+}
+
+.list-group-item{
+ padding: 0;
+}

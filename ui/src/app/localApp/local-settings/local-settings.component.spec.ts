@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuAddModalComponent } from './menu-add-modal.component';
+import { LocalSettingsComponent } from './local-settings.component';
 
-describe('MenuAddModalComponent', () => {
-  let component: MenuAddModalComponent;
-  let fixture: ComponentFixture<MenuAddModalComponent>;
+describe('LocalSettingsComponent', () => {
+  let component: LocalSettingsComponent;
+  let fixture: ComponentFixture<LocalSettingsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuAddModalComponent ]
+      declarations: [ LocalSettingsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MenuAddModalComponent);
+    fixture = TestBed.createComponent(LocalSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
