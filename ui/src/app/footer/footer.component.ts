@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountPrivacyComponent } from '../account-privacy/account-privacy.component';
 import {MatDialog} from '@angular/material/dialog';
 import { CookiesPolicyComponent } from '../cookies-policy/cookies-policy.component';
+import { ContactComponent } from './contact/contact.component'
 
 @Component({
   selector: 'app-footer',
@@ -31,6 +32,14 @@ export class FooterComponent implements OnInit {
 
   openCookiesDialog(){
     const dialogRef = this.dialog.open(CookiesPolicyComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openContactDialog(){
+    const dialogRef = this.dialog.open(ContactComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
