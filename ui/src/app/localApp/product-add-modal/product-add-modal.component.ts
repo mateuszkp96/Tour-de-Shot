@@ -2,9 +2,9 @@ import {Component, OnInit, Inject, Input} from '@angular/core';
 import {MenuService} from 'src/app/services/menu.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Product} from 'src/app/models/Product';
-import {InitialProduct} from 'src/app/models/InitialMenuItem';
 import {ProductCategoryService} from 'src/app/services/product-category.service';
 import {ProductCategory} from 'src/app/models/ProductCategory';
+import {initialProduct} from 'src/app/models/InitialMenuItem';
 
 @Component({
   selector: 'app-product-add-modal',
@@ -13,9 +13,10 @@ import {ProductCategory} from 'src/app/models/ProductCategory';
 })
 export class ProductAddModalComponent implements OnInit {
 
-  productToAdd: InitialProduct
+  productToAdd: Product
   @Input() categoryHeader: string
   productCategories: ProductCategory[]
+  productsCategoryId: number[]
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
@@ -24,7 +25,7 @@ export class ProductAddModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productToAdd = new InitialProduct()
+    this.productToAdd = initialProduct
     this.getProductCategories()
   }
 
@@ -44,15 +45,16 @@ export class ProductAddModalComponent implements OnInit {
   }
 
   saveProduct() {
-    console.log("Saving product")
+    console.log("Product to add")
+    this.productToAdd.productCategory = this.productsCategoryId[0]
     console.log(this.productToAdd)
     this.dialogRef.close()
   }
 
   categoryChecked(event: string[]) {
     console.log("Category checked from local menu")
-    let productsCategoryId = event.map(a=> (parseInt(a)))
-    console.log(productsCategoryId)
+    this.productsCategoryId = event.map(a => (parseInt(a)))
+    console.log(this.productsCategoryId)
   }
 
   trackByFn(index: any, item: any) {

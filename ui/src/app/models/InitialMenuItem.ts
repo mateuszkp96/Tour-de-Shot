@@ -1,16 +1,10 @@
 import {Product} from './Product';
 
-export class InitialProduct {
-  productId = null
-  name = null
-  price = null
-  description = null
-  ingredients = [null]
-  productCategory = null
-}
+export const initialProduct = new Product()
+initialProduct.productId = null
+initialProduct.name = null
+initialProduct.price = null
+initialProduct.description = null
+initialProduct.ingredients = [null]
+initialProduct.productCategory = null
 
-export class InitialMenuItem {
-  categoryHeader = null
-  orderNumber = null
-  products = [new InitialProduct()]
-}
