@@ -11,21 +11,28 @@ spring:
     oauth2:
       client:
         registration:
+          google:
+            client-id: 555231402396-347hn6pka27rup0l3naaorsqm41n8n6r.apps.googleusercontent.com
+            client-secret: EHu4r0BG-4UOx_BL0wH7gs2O
           user-app:
             client-id: user-app
-            client-secret: 3245072c-02f5-41bc-9396-6bc83faa155c
+            client-secret: 13e5d0bd-57e6-40b2-b5ad-6e9b071570d3
             client-name: User service
             scope: openid
-            redirect-uri: http://localhost:8081/login/oauth2/code/user-app
             client-authentication-method: basic
             authorization-grant-type: authorization_code
             provider: user-app-provider
         provider:
           user-app-provider:
-            issuer-uri: http://localhost:8080/auth/realms/FirstApp
+            issuer-uri: http://localhost:8080/auth/realms/Tour-De-Shot-Apps
 logging:
   level:
     root: INFO
     com.memorynotfound: INFO
     org.springframework.web: INFO
     org.springframework.security: INFO
+app:
+  cors:
+    allowedOrigins:
+      - "http://localhost:4200"
+      - "http://localhost:8081"
