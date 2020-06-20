@@ -10,7 +10,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class SummaryPostDTO {
-    private String userId;
     private String name;
     private List<SummaryItemDTO> items;
 }

@@ -26,7 +26,7 @@ public class SummaryController {
     @PostMapping("/{userId}") // TODO read user id from headers
     public ResponseEntity<HistoryDTO> addSummary(@PathVariable(name = "userId") String userId,
                                                  @RequestBody SummaryPostDTO dto) {
-        return service.addSummaryToHistory(dto);
+        return service.addSummaryToHistory(dto, userId);
     }
 
 }
