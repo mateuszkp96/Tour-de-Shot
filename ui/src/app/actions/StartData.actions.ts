@@ -1,4 +1,4 @@
-import { StartData } from './../models/StartData'
+import { StartData } from './../state/models/StartData'
 
 export class AddStartData {
   static readonly type = '[StartData] Add'

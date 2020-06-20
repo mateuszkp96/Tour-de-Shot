@@ -44,7 +44,7 @@ import { Http, HttpModule } from '@angular/http';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
-import { StartDataState } from './states/StartData.state';
+import { StartDataState } from './state/StartData.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from '../environments/environment';
 import { ProductAddModalComponent } from './localApp/product-add-modal/product-add-modal.component';
@@ -56,6 +56,9 @@ import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
 import { LocalTreeComponent } from './localApp/local-tree/local-tree.component';
 import { LocalSettingsComponent } from './localApp/local-settings/local-settings.component';
 import { ConfirmLocalDeleteModalComponent } from './localApp/confirm-local-delete-modal/confirm-local-delete-modal.component';
+import { StoreModule} from '@ngrx/store'
+import { reducer } from './state/startData.reducer';
+import { localReducer } from './state/localLogin.reducer';
 
 let config = new AuthServiceConfig([
   {
@@ -130,8 +133,10 @@ export function provideConfig() {
     ]),
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
-
+    NgxsLoggerPluginModule.forRoot(),
+    StoreModule.forRoot({reducer, localReducer}),
+    StoreModule.forFeature('startData', reducer),
+    StoreModule.forFeature('localLogin', localReducer)
 
   ],
   providers: [

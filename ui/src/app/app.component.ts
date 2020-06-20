@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService, SocialUser} from 'angularx-social-login';
 import {Router} from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import * as fromLocalLogin from '../app/state/localLogin.reducer';
+import * as localLoginActions from '../app/state/localLogin.actions';
 
 @Component({
   selector: 'app-root',
@@ -19,12 +22,14 @@ export class AppComponent implements OnInit {
   public userChecked = false;
 
   // hardcoded yet
-  public localLoggedIn = true;
+  public localLoggedIn: boolean;
   public localId = 2;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store<fromLocalLogin.AppState>,
+
   ) {
   }
 
@@ -45,10 +50,21 @@ export class AppComponent implements OnInit {
       console.log(this.loggedIn);
     });
 
+
+    this.store.pipe(select(fromLocalLogin.getLocalLoggedIn)).subscribe(
+      async loggedIn => {
+        if (loggedIn) {
+          console.log("From app loggedIn" + loggedIn)
+          this.localLoggedIn = loggedIn; // hardcoded here yet
+        }
+      });
+
   }
 
   onToggleBtnClicked() {
     document.getElementById("side-menu-bar").classList.toggle("menuHidden");
     console.log("open");
   }
+
+
 }
