@@ -13,7 +13,6 @@ import {
 } from '@angular/core';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-
 import {LocalService} from '../services/local.service';
 import {WebLocalService} from '../services/web-local.service';
 import {Local} from '../models/Local';
@@ -29,13 +28,14 @@ import {StartPointService} from '../services/start-point.service';
 import {Location} from '@angular/common';
 import {ProductCategoryService} from '../services/product-category.service';
 import {ProductCategory} from '../models/ProductCategory';
-import {Store, Select} from '@ngxs/store';
 import {AddStartData, RemoveStartData, RemoveAllStartData} from '../actions/StartData.actions'
-import {StartData} from '../models/StartData';
-import {StartDataState, StartDataStateModel} from '../states/StartData.state';
+import {StartData} from '../state/models/StartData';
+//import {StartDataState, StartDataStateModel} from '../states/StartData.state';
 import {map, filter, catchError, mergeMap, takeUntil} from 'rxjs/operators';
 import {async} from 'rxjs/internal/scheduler/async';
 import {Item} from '@syncfusion/ej2-angular-navigations';
+import {Store, select} from '@ngrx/store';
+import * as fromStartData from '../state/startData.reducer'
 
 @Component({
   selector: 'app-search',
@@ -61,10 +61,11 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   startPoint: google.maps.LatLng;
   startPlace: google.maps.places.PlaceResult;
   startPointForm: FormGroup;
-  startData = {name: '', selectRadius: ''};
+  startDataName: string
+  startDataSelectRadius: number;
   public productCategoryList: ProductCategory[];
   public test: string;
-  tutorials$: Observable<StartDataState>
+  //tutorials$: Observable<StartDataState>
   startDataNumber = 0;
   localCoordinates: google.maps.LatLng;
   stateSubscription: Subscription;
@@ -80,7 +81,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private cdRef: ChangeDetectorRef,
-    private store: Store
+    private store: Store<fromStartData.AppState>
+
   ) {
     this.localService.getFilteredByDistLocalsList()
       .subscribe(mymessage => {
@@ -101,11 +103,19 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.store.pipe(select(fromStartData.getStartPlaceFormattedAddress)).subscribe(
+      startData => {
+        if (startData) {
+          console.log("Ngrx start data from map" + startData)
+          this.startDataName = startData;
+          console.log("startdataName" + this.startDataName)
+        }
+      });
 
     //this.startData =  { name: '', selectRadius: ''};
     this.startPointForm = new FormGroup({
-      'name': new FormControl(this.startData.name, Validators.required),
-      'selectRadius': new FormControl(this.startData.selectRadius, Validators.required)
+      'name': new FormControl(this.startDataName, Validators.required),
+      'selectRadius': new FormControl(this.startDataSelectRadius, Validators.required)
     });
 
 
@@ -134,7 +144,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       });
     });
 
-
+/*
     this.stateSubscription = this.store.select(state => state.StartData.tutorials).subscribe(async val => {
       console.log("STATES")
       if (val.length > 0) {
@@ -167,11 +177,11 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       }
 
       //if number of stored states is > 10 -> remove first 5
-      if (val.length > 10)
-        this.store.dispatch(new RemoveStartData(5))
+      //  if (val.length > 10)
+      // this.store.dispatch(new RemoveStartData(5))
 
     });
-
+*/
 
     this.startPoint = this.startPointService.getStartPointValue();
     this.startPointService.updateStartPoint(this.startPoint);
@@ -339,15 +349,23 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       this.rememberActualState()
   }
 
+  /*
+    rememberActualState() {
+      this.store.dispatch(new AddStartData({
+        id: this.startDataNumber++,
+        radius: this.radius,
+        startPointLat: this.startPoint.lat(),
+        startPointLon: this.startPoint.lng(),
+        startPlace: this.startPlace,
+        pageNumber: this.pageNumber
+      }))
+    }
+  */
   rememberActualState() {
-    this.store.dispatch(new AddStartData({
-      id: this.startDataNumber++,
-      radius: this.radius,
-      startPointLat: this.startPoint.lat(),
-      startPointLon: this.startPoint.lng(),
-      startPlace: this.startPlace,
-      pageNumber: this.pageNumber
-    }))
-  }
 
+    this.store.dispatch({
+      type: 'START_PLACE_SELECTED',
+      payload: this.startPlace.formatted_address
+    })
+  }
 }

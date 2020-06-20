@@ -1,5 +1,5 @@
 import {State, Action, StateContext, Selector} from '@ngxs/store';
-import {StartData} from './../models/StartData'
+import {StartData} from './../state/models/StartData'
 import {AddStartData, RemoveStartData,RemoveAllStartData}  from './../actions/StartData.actions'
 import {Injectable} from '@angular/core';
 

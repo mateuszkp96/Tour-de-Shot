@@ -28,6 +28,7 @@
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@material/dialog": "^5.1.0",
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
+    "@ngrx/store": "^9.2.0",
     "@ngxs/devtools-plugin": "^3.6.2",
     "@ngxs/logger-plugin": "^3.6.2",
     "@ngxs/storage-plugin": "^3.6.2",
