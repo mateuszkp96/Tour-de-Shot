@@ -58,6 +58,7 @@ import { LocalSettingsComponent } from './localApp/local-settings/local-settings
 import { ConfirmLocalDeleteModalComponent } from './localApp/confirm-local-delete-modal/confirm-local-delete-modal.component';
 import { StoreModule} from '@ngrx/store'
 import { reducer } from './state/startData.reducer';
+import { localReducer } from './state/localLogin.reducer';
 
 let config = new AuthServiceConfig([
   {
@@ -133,8 +134,10 @@ export function provideConfig() {
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
-    StoreModule.forRoot(reducer),
-    StoreModule.forFeature('startData', reducer)
+    StoreModule.forRoot({reducer, localReducer}),
+    StoreModule.forFeature('startData', reducer),
+    StoreModule.forFeature('localLogin', localReducer)
+
   ],
   providers: [
     {

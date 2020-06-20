@@ -138,7 +138,6 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 */
 
 
-
   }
 
 
@@ -167,11 +166,17 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
           st.startPointLon = this.startPoint.lng()
           this.store.dispatch(new startDataActions.SelectStartPoint(st))
 
-          this.webLocalService.getLocalsByPage(this.pageNumber - 1, this.pageSize).then(data => {
-            this.localsByPage = data["content"] as Local[];
-          });
+          if (this.radius != null) {
+            this.webLocalService.getLocalsByPage(this.pageNumber - 1, this.pageSize).then(data => {
+              this.localsByPage = data["content"] as Local[];
+            });
+          }
+
+          this.startPointService.updateStartPoint(this.startPoint)
         }
-       // this.onBtnSearchClicked();
+        // this.onBtnSearchClicked();
+        this.checkedLocalsIdList = []
+        this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
       });
     });
 
@@ -224,7 +229,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
     this.store.pipe(select(fromStartData.getStartData)).subscribe(
       async startData => {
-        if (startData.startPoint.startPointLat != null && startData.startPoint.startPointLon != null && startData.radius!= null) {
+        if (startData.startPoint.startPointLat != null && startData.startPoint.startPointLon != null && startData.radius != null) {
           this.startPoint = new google.maps.LatLng(startData.startPoint.startPointLat, startData.startPoint.startPointLon)
           this.radius = startData.radius
           this.startDataName = startData.startPlaceFormattedAddress
@@ -245,7 +250,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
         }
       });
-    
+
     this.startPoint = this.startPointService.getStartPointValue();
     this.startPointService.updateStartPoint(this.startPoint);
 
@@ -355,21 +360,6 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   }
 
   onBtnSearchClicked() {
-    if (this.startPlace && this.startPoint) {
-      let startPointState = new StartPointState()
-      startPointState.startPointLat = this.startPoint.lat()
-      startPointState.startPointLon = this.startPoint.lng()
-
-      let startDataState = new StartDataState()
-      startDataState.startPoint = startPointState
-      startDataState.radius = this.radius
-      startDataState.startPlaceFormattedAddress = this.startPlace.formatted_address
-      startDataState.pageNumber = this.pageNumber
-      console.log("Saving start data state")
-      console.log(startDataState)
-      this.store.dispatch(new startDataActions.SelectStartData(startDataState))
-    }
-
     console.log("on button search clicked")
     this.webLocalService.getLocalsByPage(this.pageNumber - 1, this.pageSize).then(data => {
       this.localsByPage = data["content"] as Local[];
@@ -383,8 +373,8 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     console.log(this.filteredByDistLocalsList);
     this.checkedLocalsIdList = [];
 
-    //  if (this.radius && this.startPoint.lat() && this.startPoint.lng() && this.startPlace && this.pageNumber)
-    //    this.rememberActualState()
+    if (this.radius && this.startPoint.lat() && this.startPoint.lng() && this.startPlace && this.pageNumber)
+      this.rememberActualState()
   }
 
 
@@ -446,9 +436,9 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     this.pageNumber = page;
     await this.getLocalsByPage(page, pageSize);
     if (this.radius && this.startPoint.lat() && this.startPoint.lng() && this.startPlace && this.pageNumber) {
-      this.rememberActualState()
-
+      // this.rememberActualState()
     }
+
   }
 
   /*
