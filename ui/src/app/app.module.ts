@@ -59,6 +59,7 @@ import { ConfirmLocalDeleteModalComponent } from './localApp/confirm-local-delet
 import { StoreModule} from '@ngrx/store'
 import { reducer } from './state/startData.reducer';
 import { localReducer } from './state/localLogin.reducer';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 let config = new AuthServiceConfig([
   {
@@ -105,7 +106,8 @@ export function provideConfig() {
     LocalInformationsComponent,
     LocalTreeComponent,
     LocalSettingsComponent,
-    ConfirmLocalDeleteModalComponent
+    ConfirmLocalDeleteModalComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
