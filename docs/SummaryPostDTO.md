@@ -1,43 +1,42 @@
 ###SummaryPostDTO
 Example:
  ```json
-{   
-    "userId": "userId",
-    "name": "name",
+{
+    "name": "summaryName",
     "items": [
-        {   
+        {
             "orderNumber": 1,
-            "localId": "localId",
+            "localId": 1,
             "products": [
                 {
-                    "productId": "productId",
-                    "name": "productname",
-                    "price": 12,
+                    "productId": 41,
                     "quantity": 2
                 },
                 {
-                    "productId": "productId",
-                    "name": "productname",
-                    "price": 12,
-                    "quantity": 3
+                    "productId": 2,
+                    "quantity": 2
+                },
+                {
+                    "productId": 3,
+                    "quantity": 2
                 }
             ]
         },
-        {   
+        {
             "orderNumber": 2,
-            "localId": "localId",
+            "localId": 2,
             "products": [
                 {
-                    "productId": "productId",
-                    "name": "productname",
-                    "price": 12,
+                    "productId": 1,
                     "quantity": 2
                 },
                 {
-                    "productId": "productId",
-                    "name": "productname",
-                    "price": 12,
-                    "quantity": 3
+                    "productId": 2,
+                    "quantity": 2
+                },
+                {
+                    "productId": 3,
+                    "quantity": 2
                 }
             ]
         }
