@@ -1,10 +1,10 @@
 export class LocalFilter {
   filters: Filter
-  categories: FilterCategory[]
 }
 
 export class Filter {
   localization: FilterLocalization
+  categories: FilterCategory[]
 }
 
 export class FilterLocalization {
@@ -32,12 +32,12 @@ InitFilterCategory.id= null
 
 
 export const InitFilter: Filter = {
-  localization: InitFilterLocalization
+  localization: InitFilterLocalization,
+  categories: []
 }
 
 export const InitLocalFilter: LocalFilter = {
   filters: InitFilter,
-  categories: []
 }
 
 

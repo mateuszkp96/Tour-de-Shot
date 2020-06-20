@@ -27,7 +27,7 @@ export class ProductCategoryService {
    getProdyctCategoryById(id: number): Observable<any> {
     return this.http.get(this.LOCAL_API_URL + '/product-category/' + id).pipe(
       map((result: any) => {
-        return result.name;
+        return result;
       })
     );
   }

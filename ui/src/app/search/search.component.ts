@@ -107,6 +107,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
     this.localService.getCurrentCheckedCategories().subscribe(checkedCategories => {
       this.checkedLocalCategories = checkedCategories
+      console.log("CHECKED LOCAL CATEGORIES: " + this.checkedLocalCategories )
       //  if (this.startPoint != null && this.radius != null && this.startDataName != null && this.pageNumber != null && this.checkedLocalCategories.length > 0) {
       if (this.startPoint != null && this.radius != null && this.startDataName != null && this.pageNumber != null) {
         this.rememberActualState(this.startPoint.lat(), this.startPoint.lng(), this.radius, this.startDataName, this.pageNumber, this.checkedLocalCategories)
@@ -193,7 +194,9 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
           if (this.checkedLocalCategories.length > 0) {
             await this.webLocalService.getLocalsByFilterAndPage(this.localFilter, this.pageNumber - 1, this.pageSize).then(data => {
+              console.log(this.localFilter)
               this.localsByPage = data["content"] as Local[];
+              console.log(this.localsByPage)
             });
             await this.webLocalService.getLocalsByFilter(this.localFilter).then(data => {
               this.filteredByDistLocalsList = data["content"] as Local[];
@@ -278,11 +281,6 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  getLocalsByPage(pageNumber: number, pageSize: number) {
-    this.webLocalService.getLocalsByPage(pageNumber - 1, pageSize).then(data => {
-      this.localsByPage = data["content"] as Local[];
-    });
-  }
 
 
   getProductCategoryList() {
@@ -298,7 +296,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       this.localFilter.filters.localization.lat = this.startPoint.lat()
       this.localFilter.filters.localization.lon = this.startPoint.lng()
       this.localFilter.filters.localization.maxDistance = this.radius
-      this.localFilter.categories = this.checkedLocalCategories.map(category => (new FilterCategory(category)))
+      this.localFilter.filters.categories = this.checkedLocalCategories.map(category => (new FilterCategory(category)))
       console.log("LOCALS FILTER:" + JSON.stringify(this.localFilter))
       this.getLocalsByFilter(this.localFilter)
       this.getLocalsByFilterAndPage(this.localFilter, this.pageNumber, this.pageSize)

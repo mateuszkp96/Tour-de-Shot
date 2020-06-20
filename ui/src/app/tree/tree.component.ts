@@ -52,8 +52,6 @@ export class TreeComponent implements OnInit {
 
 
   async nodeChecked(args) {
-    // this.onCategoryChecked.emit(this.tree.checkedNodes)
-
     /*
        this.tree.checkedNodes.forEach(node => {
           this.productCategoryService.getProdyctCategoryById(parseInt(node)).then(nodeInfo =>{
@@ -64,22 +62,27 @@ export class TreeComponent implements OnInit {
             //this.checkedNodesName.push(nodeName.name));
         });
     */
-    console.log(this.tree.checkedNodes.length)
     await this.getNodesName(this.tree.checkedNodes)
 
   }
 
   getNodesName(nodesId: string[]) {
+    let counter = 0;
     this.checkedNodesName = []
-    if (nodesId.length==0) {
+    if (nodesId.length == 0) {
       this.checkedNodesName = []
       this.onCategoryChecked.emit(this.checkedNodesName)
     } else {
       nodesId.forEach(node => {
         this.productCategoryService.getProdyctCategoryById(parseInt(node)).subscribe(nodeInfo => {
-          this.checkedNodesName.push(nodeInfo)
-          // this way because cant work around async
-          if (this.checkedNodesName.length == nodesId.length) {
+          if (nodeInfo.hasChild == false) {
+            this.checkedNodesName.push(nodeInfo.name)
+            counter++
+          } else {
+            counter++
+          }
+          //this way beacuse cant cope with  async problem
+          if (counter == nodesId.length) {
             this.onCategoryChecked.emit(this.checkedNodesName)
           }
         });
