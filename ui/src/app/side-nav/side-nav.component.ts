@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalService } from '../services/local.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -9,10 +10,15 @@ import { Router } from '@angular/router';
 export class SideNavComponent implements OnInit {
   isOpen: boolean;
   product: any;
-  constructor(private router : Router) { }
+  constructor(private router : Router,
+              private localService: LocalService) { }
 
   ngOnInit(): void {
 
+  }
+
+  categoryChecked(event: string[]) {
+    this.localService.updateCheckedCategories(event)
   }
 
 

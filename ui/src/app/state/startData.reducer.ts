@@ -12,12 +12,11 @@ export class StartPointState {
 }
 
 export class StartDataState {
-  //startPoint: google.maps.LatLng; //errors while parsing
   startPoint: StartPointState
-  //startPlace: google.maps.places.PlaceResult;
   startPlaceFormattedAddress: string
   radius: number;
   pageNumber: number;
+  checkedLocalCategories: string[]
 }
 
 const initialStartPointState: StartPointState = {
@@ -25,12 +24,11 @@ const initialStartPointState: StartPointState = {
   startPointLon: null
 }
 const initialStartDataState: StartDataState = {
-  //startPoint: google.maps.LatLng; //errors while parsing
   startPoint: initialStartPointState,
-  //startPlace: google.maps.places.PlaceResult;
   startPlaceFormattedAddress: "",
   radius: null,
   pageNumber: 1,
+  checkedLocalCategories: []
 }
 
 // Selector functions
@@ -92,7 +90,8 @@ export function reducer(state = initialStartDataState, action: StartDataActions)
         ...state,
         startPoint: action.payload.startPoint,
         radius: action.payload.radius,
-        startPlaceFormattedAddress: action.payload.startPlaceFormattedAddress
+        startPlaceFormattedAddress: action.payload.startPlaceFormattedAddress,
+        checkedLocalCategories: action.payload.checkedLocalCategories
       };
 
     default:
