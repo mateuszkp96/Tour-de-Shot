@@ -44,7 +44,7 @@ services:
       - core_net
 
   user:
-    image: mateusz43211/tourdeshot:user_latest
+    image: mateusz43211/tourdeshot:user_1.6
     container_name: dev_user
     restart: always
     ports:
@@ -54,6 +54,21 @@ services:
     networks:
       - core_net
 
+  userhistory:
+    image: mateusz43211/tourdeshot:userhistory_latest
+    container_name: dev_userhistory
+    restart: always
+    ports:
+      - 9092:9092
+    environment:
+      SERVER_PORT: 9092
+      SPRING_DATA_MONGODB_HOST: mongo_core
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - mongo_core
+    networks:
+      - core_net
 
 networks:
   core_net:
