@@ -6,5 +6,5 @@ initialProduct.name = null
 initialProduct.price = null
 initialProduct.description = null
 initialProduct.ingredients = [null]
-initialProduct.productCategory = null
+initialProduct.categoryId = null
 

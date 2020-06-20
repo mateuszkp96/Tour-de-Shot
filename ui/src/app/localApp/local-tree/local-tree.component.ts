@@ -34,23 +34,17 @@ export class LocalTreeComponent implements OnInit {
       console.log("productCategoryList")
       console.log(this.productCategoryList)
       // maps the appropriate column to fields property
-      let field: object = {
-        dataSource: this.productCategoryList,
-        id: 'id',
-        parentID: 'pid',
-        text: 'name',
-        hasChildren: 'hasChild'
-      };
 
       this.field = {dataSource: this.categories, id: 'id', parentID: 'parentId', text: 'name', hasChildren: 'hasChild'};
       this.showCheckBox = true;
+
     });
+
 
   }
 
 
   public nodeCheck(args: NodeKeyPressEventArgs | NodeClickEventArgs): void {
-    this.onCategoryChecked.emit(this.tree.checkedNodes)
     let checkedNode = this.tree.getAllCheckedNodes()
     let toUncheck = this.tree.checkedNodes.filter(a => a != this.tree.checkedNodes[this.tree.checkedNodes.length - 1])
     this.tree.uncheckAll(toUncheck);

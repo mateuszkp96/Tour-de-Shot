@@ -6,6 +6,7 @@ import {Subject, BehaviorSubject} from 'rxjs';
 import {LocalService} from '../services/local.service';
 import {StartPointService} from '../services/start-point.service';
 import {WebLocalService} from '../services/web-local.service';
+import {Store, select} from '@ngrx/store';
 
 @Component({
   selector: 'app-map',
@@ -79,7 +80,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     private ngZone: NgZone,
     private localService: LocalService,
     private webLocalService: WebLocalService,
-    private startPointService: StartPointService
+    private startPointService: StartPointService,
+    private store: Store<any>
   ) {
     this.startPointService.getStartPoint()
       .subscribe(mymessage => {
@@ -113,6 +115,17 @@ export class MapComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.geoCoder = new google.maps.Geocoder;
     // this.localizationCoordinates = this.startPointService.getStartPointValue();
+
+    //added ngrx
+/*
+    this.store.pipe(select('startData')).subscribe(
+      startData => {
+        if (startData) {
+          console.log("Ngrx start data from map" + startData.startPlace.formatted_address)
+        }
+      });
+      
+ */
   }
 
   ngAfterViewInit() {
