@@ -1,28 +1,36 @@
 import * as fromRoot from '../state/App.state'
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {StartDataActions, StartDataActionTypes} from './startData.actions';
 
 export interface AppState extends fromRoot.AppState {
   startData: StartDataState
 }
 
-export interface StartDataState {
-  //startPoint: google.maps.LatLng; //errors while parsing
+export class StartPointState {
   startPointLat: number
   startPointLon: number
+}
+
+export class StartDataState {
+  //startPoint: google.maps.LatLng; //errors while parsing
+  startPoint: StartPointState
   //startPlace: google.maps.places.PlaceResult;
   startPlaceFormattedAddress: string
   radius: number;
   pageNumber: number;
 }
 
-const initialStartDataState: StartDataState ={
-  //startPoint: google.maps.LatLng; //errors while parsing
+const initialStartPointState: StartPointState = {
   startPointLat: null,
-  startPointLon: null,
+  startPointLon: null
+}
+const initialStartDataState: StartDataState = {
+  //startPoint: google.maps.LatLng; //errors while parsing
+  startPoint: initialStartPointState,
   //startPlace: google.maps.places.PlaceResult;
   startPlaceFormattedAddress: "",
   radius: null,
-  pageNumber: null,
+  pageNumber: 1,
 }
 
 // Selector functions
@@ -30,12 +38,17 @@ const getStartDataFeatureState = createFeatureSelector<StartDataState>('startDat
 
 export const getStartPointLat = createSelector(
   getStartDataFeatureState,
-  state => state.startPointLat
+  state => state.startPoint.startPointLat
 );
 
 export const getStartPointLon = createSelector(
   getStartDataFeatureState,
-  state => state.startPointLon
+  state => state.startPoint.startPointLon
+);
+
+export const getStartPoint = createSelector(
+  getStartDataFeatureState,
+  state => state.startPoint
 );
 
 export const getStartPlaceFormattedAddress = createSelector(
@@ -46,25 +59,42 @@ export const getRadius = createSelector(
   getStartDataFeatureState,
   state => state.radius
 );
-export const getPageNumber = createSelector(
+
+export const getStartData = createSelector(
   getStartDataFeatureState,
-  state => state.pageNumber
+  state => state
 );
 
+export function reducer(state = initialStartDataState, action: StartDataActions): StartDataState {
 
-
-
-export function reducer(state=initialStartDataState, action): StartDataState {
   switch (action.type) {
-
-    case 'START_PLACE_SELECTED' :
+    case StartDataActionTypes.SelectStartPlace :
       console.log("Existing stare" + JSON.stringify(state))
       console.log("Payload" + JSON.stringify(action.payload))
-
       return {
         ...state,
         startPlaceFormattedAddress: action.payload
       };
+    case StartDataActionTypes.SelectRadius:
+      return {
+        ...state,
+        radius: action.payload
+      };
+
+    case StartDataActionTypes.SelectStartPoint:
+      return {
+        ...state,
+        startPoint: action.payload
+      };
+
+    case StartDataActionTypes.SelectStartData:
+      return {
+        ...state,
+        startPoint: action.payload.startPoint,
+        radius: action.payload.radius,
+        startPlaceFormattedAddress: action.payload.startPlaceFormattedAddress
+      };
+
     default:
       return state
   }
