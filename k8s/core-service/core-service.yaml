@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: core
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8080
       protocol: TCP

@@ -17,9 +17,21 @@ spec:
       containers:
         - name: core
           image: mateusz43211/tourdeshot:core_1.8
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /api/actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
           env:
             - name: SPRING_DATA_MONGODB_HOST
               value: mongo-core
@@ -49,5 +61,13 @@ spec:
               value: dev
             - name: APP_CORS_ALLOWEDORIGINS_0
               value: https://tourdeshot.teamg.com
+            - name: APP_CORS_ALLOWEDORIGINS_1
+              value: http://34.120.217.81.xip.io
+            - name: APP_CORS_ALLOWEDORIGINS_2
+              value: http://34.120.217.81
+            - name: APP_CORS_ALLOWEDORIGINS_3
+              value: http://34.105.178.183.xip.io
+            - name: APP_CORS_ALLOWEDORIGINS_4
+              value: http://localhost:4200
             - name: SERVER_SERVLET_CONTEXTPATH
               value: /api

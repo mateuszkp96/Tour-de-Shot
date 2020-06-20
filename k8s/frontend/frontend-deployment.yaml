@@ -27,6 +27,6 @@ spec:
                   name: frontend-conf
                   key: google-auth-provider
             - name: LOCAL_API_URL
-              value: https://tourdeshot.teamg.com/api
+              value: http://34.105.178.183/api/
             - name: USER_API_URL
               value: https://tourdeshot.teamg.com/api

@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-nginx-balancer
+  annotations:
+#    kubernetes.io/ingress.global-static-ip-name: tds-entry-ip
+    kubernetes.io/ingress.class: nginx
+  namespace: default
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: frontend
+              servicePort: 80
+          - path: /api/local
+            backend:
+              serviceName: core
+              servicePort: 8080
+          - path: /api/product-category
+            backend:
+              serviceName: core
+              servicePort: 8080
+          - path: /api/menu
+            backend:
+              serviceName: core
+              servicePort: 8080
