@@ -51,7 +51,7 @@ public class SummaryService {
         this.mapper = mapper;
     }
 
-    public ResponseEntity<HistoryDTO> addSummaryToHistory(SummaryPostDTO dto) {
+    public ResponseEntity<HistoryDTO> addSummaryToHistory(SummaryPostDTO dto, String userId) {
         LocalDateTime timestamp = LocalDateTime.now();
         List<HistoryItem> historyItems =
                 dto.getItems().stream()
@@ -63,7 +63,7 @@ public class SummaryService {
         history.setTimestamp(timestamp);
         history.setItems(historyItems);
         history.setCost(CostCalculationUtils.calculateCost(historyItems));
-        HistoryDTO createdHistory = saveHistory(history, dto.getUserId());
+        HistoryDTO createdHistory = saveHistory(history, userId);
         return new ResponseEntity<>(createdHistory, HttpStatus.CREATED);
     }
 
