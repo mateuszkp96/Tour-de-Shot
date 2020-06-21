@@ -9,14 +9,14 @@ import {PrivacyComponent} from './footer/privacy/privacy.component';
 import {SearchComponent} from './search/search.component';
 import {AccountComponent} from './account/account.component';
 import {RouteComponent} from './route/route.component';
-import {AccountPrivacyComponent} from './account-privacy/account-privacy.component';
-import {AccountGeneralComponent} from './account-general/account-general.component';
+import {AccountPrivacyComponent} from '../app/account/account-privacy/account-privacy.component';
+import {AccountGeneralComponent} from '../app/account/account-general/account-general.component';
 import {MapComponent} from './map/map.component';
 import { LocalInformationsComponent } from './localApp/local-informations/local-informations.component';
 import { LocalComponent } from './localApp/local/local.component';
 import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
 import { LocalSettingsComponent } from './localApp/local-settings/local-settings.component';
-import { AccountHistoryComponent } from './account-history/account-history.component';
+import { AccountHistoryComponent } from '../app/account/account-history/account-history.component';
 
 const routes: Routes = [
 

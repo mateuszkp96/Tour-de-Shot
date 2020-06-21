@@ -35,7 +35,7 @@ export class LocalService {
 
   }
 
-  
+
   getFilteredByDistLocalsList(): Observable<Local[]> {
     return this.filteredByDistLocalsList.asObservable();
   }
@@ -64,7 +64,7 @@ export class LocalService {
   }
 
   updateSummaryProductList(selectedProduct, method) {
-    const name = selectedProduct.productName
+    const name = selectedProduct.name
     const price = selectedProduct.price
     let quantity;
     const productExistInSummary = this.summaryProductList.find(el => el.name === name);

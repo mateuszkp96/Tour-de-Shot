@@ -21,9 +21,7 @@ import { SignInNavComponent } from './sign-in-nav/sign-in-nav.component';
 import { LogoutComponent } from './logout/logout.component';
 import { HttpClientModule} from '@angular/common/http';
 import { LocalItemComponent } from './local-item/local-item.component';
-import { AccountPrivacyComponent } from './account-privacy/account-privacy.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
-import { AccountGeneralComponent } from './account-general/account-general.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { AgmCoreModule } from '@agm/core';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -60,7 +58,9 @@ import { StoreModule} from '@ngrx/store'
 import { reducer } from './state/startData.reducer';
 import { localReducer } from './state/localLogin.reducer';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { AccountHistoryComponent } from './account-history/account-history.component';
+import { AccountPrivacyComponent } from './account/account-privacy/account-privacy.component';
+import { AccountGeneralComponent } from './account/account-general/account-general.component';
+import { AccountHistoryComponent } from './account/account-history/account-history.component';
 
 let config = new AuthServiceConfig([
   {
