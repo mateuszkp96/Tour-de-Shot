@@ -60,14 +60,14 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: dev
             - name: APP_CORS_ALLOWEDORIGINS_0
-              value: https://tourdeshot.teamg.com
+              valueFrom:
+                configMapKeyRef:
+                  name: core-config
+                  key: APP_CORS_ALLOWEDORIGINS_0
             - name: APP_CORS_ALLOWEDORIGINS_1
-              value: http://34.120.217.81.xip.io
-            - name: APP_CORS_ALLOWEDORIGINS_2
-              value: http://34.120.217.81
-            - name: APP_CORS_ALLOWEDORIGINS_3
-              value: http://34.105.178.183.xip.io
-            - name: APP_CORS_ALLOWEDORIGINS_4
-              value: http://localhost:4200
+              valueFrom:
+                configMapKeyRef:
+                  name: core-config
+                  key: APP_CORS_ALLOWEDORIGINS_1
             - name: SERVER_SERVLET_CONTEXTPATH
               value: /api

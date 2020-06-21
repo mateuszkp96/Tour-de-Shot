@@ -17,7 +17,7 @@ spec:
       containers:
         - name: history
           image: mateusz43211/tourdeshot:userhistory_1.8
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           env:
@@ -45,12 +45,20 @@ spec:
                 configMapKeyRef:
                   name: mongo-history-config
                   key: MONGODB_TDS_DBNAME
-            - name: SPRING_PROFILES_ACTIVE
-              value: dev
-
             - name: SERVER_SERVLET_CONTEXTPATH
               value: /api
             - name: APP_CORS_ALLOWEDORIGINS_0
-              value: https://tourdeshot.teamg.com
+              valueFrom:
+                configMapKeyRef:
+                  name: history-config
+                  key: APP_CORS_ALLOWEDORIGINS_0
+            - name: APP_CORS_ALLOWEDORIGINS_1
+              valueFrom:
+                configMapKeyRef:
+                  name: history-config
+                  key: APP_CORS_ALLOWEDORIGINS_1
             - name: APP_URL_LOCAL
-              value: http://core:8080
+              valueFrom:
+                configMapKeyRef:
+                  name: history-config
+                  key: APP_URL_LOCAL
