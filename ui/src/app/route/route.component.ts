@@ -47,6 +47,10 @@ export class RouteComponent implements AfterViewInit {
     this.checkedLocalsIdList = this.localService.getCheckedLocalsIdListValues();
     this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
 
+    console.log("summary product list")
+    console.log(this.localService.getSummaryProductListValues())
+
+    
   }
 
 

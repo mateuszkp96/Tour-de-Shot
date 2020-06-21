@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountPrivacyComponent } from '../account-privacy/account-privacy.component';
 import {MatDialog} from '@angular/material/dialog';
 import { CookiesPolicyComponent } from '../cookies-policy/cookies-policy.component';
 import { ContactComponent } from './contact/contact.component'
+import { AccountPrivacyComponent } from '../account/account-privacy/account-privacy.component';
 
 @Component({
   selector: 'app-footer',
