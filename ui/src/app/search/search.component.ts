@@ -107,7 +107,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
     this.localService.getCurrentCheckedCategories().subscribe(checkedCategories => {
       this.checkedLocalCategories = checkedCategories
-      console.log("CHECKED LOCAL CATEGORIES: " + this.checkedLocalCategories )
+      console.log("CHECKED LOCAL CATEGORIES: " + this.checkedLocalCategories)
       //  if (this.startPoint != null && this.radius != null && this.startDataName != null && this.pageNumber != null && this.checkedLocalCategories.length > 0) {
       if (this.startPoint != null && this.radius != null && this.startDataName != null && this.pageNumber != null) {
         this.rememberActualState(this.startPoint.lat(), this.startPoint.lng(), this.radius, this.startDataName, this.pageNumber, this.checkedLocalCategories)
@@ -178,7 +178,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
     this.store.pipe(select(fromStartData.getStartData)).subscribe(
       async startData => {
-        if (startData.startPoint.startPointLat != null && startData.startPoint.startPointLon != null && startData.radius != null && startData.checkedLocalCategories.length > 0) {
+        if (startData.startPoint.startPointLat != null && startData.startPoint.startPointLon != null && startData.radius != null) {
           this.startPoint = new google.maps.LatLng(startData.startPoint.startPointLat, startData.startPoint.startPointLon)
           this.radius = startData.radius
           this.startDataName = startData.startPlaceFormattedAddress
@@ -282,7 +282,6 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   }
 
 
-
   getProductCategoryList() {
     this.productCategoryService.getProductCategory().subscribe(data => {
       this.productCategoryList = data as ProductCategory[]
@@ -291,8 +290,9 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
 
   filterLocals() {
-    if (this.startPoint && this.radius && this.checkedLocalCategories.length > 0) {
-      this.localFilter = InitLocalFilter
+    if (this.startPoint && this.radius) {
+      if (this.checkedLocalCategories.length > 0)
+        this.localFilter = InitLocalFilter
       this.localFilter.filters.localization.lat = this.startPoint.lat()
       this.localFilter.filters.localization.lon = this.startPoint.lng()
       this.localFilter.filters.localization.maxDistance = this.radius
@@ -301,6 +301,15 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       this.getLocalsByFilter(this.localFilter)
       this.getLocalsByFilterAndPage(this.localFilter, this.pageNumber, this.pageSize)
 
+    } else {
+      this.localFilter = InitLocalFilter
+      this.localFilter.filters.localization.lat = this.startPoint.lat()
+      this.localFilter.filters.localization.lon = this.startPoint.lng()
+      this.localFilter.filters.localization.maxDistance = this.radius
+      this.localFilter.filters.categories = this.checkedLocalCategories.map(category => (new FilterCategory(category)))
+      console.log("LOCALS FILTER:" + JSON.stringify(this.localFilter))
+      this.getLocalsByFilter(this.localFilter)
+      this.getLocalsByFilterAndPage(this.localFilter, this.pageNumber, this.pageSize)
     }
   }
 
