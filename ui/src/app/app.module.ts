@@ -60,6 +60,7 @@ import { StoreModule} from '@ngrx/store'
 import { reducer } from './state/startData.reducer';
 import { localReducer } from './state/localLogin.reducer';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { AccountHistoryComponent } from './account-history/account-history.component';
 
 let config = new AuthServiceConfig([
   {
@@ -107,7 +108,8 @@ export function provideConfig() {
     LocalTreeComponent,
     LocalSettingsComponent,
     ConfirmLocalDeleteModalComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    AccountHistoryComponent
   ],
   imports: [
     BrowserModule,

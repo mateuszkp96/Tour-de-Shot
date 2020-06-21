@@ -1,25 +1,26 @@
 <div class="container mt-5">
 
-    <!-- Account Sidebar-->
+  <!-- Account Sidebar-->
   <ul class="nav nav-tabs" role="tablist">
 
-          <a class="list-group-item" routerLink="account-general" routerLinkActive="active">
-            <div class="d-inline-block" >Ogólne</div>
-          </a>
-          <a class="list-group-item" routerLink="account-privacy" routerLinkActive="active">
-                <div class="d-inline-block" ><span>Prywatność</span></div>
-          </a>
+    <a class="list-group-item" routerLink="account-general" routerLinkActive="active">
+      <div class="d-inline-block">Ogólne</div>
+    </a>
+    <a class="list-group-item" routerLink="account-privacy" routerLinkActive="active">
+      <div class="d-inline-block"><span>Prywatność</span></div>
+    </a>
+    <a class="list-group-item" routerLink="account-history" routerLinkActive="active">
+      <div class="d-inline-block"><span>Historia</span></div>
+    </a>
 
-    </ul>
+  </ul>
 
-    <!-- Account Detailed Settings-->
-      <div class="tab-content mt-4">
-        <div class="card shadow mb-4">
-        <router-outlet></router-outlet>
-        </div>
-      </div>
-
-
+  <!-- Account Detailed Settings-->
+  <div class="tab-content mt-4">
+    <div class="card shadow mb-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 
 
 </div>

@@ -16,6 +16,7 @@ import { LocalInformationsComponent } from './localApp/local-informations/local-
 import { LocalComponent } from './localApp/local/local.component';
 import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
 import { LocalSettingsComponent } from './localApp/local-settings/local-settings.component';
+import { AccountHistoryComponent } from './account-history/account-history.component';
 
 const routes: Routes = [
 
@@ -32,6 +33,7 @@ const routes: Routes = [
     children: [
       {path: 'account-general', component: AccountGeneralComponent},
       {path: 'account-privacy', component: AccountPrivacyComponent},
+      {path: 'account-history', component: AccountHistoryComponent}
     ]
   },
   {path: 'route', component: RouteComponent},
