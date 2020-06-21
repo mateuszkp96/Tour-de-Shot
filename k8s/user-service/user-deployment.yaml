@@ -20,7 +20,21 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+#          livenessProbe:
+#            httpGet:
+#              path: /api/actuator/health
+#              port: 8080
+#            initialDelaySeconds: 20
+#            periodSeconds: 10
+#          readinessProbe:
+#            httpGet:
+#              path: /api/actuator/health
+#              port: 8080
+#            initialDelaySeconds: 20
+#            periodSeconds: 10
           env:
+            - name: SERVER_PORT
+              value: '8080'
             - name: SPRING_DATA_MONGODB_HOST
               value: mongo-user
             - name: SPRING_DATA_MONGODB_PORT
@@ -57,5 +71,7 @@ spec:
                   key: APP_CORS_ALLOWEDORIGINS_1
             - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_USER_APP_PROVIDER_ISSUER_URI
               value: http://35.246.75.83:8080/auth/realms/FirstApp
-            - name: SERVER_SERVLET_CONTEXTPATH
-              value: /api
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_USER_APP_REDIRECT_URI
+              value: http://34.105.178.183.xip.io/api/local
+#            - name: SERVER_SERVLET_CONTEXTPATH
+#              value: /api
