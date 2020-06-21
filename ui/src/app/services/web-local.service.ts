@@ -40,11 +40,11 @@ export class WebLocalService {
     return this.http.delete(this.LOCAL_API_URL + '/local/' + id).toPromise();
   }
 
-  getLocalsByFilter(filter: LocalFilter): Promise<any> {
+  getLocalsByFilter(filter: any): Promise<any> {
     return this.http.post(this.LOCAL_API_URL + '/local/filter', filter).toPromise();
   }
   
-  getLocalsByFilterAndPage(filter: LocalFilter, page: number, pageSize: number): Promise<any> {
+  getLocalsByFilterAndPage(filter: any, page: number, pageSize: number): Promise<any> {
     return this.http.post(this.LOCAL_API_URL + '/local/filter?page=' + page + '&pageSize=' + pageSize, filter).toPromise();
   }
   

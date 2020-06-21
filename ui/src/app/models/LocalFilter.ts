@@ -36,8 +36,8 @@ export const InitFilter: Filter = {
   categories: []
 }
 
+
 export const InitLocalFilter: LocalFilter = {
   filters: InitFilter,
 }
-
 

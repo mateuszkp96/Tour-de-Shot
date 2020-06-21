@@ -39,6 +39,7 @@ import * as startDataActions from '../state/startData.actions'
 import {StartPointState} from '../state/startData.reducer';
 import {StartDataState} from '../state/startData.reducer';
 import {LocalFilter, FilterCategory, InitLocalFilter, InitFilterCategory} from '../models/LocalFilter';
+import { InitLocalFilterEmpty } from '../models/LocalFilterEmpty';
 
 
 @Component({
@@ -75,7 +76,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   startPointLat: number
   startPointLon: number
   checkedLocalCategories: string[] = []
-  localFilter: LocalFilter = null
+  localFilter: any
 
   constructor(
     private router: Router,
@@ -108,22 +109,10 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     this.localService.getCurrentCheckedCategories().subscribe(checkedCategories => {
       this.checkedLocalCategories = checkedCategories
       console.log("CHECKED LOCAL CATEGORIES: " + this.checkedLocalCategories)
-      //  if (this.startPoint != null && this.radius != null && this.startDataName != null && this.pageNumber != null && this.checkedLocalCategories.length > 0) {
-      if (this.startPoint != null && this.radius != null && this.startDataName != null && this.pageNumber != null) {
-        this.rememberActualState(this.startPoint.lat(), this.startPoint.lng(), this.radius, this.startDataName, this.pageNumber, this.checkedLocalCategories)
-      }
-      /*else {
-        console.log("Trzeba usunać wszystkie dane")
-        this.filteredByDistLocalsList = [];
-        this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
-        this.localsByPage = [];
-        this.filteredByDistLocalsList = [];
-        this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
-        this.checkedLocalsIdList = [];
-        this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList)
-      }
 
-       */
+     if (this.startPoint != null && this.radius != null && this.startDataName)
+        this.rememberActualState(this.startPoint.lat(), this.startPoint.lng(), this.radius, this.startDataName, this.pageNumber, this.checkedLocalCategories)
+
     })
   }
 
@@ -159,7 +148,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
           this.startDataName = this.place.formatted_address
           if (this.startPoint && this.startDataName) {
 
-            if (this.radius != null && this.startDataName != null && this.pageNumber != null && this.checkedLocalCategories != null)
+            if (this.radius != null && this.startDataName != null && this.pageNumber != null)
               this.rememberActualState(this.startPoint.lat(), this.startPoint.lng(), this.radius, this.startDataName, this.pageNumber, this.checkedLocalCategories)
           }
           this.startPointService.updateStartPoint(this.startPoint)
@@ -192,9 +181,11 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
           this.startPointService.updateStartPoint(this.startPoint)
           await this.filterLocals();
 
-          if (this.checkedLocalCategories.length > 0) {
+          if (this.checkedLocalCategories.length > 0)
+          {
+            this.getLocalFilter(this.checkedLocalCategories)
             await this.webLocalService.getLocalsByFilterAndPage(this.localFilter, this.pageNumber - 1, this.pageSize).then(data => {
-              console.log(this.localFilter)
+              console.log(this.getLocalFilter(this.checkedLocalCategories))
               this.localsByPage = data["content"] as Local[];
               console.log(this.localsByPage)
             });
@@ -202,9 +193,20 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
               this.filteredByDistLocalsList = data["content"] as Local[];
               this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
             });
+          }else{
+            await this.webLocalService.getLocalsByFilterAndPage(this.localFilter, this.pageNumber - 1, this.pageSize).then(data => {
+              console.log( this.localFilter)
+              this.localsByPage = data["content"] as Local[];
+              console.log(this.localsByPage)
+            });
+            this.getLocalFilter(this.checkedLocalCategories)
+            await this.webLocalService.getLocalsByFilter(this.localFilter).then(data => {
+              this.filteredByDistLocalsList = data["content"] as Local[];
+              this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+            });
           }
         }
-        if (startData.startPoint.startPointLat == null || startData.startPoint.startPointLon == null || startData.startPlaceFormattedAddress == null || startData.radius == null || startData.checkedLocalCategories.length == 0) {
+        if (startData.startPoint.startPointLat == null || startData.startPoint.startPointLon == null || startData.startPlaceFormattedAddress == null || startData.radius == null) {
           this.filteredByDistLocalsList = [];
           this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
           this.localsByPage = [];
@@ -291,36 +293,20 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
   filterLocals() {
     if (this.startPoint && this.radius) {
-      if (this.checkedLocalCategories.length > 0)
-        this.localFilter = InitLocalFilter
-      this.localFilter.filters.localization.lat = this.startPoint.lat()
-      this.localFilter.filters.localization.lon = this.startPoint.lng()
-      this.localFilter.filters.localization.maxDistance = this.radius
-      this.localFilter.filters.categories = this.checkedLocalCategories.map(category => (new FilterCategory(category)))
-      console.log("LOCALS FILTER:" + JSON.stringify(this.localFilter))
-      this.getLocalsByFilter(this.localFilter)
-      this.getLocalsByFilterAndPage(this.localFilter, this.pageNumber, this.pageSize)
-
-    } else {
-      this.localFilter = InitLocalFilter
-      this.localFilter.filters.localization.lat = this.startPoint.lat()
-      this.localFilter.filters.localization.lon = this.startPoint.lng()
-      this.localFilter.filters.localization.maxDistance = this.radius
-      this.localFilter.filters.categories = this.checkedLocalCategories.map(category => (new FilterCategory(category)))
-      console.log("LOCALS FILTER:" + JSON.stringify(this.localFilter))
-      this.getLocalsByFilter(this.localFilter)
-      this.getLocalsByFilterAndPage(this.localFilter, this.pageNumber, this.pageSize)
+        this.getLocalFilter(this.checkedLocalCategories)
+        this.getLocalsByFilter(this.localFilter)
+        this.getLocalsByFilterAndPage(this.localFilter, this.pageNumber, this.pageSize)
     }
   }
 
-  getLocalsByFilter(localFilter: LocalFilter) {
+  getLocalsByFilter(localFilter: any) {
     this.webLocalService.getLocalsByFilter(localFilter).then(locals => {
       this.filteredByDistLocalsList = locals['content'] as Local[]
       this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
     });
   }
 
-  getLocalsByFilterAndPage(localFilter: LocalFilter, pageNumber: number, pageSize: number) {
+  getLocalsByFilterAndPage(localFilter: any, pageNumber: number, pageSize: number) {
     this.webLocalService.getLocalsByFilterAndPage(localFilter, pageNumber - 1, pageSize).then(locals => {
       this.localsByPage = locals['content'] as Local[]
     });
@@ -328,11 +314,13 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
 
   onBtnSearchClicked() {
+    /*
     if (this.checkedLocalCategories.length == 0) {
       this.localsByPage = [];
       this.filteredByDistLocalsList = [];
       this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
     }
+     */
     this.filterLocals()
 
     // this.startPointService.updateStartPoint(this.startPoint)
@@ -398,6 +386,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   async onChangePage(event, page, pageSize) {
     this.pageNumber = page;
 // await this.getLocalsByPage(page, pageSize);
+    this.getLocalFilter(this.checkedLocalCategories)
     await this.getLocalsByFilterAndPage(this.localFilter, page, pageSize)
     if (this.radius && this.startPoint.lat() && this.startPoint.lng() && this.startDataName && this.pageNumber) {
 // this.rememberActualState()
@@ -421,5 +410,28 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     this.store.dispatch(new startDataActions.SelectStartData(startDataState))
   }
 
+  getLocalFilter(checkedLocalsIdList: string[]){
+    switch (checkedLocalsIdList.length==0) {
+      case false:
+        let localFilter = InitLocalFilter
+        localFilter.filters.localization.lat = this.startPoint.lat()
+        localFilter.filters.localization.lon = this.startPoint.lng()
+        localFilter.filters.localization.maxDistance = this.radius
+        localFilter.filters.categories = this.checkedLocalCategories.map(category => (new FilterCategory(category)))
+        console.log("LOCALS FILTER WITH CATEGORY:" + JSON.stringify(localFilter))
+        this.localFilter = localFilter
+        //return localFilter
+        break;
 
+      case true:
+        let localFilterEmpty = InitLocalFilterEmpty
+        localFilterEmpty.filters.localization.lat = this.startPoint.lat()
+        localFilterEmpty.filters.localization.lon = this.startPoint.lng()
+        localFilterEmpty.filters.localization.maxDistance = this.radius
+        console.log("LOCALS FILTER WITHOUT CATEGORY:" + JSON.stringify(localFilterEmpty))
+        this.localFilter = localFilterEmpty
+       // return localFilterEmpty
+        break;
+    }
+  }
 }
