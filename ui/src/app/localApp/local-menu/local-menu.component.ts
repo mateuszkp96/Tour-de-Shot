@@ -40,7 +40,6 @@ export class LocalMenuComponent implements OnInit {
       async id => {
         if (id) {
           console.log("From menu" + id)
-
           this.localId = id; // hardcoded here yet
           this.getLocal(this.localId)    //todo: changing to appropriate local
         }
@@ -57,7 +56,7 @@ export class LocalMenuComponent implements OnInit {
     this.productToAdd = new Product()
     this.isCollapsed = false
 
-
+    console.log( this.localId)
   }
 
   getLocal(id: number) {

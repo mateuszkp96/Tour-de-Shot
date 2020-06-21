@@ -18,6 +18,8 @@ export class LocalService {
   localsList: Local[]
   summaryProductList: Array<{ name: any, price: number, quantity: number }> = [];
   totalCost: number = 0;
+  private checkedCategories = new Subject<string[]>();
+  currentCheckedCategories = this.checkedCategories.asObservable();
 
 
   constructor(private webLocalService: WebLocalService) {
@@ -33,7 +35,7 @@ export class LocalService {
 
   }
 
-
+  
   getFilteredByDistLocalsList(): Observable<Local[]> {
     return this.filteredByDistLocalsList.asObservable();
   }
@@ -97,6 +99,14 @@ export class LocalService {
 
   getTotalCost() {
     return this.totalCost
+  }
+
+  updateCheckedCategories(currentCheckedCategories: string[]) {
+    this.checkedCategories.next(currentCheckedCategories)
+  }
+
+  getCurrentCheckedCategories() {
+    return this.currentCheckedCategories
   }
 
 }
