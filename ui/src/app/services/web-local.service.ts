@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {RequestOptions, Request, Headers, Http} from '@angular/http';
 import {Local} from '../models/Local';
 import {map, filter, catchError, mergeMap} from 'rxjs/operators';
+import {LocalFilter} from '../models/LocalFilter';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class WebLocalService {
 
   constructor(private http: HttpClient) {
     this.LOCAL_API_URL = environment.localApiUrl;
-   // this.ROOT_URL = 'http://localhost:4200/assets/locals-db.json';
+    // this.ROOT_URL = 'http://localhost:4200/assets/locals-db.json';
   }
 
 
@@ -38,5 +39,14 @@ export class WebLocalService {
   deleteLocalById(id: number): Promise<any> {
     return this.http.delete(this.LOCAL_API_URL + '/local/' + id).toPromise();
   }
+
+  getLocalsByFilter(filter: any): Promise<any> {
+    return this.http.post(this.LOCAL_API_URL + '/local/filter', filter).toPromise();
+  }
+  
+  getLocalsByFilterAndPage(filter: any, page: number, pageSize: number): Promise<any> {
+    return this.http.post(this.LOCAL_API_URL + '/local/filter?page=' + page + '&pageSize=' + pageSize, filter).toPromise();
+  }
+  
 
 }

@@ -14,6 +14,7 @@ enableRipple(true);
 export class TreeComponent implements OnInit {
   public productCategoryList: object[];
   @Output() onCategoryChecked: EventEmitter<any> = new EventEmitter<any>();
+  checkedNodesName: string[] = []
 
   constructor(private productCategoryService: ProductCategoryService) {
   }
@@ -50,8 +51,43 @@ export class TreeComponent implements OnInit {
   }
 
 
-  nodeChecked(args): void {
-    console.log("The checked node's id is: " + this.tree.checkedNodes);
-    this.onCategoryChecked.emit(this.tree.checkedNodes)
+  async nodeChecked(args) {
+    /*
+       this.tree.checkedNodes.forEach(node => {
+          this.productCategoryService.getProdyctCategoryById(parseInt(node)).then(nodeInfo =>{
+           // console.log(nodeInfo.name)
+            this.checkedNodesName.push(nodeInfo.name)
+           // console.log(this.checkedNodesName)
+          });
+            //this.checkedNodesName.push(nodeName.name));
+        });
+    */
+    await this.getNodesName(this.tree.checkedNodes)
+
   }
+
+  getNodesName(nodesId: string[]) {
+    let counter = 0;
+    this.checkedNodesName = []
+    if (nodesId.length == 0) {
+      this.checkedNodesName = []
+      this.onCategoryChecked.emit(this.checkedNodesName)
+    } else {
+      nodesId.forEach(node => {
+        this.productCategoryService.getProdyctCategoryById(parseInt(node)).subscribe(nodeInfo => {
+          if (nodeInfo.hasChild == false) {
+            this.checkedNodesName.push(nodeInfo.name)
+            counter++
+          } else {
+            counter++
+          }
+          //this way beacuse cant cope with  async problem
+          if (counter == nodesId.length) {
+            this.onCategoryChecked.emit(this.checkedNodesName)
+          }
+        });
+      });
+    }
+  }
+
 }

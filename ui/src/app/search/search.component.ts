@@ -30,7 +30,6 @@ import {ProductCategoryService} from '../services/product-category.service';
 import {ProductCategory} from '../models/ProductCategory';
 import {AddStartData, RemoveStartData, RemoveAllStartData} from '../actions/StartData.actions'
 import {StartData} from '../state/models/StartData';
-//import {StartDataState, StartDataStateModel} from '../states/StartData.state';
 import {map, filter, catchError, mergeMap, takeUntil} from 'rxjs/operators';
 import {async} from 'rxjs/internal/scheduler/async';
 import {Item} from '@syncfusion/ej2-angular-navigations';
@@ -39,6 +38,8 @@ import * as fromStartData from '../state/startData.reducer'
 import * as startDataActions from '../state/startData.actions'
 import {StartPointState} from '../state/startData.reducer';
 import {StartDataState} from '../state/startData.reducer';
+import {LocalFilter, FilterCategory, InitLocalFilter, InitFilterCategory} from '../models/LocalFilter';
+import { InitLocalFilterEmpty } from '../models/LocalFilterEmpty';
 
 
 @Component({
@@ -63,19 +64,19 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   place: google.maps.places.PlaceResult;
   public localsCoordinates: google.maps.LatLng[] = [];
   startPoint: google.maps.LatLng;
-  startPlace: google.maps.places.PlaceResult;
   startPointForm: FormGroup;
   startDataName: string
   startDataSelectRadius: string;
   public productCategoryList: ProductCategory[];
   public test: string;
-  //tutorials$: Observable<StartDataState>
   startDataNumber = 0;
   localCoordinates: google.maps.LatLng;
   stateSubscription: Subscription;
   localsJson: Object
   startPointLat: number
   startPointLon: number
+  checkedLocalCategories: string[] = []
+  localFilter: any
 
   constructor(
     private router: Router,
@@ -92,7 +93,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     this.localService.getFilteredByDistLocalsList()
       .subscribe(mymessage => {
         this.filteredByDistLocalsList = mymessage
-        // this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
+        this.filteredByDistLocalsList = this.localService.getFilteredByDistLocalsListValues();
       });
 
     this.localService.getCheckedLocalsIdList()
@@ -104,38 +105,23 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       .subscribe(mymessage => {
         this.startPoint = mymessage;
       });
+
+    this.localService.getCurrentCheckedCategories().subscribe(checkedCategories => {
+      this.checkedLocalCategories = checkedCategories
+      console.log("CHECKED LOCAL CATEGORIES: " + this.checkedLocalCategories)
+
+     if (this.startPoint != null && this.radius != null && this.startDataName)
+        this.rememberActualState(this.startPoint.lat(), this.startPoint.lng(), this.radius, this.startDataName, this.pageNumber, this.checkedLocalCategories)
+
+    })
   }
 
 
   ngOnInit(): void {
-    //this.startData =  { name: '', selectRadius: ''};
     this.startPointForm = new FormGroup({
       'name': new FormControl(this.startDataName, Validators.required),
       'selectRadius': new FormControl(this.startDataSelectRadius, Validators.required)
     });
-    /*
-    this.store.pipe(select(fromStartData.getStartPlaceFormattedAddress)).subscribe(
-      startPlaceFormattedAddress => {
-        if (startPlaceFormattedAddress) {
-          console.log("Ngrx start data" + startPlaceFormattedAddress)
-          this.startDataName = startPlaceFormattedAddress;
-          console.log("startdataName" + this.startDataName)
-        }
-      });
-    this.store.pipe(select(fromStartData.getRadius)).subscribe(
-      radius => {
-        if (radius) {
-          console.log(radius + " km")
-          this.startDataSelectRadius = radius + " km"
-        }
-      });
-    this.store.pipe(select(fromStartData.getStartPoint)).subscribe(
-      startPoint => {
-        if (startPoint) {
-          this.startPoint = new google.maps.LatLng(startPoint.startPointLat, startPoint.startPointLon)
-        }
-      });
-*/
 
 
   }
@@ -151,80 +137,32 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
     this.autocomplete.addListener("place_changed", () => {
       this.ngZone.run(() => {
-        this.place = this.autocomplete.getPlace();
+          this.place = this.autocomplete.getPlace();
 
-        if (this.place.geometry === undefined || this.place.geometry === null) {
-          return;
-        }
-
-        this.startPoint = this.place.geometry.location;
-        this.startPlace = this.place;
-        if (this.startPoint && this.startPlace) {
-          this.store.dispatch(new startDataActions.SelectStartPlace(this.startPlace.formatted_address))
-          let st = new StartPointState()
-          st.startPointLat = this.startPoint.lat()
-          st.startPointLon = this.startPoint.lng()
-          this.store.dispatch(new startDataActions.SelectStartPoint(st))
-
-          if (this.radius != null) {
-            this.webLocalService.getLocalsByPage(this.pageNumber - 1, this.pageSize).then(data => {
-              this.localsByPage = data["content"] as Local[];
-            });
+          if (this.place.geometry === undefined || this.place.geometry === null) {
+            return;
           }
 
+          this.startPoint = this.place.geometry.location;
+          //  this.startPlace = this.place;
+          this.startDataName = this.place.formatted_address
+          if (this.startPoint && this.startDataName) {
+
+            if (this.radius != null && this.startDataName != null && this.pageNumber != null)
+              this.rememberActualState(this.startPoint.lat(), this.startPoint.lng(), this.radius, this.startDataName, this.pageNumber, this.checkedLocalCategories)
+          }
           this.startPointService.updateStartPoint(this.startPoint)
+
+          // this.onBtnSearchClicked();
+          // this.localsByPage = []
+          this.checkedLocalsIdList = []
+          this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
+          //  this.filteredByDistLocalsList = []
+          //  this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+
         }
-        // this.onBtnSearchClicked();
-        this.checkedLocalsIdList = []
-        this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
-      });
+      );
     });
-
-    /*
-        this.stateSubscription = this.store.select(state => state.StartData.tutorials).subscribe(async val => {
-          console.log("STATES")
-          if (val.length > 0) {
-            this.startPoint = new google.maps.LatLng(val[val.length - 1].startPointLat, val[val.length - 1].startPointLon)
-            this.startPlace = val[val.length - 1].startPlace
-            this.radius = val[val.length - 1].radius
-            this.pageNumber = val[val.length - 1].pageNumber
-            console.log(val)
-
-            this.startData.name = this.startPlace.formatted_address;
-            if (this.radius) {
-              this.startData.selectRadius = this.radius.toString() + ' km'
-            }
-
-            console.log("LAST POINT")
-            console.log([this.startData.name, this.radius])
-
-
-            this.startPointService.updateStartPoint(this.startPoint)
-            await this.filterLocalsByDist(this.radius);
-            if (this.filteredByDistLocalsList) {
-              this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
-            }
-
-            this.webLocalService.getLocalsByPage(this.pageNumber - 1, this.pageSize).then(data => {
-              this.localsByPage = data["content"] as Local[];
-            });
-
-
-          }
-
-          //if number of stored states is > 10 -> remove first 5
-          //  if (val.length > 10)
-          // this.store.dispatch(new RemoveStartData(5))
-
-        });
-    */
-
-
-    //  this.startPointService.updateStartPoint(this.startPoint)
-    //  this.filterLocalsByDist(this.radius);
-    //  if (this.filteredByDistLocalsList) {
-    //    this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
-    //  }
 
 
     this.store.pipe(select(fromStartData.getStartData)).subscribe(
@@ -235,21 +173,50 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
           this.startDataName = startData.startPlaceFormattedAddress
           this.startDataSelectRadius = startData.radius + " km"
           this.pageNumber = startData.pageNumber
-          console.log("startDataState")
+          this.checkedLocalCategories = startData.checkedLocalCategories
+
+          console.log("START DATA STATE")
           console.log(startData)
 
           this.startPointService.updateStartPoint(this.startPoint)
-          await this.filterLocalsByDist(this.radius);
-          if (this.filteredByDistLocalsList) {
-            this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
+          await this.filterLocals();
+
+          if (this.checkedLocalCategories.length > 0)
+          {
+            this.getLocalFilter(this.checkedLocalCategories)
+            await this.webLocalService.getLocalsByFilterAndPage(this.localFilter, this.pageNumber - 1, this.pageSize).then(data => {
+              console.log(this.getLocalFilter(this.checkedLocalCategories))
+              this.localsByPage = data["content"] as Local[];
+              console.log(this.localsByPage)
+            });
+            await this.webLocalService.getLocalsByFilter(this.localFilter).then(data => {
+              this.filteredByDistLocalsList = data["content"] as Local[];
+              this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+            });
+          }else{
+            await this.webLocalService.getLocalsByFilterAndPage(this.localFilter, this.pageNumber - 1, this.pageSize).then(data => {
+              console.log( this.localFilter)
+              this.localsByPage = data["content"] as Local[];
+              console.log(this.localsByPage)
+            });
+            this.getLocalFilter(this.checkedLocalCategories)
+            await this.webLocalService.getLocalsByFilter(this.localFilter).then(data => {
+              this.filteredByDistLocalsList = data["content"] as Local[];
+              this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+            });
           }
-
-          this.webLocalService.getLocalsByPage(this.pageNumber - 1, this.pageSize).then(data => {
-            this.localsByPage = data["content"] as Local[];
-          });
-
+        }
+        if (startData.startPoint.startPointLat == null || startData.startPoint.startPointLon == null || startData.startPlaceFormattedAddress == null || startData.radius == null) {
+          this.filteredByDistLocalsList = [];
+          this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+          this.localsByPage = [];
+          this.filteredByDistLocalsList = [];
+          this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+          this.checkedLocalsIdList = [];
+          this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList)
         }
       });
+
 
     this.startPoint = this.startPointService.getStartPointValue();
     this.startPointService.updateStartPoint(this.startPoint);
@@ -316,11 +283,6 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  getLocalsByPage(pageNumber: number, pageSize: number) {
-    this.webLocalService.getLocalsByPage(pageNumber - 1, pageSize).then(data => {
-      this.localsByPage = data["content"] as Local[];
-    });
-  }
 
   getProductCategoryList() {
     this.productCategoryService.getProductCategory().subscribe(data => {
@@ -329,54 +291,47 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
   }
 
 
-  async filterLocalsByDist(radius: number) {
-    /*
-    await this.getLocalsList();
-   // console.log(this.localsList)
-
-    if (this.localsList.length > 1) {
-      this.filteredByDistLocalsList = [];
-      this.localsList.forEach(element => {
-        //console.log(element)
-        if (element) {
-          this.localCoordinates = new google.maps.LatLng(element.coordinates.lat, element.coordinates.lon);
-          console.log(this.localCoordinates)
-          console.log(this.startPoint)
-          const distanceInKm = google.maps.geometry.spherical.computeDistanceBetween(this.localCoordinates, this.startPoint) / 1000;
-          if (distanceInKm < radius && (!this.filteredByDistLocalsList.includes(element))) {
-            this.filteredByDistLocalsList.push(element);
-          }
-        }
-      });
-
+  filterLocals() {
+    if (this.startPoint && this.radius) {
+        this.getLocalFilter(this.checkedLocalCategories)
+        this.getLocalsByFilter(this.localFilter)
+        this.getLocalsByFilterAndPage(this.localFilter, this.pageNumber, this.pageSize)
     }
-*/
-
-    await this.localService.getLocalsList().then(data => {
-      this.localsList = data as Local[]
-      this.filteredByDistLocalsList = data as Local[]
-    });
-
   }
+
+  getLocalsByFilter(localFilter: any) {
+    this.webLocalService.getLocalsByFilter(localFilter).then(locals => {
+      this.filteredByDistLocalsList = locals['content'] as Local[]
+      this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
+    });
+  }
+
+  getLocalsByFilterAndPage(localFilter: any, pageNumber: number, pageSize: number) {
+    this.webLocalService.getLocalsByFilterAndPage(localFilter, pageNumber - 1, pageSize).then(locals => {
+      this.localsByPage = locals['content'] as Local[]
+    });
+  }
+
 
   onBtnSearchClicked() {
-    console.log("on button search clicked")
-    this.webLocalService.getLocalsByPage(this.pageNumber - 1, this.pageSize).then(data => {
-      this.localsByPage = data["content"] as Local[];
-    });
+    /*
+    if (this.checkedLocalCategories.length == 0) {
+      this.localsByPage = [];
+      this.filteredByDistLocalsList = [];
+      this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList)
+    }
+     */
+    this.filterLocals()
 
-
-    this.startPointService.updateStartPoint(this.startPoint)
-
-    this.filterLocalsByDist(this.radius);
-    this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
+    // this.startPointService.updateStartPoint(this.startPoint)
+    // this.localService.updateFilteredByDistLocalsList(this.filteredByDistLocalsList);
     console.log(this.filteredByDistLocalsList);
     this.checkedLocalsIdList = [];
+    this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList)
+    if (this.radius && this.startPoint.lat() && this.startPoint.lng() && this.startDataName && this.pageNumber)
+      this.rememberActualState(this.startPoint.lat(), this.startPoint.lng(), this.radius, this.startDataName, this.pageNumber, this.checkedLocalCategories)
 
-    if (this.radius && this.startPoint.lat() && this.startPoint.lng() && this.startPlace && this.pageNumber)
-      this.rememberActualState()
   }
-
 
   onCheckboxClicked(event, local, i) {
     switch (event.checked) {
@@ -396,10 +351,7 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-
   getChecked(local) {
-    //console.log("Checked Locals To HTML")
-    //console.log(this.checkedLocalsIdList)
     for (let i of this.checkedLocalsIdList) {
       if (local.id == i) {
         return true;
@@ -419,53 +371,67 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
   onRadiusChanged(event) {
     this.radius = event.currentTarget.valueOf().value.replace(/\D/g, '');
-    if (this.radius)
-      this.store.dispatch(new startDataActions.SelectRadius(this.radius))
 
-    if (this.radius && this.startPoint.lat() && this.startPoint.lng() && this.startPlace && this.pageNumber)
-      this.rememberActualState()
+    if (this.startPoint.lat() != null && this.startPoint.lng() != null && this.startDataName != null && this.pageNumber != null && this.checkedLocalCategories != null)
+      this.rememberActualState(this.startPoint.lat(), this.startPoint.lng(), this.radius, this.startDataName, this.pageNumber, this.checkedLocalCategories)
+
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
+// TODO: Use EventEmitter with form value
     console.warn(this.startPointForm.value);
   }
 
 
   async onChangePage(event, page, pageSize) {
     this.pageNumber = page;
-    await this.getLocalsByPage(page, pageSize);
-    if (this.radius && this.startPoint.lat() && this.startPoint.lng() && this.startPlace && this.pageNumber) {
-      // this.rememberActualState()
+// await this.getLocalsByPage(page, pageSize);
+    this.getLocalFilter(this.checkedLocalCategories)
+    await this.getLocalsByFilterAndPage(this.localFilter, page, pageSize)
+    if (this.radius && this.startPoint.lat() && this.startPoint.lng() && this.startDataName && this.pageNumber) {
+// this.rememberActualState()
     }
+
 
   }
 
-  /*
-    rememberActualState() {
-      this.store.dispatch(new AddStartData({
-        id: this.startDataNumber++,
-        radius: this.radius,
-        startPointLat: this.startPoint.lat(),
-        startPointLon: this.startPoint.lng(),
-        startPlace: this.startPlace,
-        pageNumber: this.pageNumber
-      }))
-    }
-  */
-  rememberActualState() {
+
+  rememberActualState(startPointLat: number, startPointLon: number, radius: number, startPlaceFormattedAddress: string, pageNumber: number, checkedLocalCategories: string[]) {
     let startPointState = new StartPointState()
-    startPointState.startPointLat = this.startPoint.lat()
-    startPointState.startPointLon = this.startPoint.lng()
+    startPointState.startPointLat = startPointLat
+    startPointState.startPointLon = startPointLon
 
     let startDataState = new StartDataState()
     startDataState.startPoint = startPointState
-    startDataState.radius = this.radius
-    startDataState.startPlaceFormattedAddress = this.startPlace.formatted_address
-    startDataState.pageNumber = this.pageNumber
-    console.log("Saving start data state")
-    console.log(startDataState)
+    startDataState.radius = radius
+    startDataState.startPlaceFormattedAddress = startPlaceFormattedAddress
+    startDataState.pageNumber = pageNumber
+    startDataState.checkedLocalCategories = checkedLocalCategories
     this.store.dispatch(new startDataActions.SelectStartData(startDataState))
   }
 
+  getLocalFilter(checkedLocalsIdList: string[]){
+    switch (checkedLocalsIdList.length==0) {
+      case false:
+        let localFilter = InitLocalFilter
+        localFilter.filters.localization.lat = this.startPoint.lat()
+        localFilter.filters.localization.lon = this.startPoint.lng()
+        localFilter.filters.localization.maxDistance = this.radius
+        localFilter.filters.categories = this.checkedLocalCategories.map(category => (new FilterCategory(category)))
+        console.log("LOCALS FILTER WITH CATEGORY:" + JSON.stringify(localFilter))
+        this.localFilter = localFilter
+        //return localFilter
+        break;
+
+      case true:
+        let localFilterEmpty = InitLocalFilterEmpty
+        localFilterEmpty.filters.localization.lat = this.startPoint.lat()
+        localFilterEmpty.filters.localization.lon = this.startPoint.lng()
+        localFilterEmpty.filters.localization.maxDistance = this.radius
+        console.log("LOCALS FILTER WITHOUT CATEGORY:" + JSON.stringify(localFilterEmpty))
+        this.localFilter = localFilterEmpty
+       // return localFilterEmpty
+        break;
+    }
+  }
 }

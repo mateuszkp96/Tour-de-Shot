@@ -23,10 +23,12 @@ export class ModalComponent implements OnInit {
   { }
 
   ngOnInit(): void {
-    
+
   }
 
   addProductToSummary(product, method: string, i, j){
+    console.log(product)
+    console.log(method)
     this.localService.updateSummaryProductList(product, method)
   }
 

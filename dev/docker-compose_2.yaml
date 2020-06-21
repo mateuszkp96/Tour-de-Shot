@@ -9,7 +9,7 @@ services:
       - ./nginx:/etc/nginx/conf.d
     depends_on:
       - core
-      - user
+#      - user
     ports:
       - 80:80
     networks:
@@ -37,22 +37,32 @@ services:
       SERVER_PORT: 9090
       SPRING_DATA_MONGODB_HOST: mongo_core
       SPRING_DATA_MONGODB_PORT: 27017
-      SPRING_PROFILES_ACTIVE: dev
+      APP_CORS_ALLOWEDORIGINS_0: http://localhost:8080
+      APP_CORS_ALLOWEDORIGINS_1: http://localhost:4200
     depends_on:
       - mongo_core
     networks:
       - core_net
 
   user:
+<<<<<<< HEAD
+    image: tourdeshot/user1
+=======
     image: mateusz43211/tourdeshot:user_1.6
+>>>>>>> fb22bcb980cbd2ad0d5f984ce4ddf604920b497a
     container_name: dev_user
     restart: always
     ports:
       - 9091:9091
     environment:
       SERVER_PORT: 9091
+      SPRING_DATA_MONGODB_HOST: mongo_core
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_USER_APP_PROVIDER_ISSUER_URI: http://keycloak123:8085/auth/realms/FirstApp
     networks:
       - core_net
+    depends_on:
+      - mongo_core
 
   userhistory:
     image: mateusz43211/tourdeshot:userhistory_latest
@@ -71,5 +81,41 @@ services:
     networks:
       - core_net
 
+  userhistory:
+    image: mateusz43211/tourdeshot:userhistory_latest
+    container_name: dev_userhistory
+    restart: always
+    ports:
+      - 9092:9092
+    environment:
+      SERVER_PORT: 9092
+      SPRING_DATA_MONGODB_HOST: mongo_core
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - mongo_core
+    networks:
+      - core_net
+  cors_anywhere:
+    image: cors-anywhere
+    container_name: cors_anywhere
+    restart: always
+    ports:
+    - 8080:8080
+    environment:
+      CORSANYWHERE_WHITELIST: 'http://localhost:4200'
+    networks:
+      - core_net
+  keycloak123:
+    image: quay.io/keycloak/keycloak:7.0.1
+    container_name: keycloak_inaczej123
+    restart: always
+    ports:
+      - 8085:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    networks:
+      - core_net
 networks:
   core_net:

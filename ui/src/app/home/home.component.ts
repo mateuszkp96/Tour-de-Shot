@@ -4,10 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService, SocialUser } from "angularx-social-login";
 import { environment } from "../../environments/environment"
+import { MatDialog } from '@angular/material/dialog';
 import * as fromLocalLogin from '../state/localLogin.reducer'
 import * as localLoginActions from '../state/localLogin.actions'
 import { Store } from '@ngrx/store';
 import { LocalLoginService } from '../services/local-login.service';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 
 @Component({
@@ -20,10 +22,12 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private store: Store<fromLocalLogin.AppState>,
-    private localLoginService: LocalLoginService
+    private localLoginService: LocalLoginService,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
+    setTimeout(() => this.openConfirmationDialog(), 1300)
   }
 
   onRegisterClick() {
@@ -41,6 +45,10 @@ export class HomeComponent implements OnInit {
 
   }
 
-
-
+  openConfirmationDialog(){
+    const dialogRef = this.dialog.open(ConfirmationComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }

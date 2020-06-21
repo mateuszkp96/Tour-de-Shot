@@ -105,6 +105,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.localService.getCheckedLocalsIdList()
       .subscribe(mymessage => {
         this.checkedLocalsIdList = mymessage;
+        console.log("CHECKED LOCALS ID")
+        console.log(this.checkedLocalsIdList)
         this.loadCheckedLocalsMarkers();
         this.drawRoute();
       });
@@ -124,7 +126,7 @@ export class MapComponent implements OnInit, AfterViewInit {
           console.log("Ngrx start data from map" + startData.startPlace.formatted_address)
         }
       });
-      
+
  */
   }
 
@@ -197,6 +199,8 @@ export class MapComponent implements OnInit, AfterViewInit {
         this.markers[index].setMap(null)
         this.markersId.splice(index, 1);
         this.markers.splice(index, 1);
+        this.checkedLocalsIdList.splice(index, 1);
+        this.drawRoute()
       });
     }
 
@@ -223,8 +227,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   loadCheckedLocalsMarkers() {
-    console.log("Checked Locals Id List")
-    console.log(this.checkedLocalsIdList)
     for (let j in this.markers) {
       this.markers[j].setIcon(this.localIcon);
       this.markers[j].setMap(this.map);
@@ -266,9 +268,15 @@ export class MapComponent implements OnInit, AfterViewInit {
         this.routePolyline.setPath(this.destinations);
       });
 
+    }else{
+      this.destinationsId = []
+      this.destinations = []
+      this.routePolyline.setPath(this.destinations);
+      this.routePolyline.setMap(null);
+
     }
 
-    console.log("Route Id List")
+    console.log("ROUTE ID")
     console.log(this.destinationsId)
   }
 

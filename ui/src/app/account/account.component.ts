@@ -24,8 +24,5 @@ export class AccountComponent implements OnInit {
       this.loggedIn = (user != null);
     });
   }
-
-  onGoogleSettingsClicked(){
-    window.open("https://myaccount.google.com", "_blank");
-}
+  
 }
