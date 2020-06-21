@@ -45,11 +45,7 @@ services:
       - core_net
 
   user:
-<<<<<<< HEAD
     image: tourdeshot/user1
-=======
-    image: mateusz43211/tourdeshot:user_1.6
->>>>>>> fb22bcb980cbd2ad0d5f984ce4ddf604920b497a
     container_name: dev_user
     restart: always
     ports:
