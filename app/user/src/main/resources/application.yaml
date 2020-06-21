@@ -16,7 +16,7 @@ spring:
             client-secret: EHu4r0BG-4UOx_BL0wH7gs2O
           user-app:
             client-id: user-app
-            client-secret: 13e5d0bd-57e6-40b2-b5ad-6e9b071570d3
+            client-secret: 9d22cd50-2d04-4441-9eae-a4ef4ae9f179
             client-name: User service
             scope: openid
             client-authentication-method: basic
@@ -24,7 +24,7 @@ spring:
             provider: user-app-provider
         provider:
           user-app-provider:
-            issuer-uri: http://localhost:8080/auth/realms/Tour-De-Shot-Apps
+            issuer-uri: http://localhost:8085/auth/realms/FirstApp
 logging:
   level:
     root: INFO
@@ -36,3 +36,4 @@ app:
     allowedOrigins:
       - "http://localhost:4200"
       - "http://localhost:8081"
+      - "http://localhost:8080"

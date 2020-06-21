@@ -11,7 +11,7 @@ export class WebLoginService {
   readonly ROOT_URL;
   constructor(private http: HttpClient) {
 
-    this.ROOT_URL = 'http://localhost:8081/oauth2/authorization/user-app'
+    this.ROOT_URL = 'http://localhost:8080/http://localhost:8081/'
    }
 
    async getUserJson(): Promise<any> {
