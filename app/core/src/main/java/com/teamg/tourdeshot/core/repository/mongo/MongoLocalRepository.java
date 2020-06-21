@@ -65,7 +65,7 @@ public class MongoLocalRepository implements LocalRepository {
         Localization geoFilterData = localFiltersInterpreter.extractLocalizationData(requestBody);
         Point point = new Point(geoFilterData.getLat().doubleValue(), geoFilterData.getLon().doubleValue());
         Distance distance = new Distance(geoFilterData.getMaxDistance().doubleValue(), Metrics.KILOMETERS);
-        NearQuery query = NearQuery.near(point).maxDistance(distance).with(pageable);
+        NearQuery query = NearQuery.near(point).maxDistance(distance).with(pageable).limit(100);
         GeoNearOperation operation = Aggregation.geoNear(query, "distance");
         MatchOperation matchOperation = Aggregation.match(localFiltersInterpreter.criteriaBuilder(requestBody));
         TypedAggregation<Local> typedAggregation = new TypedAggregation<>(Local.class, operation, matchOperation);
