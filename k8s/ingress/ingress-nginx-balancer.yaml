@@ -34,3 +34,7 @@ spec:
             backend:
               serviceName: history
               servicePort: 8080
+          - path: /api/customers
+            backend:
+              serviceName: user
+              servicePort: 8080
