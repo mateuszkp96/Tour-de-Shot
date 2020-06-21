@@ -1,25 +1,39 @@
 server:
   port: 8081
 spring:
+  data:
+    mongodb:
+      port: 27017
+      username: mongoadmin
+      password: secret
+      authentication-database: admin
   security:
     oauth2:
       client:
         registration:
+          google:
+            client-id: 555231402396-347hn6pka27rup0l3naaorsqm41n8n6r.apps.googleusercontent.com
+            client-secret: EHu4r0BG-4UOx_BL0wH7gs2O
           user-app:
             client-id: user-app
-            client-secret: 3245072c-02f5-41bc-9396-6bc83faa155c
+            client-secret: 9d22cd50-2d04-4441-9eae-a4ef4ae9f179
             client-name: User service
             scope: openid
-            redirect-uri: http://localhost:8081/login/oauth2/code/user-app
             client-authentication-method: basic
             authorization-grant-type: authorization_code
             provider: user-app-provider
         provider:
           user-app-provider:
-            issuer-uri: http://localhost:8080/auth/realms/FirstApp
+            issuer-uri: http://localhost:8085/auth/realms/FirstApp
 logging:
   level:
     root: INFO
     com.memorynotfound: INFO
     org.springframework.web: INFO
     org.springframework.security: INFO
+app:
+  cors:
+    allowedOrigins:
+      - "http://localhost:4200"
+      - "http://localhost:8081"
+      - "http://localhost:8080"

@@ -1,0 +1,117 @@
+version: '3.7'
+
+services:
+  proxy:
+    image: nginx:1.17.9-alpine
+    container_name: dev_reverse_proxy
+    restart: always
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - core
+#      - user
+    ports:
+      - 80:80
+    networks:
+      - core_net
+
+  mongo_core:
+    image: mongo:4.0
+    container_name: dev_core_mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    networks:
+      - core_net
+
+  core:
+    image: mateusz43211/tourdeshot:core_latest
+    container_name: dev_core
+    restart: always
+    ports:
+      - 9090:9090
+    environment:
+      SERVER_PORT: 9090
+      SPRING_DATA_MONGODB_HOST: mongo_core
+      SPRING_DATA_MONGODB_PORT: 27017
+      APP_CORS_ALLOWEDORIGINS_0: http://localhost:8080
+      APP_CORS_ALLOWEDORIGINS_1: http://localhost:4200
+    depends_on:
+      - mongo_core
+    networks:
+      - core_net
+
+  user:
+    image: tourdeshot/user1
+    container_name: dev_user
+    restart: always
+    ports:
+      - 9091:9091
+    environment:
+      SERVER_PORT: 9091
+      SPRING_DATA_MONGODB_HOST: mongo_core
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_USER_APP_PROVIDER_ISSUER_URI: http://keycloak123:8085/auth/realms/FirstApp
+    networks:
+      - core_net
+    depends_on:
+      - mongo_core
+
+  userhistory:
+    image: mateusz43211/tourdeshot:userhistory_latest
+    container_name: dev_userhistory
+    restart: always
+    ports:
+      - 9092:9092
+    environment:
+      SERVER_PORT: 9092
+      SPRING_DATA_MONGODB_HOST: mongo_core
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_PROFILES_ACTIVE: dev
+      APP_URL_LOCAL: http://core:9090
+    depends_on:
+      - mongo_core
+    networks:
+      - core_net
+
+  userhistory:
+    image: mateusz43211/tourdeshot:userhistory_latest
+    container_name: dev_userhistory
+    restart: always
+    ports:
+      - 9092:9092
+    environment:
+      SERVER_PORT: 9092
+      SPRING_DATA_MONGODB_HOST: mongo_core
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - mongo_core
+    networks:
+      - core_net
+  cors_anywhere:
+    image: cors-anywhere
+    container_name: cors_anywhere
+    restart: always
+    ports:
+    - 8080:8080
+    environment:
+      CORSANYWHERE_WHITELIST: 'http://localhost:4200'
+    networks:
+      - core_net
+  keycloak123:
+    image: quay.io/keycloak/keycloak:7.0.1
+    container_name: keycloak_inaczej123
+    restart: always
+    ports:
+      - 8085:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    networks:
+      - core_net
+networks:
+  core_net:

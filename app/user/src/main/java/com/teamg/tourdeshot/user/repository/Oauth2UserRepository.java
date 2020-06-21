@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface Oauth2UserRepository extends MongoRepository<TourDeShotOauth2User, String> {
 
-
+    boolean existsByUsername(String username);
 }

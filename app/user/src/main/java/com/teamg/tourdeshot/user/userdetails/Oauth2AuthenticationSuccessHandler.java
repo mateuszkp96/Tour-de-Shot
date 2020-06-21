@@ -1,7 +1,9 @@
 package com.teamg.tourdeshot.user.userdetails;
 
 
+import com.teamg.tourdeshot.user.model.UserOAuth2Dto;
 import com.teamg.tourdeshot.user.service.UserRegistrationService;
+import com.teamg.tourdeshot.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
@@ -18,19 +20,18 @@ import java.io.IOException;
 public class Oauth2AuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 
-
+    private  final UserService userService;
 	private final UserRegistrationService userRegistrationService;
 	private final RedirectStrategy redirectStrategy;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-		// TODO chan ge to our service if(!this.portfolioService.userHasAportfolio(authentication.getName())) {
-		// ISUE with casting stuff
-		// OidcTourUser principal = (OidcTourUser)authentication.getPrincipal();
-		//	UserOAuth2Dto user = new UserOAuth2Dto(principal.getFirstName(),principal.getLastName(),authentication.getName(),principal.getEmail());
-		//	this.userRegistrationService.registerNewAuth2User(user);
-
+		if(!this.userService.userCreated(authentication.getName())) {
+			OidcTourUser principal = (OidcTourUser) authentication.getPrincipal();
+			UserOAuth2Dto user = new UserOAuth2Dto(principal.getFirstName(), principal.getLastName(), authentication.getName(), principal.getEmail());
+			this.userRegistrationService.registerNewAuth2User(user);
+		}
 		 this.redirectStrategy.sendRedirect(request, response, "/customers");
 	}
 	
