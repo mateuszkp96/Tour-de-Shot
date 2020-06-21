@@ -65,6 +65,7 @@ services:
       SPRING_DATA_MONGODB_HOST: mongo_core
       SPRING_DATA_MONGODB_PORT: 27017
       SPRING_PROFILES_ACTIVE: dev
+      APP_URL_LOCAL: http://core:9090
     depends_on:
       - mongo_core
     networks:
