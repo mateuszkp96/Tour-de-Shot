@@ -6,7 +6,6 @@ export const environment = {
   production: false,
   localApiUrl: window["env"]["localApiUrl"] || "default",
   userApiUrl: window["env"]["userApiUrl"] || "default",
-  historyApiUrl: window["env"]["historyApiUrl"] || "default",
   googleAuthProvider: window["env"]["googleAuthProvider"] || "default",
   debug: window["env"]["debug"] || false
 };
