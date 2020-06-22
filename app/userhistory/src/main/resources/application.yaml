@@ -4,7 +4,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://35.246.75.83.xip.io:8080/auth/realms/FirstApp
+          issuer-uri: http://34.105.178.183.xip.io/auth/realms/FirstApp
   data:
     mongodb:
       port: 27017

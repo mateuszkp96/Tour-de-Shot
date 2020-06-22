@@ -24,7 +24,7 @@ spring:
             provider: user-app-provider
         provider:
           user-app-provider:
-            issuer-uri: http://35.246.75.83.xip.io:8080/auth/realms/FirstApp
+            issuer-uri: http://34.105.178.183.xip.io/auth/realms/FirstApp
 logging:
   level:
     root: INFO
