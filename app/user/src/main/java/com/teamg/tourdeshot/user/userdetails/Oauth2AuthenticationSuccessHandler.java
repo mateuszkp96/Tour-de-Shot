@@ -1,7 +1,9 @@
 package com.teamg.tourdeshot.user.userdetails;
 
 
+import com.teamg.tourdeshot.user.model.UserOAuth2Dto;
 import com.teamg.tourdeshot.user.service.UserRegistrationService;
+import com.teamg.tourdeshot.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
