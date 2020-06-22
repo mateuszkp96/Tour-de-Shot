@@ -1,15 +1,12 @@
 package com.teamg.tourdeshot.core.repository.mongo;
 
 import com.mongodb.client.result.DeleteResult;
-import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalUpdateDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.api.local.filter.Localization;
 import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.mapper.filter.LocalFiltersInterpreter;
 import com.teamg.tourdeshot.core.mapper.utils.UpdateLocalUtils;
-import com.teamg.tourdeshot.core.model.Address;
-import com.teamg.tourdeshot.core.model.Contact;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.LocalWithDistance;
 import com.teamg.tourdeshot.core.repository.LocalRepository;
@@ -23,7 +20,11 @@ import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.FindAndReplaceOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.GeoNearOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.support.PageableExecutionUtils;
