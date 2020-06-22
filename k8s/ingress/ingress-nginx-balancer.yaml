@@ -40,5 +40,5 @@ spec:
               servicePort: 8080
           - path: /auth
             backend:
-              serviceName: keycloak
+              serviceName: keycloak-svc
               servicePort: 8080

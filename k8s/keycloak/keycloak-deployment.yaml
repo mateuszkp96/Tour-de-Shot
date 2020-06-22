@@ -33,7 +33,7 @@ spec:
                   name: keycloak-secret-conf
                   key: KEYCLOAK_PASSWORD
             - name: KEYCLOAK_IMPORT
-              value: /tmp/init/realm-export.json
+              value: /tmp/init/realm-export-master.json
             - name: PROXY_ADDRESS_FORWARDING
               value: "true"
           ports:
@@ -48,4 +48,4 @@ spec:
       volumes:
         - name: keycloak-realm-volume
           configMap:
-            name: keycloak-realm-config
+            name: keycloak-master-realm-config
