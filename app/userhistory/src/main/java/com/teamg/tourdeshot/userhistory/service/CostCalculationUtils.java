@@ -16,7 +16,7 @@ public class CostCalculationUtils {
 
     public static BigDecimal calculateProductCost(List<ProductSummary> productSummaries) {
         return productSummaries.stream()
-                .map(ProductSummary::getPrice)
+                .map(productSummary -> productSummary.getPrice().multiply(BigDecimal.valueOf(productSummary.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
