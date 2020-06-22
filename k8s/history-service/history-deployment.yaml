@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: history
-          image: mateusz43211/tourdeshot:userhistory_1.9
+          image: mateusz43211/tourdeshot:userhistory_1.11
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
