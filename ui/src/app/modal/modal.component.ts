@@ -15,7 +15,7 @@ export class ModalComponent implements OnInit {
 
   @Input() local: LocalDetailed
   summaryProductList: Array<{name: any, price: number, quantity: number}> = [];
-  totalCost: number = 0;
+  currentCost: number = 0;
   numberValue: number = 0;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ModalComponent,
@@ -27,13 +27,23 @@ export class ModalComponent implements OnInit {
   }
 
   addProductToSummary(product, method: string, i, j){
-    console.log(product)
-    console.log(method)
-    this.localService.updateSummaryProductList(product, method)
+
+    this.localService.updateSummaryProductList(product, method, i, j)
+    const currenDrinkstArray = this.localService.getSummaryProductListValues();
+    let index = currenDrinkstArray.findIndex(x => x.i === i && x.j === j);
+    (<HTMLInputElement>document.getElementById("quantity" + i + j)).value = currenDrinkstArray[index].quantity.toString();
+    this.currentCost += product.price;
+
+
   }
 
-  removeProductFromSummary(product, method: string){
-    this.localService.updateSummaryProductList(product, method)
+  removeProductFromSummary(product, method: string, i, j){
+    console.log(i + '' + j)
+    this.localService.updateSummaryProductList(product, method,  i, j);
+    const currenDrinkstArray = this.localService.getSummaryProductListValues();
+    let index = currenDrinkstArray.findIndex(x => x.i === i && x.j === j);
+    (<HTMLInputElement>document.getElementById("quantity" + i + j)).value = currenDrinkstArray[index].quantity.toString();
+    this.currentCost -= product.price;
   }
 
 }

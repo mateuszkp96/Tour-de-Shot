@@ -38,7 +38,7 @@
                 <p class="product-name font-weight-bold m-0 mr-2">{{product.price}}zł</p>
                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="addProductToSummary(product, 'add', i, j)"><i class="fas fa-plus"></i></button>
                 <input type="text" id="quantity{{i}}{{j}}" name="quantity" class="quantity-input" [(ngModel)]="numberValue" readonly>
-                <button type="button" class="btn btn-outline-primary btn-sm" (click)="removeProductFromSummary(product, 'remove')"><i class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="removeProductFromSummary(product, 'remove', i, j)"><i class="fas fa-minus"></i></button>
               </ul>
             </ul>
             <ul class="list-inline">
@@ -49,11 +49,10 @@
       </div>
     </div>
     <div class="card-header m-2">
-      <a class="text-dark font-weight-bold">Razem: {{totalCost}} zł</a></div>
+      <a class="text-dark font-weight-bold">Razem: {{currentCost}} zł</a></div>
   </div>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+  <button mat-button mat-dialog-close class="btn btn-primary">Zamknij</button>
 </mat-dialog-actions>

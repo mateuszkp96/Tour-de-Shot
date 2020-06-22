@@ -16,7 +16,7 @@ export class LocalService {
   private filteredByDistLocalsListValues: Local[] = [];
   local: Local;
   localsList: Local[]
-  summaryProductList: Array<{ name: any, price: number, quantity: number }> = [];
+  summaryProductList: Array<{name: any, price: number, i: number, j:number, quantity: number}> = [];
   totalCost: number = 0;
   private checkedCategories = new Subject<string[]>();
   currentCheckedCategories = this.checkedCategories.asObservable();
@@ -63,33 +63,32 @@ export class LocalService {
     return this.checkedLocalsIdListValues;
   }
 
-  updateSummaryProductList(selectedProduct, method) {
+  updateSummaryProductList(selectedProduct, method, i, j){
     const name = selectedProduct.name
     const price = selectedProduct.price
     let quantity;
     const productExistInSummary = this.summaryProductList.find(el => el.name === name);
 
-    switch (method) {
+    switch(method){
       case "add":
-        if (!productExistInSummary) {
+        if(!productExistInSummary){
           quantity = 1
-          this.summaryProductList.push({name, price, quantity})
+          this.summaryProductList.push({name, price, i, j, quantity})
         } else {
-          productExistInSummary.quantity += 1;
+         productExistInSummary.quantity += 1;
         }
         this.totalCost += selectedProduct.price
         console.log(this.summaryProductList)
-        break
-      case "remove":
-        if (!productExistInSummary) {
+       break
+       case "remove":
+        if(!productExistInSummary){
           console.log('Brak itemu')
         } else {
-          productExistInSummary.quantity -= 1;
+         productExistInSummary.quantity -= 1;
         }
         this.totalCost -= selectedProduct.price
         console.log(this.summaryProductList)
-        break
-
+       break
     }
   }
 
