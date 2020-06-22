@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/logout","/login","/login-error",
                         "/login-verified").permitAll()
-                .antMatchers("/customers").hasRole("USER")
+                .antMatchers("/api/customers").authenticated()
                 .antMatchers("/admin").authenticated();
     }
     @Bean

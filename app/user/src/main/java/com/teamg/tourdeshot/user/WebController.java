@@ -16,13 +16,12 @@ public class WebController {
 @Autowired
 private RestTemplate restTemplate;
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "/api/open")
     public String index() {
       return "externa";
     }
 
-    @GetMapping(path = "/customers")
-
+    @GetMapping(path = "/api/customers")
      @Secured("ROLE_Member") //coś takiego nie działa
     public String customers(Principal principal, Model model) {
         return "customers";
