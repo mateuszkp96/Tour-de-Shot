@@ -13,8 +13,6 @@ spring:
       authentication-database: admin
   http:
     log-request-details: true
-server:
-  port: 8082
 ---
 
 app:
