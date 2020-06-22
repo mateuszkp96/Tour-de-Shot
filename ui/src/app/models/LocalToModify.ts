@@ -5,33 +5,31 @@ import {Coordinates} from './Coordinates';
 import {OpeningHours} from './OpeningHours';
 import {Contact} from './Contact';
 
-export class LocalToAdd {
-  ownerId: number;
+export class LocalToModify {
   name: string;
   coordinates: Coordinates;
   address: Address;
   image: string;
-  priceCategory: number;
-  openingHours: OpeningHoursToAdd
+  openingHours: OpeningHoursToModify
   localCategories: string[]
   website: string;
   contact: Contact;
 
 }
 
-export class OpeningHoursToAddSchedule {
+export class OpeningHoursToModifySchedule {
   orderNumber: number;
   dayOfWeek: string;
   openTime: string;
   closeTime: string;
 }
 
-export class OpeningHoursToAdd {
-  schedule: OpeningHoursToAddSchedule[]
+export class OpeningHoursToModify {
+  schedule: OpeningHoursToModifySchedule[]
 }
 
 
-export const InitOpeningHoursToAdd: OpeningHoursToAdd =
+export const InitOpeningHoursToModify: OpeningHoursToModify =
   {
     schedule: [
       {
@@ -78,16 +76,14 @@ export const InitOpeningHoursToAdd: OpeningHoursToAdd =
       }
     ]
   }
-export const InitLocalToAdd: LocalToAdd = {
-  ownerId: 0,
+export const InitLocalToAdd: LocalToModify = {
   name: "",
   address: {street: "", city: "", postCode: ""},
   coordinates: {lat: 0, lon: 0},
   contact: {email: "", phoneNumber: ""},
   image: "",
-  openingHours: InitOpeningHoursToAdd,
+  openingHours: InitOpeningHoursToModify,
   localCategories: [" "],
   website: " ",
-  priceCategory: 0,
 }
 

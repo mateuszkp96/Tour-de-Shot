@@ -1,12 +1,14 @@
 {
-  "name": "Setka1",
+  "name": "Setka",
   "coordinates": {
     "lat": 52.236663,
     "lon": 21.014656
   },
-  "city": "Warszawa",
-  "street": "Świętokrzyska 22",
-  "postCode": "05-077",
+  "address": {
+    "city": "Warszawa",
+    "street": "Świętokrzyska 22",
+    "postCode": "05-077"
+  },
   "image": "https://warsawfoodie.pl/wp-content/uploads/2018/03/setka_20180308.jpg",
   "openingHours": {
     "schedule": [
@@ -59,6 +61,8 @@
     "pub"
   ],
   "website": "https://www.facebook.com/warszawskasetka",
-  "phoneNumber": "+48 600 600 600",
-  "email": "setkawarszawa@kontakt.com"
+  "contact": {
+    "phoneNumber": "+48 600 600 600",
+    "email": "setkawarszawa@kontakt.com"
+  }
 }

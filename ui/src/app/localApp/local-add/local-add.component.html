@@ -1,6 +1,6 @@
 <div class="container">
-  <div *ngIf="local">
-    <div class="mb-4"><h2><strong>Dane kontaktowe Twojego lokalu:</strong></h2></div>
+  <div *ngIf="localToAdd">
+    <div class="mb-4"><h2><strong>Dodaj swój lokal do aplikacji Tour de Shot</strong></h2></div>
     <div class="row">
       <div class="col-lg-8">
         <ul class="list-group ml-3">
@@ -10,21 +10,21 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-bookmark mr-2"></i>Nazwa:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.name" placeholder=""
-                     name="local.name" id="inputLocalName">
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.name" placeholder=""
+                     name="localToAdd.name" id="inputLocalName">
             </div>
           </li>
 
           <li class="list-group-item">
             <div class="input-group mt-2 mb-2">
               <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-list-alt mr-2"></i>Kategorie produktów:</span>
+                <span class="input-group-text"><i class="fa fa-list-alt mr-2"></i>Kategoria lokalu:</span>
               </div>
               <div class="aParent">
                 <div class="ingredient-class"
-                     *ngFor="let category of local.localCategories; let i = index; trackBy: trackByFn">
-                  <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.localCategories[i]"
-                         [ngModelOptions]="{standalone: true}" placeholder="" [name]="local.localCategories[i]">
+                     *ngFor="let category of localToAdd.localCategories; let i = index; trackBy: trackByFn">
+                  <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.localCategories[i]"
+                         [ngModelOptions]="{standalone: true}" placeholder="" [name]="localToAdd.localCategories[i]">
                   <button [disabled]="isDisable" type="button" class="btn btn-outline-primary btn-sm"
                           (click)="onDeleteCategoryClick(i)"><i class="fas fa-minus"></i></button>
                   <button [disabled]="isDisable" *ngIf="i==0" class="btn btn-outline-primary btn-sm"
@@ -37,10 +37,14 @@
           <li class="list-group-item">
             <div class="input-group mt-2 mb-2">
               <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-map-marker-alt mr-2"></i>Kategoria lokalu:</span>
+                <span class="input-group-text"><i class="fa fa-usd mr-2"></i>Kategoria cenowa:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" #address type="text" [(ngModel)]="local.address.street"
-                     placeholder="" name="local.address.street" id="inputLocalAddressStreet">
+              <select class="input-class" id="inputLocalCategory"
+                      required (change)="onPriceCategoryChanged($event)" [(ngModel)]="localToAdd.priceCategory" placeholder="">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
             </div>
           </li>
 
@@ -49,8 +53,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-map-marker-alt mr-2"></i>Adres:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" #address type="text" [(ngModel)]="local.address.street"
-                     placeholder="" name="local.address.street" id="inputLocalAddressStreet">
+              <input [disabled]="isDisable" class="input-class" #address type="text" [(ngModel)]="localToAdd.address.street"
+                     placeholder="" name="localToAdd.address.street" id="inputLocalAddressStreet">
             </div>
           </li>
 
@@ -59,8 +63,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fas fa-globe mr-2"></i>Strona internetowa:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.website" placeholder=""
-                     name="local.website" id="inputLocalWebsite">
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.website" placeholder=""
+                     name="localToAdd.website" id="inputLocalWebsite">
             </div>
           </li>
 
@@ -70,8 +74,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope mr-2"></i>Email:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.contact.email"
-                     placeholder="" name="local.contact.email" id="inputLocalEmail">
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.contact.email"
+                     placeholder="" name="localToAdd.contact.email" id="inputLocalEmail">
             </div>
           </li>
 
@@ -80,8 +84,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fas fa-phone mr-2"></i>Telefon:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.contact.phoneNumber"
-                     placeholder="" name="local.contact.phoneNumber" id="inputLocalPhoneNumber">
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.contact.phoneNumber"
+                     placeholder="" name="localToAdd.contact.phoneNumber" id="inputLocalPhoneNumber">
             </div>
           </li>
 
@@ -90,9 +94,9 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fas fa-image mr-2"></i>Zdjęcie:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class mt-3" type="text" [(ngModel)]="local.image"
+              <input [disabled]="isDisable" class="input-class mt-3" type="text" [(ngModel)]="localToAdd.image"
                      placeholder=""
-                     name="local.image" id="inputLocalImage">
+                     name="localToAdd.image" id="inputLocalImage">
             </div>
           </li>
 
@@ -105,7 +109,7 @@
 
               <div class="input-class timeclass">
                 <ul>
-                  <li *ngFor="let detail of local.openingHours.schedule; let i = index">
+                  <li *ngFor="let detail of localToAdd.openingHours.schedule; let i = index">
                     <div class="input-group mt-2 mb-2">
                       <div class="time-group-prepend">
                         <span class="time"> <i class="fas fa-clock mr-2"></i>{{detail.dayOfWeek}}:</span>
@@ -123,18 +127,13 @@
           </li>
 
         </ul>
-        <ul *ngIf="isDisable==true" class="list-inline d-flex justify-content-end mt-2">
-          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onModifyClick()"><b>Modyfikuj</b>
-          </button>
-        </ul>
         <ul *ngIf="isDisable==false" class="list-inline d-flex justify-content-end mt-2">
-          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSaveClick()"><b>Dodaj</b></button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSaveClick()"><b>Zapisz</b></button>
           <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCancelClick()"><b>Anuluj</b></button>
-
         </ul>
       </div>
       <div class="col-lg-4">
-        <img src={{local.image}} loading="lazy">
+        <img src={{localToAdd.image}} loading="lazy">
       </div>
     </div>
 

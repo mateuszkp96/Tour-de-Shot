@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {LocalDetailed} from 'src/app/models/LocalDetailed';
 import {WebLocalService} from 'src/app/services/web-local.service';
 import {Subject} from 'rxjs';
-import {LocalToAdd} from 'src/app/models/LocalToAdd';
+import { LocalToModify } from 'src/app/models/LocalToModify';
 
 @Component({
   selector: 'app-local-informations',
@@ -16,7 +16,7 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
   @Input() localId: number
   autocomplete: google.maps.places.Autocomplete;
   place: google.maps.places.PlaceResult;
-  local: LocalToAdd;
+  local: LocalToModify;
   isDisable: boolean;
   point: google.maps.LatLng;
   localLoad = new Subject<any>();
@@ -30,7 +30,6 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.localId = 2; // hardcoded here yet
-
     console.log(this.localId)
     this.getLocal(this.localId)  //todo: changing to appropriate local
 

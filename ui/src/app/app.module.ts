@@ -67,6 +67,8 @@ import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { TokenInterceptor } from './token.interceptor';
 import { JwtInterceptor } from './jwt.interceptor';
+import { LocalAddComponent } from './localApp/local-add/local-add.component';
+import { CategoryHeaderModifyModalComponent } from './localApi/category-header-modify-modal/category-header-modify-modal.component';
 
 
 let config = new AuthServiceConfig([
@@ -117,7 +119,9 @@ export function provideConfig() {
     LocalSettingsComponent,
     ConfirmLocalDeleteModalComponent,
     ConfirmationComponent,
-    AccountHistoryComponent
+    AccountHistoryComponent,
+    LocalAddComponent,
+    CategoryHeaderModifyModalComponent
   ],
   imports: [
     BrowserModule,

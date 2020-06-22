@@ -1,0 +1,31 @@
+<div  *ngIf="productToModify && productToModifyName" class="container">
+  <h2 mat-dialog-title>{{productToModifyName}}</h2>
+  <mat-dialog-content class="mat-typography">
+    <form>
+      <div class="form-group">
+
+        <div class="input-group mt-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Nazwa sekcji menu: </span>
+          </div>
+          <input class="input-class" type="text" [(ngModel)]="categoryHeader" placeholder="" name="name">
+        </div>
+
+        <div class="input-group mt-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Nu</span>
+          </div>
+          <input class="input-class" type="text" [(ngModel)]="productToModify.description" placeholder="" name="description">
+        </div>
+
+
+
+      </div>
+    </form>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="saveCategoryHeader()"><b>Zapisz</b></button>
+    <button mat-type="button" class="btn btn-outline-primary btn-sm" (click)="onCloseClicked()"><b>Anuluj</b></button>
+  </mat-dialog-actions>
+</div>
