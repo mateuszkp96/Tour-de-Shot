@@ -71,7 +71,8 @@ spec:
                   key: APP_CORS_ALLOWEDORIGINS_1
             - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_USER_APP_PROVIDER_ISSUER_URI
               value: http://35.246.75.83:8080/auth/realms/FirstApp
-            - name: SPRING_SECURITY_OAUTH2_CLIENT_USER_APP_REDIRECT_URI
-              value: http://34.105.178.183.xip.io/api/local
-#            - name: SERVER_SERVLET_CONTEXTPATH
-#              value: /api
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_USER_APP_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: user-secret-conf
+                  key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_USER_APP_CLIENT_SECRET
