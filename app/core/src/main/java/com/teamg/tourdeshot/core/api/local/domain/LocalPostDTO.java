@@ -15,8 +15,6 @@ public class LocalPostDTO {
 
     private CoordinatesDTO coordinates;
 
-    private Long ownerId;
-
     private Integer priceCategory;
 
     private String name;

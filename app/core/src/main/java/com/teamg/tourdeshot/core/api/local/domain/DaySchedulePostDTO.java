@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DaySchedulePostDTO {
 
-    private int orderNumber;
+    private Integer orderNumber;
 
     private Integer dayOfWeek;
 

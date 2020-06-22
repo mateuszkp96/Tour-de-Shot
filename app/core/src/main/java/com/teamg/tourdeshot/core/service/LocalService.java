@@ -55,8 +55,8 @@ public class LocalService {
                 .map(local -> localMapper.toLocalSimpleDTO(local, now));
     }
 
-    public Local addLocal(LocalPostDTO local) {
-        Local localToSave = localMapper.toLocal(local, sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
+    public Local addLocal(LocalPostDTO local, String ownerId) {
+        Local localToSave = localMapper.toLocal(local, sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME), ownerId);
         return localRepository.save(localToSave);
     }
 

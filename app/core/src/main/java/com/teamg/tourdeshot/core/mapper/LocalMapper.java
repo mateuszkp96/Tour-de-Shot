@@ -22,9 +22,7 @@ public interface LocalMapper {
 
     LocalSimpleDTO toLocalSimpleDTOFromLocalWithDistance(LocalWithDistance local, LocalDateTime now);
 
-    Local toLocalFromLocalUpdateDTO(LocalUpdateDTO localUpdateDTO, Long id);
-
-    Local toLocal(LocalPostDTO local, Long id);
+    Local toLocal(LocalPostDTO local, Long id, String ownerId);
 
     default List<LocalDTO> toLocalDTOs(List<Local> locals, LocalDateTime now) {
         return locals.stream()

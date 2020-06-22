@@ -59,9 +59,9 @@ public class LocalController {
         return localService.filterLocals(requestBody, createPageRequest(page, pageSize));
     }
 
-    @PostMapping
-    public Local saveLocal(@RequestBody LocalPostDTO local) {
-        return localService.addLocal(local);
+    @PostMapping("/{ownerId}")
+    public Local saveLocal(@RequestBody LocalPostDTO local, @PathVariable String ownerId) {
+        return localService.addLocal(local, ownerId);
     }
 
     @PutMapping("/{id}")

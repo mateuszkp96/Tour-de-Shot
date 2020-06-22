@@ -26,7 +26,7 @@ public class Local {
 
     private String name;
 
-    private Long ownerId;
+    private String ownerId;
 
     @GeoSpatialIndexed
     private Double[] coordinates;

@@ -64,27 +64,27 @@ public class OnStartupModelLoader {
     }
 
     private void fillLocalsDatabase() {
-        Local setka = createDefault("Setka", 1L,
+        Local setka = createDefault("Setka", "1",
                 new Coordinates(new BigDecimal("52.236663"), new BigDecimal("21.014656")));
         setka.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         localRepository.save(setka);
 
-        Local pijalnia = createDefault("Pijalnia Wodki i Piwa", 2L,
+        Local pijalnia = createDefault("Pijalnia Wodki i Piwa", "2",
                 new Coordinates(new BigDecimal("52.232380"), new BigDecimal("21.019964")));
         pijalnia.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         localRepository.save(pijalnia);
 
-        Local piwpaw = createDefault("PiwPaw", 1L,
+        Local piwpaw = createDefault("PiwPaw", "1",
                 new Coordinates(new BigDecimal("52.228337"), new BigDecimal("21.013993")));
         piwpaw.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         localRepository.save(piwpaw);
 
-        Local freta33 = createDefault("Freta33", 2L,
+        Local freta33 = createDefault("Freta33", "2",
                 new Coordinates(new BigDecimal("52.252686"), new BigDecimal("21.007523")));
         freta33.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         localRepository.save(freta33);
 
-        Local warsawpub = createDefault("WarSaw Pub", 1L,
+        Local warsawpub = createDefault("WarSaw Pub", "1",
                 new Coordinates(new BigDecimal("52.249641"), new BigDecimal("21.010732")));
         warsawpub.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
         warsawpub.setMenu(createDefaultMenu2());
@@ -114,7 +114,7 @@ public class OnStartupModelLoader {
         productCategoryService.addCategory(productCategory7);
     }
 
-    private Local createDefault(String name, Long ownerId, Coordinates coordinates) {
+    private Local createDefault(String name, String ownerId, Coordinates coordinates) {
         Local local = new Local();
         Address address = new Address("Warszawa", "Zlota 33/31", "00-711");
         OpeningHours openingHours = createDefaultOpeningHours();

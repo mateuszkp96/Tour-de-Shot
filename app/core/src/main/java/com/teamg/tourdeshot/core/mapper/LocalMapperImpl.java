@@ -88,12 +88,7 @@ public class  LocalMapperImpl implements LocalMapper {
     }
 
     @Override
-    public Local toLocalFromLocalUpdateDTO(LocalUpdateDTO localUpdateDTO, Long id) {
-        return null;
-    }
-
-    @Override
-    public Local toLocal(LocalPostDTO local, Long id) {
+    public Local toLocal(LocalPostDTO local, Long id, String ownerId) {
         if(Objects.isNull(local))
             return null;
         return Local.builder()
@@ -103,7 +98,7 @@ public class  LocalMapperImpl implements LocalMapper {
                 .website(local.getWebsite())
                 .image(local.getImage())
                 .localCategories(local.getLocalCategories())
-                .ownerId(local.getOwnerId())
+                .ownerId(ownerId)
                 .name(local.getName())
                 .priceCategory(local.getPriceCategory())
                 .coordinates(coordinatesMapper.toCoordinates(local.getCoordinates()))
