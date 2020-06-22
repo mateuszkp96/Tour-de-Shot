@@ -61,6 +61,9 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { AccountPrivacyComponent } from './account/account-privacy/account-privacy.component';
 import { AccountGeneralComponent } from './account/account-general/account-general.component';
 import { AccountHistoryComponent } from './account/account-history/account-history.component';
+import { DeferLoadModule } from '@trademe/ng-defer-load';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+
 
 let config = new AuthServiceConfig([
   {
@@ -140,8 +143,9 @@ export function provideConfig() {
     NgxsLoggerPluginModule.forRoot(),
     StoreModule.forRoot({reducer, localReducer}),
     StoreModule.forFeature('startData', reducer),
-    StoreModule.forFeature('localLogin', localReducer)
-
+    StoreModule.forFeature('localLogin', localReducer),
+    DeferLoadModule,
+    LazyLoadImageModule,
   ],
   providers: [
     {

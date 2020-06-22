@@ -1,0 +1,107 @@
+.container {
+  padding-top: 30px;
+  margin-left: 0;
+  min-height: 300px;
+}
+
+.btn-primary {
+  right: 0;
+  margin: 0;
+}
+
+strong {
+  font-size: 18px !important;
+}
+
+.btn {
+  margin-left: 5px;
+  margin-right: 0;
+  alignment: right;
+}
+
+.input-class {
+  font-size: 16px !important;
+  background-color: transparent;
+  width: 700px;
+}
+
+.event-class {
+  font-size: 16px !important;
+  background-color: transparent;
+  width: 100%;
+  margin-left: 0;
+}
+
+.input-class-time {
+  font-size: 16px !important;
+  background-color: transparent;
+  border-style: ridge;
+  border-width: thin;
+  width: 120px;
+}
+
+.input-group-prepend {
+  width: 400px;
+}
+
+
+.product-class {
+  width: 250px;
+  height: 20px;
+}
+
+.products {
+  width: 200px;
+}
+
+.localName {
+  padding: 0;
+  margin: 0;
+  background-color: transparent !important;
+}
+
+.historyEvent {
+  padding: 0;
+  margin: 0;
+  background-color: transparent !important;
+}
+
+.input-group-text {
+  width: 300px;
+  height: 30px;
+  background-color: transparent !important;
+  border: none;
+}
+
+time {
+  width: 100px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.list-group-item {
+  padding: 0;
+  border: none !important;
+}
+
+.input-group {
+  padding: 0;
+  margin:0;
+  border-style: none !important;
+}
+
+.history {
+  padding: 0;
+  margin:0;
+  outline: 0;
+  border-bottom: 1px solid #227fee !important;
+}
+
+.row{
+  width: 100%;
+}
+.local-class{
+  width: 250px;
+}

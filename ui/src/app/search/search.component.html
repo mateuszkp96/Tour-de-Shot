@@ -53,7 +53,9 @@
           <li class="list-group-item" id="{{ 'listItem' + i }}" *ngFor="let local of localsByPage; index as i " [style.background-color]="getBackgroundColor(local)">
             <!-- Custom content-->
             <div class="media d-flex align-items-center"  >
-              <img src="src=../../assets/pub.jpg" class="mr-3 square-image" alt="...">
+
+              <img src={{local.image}}  class="mr-3 square-image" alt="...">
+
               <div class="media-body p-1">
                 <h5 class="m-0">{{local.name}}</h5>
                 <p class="mb-0">{{local.address.street}}</p>

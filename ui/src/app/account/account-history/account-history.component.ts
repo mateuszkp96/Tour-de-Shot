@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SocialUser, AuthService} from 'angularx-social-login';
+import {Router} from '@angular/router';
+import {UserHistoryService} from 'src/app/services/user-history.service';
+import {UserHistory, InitUserHistory} from 'src/app/models/UserHistory';
 
 @Component({
   selector: 'app-account-history',
@@ -7,9 +11,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountHistoryComponent implements OnInit {
 
-  constructor() { }
+  public user: SocialUser;
+  public loggedIn: boolean;
+  public history: UserHistory
+  public numberOfHistoryPages: number;
+  pageSize: number = 5;
+  pageNumber: number = 0;
 
-  ngOnInit(): void {
+  constructor(private router: Router,
+              private authService: AuthService,
+              private userHistoryService: UserHistoryService
+  ) {
   }
 
+  ngOnInit(): void {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(this.user);
+      this.loggedIn = (user != null);
+    });
+
+    this.userHistoryService.getUserHistory(this.user.id).then(history => {
+      this.history = history['content'] as UserHistory
+    });
+
+  }
+
+  onChangePage($event) {
+    console.log("On change page event")
+  }
 }
