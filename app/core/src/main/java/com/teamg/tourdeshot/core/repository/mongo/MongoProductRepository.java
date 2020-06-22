@@ -1,5 +1,6 @@
 package com.teamg.tourdeshot.core.repository.mongo;
 
+import com.mongodb.BasicDBObject;
 import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.Product;
@@ -47,6 +48,9 @@ public class MongoProductRepository implements ProductRepository {
 
     @Override
     public Local deleteProductFromMenu(Long localId, Long orderNumber, Long productId) {
-        return null;
+        return mongoOperations.findAndModify(query(where("id").is(localId).and("menu.items.orderNumber").is(orderNumber)),
+                new Update().pull("menu.items.$.products",  new BasicDBObject( "productId", productId)),
+                options().returnNew(true).upsert(false),
+                Local.class);
     }
 }

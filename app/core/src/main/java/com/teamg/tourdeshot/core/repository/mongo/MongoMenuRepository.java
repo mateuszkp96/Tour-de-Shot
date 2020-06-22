@@ -1,5 +1,7 @@
 package com.teamg.tourdeshot.core.repository.mongo;
 
+import com.mongodb.BasicDBObject;
+import com.teamg.tourdeshot.core.api.menu.dto.MenuItemPostDTO;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.Menu;
 import com.teamg.tourdeshot.core.model.MenuItem;
@@ -17,6 +19,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 public class MongoMenuRepository implements MenuRepository {
 
     private final MongoOperations mongoOperations;
+
 
     @Autowired
     public MongoMenuRepository(MongoOperations mongoOperations) {
@@ -40,7 +43,18 @@ public class MongoMenuRepository implements MenuRepository {
     }
 
     @Override
-    public Local updateSection(MenuItem menuItem, Long localId) {
-        return null;
+    public Local updateSection(MenuItemPostDTO menuItem, Long localId) {
+        return mongoOperations.findAndModify(query(where("id").is(localId).and("menu.items.orderNumber").is(menuItem.getOrderNumber())),
+                new Update().set("menu.items.$.categoryHeader", menuItem.getCategoryHeader()),
+                options().returnNew(true).upsert(false),
+                Local.class);
+    }
+
+    @Override
+    public Local deleteSection(Long orderNumber, Long localId) {
+        return mongoOperations.findAndModify(query(where("id").is(localId)),
+                new Update().pull("menu.items", new BasicDBObject("orderNumber", orderNumber)),
+                options().returnNew(true).upsert(false),
+                Local.class);
     }
 }

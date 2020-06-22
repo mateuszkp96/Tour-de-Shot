@@ -32,6 +32,10 @@ public class MenuService {
     }
 
     public Local updateSection(MenuItemPostDTO menuItem, Long localId) {
-        return menuRepository.updateSection(menuItemMapper.toMenuItem(menuItem), localId);
+        return menuRepository.updateSection(menuItem, localId);
+    }
+
+    public Local deleteSection(Long orderNumber, Long localId) {
+        return menuRepository.deleteSection(orderNumber, localId);
     }
 }

@@ -5,10 +5,13 @@ import com.teamg.tourdeshot.core.api.menu.dto.MenuPostDTO;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,8 +35,13 @@ public class MenuController {
         return menuService.addSectionToMenu(menuItem, localId);
     }
 
-    @PostMapping("/update/{localId}")
+    @PutMapping("/section/{localId}")
     public Local updateSection(@RequestBody MenuItemPostDTO menuItem, @PathVariable Long localId) {
         return menuService.updateSection(menuItem, localId);
+    }
+
+    @DeleteMapping("/{localId}")
+    public Local deleteSection(@PathVariable Long localId, @RequestParam Long orderNumber) {
+        return menuService.deleteSection(orderNumber, localId);
     }
 }
