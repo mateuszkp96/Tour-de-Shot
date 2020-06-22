@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-6">
         <div class="input-group-prepend">
-          <span class="input-group-text"> <i class="fa fa-history mr-2"></i>{{event.timestamp}} <strong
+          <span class="input-group-text"> <i class="fa fa-history mr-2"></i>{{event.timestamp | date:'dd/MM/yyyy HH:mm'}} <strong
             class="ml-3"> <b>{{event.name}}</b></strong> </span>
         </div>
         </div>

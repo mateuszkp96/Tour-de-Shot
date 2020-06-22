@@ -32,6 +32,7 @@ export class AccountHistoryComponent implements OnInit {
       this.history = history['content'] as UserHistory
       console.log(this.history)
     });
+
   }
 
 }
