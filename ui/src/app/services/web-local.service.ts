@@ -15,11 +15,13 @@ import {LocalFilter} from '../models/LocalFilter';
 export class WebLocalService {
 
   readonly LOCAL_API_URL;
-  readonly ROOT_URL;
+  readonly HARDCODE_LOCALTOMODIFY;
 
   constructor(private http: HttpClient) {
     this.LOCAL_API_URL = environment.localApiUrl;
     // this.ROOT_URL = 'http://localhost:4200/assets/locals-db.json';
+    this.HARDCODE_LOCALTOMODIFY = 'http://localhost:4200/assets/localToModify.json';
+
   }
 
 
@@ -43,10 +45,14 @@ export class WebLocalService {
   getLocalsByFilter(filter: any): Promise<any> {
     return this.http.post(this.LOCAL_API_URL + '/local/filter', filter).toPromise();
   }
-  
+
   getLocalsByFilterAndPage(filter: any, page: number, pageSize: number): Promise<any> {
     return this.http.post(this.LOCAL_API_URL + '/local/filter?page=' + page + '&pageSize=' + pageSize, filter).toPromise();
   }
-  
+
+  getHardCodedLocalToModify(): Promise<any>{
+    return this.http.get(this.HARDCODE_LOCALTOMODIFY ).toPromise()
+
+  }
 
 }
