@@ -88,7 +88,6 @@ export class LocalService {
         } else {
           productExistInSummary.quantity += 1;
         }
-        this.totalCost += selectedProduct.price
         console.log(this.summaryProductList)
         break
       case "remove":
@@ -97,12 +96,11 @@ export class LocalService {
         } else {
           productExistInSummary.quantity -= 1;
         }
-        this.totalCost -= selectedProduct.price
         console.log(this.summaryProductList)
         break
     }
   }
-  
+
   updateSummaryProductListHistory(localId, selectedProduct, method) {
     const localExist = this.userHistoryToAdd.items.find(item => item.localId === localId)
     const productExist = this.userHistoryToAdd.items.filter(item => item.localId === localId).find(item => item.products.find(product => product.productId === selectedProduct.productId))
@@ -205,5 +203,5 @@ export class LocalService {
   getCurrentCheckedCategories() {
     return this.currentCheckedCategories
   }
-  
+
 }
