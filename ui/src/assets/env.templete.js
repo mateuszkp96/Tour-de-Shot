@@ -7,4 +7,7 @@
   window["env"]["historyApiUrl"] = "${HISTORY_API_URL}";
   window["env"]["googleAuthProvider"] = "${GOOGLE_AUTH_PROVIDER}";
   window["env"]["debug"] = "${DEBUG}";
+  window["env"]["keycloakLoginUrl"] = "${KEYCLOAK_LOGIN_URL}";
 })(this);
+
+

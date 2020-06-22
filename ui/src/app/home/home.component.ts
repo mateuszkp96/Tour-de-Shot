@@ -10,7 +10,7 @@ import * as localLoginActions from '../state/localLogin.actions'
 import { Store } from '@ngrx/store';
 import { LocalLoginService } from '../services/local-login.service';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
-
+import { WebLoginService } from '../services/web-login.service'
 
 @Component({
   selector: 'app-home',
@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
     private store: Store<fromLocalLogin.AppState>,
     private localLoginService: LocalLoginService,
     public dialog: MatDialog,
+    private webLoginService: WebLoginService,
   ) {}
 
   ngOnInit(): void {
@@ -32,9 +33,21 @@ export class HomeComponent implements OnInit {
 
   onRegisterClick() {
     //How read values from environment, TODO - remove it
-    console.log("LOCAL API URL: " + environment.localApiUrl)
-    console.log("USER API URL: " + environment.userApiUrl)
-    this.router.navigate(['register']);
+   // console.log("LOCAL API URL: " + environment.localApiUrl)
+   // console.log("USER API URL: " + environment.userApiUrl)
+   // this.router.navigate(['register']);
+
+  console.log("loguje sie");
+  this.webLoginService.getUserJson().then(
+    (res) => {
+      console.log("U are logged in!");
+      // this.loggedIn = true;
+      this.router.navigate(['/search']);
+      // console.log(this.userService.geUserList())
+    });
+    console.log('logged')
+
+
   }
 
   onLoginAsLocalClick(){
@@ -52,3 +65,6 @@ export class HomeComponent implements OnInit {
     });
   }
 }
+
+
+
