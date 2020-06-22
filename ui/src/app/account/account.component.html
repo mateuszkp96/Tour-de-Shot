@@ -1,9 +1,9 @@
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
 
-  <!-- Account Sidebar-->
-  <ul class="nav nav-tabs" role="tablist">
 
-    <a class="list-group-item" routerLink="account-general" routerLinkActive="active">
+  <!--<ul class="nav nav-tabs" role="tablist">
+
+    <a class="list-group-item active" routerLink="account-general" routerLinkActive="active">
       <div class="d-inline-block">Ogólne</div>
     </a>
     <a class="list-group-item" routerLink="account-privacy" routerLinkActive="active">
@@ -15,12 +15,19 @@
 
   </ul>
 
-  <!-- Account Detailed Settings-->
+
   <div class="tab-content mt-4">
     <div class="card shadow mb-4">
       <router-outlet></router-outlet>
     </div>
-  </div>
+  </div>-->
+
+<mat-tab-group>
+  <mat-tab label="Ogólne"><div class="card shadow mb-4"><app-account-general></app-account-general></div></mat-tab>
+  <mat-tab label="Prywatność"><div class="card shadow mb-4"><app-account-privacy2></app-account-privacy2></div></mat-tab>
+  <mat-tab label="Historia"><div class="card shadow mb-4"><app-account-history></app-account-history></div></mat-tab>
+</mat-tab-group>
 
 
 </div>
+

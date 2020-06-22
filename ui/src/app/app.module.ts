@@ -24,6 +24,7 @@ import { LocalItemComponent } from './local-item/local-item.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { AgmCoreModule } from '@agm/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -59,6 +60,7 @@ import { reducer } from './state/startData.reducer';
 import { localReducer } from './state/localLogin.reducer';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { AccountPrivacyComponent } from './account/account-privacy/account-privacy.component';
+import { AccountPrivacyComponent2 } from './account/account-privacy/account-privacy2.component';
 import { AccountGeneralComponent } from './account/account-general/account-general.component';
 import { AccountHistoryComponent } from './account/account-history/account-history.component';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
@@ -95,6 +97,7 @@ export function provideConfig() {
     LogoutComponent,
     LocalItemComponent,
     AccountPrivacyComponent,
+    AccountPrivacyComponent2,
     CookiesPolicyComponent,
     AccountGeneralComponent,
     ModalComponent,
@@ -121,6 +124,7 @@ export function provideConfig() {
     BrowserAnimationsModule,
     MatDialogModule,
     MatListModule,
+    MatTabsModule,
     MatGridListModule,
     MatCheckboxModule,
     MatFormFieldModule,

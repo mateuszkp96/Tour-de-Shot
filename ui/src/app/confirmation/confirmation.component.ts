@@ -22,4 +22,8 @@ export class ConfirmationComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onNoClick(): void {
+    window.location.href = "http://www.google.pl";
+  }
+
 }
