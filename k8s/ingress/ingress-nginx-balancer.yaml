@@ -42,3 +42,7 @@ spec:
             backend:
               serviceName: keycloak-svc
               servicePort: 8080
+          - path: /oauth2/autorization
+            backend:
+              serviceName: user
+              servicePort: 8080
