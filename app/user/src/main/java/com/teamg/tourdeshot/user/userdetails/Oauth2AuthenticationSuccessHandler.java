@@ -32,7 +32,7 @@ public class Oauth2AuthenticationSuccessHandler implements AuthenticationSuccess
 			UserOAuth2Dto user = new UserOAuth2Dto(principal.getFirstName(), principal.getLastName(), authentication.getName(), principal.getEmail());
 			this.userRegistrationService.registerNewAuth2User(user);
 		}
-		 this.redirectStrategy.sendRedirect(request, response, "/customers");
+		 this.redirectStrategy.sendRedirect(request, response, "/api/customers");
 	}
 	
 
