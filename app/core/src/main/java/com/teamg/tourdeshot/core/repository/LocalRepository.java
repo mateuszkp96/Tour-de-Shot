@@ -16,4 +16,6 @@ public interface LocalRepository extends CrudRepo<Local, Long> {
     Page<LocalWithDistance> filterLocals(Pageable pageable, FilterRequestBody requestBody);
 
     Local updateLocal(Long id, LocalUpdateDTO local);
+
+    Page<Local> findAllLocalsByUser(Pageable pageable, String ownerId);
 }
