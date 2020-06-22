@@ -3,6 +3,7 @@ package com.teamg.tourdeshot.core.mapper;
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalUpdateDTO;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.LocalWithDistance;
 

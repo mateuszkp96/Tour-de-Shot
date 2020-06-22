@@ -20,7 +20,11 @@ import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.FindAndReplaceOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.GeoNearOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.support.PageableExecutionUtils;
@@ -86,6 +90,16 @@ public class MongoLocalRepository implements LocalRepository {
         return mongoOperations.findAndReplace(query(where("id").is(id)),
                 updatedLocal,
                 FindAndReplaceOptions.options().upsert().returnNew());
+    }
+
+    @Override
+    public Page<Local> findAllLocalsByUser(Pageable pageable, String ownerId) {
+        Query query = new Query(where("ownerId").is(ownerId)).with(pageable);
+        List<Local> localList = mongoOperations.find(query, Local.class);
+        return PageableExecutionUtils.getPage(
+                localList,
+                pageable,
+                () -> mongoOperations.count(Query.of(query).limit(-1).skip(-1), Local.class));
     }
 
     @Override
