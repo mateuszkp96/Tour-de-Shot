@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: mateusz43211/tourdeshot:frontend_1.11
+          image: mateusz43211/tourdeshot:frontend_test1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
@@ -41,3 +41,8 @@ spec:
                 configMapKeyRef:
                   name: frontend-config
                   key: HISTORY_API_URL
+            - name: KEYCLOAK_LOGIN_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: KEYCLOAK_LOGIN_URL
