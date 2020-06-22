@@ -2,6 +2,7 @@ package com.teamg.tourdeshot.core.mapper;
 
 import com.teamg.tourdeshot.core.api.local.domain.OpenStatus;
 import com.teamg.tourdeshot.core.api.local.domain.OpeningHoursDTO;
+import com.teamg.tourdeshot.core.api.local.domain.OpeningHoursPostDTO;
 import com.teamg.tourdeshot.core.mapper.utils.MappingProvider;
 import com.teamg.tourdeshot.core.mapper.utils.OpeningHoursMapperUtils;
 import com.teamg.tourdeshot.core.model.DaySchedule;
@@ -34,6 +35,15 @@ public class OpeningHoursMapperImpl implements OpeningHoursMapper {
                 .schedule(dayScheduleMapper.toDaySchedulerDTOs(openingHours.getSchedule()))
                 .openStatus(getOpenStatus(daySchedule, now))
                 .presentDayIndex(daySchedule.getOrderNumber())
+                .build();
+    }
+
+    @Override
+    public OpeningHours toOpeningHours(OpeningHoursPostDTO openingHoursPostDTO) {
+        if(Objects.isNull(openingHoursPostDTO))
+            return null;
+        return OpeningHours.builder()
+                .schedule(dayScheduleMapper.toDaySchedulers(openingHoursPostDTO.getSchedule()))
                 .build();
     }
 

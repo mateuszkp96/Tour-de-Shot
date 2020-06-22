@@ -6,4 +6,6 @@ import com.teamg.tourdeshot.core.model.Product;
 public interface ProductRepository {
 
     Local addProductToLocal(Product product, Long categoryId, Long localId, Long orderNumber);
+
+    Local deleteProductFromMenu(Long localId, Long orderNumber, Long productId);
 }

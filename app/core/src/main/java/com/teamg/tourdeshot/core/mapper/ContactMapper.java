@@ -6,4 +6,6 @@ import com.teamg.tourdeshot.core.model.Contact;
 public interface ContactMapper {
 
     ContactDTO toContactDTO(Contact contact);
+
+    Contact toContact(ContactDTO contact);
 }

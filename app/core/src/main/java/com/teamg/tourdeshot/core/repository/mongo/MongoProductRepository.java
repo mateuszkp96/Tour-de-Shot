@@ -1,5 +1,6 @@
 package com.teamg.tourdeshot.core.repository.mongo;
 
+import com.mongodb.BasicDBObject;
 import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.Product;
@@ -11,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
-
-import java.util.Objects;
 
 import static org.springframework.data.mongodb.core.FindAndModifyOptions.options;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -43,6 +42,14 @@ public class MongoProductRepository implements ProductRepository {
         product.setProductId(idProvider.getProductId());
         return mongoOperations.findAndModify(query(where("id").is(localId).and("menu.items.orderNumber").is(orderNumber)),
                 new Update().addToSet("menu.items.$.products", product),
+                options().returnNew(true).upsert(false),
+                Local.class);
+    }
+
+    @Override
+    public Local deleteProductFromMenu(Long localId, Long orderNumber, Long productId) {
+        return mongoOperations.findAndModify(query(where("id").is(localId).and("menu.items.orderNumber").is(orderNumber)),
+                new Update().pull("menu.items.$.products",  new BasicDBObject( "productId", productId)),
                 options().returnNew(true).upsert(false),
                 Local.class);
     }

@@ -25,6 +25,8 @@ public class ProductMapperImpl implements ProductMapper {
 
     @Override
     public Product toProduct(ProductPostDTO productPostDTO) {
+        if (Objects.isNull(productPostDTO))
+            return null;
         return Product.builder()
                 .price(productPostDTO.getPrice())
                 .name(productPostDTO.getName())

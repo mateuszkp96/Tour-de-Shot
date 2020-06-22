@@ -1,6 +1,7 @@
 package com.teamg.tourdeshot.core.mapper;
 
 import com.teamg.tourdeshot.core.api.local.domain.DayScheduleDTO;
+import com.teamg.tourdeshot.core.api.local.domain.DaySchedulePostDTO;
 import com.teamg.tourdeshot.core.mapper.utils.MappingProvider;
 import com.teamg.tourdeshot.core.model.DaySchedule;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,20 @@ public class DayScheduleMapperImpl implements DayScheduleMapper {
                 .dayOfWeek(mappingProvider.get(daySchedule.getDayOfWeek()))
                 .time(createTimeInterval(daySchedule.getOpeningTime(), daySchedule.getClosingTime()))
                 .build();
+    }
+
+    @Override
+    public DaySchedule toDaySchedule(DaySchedulePostDTO daySchedulePostDTO) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        if(Objects.isNull(daySchedulePostDTO))
+            return null;
+        return DaySchedule.builder()
+                .orderNumber(daySchedulePostDTO.getOrderNumber())
+                .closingTime(LocalTime.parse(daySchedulePostDTO.getCloseTime(), formatter))
+                .openingTime(LocalTime.parse(daySchedulePostDTO.getOpenTime(), formatter))
+                .dayOfWeek(DayOfWeek.of(daySchedulePostDTO.getDayOfWeek()))
+                .build();
+
     }
 
     private String createTimeInterval(LocalTime open, LocalTime close) {

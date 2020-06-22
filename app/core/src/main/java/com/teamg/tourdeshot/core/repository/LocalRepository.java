@@ -1,5 +1,6 @@
 package com.teamg.tourdeshot.core.repository;
 
+import com.teamg.tourdeshot.core.api.local.domain.LocalUpdateDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.LocalWithDistance;
@@ -13,4 +14,6 @@ public interface LocalRepository extends CrudRepo<Local, Long> {
     Page<Local> findAllPageable(Pageable pageable);
 
     Page<LocalWithDistance> filterLocals(Pageable pageable, FilterRequestBody requestBody);
+
+    Local updateLocal(Long id, LocalUpdateDTO local);
 }

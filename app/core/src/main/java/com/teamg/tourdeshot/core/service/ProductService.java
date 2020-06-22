@@ -27,4 +27,7 @@ public class ProductService {
         return productRepository.addProductToLocal(productMapper.toProduct(product), categoryId, localId, orderNumber);
     }
 
+    public Local deleteProductFromMenu(Long localId, Long orderNumber, Long productId) {
+        return productRepository.deleteProductFromMenu(localId, orderNumber, productId);
+    }
 }
