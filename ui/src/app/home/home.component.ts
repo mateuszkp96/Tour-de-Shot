@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    setTimeout(() => this.openConfirmationDialog(), 1300)
+    setTimeout(() => this.openConfirmationDialog(), 1000)
   }
 
   onRegisterClick() {

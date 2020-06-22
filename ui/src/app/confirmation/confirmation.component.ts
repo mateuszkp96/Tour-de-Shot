@@ -12,8 +12,10 @@ export class ConfirmationComponent implements OnInit {
   constructor(
     private router: Router,
     public dialogRef: MatDialogRef<ConfirmationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ConfirmationComponent)
-  { }
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmationComponent) {
+
+      dialogRef.disableClose = true;
+    }
 
   ngOnInit(): void {
   }
