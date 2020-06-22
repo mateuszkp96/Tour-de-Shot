@@ -2,6 +2,7 @@ package com.teamg.tourdeshot.core.repository.mongo;
 
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.Menu;
+import com.teamg.tourdeshot.core.model.MenuItem;
 import com.teamg.tourdeshot.core.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -23,9 +24,23 @@ public class MongoMenuRepository implements MenuRepository {
     }
 
     @Override
-    public Menu addMenuToLocal(Menu menu, Long localId) {
+    public Local addMenuToLocal(Menu menu, Long localId) {
         return mongoOperations.findAndModify(query(where("id").is(localId)),
                 new Update().set("menu", menu),
                 options().returnNew(true).upsert(true),
-                Local.class).getMenu();    }
+                Local.class);
+    }
+
+    @Override
+    public Local addSectionToMenu(MenuItem menuItem, Long localId) {
+        return mongoOperations.findAndModify(query(where("id").is(localId)),
+                new Update().addToSet("menu.$.items", menuItem),
+                options().returnNew(true).upsert(false),
+                Local.class);
+    }
+
+    @Override
+    public Local updateSection(MenuItem menuItem, Long localId) {
+        return null;
+    }
 }
