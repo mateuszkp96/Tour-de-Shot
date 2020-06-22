@@ -31,4 +31,9 @@ public class ProductController {
     public Local addProductToLocal(@RequestBody ProductPostDTO product, @RequestParam Long localId, @RequestParam Long orderNumber) {
         return productService.addProductToLocal(product, localId, orderNumber);
     }
+
+    @DeleteMapping
+    public Local deleteProductFromMenu(@RequestParam Long localId, @RequestParam Long orderNumber, @RequestParam Long productId){
+        return productService.deleteProductFromMenu(localId, orderNumber, productId);
+    }
 }

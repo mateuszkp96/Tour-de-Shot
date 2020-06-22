@@ -46,4 +46,9 @@ public class MongoProductRepository implements ProductRepository {
                 options().returnNew(true).upsert(false),
                 Local.class);
     }
+
+    @Override
+    public Local deleteProductFromMenu(Long localId, Long orderNumber, Long productId) {
+        return null;
+    }
 }
