@@ -31,19 +31,26 @@ export class HistoryProduct {
 }
 
 
-/*
 export const InitHistoryProduct: HistoryProduct = {
   productId: 0,
+  name: "",
+  price: 0,
   quantity: 0,
 }
+
+export const InitHistoryCoordinates: HistoryCoordinates = {
+  lat: 0,
+  lon: 0,
+}
 export const InitHistoryItem: HistoryItem = {
-  localId: 0,
   orderNumber: 0,
+  localId: 0,
+  localName: "",
+  coordinates: InitHistoryCoordinates,
   products: [],
 }
 
 export const InitUserHistory: UserHistory = {
-  items: [],
-  name: "historyName"
+  content: []
 }
-*/
+

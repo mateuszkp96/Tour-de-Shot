@@ -54,5 +54,7 @@ export class WebLocalService {
     return this.http.get(this.HARDCODE_LOCALTOMODIFY ).toPromise()
 
   }
-
+  async getLocalImage(url: string): Promise<any>{
+    return await this.http.get(url).toPromise()
+  }
 }

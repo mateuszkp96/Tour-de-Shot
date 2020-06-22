@@ -6,6 +6,7 @@ import {StartPointService} from '../services/start-point.service';
 import {Local} from '../models/Local';
 import {UserHistoryToAdd} from '../models/UserHistoryToAdd';
 import {SocialUser, AuthService} from 'angularx-social-login';
+import {UserHistoryService} from '../services/user-history.service';
 
 @Component({
   selector: 'app-route',
@@ -29,7 +30,8 @@ export class RouteComponent implements AfterViewInit {
     private router: Router,
     private localService: LocalService,
     private startPointService: StartPointService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userHistoryService: UserHistoryService
   ) {
     this.localService.getCheckedLocalsIdList()
       .subscribe(mymessage => {
@@ -44,13 +46,13 @@ export class RouteComponent implements AfterViewInit {
       });
     this.totalCost = this.localService.getTotalCost()
     this.userHisotryToAdd = this.localService.getUserHistoryToAdd()
-    this.numberOfLocalsWithChosenMenuItem = this.userHisotryToAdd.items.length
+    if (this.userHisotryToAdd.items.length > 0)
+      this.numberOfLocalsWithChosenMenuItem = this.userHisotryToAdd.items.length
 
   }
 
 
   ngAfterViewInit(): void {
-
 
     this.authService.authState.subscribe((user) => {
       this.user = user;
@@ -85,8 +87,10 @@ export class RouteComponent implements AfterViewInit {
 
   onAddToHistoryClick() {
     this.userHisotryToAdd.name = this.historyName
-    this.userHisotryToAdd.userId = parseInt(this.user.id)
+    console.log(this.user.id)
     console.log("HISTORY TO ADD")
     console.log(this.userHisotryToAdd)
+    this.userHistoryService.addUserHistory(this.user.id, this.userHisotryToAdd)
+    this.historyName = ""
   }
 }

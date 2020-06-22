@@ -205,5 +205,5 @@ export class LocalService {
   getCurrentCheckedCategories() {
     return this.currentCheckedCategories
   }
-
+  
 }

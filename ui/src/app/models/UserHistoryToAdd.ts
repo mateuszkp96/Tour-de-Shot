@@ -1,7 +1,6 @@
 export class UserHistoryToAdd {
   items: UserHistoryToAddItem[];
   name: string;
-  userId: number
 }
 
 export class UserHistoryToAddItem {
@@ -28,7 +27,6 @@ export const InitUserHistoryToAddItem: UserHistoryToAddItem = {
 export const InitUserHistoryToAdd: UserHistoryToAdd = {
   items: [],
   name: "",
-  userId: 0
 }
 
 /*

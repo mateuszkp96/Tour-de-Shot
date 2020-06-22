@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {UserHistoryToAdd} from '../models/UserHistoryToAdd';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +9,18 @@ import {environment} from '../../environments/environment';
 export class UserHistoryService {
 
   readonly HARDCODE_USERHISTORY;
+  readonly HISTORY_API_URL;
 
   constructor(private http: HttpClient) {
-    this.HARDCODE_USERHISTORY = 'http://localhost:4200/assets/userhistory.json';
-
+    this.HISTORY_API_URL = environment.historyApiUrl
   }
 
-  getUserHistory(): Promise<any>{
-    return this.http.get(this.HARDCODE_USERHISTORY ).toPromise()
+  getUserHistory(userId: string): Promise<any> {
+    return this.http.get(this.HISTORY_API_URL + "/userhistory/"+ userId).toPromise()
+  }
+
+  addUserHistory(userId: string, userHistoryToAdd: UserHistoryToAdd): Promise<any> {
+    return this.http.post(this.HISTORY_API_URL + "/summary/" + userId, userHistoryToAdd).toPromise()
   }
 
 }

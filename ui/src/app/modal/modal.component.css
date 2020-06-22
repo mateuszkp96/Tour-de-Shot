@@ -3,13 +3,14 @@ li {
 }
 
 img {
-  height: 400px;
+
+  width: 100%;
 }
 
-.number-picker{
+.number-picker {
   width: 15%;
 }
 
-.quantity-input{
+.quantity-input {
   width: 15%;
 }
