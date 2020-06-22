@@ -75,4 +75,10 @@ public class LocalService {
         LocalDateTime now = LocalDateTime.now();
         return localMapper.toLocalDTO(localRepository.updateLocal(id, local), now);
     }
+
+    public Page<LocalSimpleDTO> findAllLocalsByUser(PageRequest pageRequest, String ownerId) {
+        LocalDateTime now = LocalDateTime.now();
+        return localRepository.findAllLocalsByUser(pageRequest, ownerId)
+                .map(local -> localMapper.toLocalSimpleDTO(local, now));
+    }
 }

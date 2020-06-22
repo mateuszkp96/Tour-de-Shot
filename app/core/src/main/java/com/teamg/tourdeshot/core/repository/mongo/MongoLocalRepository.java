@@ -93,6 +93,16 @@ public class MongoLocalRepository implements LocalRepository {
     }
 
     @Override
+    public Page<Local> findAllLocalsByUser(Pageable pageable, String ownerId) {
+        Query query = new Query(where("ownerId").is(ownerId)).with(pageable);
+        List<Local> localList = mongoOperations.find(query, Local.class);
+        return PageableExecutionUtils.getPage(
+                localList,
+                pageable,
+                () -> mongoOperations.count(Query.of(query).limit(-1).skip(-1), Local.class));
+    }
+
+    @Override
     public List<Local> findAll() {
         return mongoOperations.findAll(Local.class);
     }
