@@ -1,53 +1,60 @@
-<div class="container">
-<h2 mat-dialog-title>Dodaj nowy produkt do menu</h2>
-<mat-dialog-content class="mat-typography">
-  <form>
-    <div class="form-group">
-      <div class="input-group mt-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Kategoria</span>
+<div *ngIf="categoryHeader" class="container">
+  <h2 mat-dialog-title>Dodaj nowy produkt do sekcji: {{categoryHeader}}</h2>
+  <mat-dialog-content class="mat-typography">
+    <form>
+      <div class="form-group">
+        <div class="input-group mt-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Kategoria</span>
+          </div>
+          <app-local-tree (onCategoryChecked)="categoryChecked($event)"></app-local-tree>
         </div>
-        <app-local-tree (onCategoryChecked)="categoryChecked($event)"></app-local-tree>
-      </div>
-      <div class="input-group mt-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Nazwa</span>
+
+        <div class="input-group mt-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Nazwa</span>
+          </div>
+          <input class="input-class" type="text" [(ngModel)]="productToAdd.name" placeholder="" name="name">
         </div>
-        <input class="input-class" type="text" [(ngModel)]="productToAdd.name" placeholder="" name="name">
-      </div>
-      <div class="input-group mt-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Opis</span>
+
+        <div class="input-group mt-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Cena</span>
+          </div>
+          <input class="input-class" type="text" [(ngModel)]="productToAdd.price" placeholder="" name="price">
         </div>
-        <input class="input-class" type="text" [(ngModel)]="productToAdd.description" placeholder="" name="description">
-      </div>
 
         <div class="input-group mt-3">
           <div class="input-group-prepend">
             <span class="input-group-text">Składniki</span>
           </div>
           <div class="aParent">
-          <div  class= "ingredient" *ngFor="let ingredient of productToAdd.ingredients; let i = index; trackBy: trackByFn">
-              <input class="input-class" type="text" [(ngModel)]="productToAdd.ingredients[i]" [ngModelOptions]="{standalone: true}" placeholder="" [name]="productToAdd.ingredients[i]">
-            <button *ngIf="i==0" type="button" class="btn btn-outline-primary btn-sm" (click)="onAddIngredientClick()"><i class="fas fa-plus"></i></button>
-            <button *ngIf="i>0" type="button" class="btn btn-outline-primary btn-sm" (click)="onDeleteIngredientClick(i)"><i class="fas fa-minus"></i></button>
+            <div class="ingredient"
+                 *ngFor="let ingredient of productToAdd.ingredients; let i = index; trackBy: trackByFn">
+              <input class="input-class" type="text" [(ngModel)]="productToAdd.ingredients[i]"
+                     [ngModelOptions]="{standalone: true}" placeholder="" [name]="productToAdd.ingredients[i]">
+              <button *ngIf="i==0" type="button" class="btn btn-outline-primary btn-sm"
+                      (click)="onAddIngredientClick()"><i class="fas fa-plus"></i></button>
+              <button *ngIf="i>0" type="button" class="btn btn-outline-primary btn-sm"
+                      (click)="onDeleteIngredientClick(i)"><i class="fas fa-minus"></i></button>
+            </div>
           </div>
-         </div>
         </div>
 
-
-      <div class="input-group mt-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Cena</span>
+        <div class="input-group mt-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Opis</span>
+          </div>
+          <input class="input-class" type="text" [(ngModel)]="productToAdd.description" placeholder=""
+                 name="description">
         </div>
-        <input class="input-class" type="text" [(ngModel)]="productToAdd.price" placeholder="" name="price">
+
       </div>
-    </div>
-  </form>
+    </form>
 
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button type="button" class="btn btn-outline-primary btn-sm" (click)="saveProduct()"><b>Dodaj</b></button>
-  <button mat-type="button" class="btn btn-outline-primary btn-sm" [mat-dialog-close]="true"><b>Anuluj</b></button>
-</mat-dialog-actions>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="saveProduct()"><b>Dodaj</b></button>
+    <button mat-type="button" class="btn btn-outline-primary btn-sm" [mat-dialog-close]="true"><b>Anuluj</b></button>
+  </mat-dialog-actions>
 </div>

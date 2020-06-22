@@ -31,4 +31,10 @@ export class MenuService {
     })
     return this.menu;
   }
+
+  //removing section from menu 
+  removeCategoryHeader(localId: number, orderNumber: number): Promise<any> {
+    return this.http.delete(this.LOCAL_API_URL + '/menu' + localId + '?orderNumber=' + orderNumber).toPromise();
+
+  }
 }

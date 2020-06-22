@@ -2,14 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductAddModalComponent } from '../product-add-modal/product-add-modal.component';
 import { MenuService } from 'src/app/services/menu.service';
-import { InitCategoryHeaderToAdd, CategoryHeaderToAdd } from 'src/app/models/MenuToAdd';
+import { CategoryHeaderToAdd, InitCategoryHeaderToAdd } from 'src/app/models/MenuToAdd';
 
 @Component({
-  selector: 'app-category-header-modify-modal',
-  templateUrl: './category-header-modify-modal.component.html',
-  styleUrls: ['./category-header-modify-modal.component.css']
+  selector: 'app-category-header-add-modal',
+  templateUrl: './category-header-add-modal.component.html',
+  styleUrls: ['./category-header-add-modal.component.css']
 })
-export class CategoryHeaderModifyModalComponent implements OnInit {
+export class CategoryHeaderAddModalComponent implements OnInit {
 
   category: CategoryHeaderToAdd   //category header to add or modify
 
@@ -27,13 +27,12 @@ export class CategoryHeaderModifyModalComponent implements OnInit {
 
   saveCategoryHeader() {
     console.log("saveCategoryHeader")
-   // console.log(this.productToModify)
+    // console.log(this.productToModify)
     // service to send to backend
     this.dialogRef.close()
   }
 
   onCloseClicked() {
-    console.log(this.category)
     this.dialogRef.close()
   }
 

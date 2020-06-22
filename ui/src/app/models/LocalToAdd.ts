@@ -6,7 +6,7 @@ import {OpeningHours} from './OpeningHours';
 import {Contact} from './Contact';
 
 export class LocalToAdd {
-  ownerId: number;
+  ownerId: string;
   name: string;
   coordinates: Coordinates;
   address: Address;
@@ -79,14 +79,14 @@ export const InitOpeningHoursToAdd: OpeningHoursToAdd =
     ]
   }
 export const InitLocalToAdd: LocalToAdd = {
-  ownerId: 0,
+  ownerId: "",
   name: "",
   address: {street: "", city: "", postCode: ""},
   coordinates: {lat: 0, lon: 0},
   contact: {email: "", phoneNumber: ""},
   image: "",
   openingHours: InitOpeningHoursToAdd,
-  localCategories: [" "],
+  localCategories: [""],
   website: " ",
   priceCategory: 0,
 }

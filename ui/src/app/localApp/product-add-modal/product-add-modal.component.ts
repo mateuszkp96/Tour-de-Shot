@@ -4,8 +4,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Product} from 'src/app/models/Product';
 import {ProductCategoryService} from 'src/app/services/product-category.service';
 import {ProductCategory} from 'src/app/models/ProductCategory';
-import {initialProduct} from 'src/app/models/InitialMenuItem';
-import { ProductService } from 'src/app/services/product.service';
+import {ProductService} from 'src/app/services/product.service';
+import {ProductToAdd, InitProductToAdd} from 'src/app/models/ProductToAdd';
 
 @Component({
   selector: 'app-product-add-modal',
@@ -14,11 +14,12 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductAddModalComponent implements OnInit {
 
-  productToAdd: Product
+  productToAdd: ProductToAdd
   @Input() categoryHeader: string
+  @Input() orderNumber: number
   productCategories: ProductCategory[]
-  productsCategoryId: number[]
-localId: number
+  productsCategoryId: string[]
+  localId: number
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
@@ -28,7 +29,7 @@ localId: number
   }
 
   ngOnInit(): void {
-    this.productToAdd = initialProduct
+    this.productToAdd = InitProductToAdd
     this.getProductCategories()
     this.localId = 2
   }
@@ -52,13 +53,13 @@ localId: number
     console.log("Product to add")
     this.productToAdd.categoryId = this.productsCategoryId[0]
     console.log(this.productToAdd)
-    this.productService.addProduct(this.localId, this.productToAdd.categoryId, this.productToAdd)
+    this.productService.addProduct(this.localId, this.orderNumber, this.productToAdd)
     this.dialogRef.close()
   }
 
   categoryChecked(event: string[]) {
     console.log("Category checked from local menu")
-    this.productsCategoryId = event.map(a => (parseInt(a)))
+    this.productsCategoryId = event
     console.log(this.productsCategoryId)
   }
 

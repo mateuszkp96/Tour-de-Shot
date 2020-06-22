@@ -1,8 +1,8 @@
-export class MenuHeaderToAdd {
+export class MenuToAdd {
   menuHeader: string
 }
 
-export const InitMenuHeaderToAdd: MenuHeaderToAdd = {
+export const InitMenuToAdd: MenuToAdd = {
   menuHeader: " "
 }
 

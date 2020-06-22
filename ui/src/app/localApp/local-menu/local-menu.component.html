@@ -1,37 +1,55 @@
 <div class="container">
   <div *ngIf="local" class="menu col-lg-12 mb-5">
     <div class="mb-4"><h2><strong>Menu Twojego lokalu:</strong></h2></div>
-    <div class=""  *ngFor="let item of local.menu.items; let i = index">
+    <ul class="add-button list-inline d-flex justify-content-end">
+      <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddCategoryHeaderClick()"><b>Dodaj nową
+        sekcję</b></button>
+    </ul>
+    <div class="" *ngFor="let item of local.menu.items; let i = index">
       <div class="card-header mb-2">
-        <a data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="true" class="text-dark font-weight-bold">
-          <i class="fas fa-plus mr-2"></i>{{item.categoryHeader}}
-        </a>
+        <ul class="add-button list-inline d-flex justify-content-between mb-2 mt-2 ml-1 mr-0">
+          <a data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="true"
+             class="text-dark font-weight-bold mt-2 ml-2">
+            <span> <i class="fas fa-plus mr-2"></i>{{item.categoryHeader}}</span>
+          </a>
+
+          <ul class="add-button list-inline d-flex justify-content-end">
+            <button type="button" class="btn category-header-btn btn-outline-primary btn-sm mr-2" (click)="modifyCategoryHeader(item)"><i
+              class="fas fa-pencil-alt"></i></button>
+            <button type="button" class="btn category-header-btn btn-outline-primary btn-sm mr-2"
+                    (click)="removeCategoryHeader(item.orderNumber)"><i class="fas fa-trash-alt"></i></button>
+          </ul>
+        </ul>
       </div>
+
       <div class="collapse" [ngbCollapse]="isCollapsed" id="collapseExample{{i}}">
         <div class="card-body p-0">
-          <li class="list-group-item p-0 ml-5"  *ngFor="let product of item.products; let j = index">
-            <ul class="list-inline d-flex justify-content-between mb-0">
+          <li class="list-group-item p-0 ml-5" *ngFor="let product of item.products; let j = index">
+            <ul class="list-inline d-flex justify-content-between ml-2 mr-2 mt-1 mb-1">
+
+              <div>
               <p class="product-name m-0">{{product.name}}</p>
-              <ul class="list-inline d-flex justify-content-end">
-                <p class="product-name font-weight-bold m-0 mr-2">{{product.price}}zł</p>
-                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="modifyProduct(product, i, j)"><i class="fas fa-pencil-alt"></i></button>
-                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="removeProduct(product)"><i class="fas fa-trash-alt"></i></button>
+              <ul class="list-inline">
+                <li class="list-inline-item text-primary font-italic p-0">{{product.ingredients}}</li>
               </ul>
-            </ul>
-            <ul class="list-inline">
-              <li class="list-inline-item text-primary font-italic p-0">{{product.ingredients}}</li>
+              </div>
+              <ul class="list-inline d-flex justify-content-end mt-1">
+                <p class="product-name font-weight-bold m-0 mr-2">{{product.price}}zł</p>
+                <button type="button" class="btn btn-outline-primary btn-sm " (click)="removeProduct(product)"><i
+                  class="fas fa-trash-alt"></i></button>
+              </ul>
+
             </ul>
           </li>
         </div>
+        <ul class="add-button list-inline d-flex justify-content-end">
+          <button type="button" class="btn btn-outline-primary btn-sm mb-2"
+                  (click)="onAddProductClick(item.orderNumber, item.categoryHeader)"><b>Dodaj produkt</b></button>
+        </ul>
       </div>
-      <ul class="add-button list-inline d-flex justify-content-end"></ul>
+
     </div>
     <div class="under-menu"></div>
-    <ul class="add-button list-inline d-flex justify-content-end">
-      <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddProductClick()"><b>Dodaj produkt</b></button>
-    </ul>
   </div>
-  <ul class="add-button list-inline d-flex justify-content-end">
-    <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddCategoryHeaderClick()"><b>Dodaj nową kategorię</b></button>
-  </ul>
+
 </div>

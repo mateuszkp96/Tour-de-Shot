@@ -68,7 +68,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { TokenInterceptor } from './token.interceptor';
 import { JwtInterceptor } from './jwt.interceptor';
 import { LocalAddComponent } from './localApp/local-add/local-add.component';
-import { CategoryHeaderModifyModalComponent } from './localApi/category-header-modify-modal/category-header-modify-modal.component';
+import { CategoryHeaderAddModalComponent } from './localApp/category-header-add-modal/category-header-add-modal.component';
+import { CategoryHeaderModifyModalComponent } from './localApp/category-header-modify-modal/category-header-modify-modal.component';
 
 
 let config = new AuthServiceConfig([
@@ -121,7 +122,8 @@ export function provideConfig() {
     ConfirmationComponent,
     AccountHistoryComponent,
     LocalAddComponent,
-    CategoryHeaderModifyModalComponent
+    CategoryHeaderModifyModalComponent,
+    CategoryHeaderAddModalComponent
   ],
   imports: [
     BrowserModule,
