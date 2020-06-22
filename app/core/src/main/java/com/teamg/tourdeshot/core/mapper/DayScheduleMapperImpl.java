@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
 
 @Component
@@ -45,7 +44,7 @@ public class DayScheduleMapperImpl implements DayScheduleMapper {
                 .orderNumber(daySchedulePostDTO.getOrderNumber())
                 .closingTime(LocalTime.parse(daySchedulePostDTO.getCloseTime(), formatter))
                 .openingTime(LocalTime.parse(daySchedulePostDTO.getOpenTime(), formatter))
-                .dayOfWeek(DayOfWeek.valueOf(daySchedulePostDTO.getDayOfWeek()))
+                .dayOfWeek(DayOfWeek.of(daySchedulePostDTO.getDayOfWeek()))
                 .build();
 
     }

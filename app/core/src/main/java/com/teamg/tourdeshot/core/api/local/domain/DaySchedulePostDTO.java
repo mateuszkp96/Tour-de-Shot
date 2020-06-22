@@ -15,7 +15,7 @@ public class DaySchedulePostDTO {
 
     private int orderNumber;
 
-    private String dayOfWeek;
+    private Integer dayOfWeek;
 
     private String openTime;
 
