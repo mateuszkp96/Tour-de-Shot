@@ -1,4 +1,4 @@
-package com.teamg.tourdeshot.user;
+package com.teamg.tourdeshot.user.api;
 
 
 import org.springframework.security.access.annotation.Secured;
@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class WebController {
-
 
     @GetMapping(path = "/api/open")
     public String index() {

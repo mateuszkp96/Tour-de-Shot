@@ -6,20 +6,24 @@ import com.teamg.tourdeshot.user.repository.Oauth2UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UserRegistrationService {
 
-	private final Oauth2UserRepository oauth2Repository;
-	@Autowired
-	public UserRegistrationService(Oauth2UserRepository oauth2Repository) {
-		this.oauth2Repository = oauth2Repository;
-	}
+    private final Oauth2UserRepository oauth2Repository;
+    private final SequenceGeneratorService generatorService;
 
+    @Autowired
+    public UserRegistrationService(Oauth2UserRepository oauth2Repository, SequenceGeneratorService generatorService) {
+        this.oauth2Repository = oauth2Repository;
+        this.generatorService = generatorService;
+    }
 
-	public void registerNewAuth2User(UserOAuth2Dto userDto) {
-		TourDeShotOauth2User user = new TourDeShotOauth2User(userDto.getUsername(),
-													 userDto.getEmail());
-		oauth2Repository.save(user);
-	}
-	
+    public void registerNewAuth2User(UserOAuth2Dto userDto) {
+        TourDeShotOauth2User user = new TourDeShotOauth2User(userDto.getUsername(), userDto.getEmail(), LocalDateTime.now());
+        user.setId(generatorService.generateSequence(TourDeShotOauth2User.SEQUENCE_NAME));
+        oauth2Repository.save(user);
+    }
+
 }
