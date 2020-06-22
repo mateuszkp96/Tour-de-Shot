@@ -16,7 +16,7 @@ spring:
             client-secret: EHu4r0BG-4UOx_BL0wH7gs2O
           user-app:
             client-id: user-app
-            client-secret: 9d22cd50-2d04-4441-9eae-a4ef4ae9f179
+            client-secret: 8f0173c5-c9cc-4a3e-9fb0-780a69db2f62
             client-name: User service
             scope: openid
             client-authentication-method: basic
@@ -24,7 +24,7 @@ spring:
             provider: user-app-provider
         provider:
           user-app-provider:
-            issuer-uri: http://localhost:8085/auth/realms/FirstApp
+            issuer-uri: http://35.246.75.83.xip.io:8080/auth/realms/FirstApp
 logging:
   level:
     root: INFO
