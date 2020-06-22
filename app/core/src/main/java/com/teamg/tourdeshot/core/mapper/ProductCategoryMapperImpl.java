@@ -21,6 +21,8 @@ public class ProductCategoryMapperImpl implements ProductCategoryMapper {
 
     @Override
     public ProductCategoryDTO toProductCategoryDTO(ProductCategory productCategory) {
+        if(Objects.isNull(productCategory))
+            return null;
         ProductCategory parent = productCategory.getParent();
         return ProductCategoryDTO.builder()
                 .id(productCategory.getId())

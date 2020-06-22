@@ -19,4 +19,15 @@ public class AddressMapperImpl implements AddressMapper {
                 .postCode(address.getPostCode())
                 .build();
     }
+
+    @Override
+    public Address toAddress(AddressDTO address) {
+        if(Objects.isNull(address))
+            return null;
+        return Address.builder()
+                .city(address.getCity())
+                .postCode(address.getPostCode())
+                .street(address.getStreet())
+                .build();
+    }
 }

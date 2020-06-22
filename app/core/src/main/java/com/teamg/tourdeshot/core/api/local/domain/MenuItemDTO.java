@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 public class MenuItemDTO {
 
-    private int orderNumber;
+    private Integer orderNumber;
 
     private String categoryHeader;
 

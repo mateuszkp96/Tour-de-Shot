@@ -1,9 +1,12 @@
 package com.teamg.tourdeshot.core.repository.mongo;
 
 import com.mongodb.client.result.DeleteResult;
+import com.teamg.tourdeshot.core.api.local.domain.LocalUpdateDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.api.local.filter.Localization;
+import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.mapper.filter.LocalFiltersInterpreter;
+import com.teamg.tourdeshot.core.mapper.utils.UpdateLocalUtils;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.LocalWithDistance;
 import com.teamg.tourdeshot.core.repository.LocalRepository;
@@ -15,8 +18,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.FindAndReplaceOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.GeoNearOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.support.PageableExecutionUtils;
@@ -34,11 +42,13 @@ public class MongoLocalRepository implements LocalRepository {
     private final MongoOperations mongoOperations;
     private final DeleteResultInterpreter<DeleteResult> deleteResultInterpreter = new MongoDeleteResultInterpreter();
     private final LocalFiltersInterpreter localFiltersInterpreter;
+    private final UpdateLocalUtils updateLocalUtils;
 
     @Autowired
-    public MongoLocalRepository(MongoOperations mongoOperations, LocalFiltersInterpreter localFiltersInterpreter) {
+    public MongoLocalRepository(MongoOperations mongoOperations, LocalFiltersInterpreter localFiltersInterpreter, UpdateLocalUtils updateLocalUtils) {
         this.mongoOperations = mongoOperations;
         this.localFiltersInterpreter = localFiltersInterpreter;
+        this.updateLocalUtils = updateLocalUtils;
     }
 
     @Override
@@ -71,6 +81,15 @@ public class MongoLocalRepository implements LocalRepository {
                 results.getMappedResults(),
                 pageable,
                 () -> results.getMappedResults().size());
+    }
+
+    @Override
+    public Local updateLocal(Long id, LocalUpdateDTO local) {
+        Local localToUpdate = findById(id).orElseThrow(() -> new ResourceNotFoundException("Local", "id", id));
+        Local updatedLocal = updateLocalUtils.fillUpdatedLocal(local, localToUpdate);
+        return mongoOperations.findAndReplace(query(where("id").is(id)),
+                updatedLocal,
+                FindAndReplaceOptions.options().upsert().returnNew());
     }
 
     @Override

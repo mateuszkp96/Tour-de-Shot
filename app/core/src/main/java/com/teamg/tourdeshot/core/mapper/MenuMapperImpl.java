@@ -1,10 +1,12 @@
 package com.teamg.tourdeshot.core.mapper;
 
 import com.teamg.tourdeshot.core.api.local.domain.MenuDTO;
+import com.teamg.tourdeshot.core.api.menu.dto.MenuPostDTO;
 import com.teamg.tourdeshot.core.model.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Component
@@ -19,11 +21,21 @@ public class MenuMapperImpl implements MenuMapper {
 
     @Override
     public MenuDTO toMenuDTO(Menu menu) {
-        if(Objects.isNull(menu))
+        if (Objects.isNull(menu))
             return null;
         return MenuDTO.builder()
                 .menuHeader(menu.getMenuHeader())
                 .items(menuItemMapper.toMenuItemDTOs(menu.getItems()))
+                .build();
+    }
+
+    @Override
+    public Menu toMenu(MenuPostDTO menu) {
+        if (Objects.isNull(menu))
+            return null;
+        return Menu.builder()
+                .menuHeader(menu.getMenuHeader())
+                .items(new ArrayList<>())
                 .build();
     }
 }

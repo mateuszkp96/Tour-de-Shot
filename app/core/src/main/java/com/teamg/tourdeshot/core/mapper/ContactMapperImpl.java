@@ -18,4 +18,14 @@ public class ContactMapperImpl implements ContactMapper {
                 .phoneNumber(contact.getPhoneNumber())
                 .build();
     }
+
+    @Override
+    public Contact toContact(ContactDTO contact) {
+        if(Objects.isNull(contact))
+            return null;
+        return Contact.builder()
+                .email(contact.getEmail())
+                .phoneNumber(contact.getPhoneNumber())
+                .build();
+    }
 }

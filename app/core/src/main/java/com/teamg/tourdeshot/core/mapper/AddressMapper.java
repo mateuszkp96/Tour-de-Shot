@@ -6,4 +6,6 @@ import com.teamg.tourdeshot.core.model.Address;
 public interface AddressMapper {
 
     AddressDTO toAddressDTO(Address address);
+
+    Address toAddress(AddressDTO address);
 }

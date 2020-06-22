@@ -2,13 +2,14 @@ package com.teamg.tourdeshot.core.mapper;
 
 
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalUpdateDTO;
 import com.teamg.tourdeshot.core.model.Local;
 import com.teamg.tourdeshot.core.model.LocalWithDistance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -36,6 +37,8 @@ public class  LocalMapperImpl implements LocalMapper {
 
     @Override
     public LocalDTO toLocalDTO(Local local, LocalDateTime now) {
+        if(Objects.isNull(local))
+            return null;
         return LocalDTO.builder()
                 .id(local.getId())
                 .name(local.getName())
@@ -53,6 +56,8 @@ public class  LocalMapperImpl implements LocalMapper {
 
     @Override
     public LocalSimpleDTO toLocalSimpleDTO(Local local, LocalDateTime now) {
+        if(Objects.isNull(local))
+            return null;
         return LocalSimpleDTO.builder()
                 .id(local.getId())
                 .name(local.getName())
@@ -67,6 +72,8 @@ public class  LocalMapperImpl implements LocalMapper {
 
     @Override
     public LocalSimpleDTO toLocalSimpleDTOFromLocalWithDistance(LocalWithDistance local, LocalDateTime now) {
+        if(Objects.isNull(local))
+            return null;
         return LocalSimpleDTO.builder()
                 .id(local.getId())
                 .name(local.getName())
@@ -77,6 +84,25 @@ public class  LocalMapperImpl implements LocalMapper {
                 .localCategories(local.getLocalCategories())
                 .priceCategory(local.getPriceCategory())
                 .openingHours(openingHoursMapper.toOpeningHoursDTO(local.getOpeningHours(), now))
+                .build();
+    }
+
+    @Override
+    public Local toLocal(LocalPostDTO local, Long id, String ownerId) {
+        if(Objects.isNull(local))
+            return null;
+        return Local.builder()
+                .id(id)
+                .address(addressMapper.toAddress(local.getAddress()))
+                .contact(contactMapper.toContact(local.getContact()))
+                .website(local.getWebsite())
+                .image(local.getImage())
+                .localCategories(local.getLocalCategories())
+                .ownerId(ownerId)
+                .name(local.getName())
+                .priceCategory(local.getPriceCategory())
+                .coordinates(coordinatesMapper.toCoordinates(local.getCoordinates()))
+                .openingHours(openingHoursMapper.toOpeningHours(local.getOpeningHours()))
                 .build();
     }
 
