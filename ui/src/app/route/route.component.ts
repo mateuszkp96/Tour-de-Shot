@@ -16,6 +16,7 @@ export class RouteComponent implements AfterViewInit {
   checkedLocalsList: Local[] = [];
   startPoint: google.maps.LatLng;
   filteredByDistLocalsList: Local[] = [];
+  totalCost = this.localService.getTotalCost();
 
   constructor(
     private router: Router,
@@ -50,7 +51,7 @@ export class RouteComponent implements AfterViewInit {
     console.log("summary product list")
     console.log(this.localService.getSummaryProductListValues())
 
-    
+
   }
 
 
