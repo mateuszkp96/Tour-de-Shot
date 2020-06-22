@@ -1,7 +1,9 @@
 package com.teamg.tourdeshot.core.service;
 
 import com.teamg.tourdeshot.core.api.local.domain.LocalDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalPostDTO;
 import com.teamg.tourdeshot.core.api.local.domain.LocalSimpleDTO;
+import com.teamg.tourdeshot.core.api.local.domain.LocalUpdateDTO;
 import com.teamg.tourdeshot.core.api.local.filter.FilterRequestBody;
 import com.teamg.tourdeshot.core.exception.ResourceNotFoundException;
 import com.teamg.tourdeshot.core.mapper.LocalMapper;
@@ -53,9 +55,9 @@ public class LocalService {
                 .map(local -> localMapper.toLocalSimpleDTO(local, now));
     }
 
-    public Local addLocal(Local local) {
-        local.setId(sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
-        return localRepository.save(local);
+    public Local addLocal(LocalPostDTO local) {
+        Local localToSave = localMapper.toLocal(local, sequenceGeneratorService.generateSequence(Local.SEQUENCE_NAME));
+        return localRepository.save(localToSave);
     }
 
     public ResponseEntity<String> deleteById(Long id) {
@@ -67,5 +69,10 @@ public class LocalService {
         LocalDateTime now = LocalDateTime.now();
         return localRepository.filterLocals(pageRequest, requestBody)
                 .map(local -> localMapper.toLocalSimpleDTOFromLocalWithDistance(local, now));
+    }
+
+    public LocalDTO updateLocal(Long id, LocalUpdateDTO local) {
+        LocalDateTime now = LocalDateTime.now();
+        return localMapper.toLocalDTO(localRepository.updateLocal(id, local), now);
     }
 }
