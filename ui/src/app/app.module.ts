@@ -70,6 +70,7 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { LocalAddComponent } from './localApp/local-add/local-add.component';
 import { CategoryHeaderAddModalComponent } from './localApp/category-header-add-modal/category-header-add-modal.component';
 import { CategoryHeaderModifyModalComponent } from './localApp/category-header-modify-modal/category-header-modify-modal.component';
+import { MapLoaderService } from './services/map-loader.service';
 
 
 let config = new AuthServiceConfig([
@@ -123,7 +124,7 @@ export function provideConfig() {
     AccountHistoryComponent,
     LocalAddComponent,
     CategoryHeaderModifyModalComponent,
-    CategoryHeaderAddModalComponent
+    CategoryHeaderAddModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -163,6 +164,7 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig,
+      
     },
     LocalService,
     StartPointService,
@@ -171,6 +173,8 @@ export function provideConfig() {
       useClass: JwtInterceptor,
       multi: true
     },
+    MapLoaderService
+   // GoogleMapsModule,
 
   ],
 

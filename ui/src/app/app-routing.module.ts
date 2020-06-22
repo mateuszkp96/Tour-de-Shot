@@ -44,7 +44,6 @@ const routes: Routes = [
   {path: 'informations', component: LocalInformationsComponent},
   {path: 'settings', component: LocalSettingsComponent},
   {path: 'add-local', component: LocalAddComponent},
-
 ];
 
 @NgModule({
