@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: mateusz43211/tourdeshot:frontend_test1
+          image: mateusz43211/tourdeshot:frontend_test2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
