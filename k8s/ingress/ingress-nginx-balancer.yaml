@@ -39,19 +39,19 @@ spec:
               servicePort: 8080
           - path: /api/summary
             backend:
-              serviceName: history
+              serviceName: history-svc
               servicePort: 8080
           - path: /api/userhistory
             backend:
-              serviceName: history
+              serviceName: history-svc
               servicePort: 8080
           - path: /api/customers
             backend:
-              serviceName: user
+              serviceName: user-svc
               servicePort: 8080
           - path: /api/open
             backend:
-              serviceName: user
+              serviceName: user-svc
               servicePort: 8080
           - path: /auth
             backend:
@@ -59,9 +59,9 @@ spec:
               servicePort: 8080
           - path: /oauth2/authorization/user-app
             backend:
-              serviceName: user
+              serviceName: user-svc
               servicePort: 8080
           - path: /login/oauth2/code/user-app
             backend:
-              serviceName: user
+              serviceName: user-svc
               servicePort: 8080
