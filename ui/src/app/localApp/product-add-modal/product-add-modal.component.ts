@@ -49,18 +49,19 @@ export class ProductAddModalComponent implements OnInit {
     console.log(this.productToAdd.ingredients)
   }
 
-  saveProduct() {
-    console.log("Product to add")
-    this.productToAdd.categoryId = this.productsCategoryId[0]
-    console.log(this.productToAdd)
-    this.productService.addProduct(this.localId, this.orderNumber, this.productToAdd)
-    this.dialogRef.close()
-  }
-
   categoryChecked(event: string[]) {
     console.log("Category checked from local menu")
     this.productsCategoryId = event
     console.log(this.productsCategoryId)
+  }
+
+  saveProduct() {
+    console.log("Product to add")
+    this.productToAdd.categoryId = parseInt(this.productsCategoryId[0])
+    console.log(this.productToAdd.price)
+    console.log(this.productToAdd)
+    this.productService.addProduct(this.localId, this.orderNumber, this.productToAdd)
+    this.dialogRef.close()
   }
 
   trackByFn(index: any, item: any) {

@@ -1,24 +1,15 @@
-<div  *ngIf="category" class="container">
-  <h2 mat-dialog-title>{{category.categoryHeader}}</h2>
+<div *ngIf="category" class="container">
+  <h2 mat-dialog-title>Zmień nazwę sekcji {{category.categoryHeader}}</h2>
   <mat-dialog-content class="mat-typography">
     <form>
       <div class="form-group">
 
         <div class="input-group mt-3">
           <div class="input-group-prepend">
-            <span class="input-group-text">Nazwa sekcji menu: </span>
+            <span class="input-group-text">Nazwa sekcji: </span>
           </div>
-          <input class="input-class" type="text" [(ngModel)]="category.categoryHeader" placeholder="" name="name">
+          <input class="input-class" type="text" [(ngModel)]="categoryHeader" placeholder="" name="categoryHeader">
         </div>
-
-        <div class="input-group mt-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Numer porządkowy: </span>
-          </div>
-          <input class="input-class" type="text" [(ngModel)]="category.categoryHeader" placeholder="" name="description">
-        </div>
-
-
 
       </div>
     </form>

@@ -18,7 +18,7 @@
           <li class="list-group-item">
             <div class="input-group mt-2 mb-2">
               <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-list-alt mr-2"></i>Kategorie produktów:</span>
+                <span class="input-group-text"><i class="fa fa-list-alt mr-2"></i>Kategorie lokalu:</span>
               </div>
               <div class="aParent">
                 <div class="ingredient-class"
@@ -31,16 +31,6 @@
                           (click)="onAddCategoryClick()"><i class="fas fa-plus"></i></button>
                 </div>
               </div>
-            </div>
-          </li>
-
-          <li class="list-group-item">
-            <div class="input-group mt-2 mb-2">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-map-marker-alt mr-2"></i>Kategoria lokalu:</span>
-              </div>
-              <input [disabled]="isDisable" class="input-class" #address type="text" [(ngModel)]="local.address.street"
-                     placeholder="" name="local.address.street" id="inputLocalAddressStreet">
             </div>
           </li>
 

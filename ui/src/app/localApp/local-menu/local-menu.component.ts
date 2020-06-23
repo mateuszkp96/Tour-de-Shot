@@ -13,7 +13,8 @@ import * as fromLocalLogin from '../../state/localLogin.reducer';
 import * as localLoginActions from '../../state/localLogin.actions';
 import {Store, select} from '@ngrx/store';
 import {LocalLoginService} from 'src/app/services/local-login.service';
-import { CategoryHeaderAddModalComponent } from '../category-header-add-modal/category-header-add-modal.component';
+import {CategoryHeaderAddModalComponent} from '../category-header-add-modal/category-header-add-modal.component';
+import {CategoryHeaderModifyModalComponent} from '../category-header-modify-modal/category-header-modify-modal.component';
 
 @Component({
   selector: 'app-local-menu',
@@ -52,7 +53,7 @@ export class LocalMenuComponent implements OnInit {
 
 
   ngOnInit(): void {
-  //  this.localId = this.localLoginService.getIdValue()
+    //  this.localId = this.localLoginService.getIdValue()
     this.localId = 2
     if (this.localId) {
       this.getLocal(this.localId)
@@ -60,7 +61,7 @@ export class LocalMenuComponent implements OnInit {
     this.productToAdd = new Product()
     this.isCollapsed = false
 
-    console.log( this.localId)
+    console.log(this.localId)
   }
 
 
@@ -85,8 +86,12 @@ export class LocalMenuComponent implements OnInit {
     });
   }
 
-  removeProduct(product: Product) {
-    console.log("Product remove")
+  onDeleteProduct(product: Product, orderNumber: number) {
+    console.log("Delete product")
+    console.log(product.name)
+
+    this.menuService.deleteProduct(this.localId, orderNumber, product.productId).then(() =>
+      this.getLocalMenu(this.localId))
   }
 
   modifyProduct(product: Product, i: number, j: number) {
@@ -100,10 +105,11 @@ export class LocalMenuComponent implements OnInit {
     });
   }
 
-  onAddCategoryHeaderClick(){
+
+  onAddCategoryHeaderClick() {
     console.log("Add Category Header")
     const dialogRef = this.dialog.open(CategoryHeaderAddModalComponent);
-  //  dialogRef.componentInstance.productToModify = product
+    dialogRef.componentInstance.localId = this.localId
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("Dialog close");
@@ -111,11 +117,23 @@ export class LocalMenuComponent implements OnInit {
     });
   }
 
-  modifyCategoryHeader(item: any){
-    console.log("Modify category")
+  onModifyCategoryHeader(item: any) {
+    console.log("Add Category Header")
+    const dialogRef = this.dialog.open(CategoryHeaderModifyModalComponent);
+    dialogRef.componentInstance.categoryHeader = item.categoryHeader
+    dialogRef.componentInstance.localId = this.localId
+    dialogRef.componentInstance.orderNumber = item.orderNumber
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Dialog close");
+      this.getLocalMenu(this.localId)
+    });
   }
 
-  removeCategoryHeader(orderNumber:number){
-
+  onDeleteCategoryHeader(orderNumber: number) {
+    console.log("Delete Category Header")
+    this.menuService.deleteCategoryHeader(this.localId, orderNumber).then(() =>
+      this.getLocalMenu(this.localId))
   }
 }

@@ -6,6 +6,7 @@ import {RequestOptions, Request, Headers, Http} from '@angular/http';
 import {Local} from '../models/Local';
 import {map, filter, catchError, mergeMap} from 'rxjs/operators';
 import {LocalFilter} from '../models/LocalFilter';
+import { LocalToModify } from '../models/LocalToModify';
 
 
 @Injectable({
@@ -34,6 +35,16 @@ export class WebLocalService {
     return this.http.get(this.LOCAL_API_URL + '/local/' + id).toPromise()
   }
 
+  getLocalToModify(id: number) {
+    return this.http.get(this.LOCAL_API_URL + '/local/' + id).pipe(
+      map( response => {
+        response['openingHours'] = []
+      } )
+    );
+
+  }
+
+  
   getLocalsByPage(page: number, pageSize): Promise<any> {
     return this.http.get(this.LOCAL_API_URL + '/local?page=' + page + '&pageSize=' + pageSize).toPromise()
   }
@@ -56,5 +67,10 @@ export class WebLocalService {
   }
   async getLocalImage(url: string): Promise<any>{
     return await this.http.get(url).toPromise()
+  }
+
+  updateLocal(localId: number, localToModify: LocalToModify): Promise<any>{
+    return this.http.put(this.LOCAL_API_URL + '/local/' + localId, localToModify).toPromise();
+
   }
 }

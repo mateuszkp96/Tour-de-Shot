@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductAddModalComponent } from '../product-add-modal/product-add-modal.component';
 import { MenuService } from 'src/app/services/menu.service';
@@ -11,6 +11,7 @@ import { CategoryHeaderToAdd, InitCategoryHeaderToAdd } from 'src/app/models/Men
 })
 export class CategoryHeaderAddModalComponent implements OnInit {
 
+  @Input() localId: number;
   category: CategoryHeaderToAdd   //category header to add or modify
 
 
@@ -27,8 +28,8 @@ export class CategoryHeaderAddModalComponent implements OnInit {
 
   saveCategoryHeader() {
     console.log("saveCategoryHeader")
-    // console.log(this.productToModify)
-    // service to send to backend
+    console.log(this.category)
+    this.menuService.addCategoryHeader(this.localId, this.category)
     this.dialogRef.close()
   }
 

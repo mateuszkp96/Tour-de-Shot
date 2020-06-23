@@ -3,20 +3,21 @@
 }
 
 .input-group-prepend{
-  width: 100px;
+  width: 200px;
 }
 
+.input-group-text{
+  width: 200px;
+  height: 30px;
+}
 .input-group{
   padding: 0;
   margin: 0;
 }
-.input-group-text{
-  width: 100px;
-  height: 30px;
-}
+
 
 .input-class{
-  width: 400px;
+  width: 300px;
   height: 30px;
 }
 

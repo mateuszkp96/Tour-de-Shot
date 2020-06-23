@@ -1,5 +1,5 @@
 export class ProductToAdd {
-  categoryId: string
+  categoryId: number
   name: string
   price: number
   ingredients: Array<string>;
@@ -7,7 +7,7 @@ export class ProductToAdd {
 }
 
 export const InitProductToAdd: ProductToAdd = {
-  categoryId: "",
+  categoryId: null,
   name: "",
   price: null,
   ingredients: [""],

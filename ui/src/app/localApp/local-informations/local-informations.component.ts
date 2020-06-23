@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {LocalDetailed} from 'src/app/models/LocalDetailed';
 import {WebLocalService} from 'src/app/services/web-local.service';
 import {Subject} from 'rxjs';
-import { LocalToModify } from 'src/app/models/LocalToModify';
+import {LocalToModify} from 'src/app/models/LocalToModify';
 
 @Component({
   selector: 'app-local-informations',
@@ -16,10 +16,14 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
   @Input() localId: number
   autocomplete: google.maps.places.Autocomplete;
   place: google.maps.places.PlaceResult;
-  local: LocalToModify;
   isDisable: boolean;
   point: google.maps.LatLng;
+  local: LocalToModify;
+  localDetailed : LocalDetailed
   localLoad = new Subject<any>();
+  openTime: string
+  cloaseTime: string
+
 
   constructor(
     private router: Router,
@@ -36,10 +40,12 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
     this.isDisable = true
     this.localLoad.asObservable()
 
+
+
   }
 
   ngAfterViewInit(): void {
-
+    console.log(document.getElementById("inputLocalAddressStreet"))
   }
 
   getLocal(id: number) {
@@ -48,9 +54,17 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
       this.local = l
     })
      */
-    this.webLocalService.getHardCodedLocalToModify().then(l => {
+
+    this.webLocalService.getLocalById(this.localId).then(l => {
+     // l.openingHours.schedule.time = l.openingHours.schedule.time.substring(0,5)
+      l.openingHours.schedule.time.
+      console.log("l.openingHours.schedule.time")
+      console.log(l.openingHours.schedule.time)
+      console.log(l.openingHours.schedule)
       this.local = l
       this.local.openingHours.schedule.forEach((schedule) => {
+        console.log("l.closeTime")
+        console.log(schedule.closeTime)
         if (schedule.dayOfWeek === 'MONDAY') {
           schedule.dayOfWeek = 'Poniedziałek';
         } else if (schedule.dayOfWeek === 'TUESDAY') {
@@ -132,6 +146,7 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
     // todo: save with service
     //this.getLocal(this.localId)
     this.isDisable = true
+    this.webLocalService.updateLocal(this.localId, this.local)
   }
 
   onCancelClick() {
