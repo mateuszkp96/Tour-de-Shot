@@ -13,7 +13,7 @@ export class CategoryHeaderToAdd {
 }
 
 export const InitCategoryHeaderToAdd: CategoryHeaderToAdd = {
-  orderNumber: 0,
+  orderNumber: null,
   categoryHeader: " "
 }
 

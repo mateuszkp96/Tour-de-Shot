@@ -7,6 +7,7 @@ import {Local} from '../models/Local';
 import {map, filter, catchError, mergeMap} from 'rxjs/operators';
 import {LocalFilter} from '../models/LocalFilter';
 import { LocalToModify } from '../models/LocalToModify';
+import { LocalToAdd } from '../models/LocalToAdd';
 
 
 @Injectable({
@@ -24,8 +25,7 @@ export class WebLocalService {
     this.HARDCODE_LOCALTOMODIFY = 'http://localhost:4200/assets/localToModify.json';
 
   }
-
-
+  
   async getLocalsJson(): Promise<any> {
     return await this.http.get(this.LOCAL_API_URL + '/local').toPromise()
     //return await this.http.get(this.ROOT_URL).toPromise()
@@ -44,7 +44,7 @@ export class WebLocalService {
 
   }
 
-  
+
   getLocalsByPage(page: number, pageSize): Promise<any> {
     return this.http.get(this.LOCAL_API_URL + '/local?page=' + page + '&pageSize=' + pageSize).toPromise()
   }
@@ -69,8 +69,12 @@ export class WebLocalService {
     return await this.http.get(url).toPromise()
   }
 
+
   updateLocal(localId: number, localToModify: LocalToModify): Promise<any>{
     return this.http.put(this.LOCAL_API_URL + '/local/' + localId, localToModify).toPromise();
+  }
 
+  addLocal(ownerId: number, localToAdd: LocalToAdd): Promise<any>{
+    return this.http.post(this.LOCAL_API_URL + '/local/' + ownerId, localToAdd).toPromise();
   }
 }

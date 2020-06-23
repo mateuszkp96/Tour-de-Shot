@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {LocalDetailed} from 'src/app/models/LocalDetailed';
 import {WebLocalService} from 'src/app/services/web-local.service';
 import {Subject} from 'rxjs';
-import {LocalToModify} from 'src/app/models/LocalToModify';
+import {LocalToModify, InitLocalToModify} from 'src/app/models/LocalToModify';
 
 @Component({
   selector: 'app-local-informations',
@@ -18,8 +18,9 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
   place: google.maps.places.PlaceResult;
   isDisable: boolean;
   point: google.maps.LatLng;
-  local: LocalToModify;
-  localDetailed : LocalDetailed
+  local: LocalDetailed;
+  localDetailed: LocalDetailed
+  localToModify: LocalToModify = InitLocalToModify
   localLoad = new Subject<any>();
   openTime: string
   cloaseTime: string
@@ -33,7 +34,7 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.localId = 2; // hardcoded here yet
+    this.localId = 2;            // hardcoded here yet
     console.log(this.localId)
     this.getLocal(this.localId)  //todo: changing to appropriate local
 
@@ -56,32 +57,34 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
      */
 
     this.webLocalService.getLocalById(this.localId).then(l => {
-     // l.openingHours.schedule.time = l.openingHours.schedule.time.substring(0,5)
-      l.openingHours.schedule.time.
       console.log("l.openingHours.schedule.time")
-      console.log(l.openingHours.schedule.time)
-      console.log(l.openingHours.schedule)
       this.local = l
-      this.local.openingHours.schedule.forEach((schedule) => {
-        console.log("l.closeTime")
-        console.log(schedule.closeTime)
-        if (schedule.dayOfWeek === 'MONDAY') {
-          schedule.dayOfWeek = 'Poniedziałek';
-        } else if (schedule.dayOfWeek === 'TUESDAY') {
-          schedule.dayOfWeek = 'Wtorek';
-        } else if (schedule.dayOfWeek === 'WEDNESDAY') {
-          schedule.dayOfWeek = 'Środa';
-        } else if (schedule.dayOfWeek === 'THURSDAY') {
-          schedule.dayOfWeek = 'Czwartek';
-        } else if (schedule.dayOfWeek === 'FRIDAY') {
-          schedule.dayOfWeek = 'Piątek';
-        } else if (schedule.dayOfWeek === 'SATURDAY') {
-          schedule.dayOfWeek = 'Sobota';
-        } else {
-          schedule.dayOfWeek = 'Niedziela';
-        }
-      });
+      this.local.openingHours.schedule.sort((a,b) => a.orderNumber - (b.orderNumber));
 
+
+
+      /*
+    this.local.openingHours.schedule.forEach((schedule) => {
+      console.log("l.closeTime")
+      // console.log(schedule.closeTime)
+
+      if (schedule.dayOfWeek === 'MONDAY') {
+        schedule.dayOfWeek = 'Poniedziałek';
+      } else if (schedule.dayOfWeek === 'TUESDAY') {
+        schedule.dayOfWeek = 'Wtorek';
+      } else if (schedule.dayOfWeek === 'WEDNESDAY') {
+        schedule.dayOfWeek = 'Środa';
+      } else if (schedule.dayOfWeek === 'THURSDAY') {
+        schedule.dayOfWeek = 'Czwartek';
+      } else if (schedule.dayOfWeek === 'FRIDAY') {
+        schedule.dayOfWeek = 'Piątek';
+      } else if (schedule.dayOfWeek === 'SATURDAY') {
+        schedule.dayOfWeek = 'Sobota';
+      } else {
+        schedule.dayOfWeek = 'Niedziela';
+      }
+    });
+*/
       this.localLoad.next(true)
     })
   }
@@ -114,8 +117,31 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
   }
 
   onSaveClick() {
-    console.log("LOCAL TO SAVE")
+    this.localToModify.name = this.local.name
+    this.localToModify.website = this.local.website
+    this.localToModify.localCategories = this.local.localCategories
+    this.localToModify.website = this.local.website
+    this.localToModify.address = this.local.address
+    this.localToModify.contact = this.local.contact
 
+    this.localToModify.openingHours.schedule[0].openTime = this.local.openingHours.schedule[0].time.substring(0,5)
+    this.localToModify.openingHours.schedule[1].openTime = this.local.openingHours.schedule[1].time.substring(0,5)
+    this.localToModify.openingHours.schedule[2].openTime = this.local.openingHours.schedule[2].time.substring(0,5)
+    this.localToModify.openingHours.schedule[3].openTime = this.local.openingHours.schedule[3].time.substring(0,5)
+    this.localToModify.openingHours.schedule[4].openTime = this.local.openingHours.schedule[4].time.substring(0,5)
+    this.localToModify.openingHours.schedule[5].openTime = this.local.openingHours.schedule[5].time.substring(0,5)
+    this.localToModify.openingHours.schedule[6].openTime = this.local.openingHours.schedule[6].time.substring(0,5)
+
+    this.localToModify.openingHours.schedule[0].closeTime = this.local.openingHours.schedule[0].time.substring(8,13)
+    this.localToModify.openingHours.schedule[1].closeTime = this.local.openingHours.schedule[1].time.substring(8,13)
+    this.localToModify.openingHours.schedule[2].closeTime = this.local.openingHours.schedule[2].time.substring(8,13)
+    this.localToModify.openingHours.schedule[3].closeTime = this.local.openingHours.schedule[3].time.substring(8,13)
+    this.localToModify.openingHours.schedule[4].closeTime = this.local.openingHours.schedule[4].time.substring(8,13)
+    this.localToModify.openingHours.schedule[5].closeTime = this.local.openingHours.schedule[5].time.substring(8,13)
+    this.localToModify.openingHours.schedule[6].closeTime = this.local.openingHours.schedule[6].time.substring(8,13)
+
+
+/*
     this.local.openingHours.schedule.forEach((schedule) => {
       switch (schedule.dayOfWeek) {
         case 'Poniedziałek':
@@ -141,12 +167,14 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
           break;
       }
     });
+    */
 
-    console.log(this.local)
-    // todo: save with service
+    console.log("LOCAL TO SAVE")
+    console.log(this.localToModify)
     //this.getLocal(this.localId)
     this.isDisable = true
-    this.webLocalService.updateLocal(this.localId, this.local)
+    this.webLocalService.updateLocal(this.localId, this.localToModify).then(()=>
+      this.getLocal(this.localId))
   }
 
   onCancelClick() {
@@ -168,5 +196,9 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
 
   trackByFn(index: any, item: any) {
     return index;
+  }
+
+  onAutocompleteInputClick(){
+    console.log("On autocomplete function clilck")
   }
 }

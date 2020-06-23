@@ -19,7 +19,7 @@ export class LocalToModify {
 
 export class OpeningHoursToModifySchedule {
   orderNumber: number;
-  dayOfWeek: string;
+  dayOfWeek: number;
   openTime: string;
   closeTime: string;
 }
@@ -34,49 +34,49 @@ export const InitOpeningHoursToModify: OpeningHoursToModify =
     schedule: [
       {
         orderNumber: 0,
-        dayOfWeek: "MONDAY",
+        dayOfWeek: 1,
         openTime: " ",
         closeTime: " "
       },
       {
         orderNumber: 1,
-        dayOfWeek: "TUESDAY",
+        dayOfWeek: 2,
         openTime: " ",
         closeTime: " "
       },
       {
         orderNumber: 2,
-        dayOfWeek: "WEDNESDAY",
+        dayOfWeek: 3,
         openTime: " ",
         closeTime: " "
       },
       {
         orderNumber: 3,
-        dayOfWeek: "THURSDAY",
+        dayOfWeek: 4,
         openTime: " ",
         closeTime: " "
       },
       {
         orderNumber: 4,
-        dayOfWeek: "FRIDAY",
+        dayOfWeek: 5,
         openTime: " ",
         closeTime: " "
       },
       {
         orderNumber: 5,
-        dayOfWeek: "SATURDAY",
+        dayOfWeek: 6,
         openTime: " ",
         closeTime: " "
       },
       {
         orderNumber: 6,
-        dayOfWeek: "SUNDAY",
+        dayOfWeek: 7,
         openTime: " ",
         closeTime: " "
       }
     ]
   }
-export const InitLocalToAdd: LocalToModify = {
+export const InitLocalToModify: LocalToModify = {
   name: "",
   address: {street: "", city: "", postCode: ""},
   coordinates: {lat: 0, lon: 0},

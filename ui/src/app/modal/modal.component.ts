@@ -27,7 +27,7 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.local.openingHours.schedule.sort((a,b) => a.orderNumber - (b.orderNumber));
   }
 
   addProductToSummary(product, method: string, i, j){

@@ -15,6 +15,7 @@ import {Store, select} from '@ngrx/store';
 import {LocalLoginService} from 'src/app/services/local-login.service';
 import {CategoryHeaderAddModalComponent} from '../category-header-add-modal/category-header-add-modal.component';
 import {CategoryHeaderModifyModalComponent} from '../category-header-modify-modal/category-header-modify-modal.component';
+import {ProductService} from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-local-menu',
@@ -36,7 +37,8 @@ export class LocalMenuComponent implements OnInit {
     private modalService: NgbModal,
     public dialog: MatDialog,
     private store: Store<fromLocalLogin.AppState>,
-    private localLoginService: LocalLoginService
+    private localLoginService: LocalLoginService,
+    private productService: ProductService
   ) {
     /*
     this.store.pipe(select(fromLocalLogin.getLocalId)).subscribe(
@@ -90,7 +92,7 @@ export class LocalMenuComponent implements OnInit {
     console.log("Delete product")
     console.log(product.name)
 
-    this.menuService.deleteProduct(this.localId, orderNumber, product.productId).then(() =>
+    this.productService.deleteProduct(this.localId, orderNumber, product.productId).then(() =>
       this.getLocalMenu(this.localId))
   }
 

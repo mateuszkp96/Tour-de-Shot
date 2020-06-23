@@ -10,8 +10,9 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-bookmark mr-2"></i>Nazwa:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.name" placeholder=""
-                     name="local.name" id="inputLocalName">
+              <input [disabled]="isDisable"
+                     class="input-class" type="text" [(ngModel)]="local.name" placeholder=""
+                     name="local.name" id="local.name">
             </div>
           </li>
 
@@ -80,7 +81,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fas fa-image mr-2"></i>Zdjęcie:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class mt-3" type="text" [(ngModel)]="local.image"
+              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.image"
                      placeholder=""
                      name="local.image" id="inputLocalImage">
             </div>
@@ -100,11 +101,8 @@
                       <div class="time-group-prepend">
                         <span class="time"> <i class="fas fa-clock mr-2"></i>{{detail.dayOfWeek}}:</span>
                       </div>
-                      <input [disabled]="isDisable" class="input-class-time" type="text" [(ngModel)]="detail.openTime"
-                             placeholder="" name="detail.openTime" id="inputLocalOpenTime{{i}}">
-                      <span class="ml-1 mr-1">-</span>
-                      <input [disabled]="isDisable" class="input-class-time" type="text" [(ngModel)]="detail.closeTime"
-                             placeholder="" name="detail.openTime" id="inputLocalCloseTime{{i}}">
+                      <input [disabled]="isDisable" class="input-class-time" type="text" [(ngModel)]="detail.time"
+                             placeholder="" name="detail.time" id="inputLocalTime{{i}}">
                     </div>
                   </li>
                 </ul>
@@ -118,7 +116,7 @@
           </button>
         </ul>
         <ul *ngIf="isDisable==false" class="list-inline d-flex justify-content-end mt-2">
-          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSaveClick()"><b>Dodaj</b></button>
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSaveClick()"><b>Zapisz</b></button>
           <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCancelClick()"><b>Anuluj</b></button>
 
         </ul>

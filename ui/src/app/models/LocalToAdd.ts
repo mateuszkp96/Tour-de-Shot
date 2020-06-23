@@ -6,7 +6,6 @@ import {OpeningHours} from './OpeningHours';
 import {Contact} from './Contact';
 
 export class LocalToAdd {
-  ownerId: string;
   name: string;
   coordinates: Coordinates;
   address: Address;
@@ -21,7 +20,7 @@ export class LocalToAdd {
 
 export class OpeningHoursToAddSchedule {
   orderNumber: number;
-  dayOfWeek: string;
+  dayOfWeek: number;
   openTime: string;
   closeTime: string;
 }
@@ -36,51 +35,50 @@ export const InitOpeningHoursToAdd: OpeningHoursToAdd =
     schedule: [
       {
         orderNumber: 0,
-        dayOfWeek: "MONDAY",
-        openTime: " ",
-        closeTime: " "
+        dayOfWeek: 1,
+        openTime: "00:00",
+        closeTime: "00:00"
       },
       {
         orderNumber: 1,
-        dayOfWeek: "TUESDAY",
-        openTime: " ",
-        closeTime: " "
+        dayOfWeek: 2,
+        openTime: "00:00",
+        closeTime: "00:00"
       },
       {
         orderNumber: 2,
-        dayOfWeek: "WEDNESDAY",
-        openTime: " ",
-        closeTime: " "
+        dayOfWeek: 3,
+        openTime: "00:00",
+        closeTime: "00:00"
       },
       {
         orderNumber: 3,
-        dayOfWeek: "THURSDAY",
-        openTime: " ",
-        closeTime: " "
+        dayOfWeek: 4,
+        openTime: "00:00",
+        closeTime: "00:00"
       },
       {
         orderNumber: 4,
-        dayOfWeek: "FRIDAY",
-        openTime: " ",
-        closeTime: " "
+        dayOfWeek: 5,
+        openTime: "00:00",
+        closeTime: "00:00"
       },
       {
         orderNumber: 5,
-        dayOfWeek: "SATURDAY",
-        openTime: " ",
-        closeTime: " "
+        dayOfWeek: 6,
+        openTime: "00:00",
+        closeTime:"00:00"
       },
       {
         orderNumber: 6,
-        dayOfWeek: "SUNDAY",
-        openTime: " ",
-        closeTime: " "
+        dayOfWeek: 7,
+        openTime: "00:00",
+        closeTime: "00:00"
       }
     ]
   }
 export const InitLocalToAdd: LocalToAdd = {
-  ownerId: "",
-  name: "",
+  name: "Nazwa Lokalu",
   address: {street: "", city: "", postCode: ""},
   coordinates: {lat: 0, lon: 0},
   contact: {email: "", phoneNumber: ""},

@@ -1,5 +1,6 @@
-//import {environment} from '../environments/environment'
+//import environment  from '../environments/environment'
 var script = document.createElement('script');
+//console.log(environment.googleMapsKey)
 script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE&libraries=geometry,places&callback=initMap";
 
 //script.src = "https://maps.googleapis.com/maps/api/js?key="+env.googleMapApiKey+"&libraries=geometry,places&callback=initMap";
