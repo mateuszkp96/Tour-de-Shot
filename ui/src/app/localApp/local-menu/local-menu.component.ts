@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {WebLocalService} from '../../services/web-local.service';
 import {MenuService} from '../../services/menu.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -38,7 +38,8 @@ export class LocalMenuComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store<fromLocalLogin.AppState>,
     private localLoginService: LocalLoginService,
-    private productService: ProductService
+    private productService: ProductService,
+    private route: ActivatedRoute,
   ) {
     /*
     this.store.pipe(select(fromLocalLogin.getLocalId)).subscribe(
@@ -56,7 +57,9 @@ export class LocalMenuComponent implements OnInit {
 
   ngOnInit(): void {
     //  this.localId = this.localLoginService.getIdValue()
-    this.localId = 2
+    this.localId = Number(this.route.snapshot.params.id);
+    console.log(this.localId)
+
     if (this.localId) {
       this.getLocal(this.localId)
     }
@@ -137,5 +140,9 @@ export class LocalMenuComponent implements OnInit {
     console.log("Delete Category Header")
     this.menuService.deleteCategoryHeader(this.localId, orderNumber).then(() =>
       this.getLocalMenu(this.localId))
+  }
+
+  onBackClick() {
+    this.router.navigate(['locals']);
   }
 }

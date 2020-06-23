@@ -1,6 +1,9 @@
 <div class="container">
   <div *ngIf="local">
-    <div class="mb-4"><h2><strong>Dane kontaktowe Twojego lokalu:</strong></h2></div>
+    <ul class="add-button list-inline d-flex justify-content-end">
+      <button type="button" class="btn btn-outline-primary btn-sm" (click)="onBackClick()"><b>Powróć do listy lokali</b></button>
+    </ul>
+    <div class="mb-4"><h2><strong>Dane kontaktowe lokalu: {{local.name}}</strong></h2></div>
     <div class="row">
       <div class="col-lg-8">
         <ul class="list-group ml-3">
@@ -40,7 +43,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-map-marker-alt mr-2"></i>Adres:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" #address type="text" [(ngModel)]="local.address.street"
+              <input [disabled]="isDisable" (click)="onAutocompleteInputClick()" class="input-class" #address type="text" [(ngModel)]="local.address.street"
                      placeholder="" name="local.address.street" id="inputLocalAddressStreet">
             </div>
           </li>

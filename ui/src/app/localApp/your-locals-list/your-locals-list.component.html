@@ -2,7 +2,7 @@
 <div class="col-lg-5 mx-auto">
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold">Lista Twoich lokali</h6>
+      <h6 class="m-0 font-weight-bold"><strong>Lista Twoich lokali</strong></h6>
     </div>
     <ul class="list-group list-group-flush" id="list">
       <li class="list-group-item" id="{{ 'listItem' + i }}" *ngFor="let local of yourLocalsList; index as i">
@@ -16,6 +16,10 @@
             <p class="mb-0">{{local.address.street}}</p>
             <a [routerLink]="" class="stretched-link">szczegóły>></a>
           </div>
+          <ul class="add-button list-inline d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-primary btn-sm mb-2"
+                    (click)="onSeeMenuClick(local.id)"><b>Dodaj produkt</b></button>
+          </ul>
         </div>
       </li>
     </ul>
