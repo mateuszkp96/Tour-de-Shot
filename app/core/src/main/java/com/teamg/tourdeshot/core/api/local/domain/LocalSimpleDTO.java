@@ -30,7 +30,6 @@ public class LocalSimpleDTO {
 
     private List<String> localCategories;
 
-    private int priceCategory;
-
+    private Integer priceCategory;
 
 }
