@@ -6,18 +6,17 @@
       </button>
     </ul>
   </ul>
-  <mat-tab-group>
+  <mat-tab-group [backgroundColor]="backgroundColorToggle">
     <mat-tab label="Menu">
       <div class="card shadow mb-4">
         <app-local-menu [localId]="localId"></app-local-menu>
       </div>
     </mat-tab>
+
     <mat-tab label="Dane kontaktowe">
       <div class="card shadow mb-4">
         <app-local-informations [localId]="localId"></app-local-informations>
       </div>
     </mat-tab>
   </mat-tab-group>
-
-
 </div>

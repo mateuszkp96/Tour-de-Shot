@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {MenuService} from '../../services/menu.service';
 import {WebLocalService} from '../../services/web-local.service';
@@ -11,13 +11,13 @@ import {LocalDetailed} from '../../models/LocalDetailed';
 @Component({
   selector: 'app-local',
   templateUrl: './local.component.html',
-  styleUrls: ['./local.component.css']
+  styleUrls: ['./local.component.css'],
 })
 export class LocalComponent implements OnInit {
 
   local: LocalDetailed
   localId = 1
-
+  public backgroundColorToggle = "#227fee"
   constructor(
     private router: Router,
     private route: ActivatedRoute,
