@@ -1,5 +1,6 @@
 package com.teamg.tourdeshot.user.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "deactivation_events")
 public class DeactivationEvent {
 
