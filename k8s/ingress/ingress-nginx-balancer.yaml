@@ -22,6 +22,14 @@ spec:
             backend:
               serviceName: core
               servicePort: 8080
+          - path: /api/product
+            backend:
+              serviceName: core
+              servicePort: 8080
+          - path: /api/user-local
+            backend:
+              serviceName: core
+              servicePort: 8080
           - path: /api/menu
             backend:
               serviceName: core
