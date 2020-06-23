@@ -49,6 +49,10 @@ export class YourLocalsListComponent implements OnInit {
     })
   }
 
+  onAddLocalClick(){
+    this.router.navigate(['add-local'])
+
+  }
   onDetailsClick(localId: number){
     this.router.navigate(['local/'+localId])
   }

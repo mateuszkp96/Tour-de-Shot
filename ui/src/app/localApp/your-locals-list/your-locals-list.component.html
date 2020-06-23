@@ -1,28 +1,40 @@
 <div class="container">
-<div class="col-lg-5 mx-auto">
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold"><strong>Lista Twoich lokali</strong></h6>
-    </div>
-    <ul class="list-group list-group-flush" id="list">
-      <li class="list-group-item" id="{{ 'listItem' + i }}" *ngFor="let local of yourLocalsList; index as i">
-        <!-- Custom content-->
-        <div class="media d-flex align-items-center"  >
-
-          <img src={{local.image}}  class="mr-3 square-image" alt="...">
-
-          <div class="media-body p-1">
-            <h5 class="m-0">{{local.name}}</h5>
-            <p class="mb-0">{{local.address.street}}</p>
-\          </div>
+  <div class="col-lg-5 mx-auto">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <ul class="add-button list-inline d-flex justify-content-between mb-2 mt-2 ml-1 mr-0">
+        <h6 class="m-0 font-weight-bold"><strong>Lista Twoich lokali</strong></h6>
           <ul class="add-button list-inline d-flex justify-content-end">
-            <button type="button" class="btn btn-outline-primary btn-sm mb-2"
-                    (click)="onDetailsClick(local.id)"><b>Szczegóły</b></button>
+            <button type="button" class="btn category-header-btn btn-outline-primary btn-sm"
+                    (click)="onAddLocalClick()"><i
+              class="fas fa-plus"></i><b class="bb ml-1"> Dodaj lokal</b>
+            </button>
           </ul>
-        </div>
-      </li>
-    </ul>
-    <ngb-pagination [pageSize] = "pageSize" [collectionSize]="numberOfPages" [(page)]="pageNumber" (pageChange)="onChangePage($event, pageNumber, pageSize)" aria-label="Default pagination" class="d-flex justify-content-end mt-4 pr-2"></ngb-pagination>
+        </ul>
+
+      </div>
+      <ul class="list-group list-group-flush" id="list">
+        <li class="list-group-item" id="{{ 'listItem' + i }}" *ngFor="let local of yourLocalsList; index as i">
+          <!-- Custom content-->
+          <div class="media d-flex align-items-center">
+
+            <img src={{local.image}} class="mr-3 square-image" alt="...">
+
+            <div class="media-body p-1">
+              <h5 class="m-0">{{local.name}}</h5>
+              <p class="mb-0">{{local.address.street}}</p>
+
+            </div>
+            <ul class="add-button list-inline d-flex justify-content-end">
+              <button type="button" class="btn btn-outline-primary btn-sm mb-2"
+                      (click)="onDetailsClick(local.id)"><b>Szczegóły</b></button>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <ngb-pagination [pageSize]="pageSize" [collectionSize]="numberOfPages" [(page)]="pageNumber"
+                      (pageChange)="onChangePage($event, pageNumber, pageSize)" aria-label="Default pagination"
+                      class="d-flex justify-content-end mt-4 pr-2"></ngb-pagination>
+    </div>
   </div>
-</div>
 </div>

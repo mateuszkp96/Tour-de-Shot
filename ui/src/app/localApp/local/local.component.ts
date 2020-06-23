@@ -18,6 +18,7 @@ export class LocalComponent implements OnInit {
   local: LocalDetailed
   localId = 1
   public backgroundColorToggle = "#227fee"
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -30,9 +31,8 @@ export class LocalComponent implements OnInit {
   }
 
   ngOnInit(): void {
- //   this.localId = 2; // hardcoded here yet
 
-      this.localId = Number(this.route.snapshot.params.id);
+    this.localId = Number(this.route.snapshot.params.id);
     this.getLocal(this.localId)
 
   }
@@ -46,4 +46,8 @@ export class LocalComponent implements OnInit {
     this.router.navigate(['locals']);
   }
 
+  localDeleted(event: string[]) {
+    console.log("Local deleted")
+    //this.localService.updateCheckedCategories(event)
+  }
 }

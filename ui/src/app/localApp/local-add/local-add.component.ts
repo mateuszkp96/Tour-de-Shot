@@ -132,6 +132,9 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
 
   onPriceCategoryChanged(event) {
     console.log(this.localToAdd.priceCategory)
+    this.localToAdd.priceCategory = event.currentTarget.valueOf().value.replace(/\D/g, '');
+    console.log(this.localToAdd.priceCategory)
+
   }
 
   onSaveClick() {
@@ -144,8 +147,7 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
   }
 
   onCancelClick() {
-    // this.getLocal(this.localId)
-    // this.isDisable = true
+     this.router.navigate(['locals'])
   }
 
   getCurrentDayOfWeek(day: number){
@@ -172,6 +174,11 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
         return 'Niedziela';
         break;
     }
+  }
+
+  onSubmit() {
+// TODO: Use EventEmitter with form value
+    //console.warn(this.startPointForm.value);
   }
 }
 

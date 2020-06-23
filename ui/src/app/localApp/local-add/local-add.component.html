@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mx-auto">
   <div *ngIf="localToAdd">
     <div class="mb-4"><h2><strong>Dodaj swój lokal do aplikacji Tour de Shot</strong></h2></div>
     <div class="row">
@@ -39,13 +39,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-usd mr-2"></i>Kategoria cenowa:</span>
               </div>
-
-              <select class="input-class" id="inputLocalCategory"
-                      required (change)="onPriceCategoryChanged($event)" [(ngModel)]="localToAdd.priceCategory">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-              </select>
+              <input [disabled]="isDisable" class="input-class" type="number" [(ngModel)]="localToAdd.priceCategory"
+                       id="inputLocalCategory" name="localToAdd.priceCategory">
             </div>
           </li>
 

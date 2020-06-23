@@ -272,6 +272,20 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
+        this.localService.updateCurrentCostForLocal(id, dialogRef.componentInstance.currentCost)
+        if(dialogRef.componentInstance.currentCost==0)
+        {
+          switch(this.checkedLocalsIdList.indexOf(id)){
+            case -1:
+              break;
+            default:
+              const index = this.checkedLocalsIdList.indexOf(id)
+              this.checkedLocalsIdList.splice(index, 1);
+              this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList)
+              break;
+          }
+        }
+        
       });
     })
 
