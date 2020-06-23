@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: core-svc
+  name: history-svc
 spec:
   type: NodePort
   ports:
@@ -9,4 +9,4 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: core-master
+    app: history-master

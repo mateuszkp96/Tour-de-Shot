@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: core-deployment
+  name: core-master-deployment
   labels:
-    app: core
+    app: core-master
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: core
+      app: core-master
   template:
     metadata:
       labels:
-        app: core
+        app: core-master
     spec:
       containers:
-        - name: core
-          image: mateusz43211/tourdeshot:core_1.11
+        - name: core-master
+          image: mateusz43211/tourdeshot:core_test1.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -71,3 +71,8 @@ spec:
                   key: APP_CORS_ALLOWEDORIGINS_1
             - name: SERVER_SERVLET_CONTEXTPATH
               value: /api
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+              valueFrom:
+                secretKeyRef:
+                  name: core-secret-conf
+                  key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
