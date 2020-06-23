@@ -12,6 +12,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class Oauth2AuthenticationSuccessHandler implements AuthenticationSuccess
 			this.userRegistrationService.registerNewAuth2User(user);
 		}
 		response.addHeader("Authorization", "Bearer "+principal.getIdToken().getTokenValue());
+        response.addCookie(new Cookie("jwtValue",principal.getIdToken().getTokenValue()));
 		this.redirectStrategy.sendRedirect(request, response, this.redirectUrl);
 	}
 }
