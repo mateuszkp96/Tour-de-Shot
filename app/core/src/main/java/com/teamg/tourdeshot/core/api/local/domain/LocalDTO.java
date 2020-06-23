@@ -28,7 +28,7 @@ public class LocalDTO {
 
     private List<String> localCategories;
 
-    private int priceCategory;
+    private Integer priceCategory;
 
     private OpeningHoursDTO openingHours;
 
