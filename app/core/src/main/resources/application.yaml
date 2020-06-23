@@ -6,7 +6,12 @@ spring:
       password: secret
       authentication-database: admin
 ---
-
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://34.105.178.183.xip.io/auth/realms/FirstApp
 app:
   local:
     defaultPage: 0

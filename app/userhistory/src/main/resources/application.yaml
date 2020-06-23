@@ -1,4 +1,10 @@
+
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://34.105.178.183.xip.io/auth/realms/FirstApp
   data:
     mongodb:
       port: 27017
@@ -12,7 +18,7 @@ spring:
 app:
   url:
     local: http://localhost:8080
-    user: http://localhost:8082
+    user: http://localhost:8081
 
   history:
     defaultPage: 0

@@ -16,8 +16,6 @@ import com.teamg.tourdeshot.userhistory.service.client.local.dto.Coordinates;
 import com.teamg.tourdeshot.userhistory.service.client.local.dto.Local;
 import com.teamg.tourdeshot.userhistory.service.client.local.dto.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +23,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
