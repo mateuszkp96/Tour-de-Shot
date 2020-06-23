@@ -40,12 +40,16 @@ const routes: Routes = [
   },
   {path: 'route', component: RouteComponent},
   {path: 'map', component: MapComponent},
-  {path: 'local', component: LocalComponent},
-  {path: 'menu/:id', component: LocalMenuComponent},
-  {path: 'informations/:id', component: LocalInformationsComponent},
   {path: 'settings', component: LocalSettingsComponent},
   {path: 'add-local', component: LocalAddComponent},
   {path: 'locals', component: YourLocalsListComponent},
+  {
+    path: 'local/:id', component: LocalComponent,
+    children: [
+      {path: 'menu', component: LocalMenuComponent},
+      {path: 'informations', component: LocalInformationsComponent},
+    ]
+  },
 
 ];
 

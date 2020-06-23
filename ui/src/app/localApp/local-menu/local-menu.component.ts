@@ -24,7 +24,7 @@ import {ProductService} from 'src/app/services/product.service';
 })
 export class LocalMenuComponent implements OnInit {
 
-  localId: number = null
+  @Input() localId: number
   local: LocalDetailed
   productToAdd: Product
   tree: TreeComponent
@@ -57,7 +57,7 @@ export class LocalMenuComponent implements OnInit {
 
   ngOnInit(): void {
     //  this.localId = this.localLoginService.getIdValue()
-    this.localId = Number(this.route.snapshot.params.id);
+ //   this.localId = Number(this.route.snapshot.params.id);
     console.log(this.localId)
 
     if (this.localId) {

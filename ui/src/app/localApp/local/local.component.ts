@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { MenuService } from '../../services/menu.service';
-import { WebLocalService } from '../../services/web-local.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MenuItem } from '../../models/MenuItem';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Product } from '../../models/Product';
-import { LocalDetailed } from '../../models/LocalDetailed';
+import {Component, OnInit, Input} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {MenuService} from '../../services/menu.service';
+import {WebLocalService} from '../../services/web-local.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MenuItem} from '../../models/MenuItem';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {Product} from '../../models/Product';
+import {LocalDetailed} from '../../models/LocalDetailed';
 
 @Component({
   selector: 'app-local',
@@ -15,32 +15,35 @@ import { LocalDetailed } from '../../models/LocalDetailed';
 })
 export class LocalComponent implements OnInit {
 
-  @Input() localId: number
   local: LocalDetailed
+  localId = 1
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private webLocalService: WebLocalService,
     private menuService: MenuService,
     private modalService: NgbModal,
     public dialog: MatDialog,
-    ) {
+  ) {
 
   }
 
   ngOnInit(): void {
-    this.localId = 2; // hardcoded here yet
+ //   this.localId = 2; // hardcoded here yet
+
+      this.localId = Number(this.route.snapshot.params.id);
     this.getLocal(this.localId)
 
-
   }
 
-  getLocal(id: number){
-    this.webLocalService.getLocalById(id).then(local=>
-    this.local = local)
+  getLocal(id: number) {
+    this.webLocalService.getLocalById(id).then(local =>
+      this.local = local)
   }
 
-
-
+  onBackClick() {
+    this.router.navigate(['locals']);
+  }
 
 }

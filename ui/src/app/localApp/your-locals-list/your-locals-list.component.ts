@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Local} from 'protractor/built/driverProviders';
 import {UserService} from 'src/app/services/user.service';
 import { LocalService } from 'src/app/services/local.service';
+import { WebLocalService } from 'src/app/services/web-local.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-your-locals-list',
@@ -17,7 +19,10 @@ export class YourLocalsListComponent implements OnInit {
   userId: number
 
   constructor(private userService: UserService,
-              private localServie: LocalService
+              private localServie: LocalService,
+              private webLocalServie: WebLocalService,
+              private router: Router
+
   ) {
   }
 
@@ -37,14 +42,14 @@ export class YourLocalsListComponent implements OnInit {
         console.log(this.yourLocalsList)
       })
      */
-    this.localServie.getLocalsList().then(locals => {
+    this.webLocalServie.getLocalsByPage(this.pageNumber-1,this.pageSize).then(locals => {
       this.yourLocalsList = locals['content'] as Local[]
       console.log("locals list")
       console.log(this.yourLocalsList)
     })
   }
 
-  onSeeMenuClick(localId: number){
-    console.log("See menu")
+  onDetailsClick(localId: number){
+    this.router.navigate(['local/'+localId])
   }
 }

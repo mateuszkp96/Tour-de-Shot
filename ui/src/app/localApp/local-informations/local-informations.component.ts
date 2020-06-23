@@ -13,7 +13,7 @@ import {LocalToModify, InitLocalToModify} from 'src/app/models/LocalToModify';
 export class LocalInformationsComponent implements OnInit, AfterViewInit {
 
   @ViewChild('address') public searchElementRef: ElementRef;
-  localId: number
+  @Input() localId: number
   autocomplete: google.maps.places.Autocomplete;
   place: google.maps.places.PlaceResult;
   isDisable: boolean;
@@ -35,9 +35,6 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.localId = Number(this.route.snapshot.params.id);
-
-    console.log(this.localId)
     this.getLocal(this.localId)  //todo: changing to appropriate local
 
     this.isDisable = true
@@ -212,7 +209,5 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
     this.autocompleteFunction()
   }
 
-  onBackClick() {
-    this.router.navigate(['locals']);
-  }
+
 }

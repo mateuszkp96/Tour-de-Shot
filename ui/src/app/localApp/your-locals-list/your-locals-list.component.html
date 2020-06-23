@@ -14,11 +14,10 @@
           <div class="media-body p-1">
             <h5 class="m-0">{{local.name}}</h5>
             <p class="mb-0">{{local.address.street}}</p>
-            <a [routerLink]="" class="stretched-link">szczegóły>></a>
-          </div>
+\          </div>
           <ul class="add-button list-inline d-flex justify-content-end">
             <button type="button" class="btn btn-outline-primary btn-sm mb-2"
-                    (click)="onSeeMenuClick(local.id)"><b>Dodaj produkt</b></button>
+                    (click)="onDetailsClick(local.id)"><b>Szczegóły</b></button>
           </ul>
         </div>
       </li>
