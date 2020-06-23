@@ -13,6 +13,10 @@ spec:
             backend:
               serviceName: frontend
               servicePort: 80
+          - path: /search
+            backend:
+              serviceName: frontend
+              servicePort: 80
           - path: /api/local
             backend:
               serviceName: core

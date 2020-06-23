@@ -79,3 +79,5 @@ spec:
                 secretKeyRef:
                   name: user-secret-conf
                   key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_USER_APP_CLIENT_SECRET
+            - name: APP_URL_REDIRECT
+              value: http://34.89.60.247.xip.io/search

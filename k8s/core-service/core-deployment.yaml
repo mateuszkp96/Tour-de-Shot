@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: core
-          image: mateusz43211/tourdeshot:core_1.11
+          image: mateusz43211/tourdeshot:core_1.10
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -57,8 +57,8 @@ spec:
                 configMapKeyRef:
                   name: mongo-core-config
                   key: MONGODB_TDS_DBNAME
-            - name: SPRING_PROFILES_ACTIVE
-              value: dev
+#            - name: SPRING_PROFILES_ACTIVE
+#              value: dev
             - name: APP_CORS_ALLOWEDORIGINS_0
               valueFrom:
                 configMapKeyRef:

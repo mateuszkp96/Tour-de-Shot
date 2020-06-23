@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: core-master
-          image: mateusz43211/tourdeshot:core_test1.0
+          image: mateusz43211/tourdeshot:core_1.11
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
