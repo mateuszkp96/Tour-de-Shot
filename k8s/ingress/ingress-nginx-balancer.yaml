@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   name: ingress-nginx-balancer
   annotations:
-#    kubernetes.io/ingress.global-static-ip-name: tds-entry-ip
     kubernetes.io/ingress.class: nginx
   namespace: default
 spec:
