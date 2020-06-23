@@ -15,6 +15,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Objects;
 
 @Configuration("oauth2authSuccessHandler")
@@ -41,11 +45,12 @@ public class Oauth2AuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+		OidcTourUser principal = (OidcTourUser) authentication.getPrincipal();
 		if(!this.userService.userCreated(authentication.getName())) {
-			OidcTourUser principal = (OidcTourUser) authentication.getPrincipal();
 			UserOAuth2Dto user = new UserOAuth2Dto(principal.getFirstName(), principal.getLastName(), authentication.getName(), principal.getEmail());
 			this.userRegistrationService.registerNewAuth2User(user);
 		}
-		 this.redirectStrategy.sendRedirect(request, response, this.redirectUrl);
+		response.addHeader("Authorization", "Bearer "+principal.getIdToken().getTokenValue());
+		this.redirectStrategy.sendRedirect(request, response, this.redirectUrl);
 	}
 }
