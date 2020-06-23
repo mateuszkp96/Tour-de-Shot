@@ -3,6 +3,7 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {WebLoginService} from './web-login.service';
 import {Local} from '../models/Local';
 import {Subject, Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,11 @@ import {Subject, Observable} from 'rxjs';
 export class UserService {
 
   usersList: any = []
+  readonly LOCAL_API_URL;
 
-  constructor(private webLoginService: WebLoginService) {
-
+  constructor(private webLoginService: WebLoginService,
+              private http: HttpClient) {
+    this.LOCAL_API_URL = environment.userApiUrl
   }
 
   async geUserList() {
@@ -21,6 +24,11 @@ export class UserService {
     });
 
     return this.usersList
+
+  }
+
+  getYourLocalsList(userId: number): Promise<any> {
+    return this.http.get(this.LOCAL_API_URL + '/user-local' + userId).toPromise()
 
   }
 }

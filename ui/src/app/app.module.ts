@@ -71,6 +71,7 @@ import { LocalAddComponent } from './localApp/local-add/local-add.component';
 import { CategoryHeaderAddModalComponent } from './localApp/category-header-add-modal/category-header-add-modal.component';
 import { CategoryHeaderModifyModalComponent } from './localApp/category-header-modify-modal/category-header-modify-modal.component';
 import { MapLoaderService } from './services/map-loader.service';
+import { YourLocalsListComponent } from './localApp/your-locals-list/your-locals-list.component';
 
 
 let config = new AuthServiceConfig([
@@ -125,6 +126,7 @@ export function provideConfig() {
     LocalAddComponent,
     CategoryHeaderModifyModalComponent,
     CategoryHeaderAddModalComponent,
+    YourLocalsListComponent,
   ],
   imports: [
     BrowserModule,

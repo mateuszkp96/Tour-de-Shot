@@ -1,0 +1,25 @@
+<div class="container">
+<div class="col-lg-5 mx-auto">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold">Lista Twoich lokali</h6>
+    </div>
+    <ul class="list-group list-group-flush" id="list">
+      <li class="list-group-item" id="{{ 'listItem' + i }}" *ngFor="let local of yourLocalsList; index as i">
+        <!-- Custom content-->
+        <div class="media d-flex align-items-center"  >
+
+          <img src={{local.image}}  class="mr-3 square-image" alt="...">
+
+          <div class="media-body p-1">
+            <h5 class="m-0">{{local.name}}</h5>
+            <p class="mb-0">{{local.address.street}}</p>
+            <a [routerLink]="" class="stretched-link">szczegóły>></a>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <ngb-pagination [pageSize] = "pageSize" [collectionSize]="numberOfPages" [(page)]="pageNumber" (pageChange)="onChangePage($event, pageNumber, pageSize)" aria-label="Default pagination" class="d-flex justify-content-end mt-4 pr-2"></ngb-pagination>
+  </div>
+</div>
+</div>

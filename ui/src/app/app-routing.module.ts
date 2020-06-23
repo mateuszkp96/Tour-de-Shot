@@ -18,6 +18,7 @@ import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
 import { LocalSettingsComponent } from './localApp/local-settings/local-settings.component';
 import { AccountHistoryComponent } from '../app/account/account-history/account-history.component';
 import { LocalAddComponent } from './localApp/local-add/local-add.component';
+import { YourLocalsListComponent } from './localApp/your-locals-list/your-locals-list.component';
 
 const routes: Routes = [
 
@@ -44,6 +45,8 @@ const routes: Routes = [
   {path: 'informations', component: LocalInformationsComponent},
   {path: 'settings', component: LocalSettingsComponent},
   {path: 'add-local', component: LocalAddComponent},
+  {path: 'locals', component: YourLocalsListComponent},
+
 ];
 
 @NgModule({
@@ -54,4 +57,4 @@ export class AppRoutingModule {
 }
 
 export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent, PrivacyComponent, ContactComponent, TeamComponent,
-  SearchComponent, LocalComponent, LocalMenuComponent, LocalInformationsComponent, LocalSettingsComponent,LocalAddComponent]
+  SearchComponent, LocalComponent, LocalMenuComponent, LocalInformationsComponent, LocalSettingsComponent,LocalAddComponent,YourLocalsListComponent]
