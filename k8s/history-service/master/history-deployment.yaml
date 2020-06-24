@@ -5,7 +5,7 @@ metadata:
   labels:
     app: history-master
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: history-master
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: history-master
-          image: mateusz43211/tourdeshot:userhistory_1.16
+          image: mateusz43211/tourdeshot:userhistory_1.18
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -62,8 +62,8 @@ spec:
                 configMapKeyRef:
                   name: history-config
                   key: APP_URL_LOCAL
-            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-              valueFrom:
-                secretKeyRef:
-                  name: history-secret-conf
-                  key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+#            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+#              valueFrom:
+#                secretKeyRef:
+#                  name: history-secret-conf
+#                  key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
