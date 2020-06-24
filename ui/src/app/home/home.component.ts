@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(new localLoginActions.SelectLocalLoggedIn(true))
     this.store.dispatch(new localLoginActions.SelectLocalId(2))
     this.localLoginService.updateStartPoint(2)
-    this.router.navigate(['locals']);
+    this.router.navigate(['register']);
 
   }
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService, SocialUser } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -13,10 +14,12 @@ export class RegisterComponent implements OnInit {
 
   public user: SocialUser;
   public loggedIn: boolean;
+  public displayUserView = this.userService.getUserView();
 
   constructor(
     private router: Router,
     private authService: AuthService,
+    public userService: UserService
   ) {
 
   }
@@ -25,9 +28,16 @@ export class RegisterComponent implements OnInit {
     console.log("loguje sie");
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (res) => {
-        console.log("U are logged in!");
-        this.loggedIn = true;
-        this.router.navigate(['/search']);
+
+        if(this.displayUserView === true) {
+          console.log("U are logged in!");
+          this.loggedIn = true;
+          this.router.navigate(['/search']);
+        } else {
+          this.loggedIn = true;
+          this.router.navigate(['locals']);
+        }
+
       });
       console.log('logged')
   }
