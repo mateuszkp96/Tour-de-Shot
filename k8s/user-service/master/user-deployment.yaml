@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: user-master
-          image: mateusz43211/tourdeshot:user_1.16
+          image: mateusz43211/tourdeshot:user_1.19
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

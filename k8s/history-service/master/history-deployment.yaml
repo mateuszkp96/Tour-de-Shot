@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: history-master
-          image: mateusz43211/tourdeshot:userhistory_1.18
+          image: mateusz43211/tourdeshot:userhistory_1.19
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

@@ -45,6 +45,14 @@ spec:
             backend:
               serviceName: history-svc
               servicePort: 8080
+          - path: /api/registration
+            backend:
+              serviceName: user-svc
+              servicePort: 8080
+          - path: /api/deactivation
+            backend:
+              serviceName: user-svc
+              servicePort: 8080
           - path: /api/customers
             backend:
               serviceName: user-svc
