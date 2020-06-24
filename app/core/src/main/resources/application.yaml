@@ -11,7 +11,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://34.105.178.183.xip.io/auth/realms/FirstApp
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
 app:
   local:
     defaultPage: 0
