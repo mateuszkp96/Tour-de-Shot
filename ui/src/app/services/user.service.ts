@@ -11,6 +11,7 @@ import {environment} from '../../environments/environment';
 export class UserService {
 
   usersList: any = []
+  public displayUserView = true;
   readonly LOCAL_API_URL;
 
   constructor(private webLoginService: WebLoginService,
@@ -30,5 +31,13 @@ export class UserService {
   getYourLocalsList(userId: number): Promise<any> {
     return this.http.get(this.LOCAL_API_URL + '/user-local' + userId).toPromise()
 
+  }
+
+  setUserView (option) {
+    return this.displayUserView = option;
+  }
+
+  getUserView () {
+    return this.displayUserView;
   }
 }

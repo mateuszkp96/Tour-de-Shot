@@ -9,7 +9,9 @@ import * as fromLocalLogin from '../state/localLogin.reducer'
 import * as localLoginActions from '../state/localLogin.actions'
 import { Store } from '@ngrx/store';
 import { LocalLoginService } from '../services/local-login.service';
+import { UserService } from '../services/user.service';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
+
 
 
 @Component({
@@ -19,15 +21,20 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 })
 export class HomeComponent implements OnInit {
 
+  public href: string = "";
+  public displayUserView: boolean;
+
   constructor(
     private router: Router,
     private store: Store<fromLocalLogin.AppState>,
     private localLoginService: LocalLoginService,
     public dialog: MatDialog,
+    public userService: UserService
   ) {}
 
   ngOnInit(): void {
-    setTimeout(() => this.openConfirmationDialog(), 1000)
+    setTimeout(() => this.openConfirmationDialog(), 1000);
+    this.displayUserView = this.userService.getUserView();
   }
 
   onRegisterClick() {
