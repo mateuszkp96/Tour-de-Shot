@@ -27,6 +27,7 @@ export class ProductAddModalComponent implements OnInit {
   priceInvalid: boolean = false
   ingredientsInvalid: boolean = false
   descriptionInvalid: boolean = false
+  buttonSaveClicked: boolean = false
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
@@ -75,6 +76,9 @@ export class ProductAddModalComponent implements OnInit {
   }
 
   saveProduct() {
+    console.log("this.productToAdd.ingredients[0]")
+   console.log(this.productToAdd.ingredients[0].length)
+    this.buttonSaveClicked = true
 
     if (this.productToAdd.categoryId == null)
       this.categoryInvalid = true

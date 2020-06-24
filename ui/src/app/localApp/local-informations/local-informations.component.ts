@@ -24,7 +24,7 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
   localLoad = new Subject<any>();
   openTime: string
   cloaseTime: string
-
+  buttonSaveClicked: boolean = false
 
   constructor(
     private router: Router,
@@ -174,7 +174,7 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
           }
         });
         */
-
+    this.buttonSaveClicked = true
     console.log("LOCAL TO SAVE")
     console.log(this.localToModify)
     //this.getLocal(this.localId)
