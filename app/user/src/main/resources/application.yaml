@@ -9,22 +9,9 @@ spring:
       authentication-database: admin
   security:
     oauth2:
-      client:
-        registration:
-          google:
-            client-id: 555231402396-347hn6pka27rup0l3naaorsqm41n8n6r.apps.googleusercontent.com
-            client-secret: EHu4r0BG-4UOx_BL0wH7gs2O
-          user-app:
-            client-id: user-app
-            client-secret: 28ae3438-2e70-4955-bb1a-6c4a8e4f3b28
-            client-name: User service
-            scope: openid
-            client-authentication-method: basic
-            authorization-grant-type: authorization_code
-            provider: user-app-provider
-        provider:
-          user-app-provider:
-            issuer-uri: http://34.89.60.247.xip.io/auth/realms/FirstApp
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
 logging:
   level:
     root: INFO
@@ -32,8 +19,6 @@ logging:
     org.springframework.web: INFO
     org.springframework.security: INFO
 app:
-  url:
-    redirect: "http://34.105.178.183.xip.io/"
   cors:
     allowedOrigins:
       - "http://localhost:4200"

@@ -28,7 +28,6 @@ public class OidcTourUser extends DefaultOidcUser implements UserAuthenticatedPr
 	public String getEmail() {
 		getFamilyName();
 		return this.getAttributes().get("email").toString();
-
 	}
 	
 }

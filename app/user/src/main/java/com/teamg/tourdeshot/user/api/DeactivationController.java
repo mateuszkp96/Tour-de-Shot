@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/deactivation")
+@RequestMapping(path = "/api/deactivation")
 public class DeactivationController {
 
     private final DeactivationEventService deactivationEventService;
