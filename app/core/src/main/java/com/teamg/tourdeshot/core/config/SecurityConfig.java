@@ -24,9 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and()
 			.authorizeRequests()
-				.antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.POST, "/filter").permitAll()
-			.anyRequest().authenticated()
+				.mvcMatchers(HttpMethod.GET).permitAll()
+                .mvcMatchers("/local").permitAll()
+                .mvcMatchers("/localproducts","/user-local","/menu","/product","/product-category").authenticated()
 			.and().oauth2ResourceServer().jwt();
 	}
 
