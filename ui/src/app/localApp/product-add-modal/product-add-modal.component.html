@@ -3,19 +3,19 @@
   <mat-dialog-content class="mat-typography">
 
 
-    <form [formGroup]="productAddForm" class="form-group">
+    <form class="form-group">
 
       <div class="input-group mt-3">
         <div class="input-group-prepend">
           <span class="input-group-text">Kategoria</span>
         </div>
-        <app-local-tree formControlName="category" (onCategoryChecked)="categoryChecked($event)"></app-local-tree>
+        <app-local-tree (onCategoryChecked)="categoryChecked($event)"></app-local-tree>
       </div>
       <div class="valid">
-        <div *ngIf="category.invalid && (category.dirty || category.touched)"
+        <div *ngIf="categoryInvalid"
              class="text-danger">
           <ul class="list-inline d-flex justify-content-end mt-1">
-            <div *ngIf="category.errors.required" class="mt-1">Pole wymagane</div>
+            <div class="mt-1">Pole wymagane</div>
           </ul>
         </div>
       </div>
@@ -25,13 +25,13 @@
           <span class="input-group-text">Nazwa</span>
         </div>
         <input class="input-class" type="text" [(ngModel)]="productToAdd.name" placeholder=""
-               formControlName="name" name="name">
+                name="name">
       </div>
       <div class="valid">
-        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+        <div *ngIf="nameInvalid"
              class="text-danger">
           <ul class="list-inline d-flex justify-content-end mt-1">
-            <div *ngIf="name.errors.required" class="mt-1">Pole wymagane</div>
+            <div class="mt-1">Pole wymagane</div>
           </ul>
         </div>
       </div>
@@ -41,13 +41,13 @@
           <span class="input-group-text">Cena</span>
         </div>
         <input class="input-class" type="text" [(ngModel)]="productToAdd.price"
-               formControlName="price" placeholder="" name="price">
+               placeholder="" name="price">
       </div>
       <div class="valid">
-        <div *ngIf="price.invalid && (price.dirty || price.touched)"
+        <div *ngIf="priceInvalid"
              class="text-danger">
           <ul class="list-inline d-flex justify-content-end mt-1">
-            <div *ngIf="price.errors.required" class="mt-1">Pole wymagane</div>
+            <div class="mt-1">Pole wymagane</div>
           </ul>
         </div>
       </div>
@@ -59,19 +59,18 @@
         <div class="aParent">
           <div class="ingredient"
                *ngFor="let ingredient of productToAdd.ingredients; let i = index; trackBy: trackByFn">
-            <input formControlName="ingredients{{i}}" class="input-class" type="text"
-                   [(ngModel)]="productToAdd.ingredients[i]"
-                   placeholder="" [name]="productToAdd.ingredients[i]">
+            <input class="input-class" type="text"  [(ngModel)]="productToAdd.ingredients[i]"
+                   placeholder="" [name]="productToAdd.ingredients[i]"  [ngModelOptions]="{standalone: true}">
             <button *ngIf="i==0" type="button" class="btn btn-outline-primary btn-sm"
                     (click)="onAddIngredientClick()"><i class="fas fa-plus"></i></button>
             <button *ngIf="i>0" type="button" class="btn btn-outline-primary btn-sm"
                     (click)="onDeleteIngredientClick(i)"><i class="fas fa-minus"></i></button>
           </div>
           <div class="valid">
-            <div *ngIf="ingredients.invalid && (ingredients.dirty || ingredients.touched)"
+            <div *ngIf="ingredientsInvalid"
                  class="text-danger">
               <ul class="list-inline d-flex justify-content-end mt-1">
-                <div *ngIf="ingredients.errors.required" class="mt-1">Pole wymagane</div>
+                <div class="mt-1">Pole wymagane</div>
               </ul>
             </div>
           </div>
@@ -83,15 +82,15 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Opis</span>
         </div>
-        <input formControlName="description" class="input-class" type="text" [(ngModel)]="productToAdd.description"
+        <input class="input-class" type="text" [(ngModel)]="productToAdd.description"
                placeholder=""
                name="description">
       </div>
       <div class="valid">
-        <div *ngIf="description.invalid && (description.dirty || description.touched)"
+        <div *ngIf="descriptionInvalid"
              class="text-danger">
           <ul class="list-inline d-flex justify-content-end mt-1">
-            <div *ngIf="description.errors.required" class="mt-1">Pole wymagane</div>
+            <div class="mt-1">Pole wymagane</div>
           </ul>
         </div>
       </div>
@@ -100,7 +99,7 @@
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button [disabled]="productAddForm.invalid" type="button" class="btn btn-outline-primary btn-sm"
+    <button type="button" class="btn btn-outline-primary btn-sm"
             (click)="saveProduct()"><b>Dodaj</b></button>
     <button mat-type="button" class="btn btn-outline-primary btn-sm" [mat-dialog-close]="true"><b>Anuluj</b></button>
   </mat-dialog-actions>

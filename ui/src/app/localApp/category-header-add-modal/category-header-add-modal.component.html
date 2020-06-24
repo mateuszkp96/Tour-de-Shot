@@ -2,19 +2,17 @@
   <mat-dialog-content class="mat-typography">
     <form>
       <div class="form-group">
-        <form [formGroup]="categoryHeaderAddForm" (ngSubmit)="onSubmit()">
+        <form>
           <div class="input-group mt-3">
             <div class="input-group-prepend">
               <span class="input-group-text">Nazwa sekcji menu: </span>
             </div>
-            <input class="input-class" type="text" [(ngModel)]="category.categoryHeader"
-                   formControlName="categoryHeader" name="name">
-            <ul class="list-inline d-flex justify-content-end mt-1">
-              <div>
-                <div *ngIf="categoryHeader.invalid && (categoryHeader.dirty || categoryHeader.touched)"
-                     class="text-danger">
-                  <div *ngIf="categoryHeader.errors.required" class="mt-1">Pole wymagane</div>
-                </div>
+            <input class="input-class" type="text" [(ngModel)]="category.categoryHeader" name="name">
+          </div>
+          <div class="valid">
+            <ul class="add-button list-inline d-flex justify-content-end mb-2 mt-2 ml-1 mr-0">
+              <div  *ngIf="categoryHeaderInvalid" class="text-danger">
+                <div class="mt-1">Pole wymagane</div>
               </div>
             </ul>
           </div>
@@ -23,13 +21,14 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Numer porządkowy</span>
             </div>
-            <input class="input-class" type="text" [(ngModel)]="category.orderNumber" formControlName="orderNumber"
-                   placeholder="" name="description">
-            <ul class="add-button list-inline d-flex justify-content-end mb-2 mt-2 ml-1 mr-0">
-              <div *ngIf="orderNumber.invalid && orderNumber.touched" class="text-danger">
-                <div *ngIf="orderNumber.errors.required" class="mt-1">Pole wymagane</div>
-              </div>
-            </ul>
+            <input class="input-class" type="text" [(ngModel)]="category.orderNumber" placeholder="" name="description">
+          </div>
+          <div class="valid">
+          <ul class="add-button list-inline d-flex justify-content-end mb-2 mt-2 ml-1 mr-0">
+            <div *ngIf="orderNumberInvalid" class="text-danger">
+              <div class="mt-1">Pole wymagane</div>
+            </div>
+          </ul>
           </div>
         </form>
 
@@ -39,7 +38,7 @@
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button [disabled]="categoryHeaderAddForm.invalid" type="button" class="btn btn-outline-primary btn-sm"
+    <button type="button" class="btn btn-outline-primary btn-sm"
             (click)="saveCategoryHeader()"><b>Zapisz</b></button>
     <button mat-type="button" class="btn btn-outline-primary btn-sm" (click)="onCloseClicked()"><b>Anuluj</b></button>
   </mat-dialog-actions>

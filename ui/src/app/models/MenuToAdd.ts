@@ -3,7 +3,7 @@ export class MenuToAdd {
 }
 
 export const InitMenuToAdd: MenuToAdd = {
-  menuHeader: " "
+  menuHeader: ""
 }
 
 //nowa sekcja do menu
@@ -14,7 +14,7 @@ export class CategoryHeaderToAdd {
 
 export const InitCategoryHeaderToAdd: CategoryHeaderToAdd = {
   orderNumber: null,
-  categoryHeader: " "
+  categoryHeader: ""
 }
 
 //update sekcji (sama nazwa)

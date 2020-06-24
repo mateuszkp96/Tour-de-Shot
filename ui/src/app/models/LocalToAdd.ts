@@ -15,7 +15,6 @@ export class LocalToAdd {
   localCategories: string[]
   website: string;
   contact: Contact;
-
 }
 
 export class OpeningHoursToAddSchedule {
@@ -78,14 +77,14 @@ export const InitOpeningHoursToAdd: OpeningHoursToAdd =
     ]
   }
 export const InitLocalToAdd: LocalToAdd = {
-  name: "Nazwa Lokalu",
+  name: "",
   address: {street: "", city: "", postCode: ""},
   coordinates: {lat: 0, lon: 0},
   contact: {email: "", phoneNumber: ""},
   image: "",
   openingHours: InitOpeningHoursToAdd,
   localCategories: [""],
-  website: " ",
+  website: "",
   priceCategory: 0,
 }
 

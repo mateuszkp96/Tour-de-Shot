@@ -64,7 +64,12 @@ export class ModalComponent implements OnInit {
     this.localService.updateSummaryProductList(product, method, i, j);
     const currenDrinkstArray = this.localService.getSummaryProductListValues();
     let index = currenDrinkstArray.findIndex(x => x.i === i && x.j === j);
-    (<HTMLInputElement>document.getElementById("quantity" + i + j)).value = currenDrinkstArray[index].quantity.toString();
+
+    if (currenDrinkstArray[index].quantity >= 0)
+      (<HTMLInputElement>document.getElementById("quantity" + i + j)).value = currenDrinkstArray[index].quantity.toString();
+    else
+      (<HTMLInputElement>document.getElementById("quantity" + i + j)).value = "0"
+
     this.currentCost -= product.price;
   }
 

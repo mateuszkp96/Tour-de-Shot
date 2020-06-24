@@ -11,7 +11,7 @@ import {LocalDetailed} from '../../models/LocalDetailed';
 @Component({
   selector: 'app-local',
   templateUrl: './local.component.html',
-  styleUrls: ['./local.component.css'],
+  styleUrls: ['./local.component.css']
 })
 export class LocalComponent implements OnInit {
 

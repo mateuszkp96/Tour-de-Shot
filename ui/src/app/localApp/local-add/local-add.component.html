@@ -124,7 +124,7 @@
 
         </ul>
         <ul *ngIf="isDisable==false" class="list-inline d-flex justify-content-end mt-2">
-          <button type="button" class="btn btn-outline-primary btn-sm" (click)="onSaveClick()"><b>Zapisz</b></button>
+          <button [disabled]="localAddForm.invalid" type="button" class="btn btn-outline-primary btn-sm" (click)="onSaveClick()"><b>Zapisz</b></button>
           <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCancelClick()"><b>Anuluj</b></button>
         </ul>
       </div>

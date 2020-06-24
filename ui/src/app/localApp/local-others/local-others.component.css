@@ -16,6 +16,7 @@ strong{
   margin-left: 5px;
   margin-right: 0;
   alignment: right;
+  height: 32px;
 }
 .category-header-btn{
   height: 90% !important;
@@ -44,7 +45,7 @@ strong{
   margin-top: 2px;
 }
 span{
-  display:table !important;
-  margin:0 auto !important;
-  font-size: 18px;
+  margin:0  !important;
+  padding: 0;
+  font-size: 14px!important;
 }

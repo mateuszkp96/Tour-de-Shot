@@ -3,6 +3,7 @@ import {LocalToAdd, InitLocalToAdd} from 'src/app/models/LocalToAdd';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {WebLocalService} from 'src/app/services/web-local.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-local-add',
@@ -21,6 +22,8 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
   localLoad = new Subject<any>();
   currentDayOfWeek: string;
   ownerId: number
+  isSaveAvailable: boolean
+  localAddForm: FormGroup;
 
   constructor(
     private router: Router,
@@ -77,6 +80,23 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
     });
 */
     this.isDisable = false
+    this.isSaveAvailable = false;
+    this.localAddForm = new FormGroup({
+      'name': new FormControl(this.localToAdd.name),
+      'priceCategory': new FormControl(this.localToAdd.priceCategory),
+      'street': new FormControl(this.localToAdd.address.street),
+      'city': new FormControl(this.localToAdd.address.city),
+      'postCode': new FormControl(this.localToAdd.address.postCode),
+      'lat': new FormControl(this.localToAdd.coordinates.lat),
+      'lon': new FormControl(this.localToAdd.coordinates.lon),
+      'phoneNumber': new FormControl(this.localToAdd.contact.phoneNumber),
+      'email': new FormControl(this.localToAdd.contact.email),
+      'image': new FormControl(this.localToAdd.image),
+      'localCategories': new FormControl(this.localToAdd.localCategories),
+      'openingHours': new FormControl(this.localToAdd.openingHours),
+      'website': new FormControl(this.localToAdd.website),
+    });
+
   }
 
   ngAfterViewInit(): void {

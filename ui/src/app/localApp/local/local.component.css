@@ -78,9 +78,22 @@ strong{
   background-color: transparent;
   color: red !important;
   font-weight: 700;
+  font-size: 25px !important;
+
 }
 
 /* Styles for the ink bar */
 .mat-ink-bar {
   background-color: green !important;
 }
+
+.mat-tab-label-content {
+  font-size: 25px !important;
+  padding: 5px;
+  background-color: transparent !important;
+  color: red !important;
+  font-weight: 700;
+}
+.mat-tab-label{
+  font-size: 10px !important;
+} 

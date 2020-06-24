@@ -6,7 +6,7 @@ import {ProductCategoryService} from 'src/app/services/product-category.service'
 import {ProductCategory} from 'src/app/models/ProductCategory';
 import {ProductService} from 'src/app/services/product.service';
 import {ProductToAdd, InitProductToAdd} from 'src/app/models/ProductToAdd';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-product-add-modal',
@@ -22,6 +22,11 @@ export class ProductAddModalComponent implements OnInit {
   productsCategoryId: string[]
   localId: number
   productAddForm: FormGroup;
+  categoryInvalid: boolean = false
+  nameInvalid: boolean = false
+  priceInvalid: boolean = false
+  ingredientsInvalid: boolean = false
+  descriptionInvalid: boolean = false
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
@@ -65,16 +70,42 @@ export class ProductAddModalComponent implements OnInit {
     console.log("Category checked from local menu")
     this.productsCategoryId = event
     console.log(this.productsCategoryId)
+    this.productToAdd.categoryId = parseInt(this.productsCategoryId[0])
+    this.productAddForm.get('ingredients')
   }
 
   saveProduct() {
-    console.log("Product to add")
-    this.productToAdd.categoryId = parseInt(this.productsCategoryId[0])
-    console.log(this.productToAdd.price)
-    console.log(this.productToAdd)
-    this.productService.addProduct(this.localId, this.orderNumber, this.productToAdd)
-    this.dialogRef.close()
-  }
+
+    if (this.productToAdd.categoryId == null)
+      this.categoryInvalid = true
+    else {
+      this.categoryInvalid = false
+      this.productToAdd.categoryId = parseInt(this.productsCategoryId[0])
+    }
+    if (this.productToAdd.name == "")
+      this.nameInvalid = true
+    else
+      this.nameInvalid = false
+    if (this.productToAdd.ingredients == [""])
+      this.ingredientsInvalid = true
+    else
+      this.ingredientsInvalid = false
+    if (this.productToAdd.description == "")
+      this.descriptionInvalid = true
+    else
+      this.descriptionInvalid = false
+    if (this.productToAdd.price == null)
+      this.priceInvalid = true
+    else
+      this.priceInvalid = false
+
+    if (!this.descriptionInvalid && !this.ingredientsInvalid && !this.nameInvalid && !this.categoryInvalid&& !this.priceInvalid){
+      console.log(this.productToAdd.ingredients)
+      this.productService.addProduct(this.localId, this.orderNumber, this.productToAdd)
+      this.dialogRef.close()
+    }
+
+      }
 
   trackByFn(index: any, item: any) {
     return index;
@@ -83,20 +114,22 @@ export class ProductAddModalComponent implements OnInit {
   get category() {
     return this.productAddForm.get('category');
   }
+
   get name() {
     return this.productAddForm.get('name');
   }
+
   get ingredients() {
     return this.productAddForm.get('ingredients');
   }
+
   get description() {
     return this.productAddForm.get('description');
   }
+
   get price() {
     return this.productAddForm.get('price');
   }
-
-
 
 
 }
