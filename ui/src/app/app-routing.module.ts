@@ -25,6 +25,7 @@ const routes: Routes = [
 
   // User's components
   {path: '', component: HomeComponent},
+  {path: 'startLocal', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'privacy', component: PrivacyComponent},
