@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
       this.user = user;
       this.loggedIn = (user != null);
       if (this.user) {
-        this.router.navigate(['/search']);
+       // this.router.navigate(['/search']);
       } else {
         //this.router.navigate(['']);
       }
@@ -61,10 +61,9 @@ export class AppComponent implements OnInit {
           this.localLoggedIn = loggedIn; // hardcoded here yet
         }
       });
-
-
+    
   }
-  
+
 
   onToggleBtnClicked() {
     document.getElementById("side-menu-bar").classList.toggle("menuHidden");

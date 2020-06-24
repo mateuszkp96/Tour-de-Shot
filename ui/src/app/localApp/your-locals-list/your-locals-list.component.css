@@ -15,6 +15,7 @@ img {
 
 .card{
   border: none;
+  width: 600px;
 }
 
 .card .card-header {
