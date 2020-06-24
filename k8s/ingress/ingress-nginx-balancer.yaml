@@ -23,19 +23,19 @@ spec:
               servicePort: 8080
           - path: /api/product-category
             backend:
-              serviceName: core
+              serviceName: core-svc
               servicePort: 8080
           - path: /api/product
             backend:
-              serviceName: core
+              serviceName: core-svc
               servicePort: 8080
           - path: /api/user-local
             backend:
-              serviceName: core
+              serviceName: core-svc
               servicePort: 8080
           - path: /api/menu
             backend:
-              serviceName: core
+              serviceName: core-svc
               servicePort: 8080
           - path: /api/summary
             backend:
