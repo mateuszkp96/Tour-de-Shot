@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +33,11 @@ public class UserLocalsController {
         this.defaultPageSize = Objects.requireNonNullElse(defaultPageSize, 5);
     }
 
-    @GetMapping("/{ownerId}")
+    @GetMapping
     public Page<LocalSimpleDTO> findAllLocalsByUser(@RequestParam(value = "page", required = false) Integer page,
-                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,
-                                                    @PathVariable String ownerId) {
-        return localService.findAllLocalsByUser(createPageRequest(page, pageSize), ownerId);
+                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+        JwtAuthenticationToken jwt = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        return localService.findAllLocalsByUser(createPageRequest(page, pageSize), jwt.getName());
     }
 
     private PageRequest createPageRequest(Integer page, Integer pageSize) {

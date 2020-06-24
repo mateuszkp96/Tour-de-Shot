@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,9 +61,10 @@ public class LocalController {
         return localService.filterLocals(requestBody, createPageRequest(page, pageSize));
     }
 
-    @PostMapping("/{ownerId}")
-    public Local saveLocal(@RequestBody LocalPostDTO local, @PathVariable String ownerId) {
-        return localService.addLocal(local, ownerId);
+    @PostMapping
+    public Local saveLocal(@RequestBody LocalPostDTO local) {
+        JwtAuthenticationToken jwt = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        return localService.addLocal(local, jwt.getName());
     }
 
     @PutMapping("/{id}")
