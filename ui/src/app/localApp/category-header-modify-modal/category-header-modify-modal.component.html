@@ -3,20 +3,21 @@
   <mat-dialog-content class="mat-typography">
     <form>
       <div class="form-group">
-
-        <div class="input-group mt-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Nazwa sekcji: </span>
+        <form [formGroup]="categoryHeaderModifyForm">
+          <div class="input-group mt-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Nazwa sekcji: </span>
+            </div>
+            <input class="input-class" type="text" [(ngModel)]="categoryHeader" formControlName="categoryHeader" placeholder="" name="categoryHeader">
+            
           </div>
-          <input class="input-class" type="text" [(ngModel)]="categoryHeader" placeholder="" name="categoryHeader">
-        </div>
-
+        </form>
       </div>
     </form>
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button type="button" class="btn btn-outline-primary btn-sm" (click)="saveCategoryHeader()"><b>Zapisz</b></button>
+    <button [disabled]="categoryHeaderModifyForm.invalid" type="button" class="btn btn-outline-primary btn-sm" (click)="saveCategoryHeader()"><b>Zapisz</b></button>
     <button mat-type="button" class="btn btn-outline-primary btn-sm" (click)="onCloseClicked()"><b>Anuluj</b></button>
   </mat-dialog-actions>
 </div>

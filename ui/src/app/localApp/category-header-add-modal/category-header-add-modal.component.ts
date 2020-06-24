@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductAddModalComponent } from '../product-add-modal/product-add-modal.component';
 import { MenuService } from 'src/app/services/menu.service';
 import { CategoryHeaderToAdd, InitCategoryHeaderToAdd } from 'src/app/models/MenuToAdd';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-category-header-add-modal',
@@ -13,7 +14,7 @@ export class CategoryHeaderAddModalComponent implements OnInit {
 
   @Input() localId: number;
   category: CategoryHeaderToAdd   //category header to add or modify
-
+  categoryHeaderAddForm: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
@@ -23,6 +24,10 @@ export class CategoryHeaderAddModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.category = InitCategoryHeaderToAdd
+    this.categoryHeaderAddForm = new FormGroup({
+      'categoryHeader': new FormControl(this.category.categoryHeader, Validators.required),
+      'orderNumber': new FormControl(this.category.orderNumber, Validators.required)
+    });
   }
 
 
@@ -39,6 +44,19 @@ export class CategoryHeaderAddModalComponent implements OnInit {
 
   trackByFn(index: any, item: any) {
     return index;
+  }
+
+  onSubmit() {
+// TODO: Use EventEmitter with form value
+    console.warn(this.categoryHeaderAddForm.value);
+  }
+
+  get categoryHeader() {
+    return this.categoryHeaderAddForm.get('categoryHeader');
+  }
+
+  get orderNumber() {
+    return this.categoryHeaderAddForm.get('orderNumber');
   }
 
 }

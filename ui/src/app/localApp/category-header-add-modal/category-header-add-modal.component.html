@@ -1,23 +1,37 @@
-<div  *ngIf="category" class="container">
-  <h2 mat-dialog-title>{{category.categoryHeader}}</h2>
+<div *ngIf="category" class="container">
   <mat-dialog-content class="mat-typography">
     <form>
       <div class="form-group">
-
-        <div class="input-group mt-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Nazwa sekcji menu: </span>
+        <form [formGroup]="categoryHeaderAddForm" (ngSubmit)="onSubmit()">
+          <div class="input-group mt-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Nazwa sekcji menu: </span>
+            </div>
+            <input class="input-class" type="text" [(ngModel)]="category.categoryHeader"
+                   formControlName="categoryHeader" name="name">
+            <ul class="list-inline d-flex justify-content-end mt-1">
+              <div>
+                <div *ngIf="categoryHeader.invalid && (categoryHeader.dirty || categoryHeader.touched)"
+                     class="text-danger">
+                  <div *ngIf="categoryHeader.errors.required" class="mt-1">Pole wymagane</div>
+                </div>
+              </div>
+            </ul>
           </div>
-          <input class="input-class" type="text" [(ngModel)]="category.categoryHeader" placeholder="" name="name">
-        </div>
 
-        <div class="input-group mt-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Numer porządkowy</span>
+          <div class="input-group mt-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Numer porządkowy</span>
+            </div>
+            <input class="input-class" type="text" [(ngModel)]="category.orderNumber" formControlName="orderNumber"
+                   placeholder="" name="description">
+            <ul class="add-button list-inline d-flex justify-content-end mb-2 mt-2 ml-1 mr-0">
+              <div *ngIf="orderNumber.invalid && orderNumber.touched" class="text-danger">
+                <div *ngIf="orderNumber.errors.required" class="mt-1">Pole wymagane</div>
+              </div>
+            </ul>
           </div>
-          <input class="input-class" type="text" [(ngModel)]="category.orderNumber" placeholder="" name="description">
-        </div>
-
+        </form>
 
 
       </div>
@@ -25,7 +39,8 @@
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button type="button" class="btn btn-outline-primary btn-sm" (click)="saveCategoryHeader()"><b>Zapisz</b></button>
+    <button [disabled]="categoryHeaderAddForm.invalid" type="button" class="btn btn-outline-primary btn-sm"
+            (click)="saveCategoryHeader()"><b>Zapisz</b></button>
     <button mat-type="button" class="btn btn-outline-primary btn-sm" (click)="onCloseClicked()"><b>Anuluj</b></button>
   </mat-dialog-actions>
 </div>

@@ -89,3 +89,6 @@ time {
 .row {
   width: 100%
 }
+.list-inline{
+  justify-content: end !important;
+}

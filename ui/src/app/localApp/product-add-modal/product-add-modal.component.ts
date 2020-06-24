@@ -6,6 +6,7 @@ import {ProductCategoryService} from 'src/app/services/product-category.service'
 import {ProductCategory} from 'src/app/models/ProductCategory';
 import {ProductService} from 'src/app/services/product.service';
 import {ProductToAdd, InitProductToAdd} from 'src/app/models/ProductToAdd';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-add-modal',
@@ -20,6 +21,7 @@ export class ProductAddModalComponent implements OnInit {
   productCategories: ProductCategory[]
   productsCategoryId: string[]
   localId: number
+  productAddForm: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
@@ -31,7 +33,17 @@ export class ProductAddModalComponent implements OnInit {
   ngOnInit(): void {
     this.productToAdd = InitProductToAdd
     this.getProductCategories()
-    this.localId = 2
+
+    this.productAddForm = new FormGroup({
+      'category': new FormControl(this.productToAdd.categoryId, Validators.required),
+      'name': new FormControl(this.productToAdd.name, Validators.required),
+      'ingredients': new FormControl(this.productToAdd.ingredients, Validators.required),
+      'price': new FormControl(this.productToAdd.price, Validators.required),
+      'description': new FormControl(this.productToAdd.description, Validators.required),
+
+    });
+
+
   }
 
   getProductCategories() {
@@ -67,4 +79,24 @@ export class ProductAddModalComponent implements OnInit {
   trackByFn(index: any, item: any) {
     return index;
   }
+
+  get category() {
+    return this.productAddForm.get('category');
+  }
+  get name() {
+    return this.productAddForm.get('name');
+  }
+  get ingredients() {
+    return this.productAddForm.get('ingredients');
+  }
+  get description() {
+    return this.productAddForm.get('description');
+  }
+  get price() {
+    return this.productAddForm.get('price');
+  }
+
+
+
+
 }

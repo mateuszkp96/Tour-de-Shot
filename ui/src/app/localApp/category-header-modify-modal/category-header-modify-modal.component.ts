@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ProductAddModalComponent} from '../product-add-modal/product-add-modal.component';
 import {MenuService} from 'src/app/services/menu.service';
 import {InitCategoryHeaderToAdd, CategoryHeaderToAdd} from 'src/app/models/MenuToAdd';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-category-header-modify-modal',
@@ -15,6 +16,7 @@ export class CategoryHeaderModifyModalComponent implements OnInit {
   @Input() localId: number
   @Input() categoryHeader: string
   @Input() orderNumber: number
+  categoryHeaderModifyForm: FormGroup;
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
@@ -27,7 +29,9 @@ export class CategoryHeaderModifyModalComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.categoryHeaderModifyForm = new FormGroup({
+      'categoryHeader': new FormControl(this.category.categoryHeader, Validators.required),
+    });
   }
 
 
@@ -48,4 +52,7 @@ export class CategoryHeaderModifyModalComponent implements OnInit {
     return index;
   }
 
+  get categoryHeaderToForm() {
+    return this.categoryHeaderModifyForm.get('categoryHeader');
+  }
 }
