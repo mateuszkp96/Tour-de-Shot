@@ -9,10 +9,9 @@ spring:
       authentication-database: admin
   security:
     oauth2:
-      client:
-        provider:
-          user-app-provider:
-            issuer-uri: http://34.89.60.247.xip.io/auth/realms/FirstApp
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
 logging:
   level:
     root: INFO
