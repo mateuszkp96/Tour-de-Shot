@@ -9,12 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/registration")
+@RequestMapping(path = "/api/registration")
 public class RegistrationController {
 
     private  final UserService userService;
@@ -28,10 +29,14 @@ public class RegistrationController {
 
     @PostMapping
     public ResponseEntity<String> login() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OidcTourUser principal = (OidcTourUser) authentication.getPrincipal();
+        JwtAuthenticationToken authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         if(!this.userService.userCreated(authentication.getName())) {
-            UserOAuth2Dto user = new UserOAuth2Dto(principal.getFirstName(), principal.getLastName(), authentication.getName(), principal.getEmail());
+            String firstName = authentication.getTokenAttributes().get("given_name").toString();
+            String lastName = authentication.getTokenAttributes().get("family_name").toString();
+            String name = authentication.getName();
+            String email = authentication.getTokenAttributes().get("email").toString();
+
+            UserOAuth2Dto user = new UserOAuth2Dto(firstName, lastName, name, email);
             this.userRegistrationService.registerNewAuth2User(user);
             return new ResponseEntity<>("created", HttpStatus.CREATED);
         }

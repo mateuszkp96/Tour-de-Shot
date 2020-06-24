@@ -30,11 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .cors().and()
             .authorizeRequests()
-                .antMatchers("/logout","/login","/login-error", "/login-verified").permitAll()
-                .antMatchers("/api/registration").permitAll()
-                .antMatchers("/api/deactivation").authenticated()
-                .antMatchers("/api/customers").authenticated()
-                .antMatchers("/admin").authenticated();
+                .mvcMatchers("/api/registration").permitAll()
+                .mvcMatchers("/logout","/login","/login-error", "/login-verified").permitAll()
+                .mvcMatchers("/api/deactivation").authenticated()
+                .mvcMatchers("/api/customers").authenticated()
+                .mvcMatchers("/admin").authenticated()
+                .and().oauth2ResourceServer().jwt();
     }
 
     @Bean
