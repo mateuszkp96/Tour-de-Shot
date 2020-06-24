@@ -15,12 +15,12 @@ export class UserHistoryService {
     this.HISTORY_API_URL = environment.historyApiUrl
   }
 
-  getUserHistory(userId: string): Promise<any> {
-    return this.http.get(this.HISTORY_API_URL + "/userhistory/"+ userId).toPromise()
+  getUserHistory(): Promise<any> {
+    return this.http.get(this.HISTORY_API_URL + "/userhistory").toPromise()
   }
 
-  addUserHistory(userId: string, userHistoryToAdd: UserHistoryToAdd): Promise<any> {
-    return this.http.post(this.HISTORY_API_URL + "/summary/" + userId, userHistoryToAdd).toPromise()
+  addUserHistory(userHistoryToAdd: UserHistoryToAdd): Promise<any> {
+    return this.http.post(this.HISTORY_API_URL + "/summary", userHistoryToAdd).toPromise()
   }
 
 }

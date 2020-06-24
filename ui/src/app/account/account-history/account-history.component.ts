@@ -31,7 +31,7 @@ export class AccountHistoryComponent implements OnInit {
       this.loggedIn = (user != null);
     });
 
-    this.userHistoryService.getUserHistory(this.user.id).then(history => {
+    this.userHistoryService.getUserHistory().then(history => {
       this.history = history['content'] as UserHistory
     });
 

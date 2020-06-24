@@ -90,7 +90,7 @@ export class RouteComponent implements AfterViewInit {
     console.log(this.user.id)
     console.log("HISTORY TO ADD")
     console.log(this.userHisotryToAdd)
-    this.userHistoryService.addUserHistory(this.user.id, this.userHisotryToAdd)
+    this.userHistoryService.addUserHistory(this.userHisotryToAdd)
     this.historyName = ""
   }
 }
