@@ -64,14 +64,7 @@ export class AppComponent implements OnInit {
 
 
   }
-
-  public ping() {
-    this.http.get('https://example.com/api/things')
-      .subscribe(
-        data => console.log(data),
-        err => console.log(err)
-      );
-  }
+  
 
   onToggleBtnClicked() {
     document.getElementById("side-menu-bar").classList.toggle("menuHidden");
