@@ -19,7 +19,7 @@ import { AccountComponent } from './account/account.component';
 import { RouteComponent } from './route/route.component';
 import { SignInNavComponent } from './sign-in-nav/sign-in-nav.component';
 import { LogoutComponent } from './logout/logout.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { LocalItemComponent } from './local-item/local-item.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -65,6 +65,8 @@ import { AccountGeneralComponent } from './account/account-general/account-gener
 import { AccountHistoryComponent } from './account/account-history/account-history.component';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { TokenInterceptor } from './token.interceptor';
+import { JwtInterceptor } from './jwt.interceptor';
 
 
 let config = new AuthServiceConfig([
@@ -158,7 +160,11 @@ export function provideConfig() {
     },
     LocalService,
     StartPointService,
-   // GoogleMapsModule,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
 
   ],
 
