@@ -43,10 +43,10 @@ export class JwtInterceptor implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
 
-        if (err.status === 401) {
-          this.userAuth.collectFailedRequest(request);
-          this.router.navigate(['']);
-        }
+       // if (err.status === 401) {
+       //   this.userAuth.collectFailedRequest(request);
+          //this.router.navigate(['']);
+       // }
       }
     }));
   }
