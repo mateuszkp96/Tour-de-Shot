@@ -24,6 +24,7 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
   ownerId: number
   isSaveAvailable: boolean
   localAddForm: FormGroup;
+  buttonSaveClicked: boolean = false
 
   constructor(
     private router: Router,
@@ -158,6 +159,7 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
   }
 
   onSaveClick() {
+    this.buttonSaveClicked = true
     console.log("LOCAL TO ADD")
     console.log(this.localToAdd)
     this.webLocalService.addLocal(1, this.localToAdd)

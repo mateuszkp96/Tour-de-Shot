@@ -17,6 +17,7 @@ export class CategoryHeaderAddModalComponent implements OnInit {
   categoryHeaderAddForm: FormGroup;
   categoryHeaderInvalid: boolean
   orderNumberInvalid: boolean
+  btnSaveClicked: boolean
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
@@ -34,16 +35,10 @@ export class CategoryHeaderAddModalComponent implements OnInit {
 
 
   saveCategoryHeader() {
-    if (this.category.categoryHeader == "")
-      this.categoryHeaderInvalid = true
-    else
-      this.categoryHeaderInvalid = false
-    if (this.category.orderNumber == null)
-      this.orderNumberInvalid = true
-    else
-      this.orderNumberInvalid = false
-    
-    if(!this.orderNumberInvalid && !this.categoryHeaderInvalid){
+
+    this.btnSaveClicked = true
+
+    if (this.category.categoryHeader && this.category.orderNumber) {
       console.log("saveCategoryHeader")
       console.log(this.category)
       this.menuService.addCategoryHeader(this.localId, this.category)
@@ -60,10 +55,6 @@ export class CategoryHeaderAddModalComponent implements OnInit {
     return index;
   }
 
-  onSubmit() {
-// TODO: Use EventEmitter with form value
-    console.warn(this.categoryHeaderAddForm.value);
-  }
 
   get categoryHeader() {
     return this.categoryHeaderAddForm.get('categoryHeader');

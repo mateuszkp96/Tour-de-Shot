@@ -11,7 +11,7 @@
           </div>
           <div class="valid">
             <ul class="add-button list-inline d-flex justify-content-end mb-2 mt-2 ml-1 mr-0">
-              <div  *ngIf="categoryHeaderInvalid" class="text-danger">
+              <div *ngIf="!category.categoryHeader && btnSaveClicked" class="text-danger">
                 <div class="mt-1">Pole wymagane</div>
               </div>
             </ul>
@@ -25,14 +25,12 @@
           </div>
           <div class="valid">
           <ul class="add-button list-inline d-flex justify-content-end mb-2 mt-2 ml-1 mr-0">
-            <div *ngIf="orderNumberInvalid" class="text-danger">
+            <div *ngIf="!category.orderNumber && btnSaveClicked" class="text-danger">
               <div class="mt-1">Pole wymagane</div>
             </div>
           </ul>
           </div>
         </form>
-
-
       </div>
     </form>
 

@@ -13,7 +13,16 @@
                      class="input-class" type="text" [(ngModel)]="local.name" placeholder=""
                      name="local.name" id="local.name">
             </div>
+            <div class="valid justify-content-end mt-1">
+              <div *ngIf="!local.name && buttonSaveClicked"
+                   class="text-danger">
+                <ul class="list-inline d-flex justify-content-end mt-1">
+                  <div class="mt-1">Pole wymagane</div>
+                </ul>
+              </div>
+            </div>
           </li>
+
 
           <li class="list-group-item">
             <div class="input-group mt-2 mb-2">
@@ -32,6 +41,14 @@
                 </div>
               </div>
             </div>
+            <div class="valid justify-content-end mt-1">
+              <div *ngIf="!local.localCategories[0] && buttonSaveClicked"
+                   class="text-danger">
+                <ul class="list-inline d-flex justify-content-end mt-1">
+                  <div class="mt-1">Pole wymagane</div>
+                </ul>
+              </div>
+            </div>
           </li>
 
           <li class="list-group-item">
@@ -42,6 +59,14 @@
               <input [disabled]="isDisable" (click)="onAutocompleteInputClick()" class="input-class" #address type="text" [(ngModel)]="local.address.street"
                      placeholder="" name="local.address.street" id="inputLocalAddressStreet">
             </div>
+            <div class="valid justify-content-end mt-1">
+              <div *ngIf="!local.address.street && buttonSaveClicked"
+                   class="text-danger">
+                <ul class="list-inline d-flex justify-content-end mt-1">
+                  <div class="mt-1">Pole wymagane</div>
+                </ul>
+              </div>
+            </div>
           </li>
 
           <li class="list-group-item">
@@ -51,6 +76,14 @@
               </div>
               <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.website" placeholder=""
                      name="local.website" id="inputLocalWebsite">
+            </div>
+            <div class="valid justify-content-end mt-1">
+              <div *ngIf="!local.website && buttonSaveClicked"
+                   class="text-danger">
+                <ul class="list-inline d-flex justify-content-end mt-1">
+                  <div class="mt-1">Pole wymagane</div>
+                </ul>
+              </div>
             </div>
           </li>
 
@@ -63,6 +96,14 @@
               <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.contact.email"
                      placeholder="" name="local.contact.email" id="inputLocalEmail">
             </div>
+            <div class="valid justify-content-end mt-1">
+              <div *ngIf="!local.contact.email && buttonSaveClicked"
+                   class="text-danger">
+                <ul class="list-inline d-flex justify-content-end mt-1">
+                  <div class="mt-1">Pole wymagane</div>
+                </ul>
+              </div>
+            </div>
           </li>
 
           <li class="list-group-item">
@@ -72,6 +113,14 @@
               </div>
               <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.contact.phoneNumber"
                      placeholder="" name="local.contact.phoneNumber" id="inputLocalPhoneNumber">
+            </div>
+            <div class="valid justify-content-end mt-1">
+              <div *ngIf="!local.contact.phoneNumber && buttonSaveClicked"
+                   class="text-danger">
+                <ul class="list-inline d-flex justify-content-end mt-1">
+                  <div class="mt-1">Pole wymagane</div>
+                </ul>
+              </div>
             </div>
           </li>
 
@@ -83,6 +132,14 @@
               <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="local.image"
                      placeholder=""
                      name="local.image" id="inputLocalImage">
+            </div>
+            <div class="valid justify-content-end mt-1">
+              <div *ngIf="!local.image && buttonSaveClicked"
+                   class="text-danger">
+                <ul class="list-inline d-flex justify-content-end mt-1">
+                  <div class="mt-1">Pole wymagane</div>
+                </ul>
+              </div>
             </div>
           </li>
 

@@ -1,7 +1,7 @@
 <div *ngIf="category" class="container">
   <h2 mat-dialog-title>Zmień nazwę sekcji {{category.categoryHeader}}</h2>
   <mat-dialog-content class="mat-typography">
-    <form>
+    <form class="form">
       <div class="form-group">
         <form [formGroup]="categoryHeaderModifyForm">
           <div class="input-group mt-3">
@@ -9,9 +9,15 @@
               <span class="input-group-text">Nazwa sekcji: </span>
             </div>
             <input class="input-class" type="text" [(ngModel)]="categoryHeader" formControlName="categoryHeader" placeholder="" name="categoryHeader">
-            
           </div>
         </form>
+      </div>
+      <div class="valid">
+        <ul class="add-button list-inline d-flex justify-content-end mb-2 mt-2 ml-1 mr-0">
+          <div *ngIf="!categoryHeader" class="text-danger">
+            <div class="mt-1">Pole wymagane</div>
+          </div>
+        </ul>
       </div>
     </form>
 

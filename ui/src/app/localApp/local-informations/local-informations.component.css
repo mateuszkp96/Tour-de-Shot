@@ -32,7 +32,7 @@ img {
   background-color: transparent;
   border-style: ridge;
   border-width: thin;
-  width: 400px;
+  width: 500px;
 }
 
 .input-class-time {
@@ -61,7 +61,7 @@ img {
 
 
 .input-group-text {
-  width: 400px;
+  width: 500px;
   height: 30px;
   background-color: transparent !important;
   border: none;
@@ -78,6 +78,7 @@ time {
 .list-group-item {
   padding: 0;
   border: none !important;
+  width: 800px;
 }
 
 .aParent {
@@ -89,4 +90,7 @@ time {
 
 .row {
   width: 100%
+}
+.valid{
+  margin-right:100px;
 }

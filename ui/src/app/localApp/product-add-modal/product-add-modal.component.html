@@ -12,7 +12,7 @@
         <app-local-tree (onCategoryChecked)="categoryChecked($event)"></app-local-tree>
       </div>
       <div class="valid">
-        <div *ngIf="categoryInvalid"
+        <div *ngIf="!productToAdd.categoryId && buttonSaveClicked"
              class="text-danger">
           <ul class="list-inline d-flex justify-content-end mt-1">
             <div class="mt-1">Pole wymagane</div>
@@ -25,10 +25,10 @@
           <span class="input-group-text">Nazwa</span>
         </div>
         <input class="input-class" type="text" [(ngModel)]="productToAdd.name" placeholder=""
-                name="name">
+               name="name">
       </div>
       <div class="valid">
-        <div *ngIf="nameInvalid"
+        <div *ngIf="!productToAdd.name && buttonSaveClicked"
              class="text-danger">
           <ul class="list-inline d-flex justify-content-end mt-1">
             <div class="mt-1">Pole wymagane</div>
@@ -44,7 +44,7 @@
                placeholder="" name="price">
       </div>
       <div class="valid">
-        <div *ngIf="priceInvalid"
+        <div *ngIf="!productToAdd.price && buttonSaveClicked"
              class="text-danger">
           <ul class="list-inline d-flex justify-content-end mt-1">
             <div class="mt-1">Pole wymagane</div>
@@ -59,23 +59,22 @@
         <div class="aParent">
           <div class="ingredient"
                *ngFor="let ingredient of productToAdd.ingredients; let i = index; trackBy: trackByFn">
-            <input class="input-class" type="text"  [(ngModel)]="productToAdd.ingredients[i]"
-                   placeholder="" [name]="productToAdd.ingredients[i]"  [ngModelOptions]="{standalone: true}">
+            <input class="input-class" type="text" [(ngModel)]="productToAdd.ingredients[i]"
+                   placeholder="" [name]="productToAdd.ingredients[i]" [ngModelOptions]="{standalone: true}">
             <button *ngIf="i==0" type="button" class="btn btn-outline-primary btn-sm"
                     (click)="onAddIngredientClick()"><i class="fas fa-plus"></i></button>
             <button *ngIf="i>0" type="button" class="btn btn-outline-primary btn-sm"
                     (click)="onDeleteIngredientClick(i)"><i class="fas fa-minus"></i></button>
           </div>
-          <div class="valid">
-            <div *ngIf="ingredientsInvalid"
-                 class="text-danger">
-              <ul class="list-inline d-flex justify-content-end mt-1">
-                <div class="mt-1">Pole wymagane</div>
-              </ul>
-            </div>
-          </div>
         </div>
-
+      </div>
+      <div class="valid">
+        <div *ngIf="!productToAdd.ingredients[0] && buttonSaveClicked"
+             class="text-danger">
+          <ul class="list-inline d-flex justify-content-end mt-1">
+            <div class="mt-1">Pole wymagane</div>
+          </ul>
+        </div>
       </div>
 
       <div class="input-group mt-3">
@@ -87,7 +86,7 @@
                name="description">
       </div>
       <div class="valid">
-        <div *ngIf="descriptionInvalid"
+        <div *ngIf="!productToAdd.description && buttonSaveClicked"
              class="text-danger">
           <ul class="list-inline d-flex justify-content-end mt-1">
             <div class="mt-1">Pole wymagane</div>
