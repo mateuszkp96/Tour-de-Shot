@@ -162,7 +162,7 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
     this.buttonSaveClicked = true
     console.log("LOCAL TO ADD")
     console.log(this.localToAdd)
-    this.webLocalService.addLocal(1, this.localToAdd)
+    this.webLocalService.addLocal(this.localToAdd)
 
     //this.getLocal(this.localId)
     //this.isDisable = true

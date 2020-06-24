@@ -28,8 +28,8 @@ export class UserService {
 
   }
 
-  getYourLocalsList(userId: number): Promise<any> {
-    return this.http.get(this.LOCAL_API_URL + '/user-local' + userId).toPromise()
+  getYourLocalsList(): Promise<any> {
+    return this.http.get(this.LOCAL_API_URL + '/user-local').toPromise()
 
   }
 

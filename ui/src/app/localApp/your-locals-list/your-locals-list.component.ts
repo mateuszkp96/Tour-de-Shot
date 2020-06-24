@@ -27,7 +27,7 @@ export class YourLocalsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = 1
+    //this.userId = 1
     this.getYourLocalsList()
   }
 
@@ -36,18 +36,21 @@ export class YourLocalsListComponent implements OnInit {
   }
 
   getYourLocalsList() {
-    /*
-    this.userService.getYourLocalsList(this.userId).then(locals => {
-        this.yourLocalsList = locals
+    this.userService.getYourLocalsList().then(locals => {
+        this.yourLocalsList = locals['content'] as Local[]
         console.log(this.yourLocalsList)
       })
-     */
+
+    /*
     this.webLocalServie.getLocalsByPage(this.pageNumber-1,this.pageSize).then(locals => {
       this.yourLocalsList = locals['content'] as Local[]
       console.log("locals list")
       console.log(this.yourLocalsList)
     })
+    */
+
   }
+
 
   onAddLocalClick(){
     this.router.navigate(['add-local'])
