@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import * as fromLocalLogin from '../app/state/localLogin.reducer';
 import * as localLoginActions from '../app/state/localLogin.actions';
+import { HttpClient } from '@angular/common/http';
+import decode from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +31,7 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private store: Store<fromLocalLogin.AppState>,
-
+    public http: HttpClient
   ) {
   }
 
@@ -48,6 +50,7 @@ export class AppComponent implements OnInit {
       }
       console.log("logged in from app");
       console.log(this.loggedIn);
+
     });
 
 
@@ -59,7 +62,9 @@ export class AppComponent implements OnInit {
         }
       });
 
+
   }
+  
 
   onToggleBtnClicked() {
     document.getElementById("side-menu-bar").classList.toggle("menuHidden");
