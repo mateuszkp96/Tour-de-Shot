@@ -1,0 +1,13 @@
+<div class="container">
+  <div *ngIf="localId" class="menu col-lg-8 mb-5 ">
+    <ul class="list-inline d-flex justify-content-between mt-5">
+      <span>Usuń ten lokal z listy lokali</span>
+      <ul class="add-button list-inline d-flex justify-content-end">
+        <button type="button" class="btn btn-outline-danger" (click)="onDeleteLocalClick()">Usuń ten
+          lokal</button>
+      </ul>
+    </ul>
+    <div class="under-menu"></div>
+  </div>
+
+</div>

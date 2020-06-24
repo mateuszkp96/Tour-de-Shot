@@ -41,10 +41,13 @@
               <p class="product-name m-0">{{product.name}}</p>
               <ul class="list-inline d-flex justify-content-end">
                 <p class="product-name font-weight-bold m-0 mr-2">{{product.price}}zł</p>
-                <button type="button" class="btn btn-outline-primary btn-sm" (click)="removeProductFromSummary(product, 'remove', i, j)"><i class="fas fa-minus"></i></button>
-                <input type="text" id="quantity{{i}}{{j}}" name="quantity" class="quantity-input" [(ngModel)]="numberValue" readonly>
-
-                <button type="button" class="btn btn-outline-primary btn-sm" (click)="addProductToSummary(product, 'add', i, j)"><i class="fas fa-plus"></i></button>
+                <button type="button" class="btn btn-outline-primary btn-sm"
+                        (click)="removeProductFromSummary(product, 'remove', i, j)"><i class="fas fa-minus"></i>
+                </button>
+                <input type="text" id="quantity{{i}}{{j}}" name="quantity" class="quantity-input" align="center"
+                       [ngModel]="getQuantityForProduct(product.productId)" readonly>
+                <button type="button" class="btn btn-outline-primary btn-sm"
+                        (click)="addProductToSummary(product, 'add', i, j)"><i class="fas fa-plus"></i></button>
 
               </ul>
             </ul>

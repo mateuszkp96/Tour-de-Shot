@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ProductAddModalComponent} from '../product-add-modal/product-add-modal.component';
 import {MenuService} from 'src/app/services/menu.service';
 import {Product} from 'src/app/models/Product';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product-modify-modal',
@@ -14,6 +15,7 @@ export class ProductModifyModalComponent implements OnInit {
   productToModify: Product
 
   productToModifyName: string
+  productModifyForm: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ProductAddModalComponent,
               private dialogRef: MatDialogRef<ProductAddModalComponent>,
@@ -26,9 +28,18 @@ export class ProductModifyModalComponent implements OnInit {
     this.productToModifyName = this.productToModify.name
     console.log(this.productToModifyName)
 
+    this.productModifyForm = new FormGroup({
+      'category': new FormControl(this.productToModify.categoryId, Validators.required),
+      'name': new FormControl(this.productToModify.name, Validators.required),
+      'ingredients': new FormControl(this.productToModify.ingredients, Validators.required),
+      'price': new FormControl(this.productToModify.price, Validators.required),
+      'description': new FormControl(this.productToModify.description, Validators.required),
+
+    });
   }
 
 
+  
   onAddIngredientClick() {
     console.log("add ingredient")
     this.productToModify.ingredients.push("")

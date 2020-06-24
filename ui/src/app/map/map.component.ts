@@ -119,15 +119,14 @@ export class MapComponent implements OnInit, AfterViewInit {
     // this.localizationCoordinates = this.startPointService.getStartPointValue();
 
     //added ngrx
-/*
-    this.store.pipe(select('startData')).subscribe(
-      startData => {
-        if (startData) {
-          console.log("Ngrx start data from map" + startData.startPlace.formatted_address)
-        }
-      });
-
- */
+    /*
+        this.store.pipe(select('startData')).subscribe(
+          startData => {
+            if (startData) {
+              console.log("Ngrx start data from map" + startData.startPlace.formatted_address)
+            }
+          });
+     */
   }
 
   ngAfterViewInit() {
@@ -282,5 +281,3 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 
 }
-
-

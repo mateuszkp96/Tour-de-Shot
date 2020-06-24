@@ -8,7 +8,8 @@ export const environment = {
   userApiUrl: window["env"]["userApiUrl"] || "default",
   historyApiUrl: window["env"]["historyApiUrl"] || "default",
   googleAuthProvider: window["env"]["googleAuthProvider"] || "default",
-  debug: window["env"]["debug"] || false
+  debug: window["env"]["debug"] || false,
+  googleMapsKey: window["env"]["googleMapsKey"] || "default"
 };
 
 /*

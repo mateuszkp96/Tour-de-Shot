@@ -12,7 +12,7 @@
 
               <div class="form-group col-md-6">
                 <label for="name" class="font-weight-bold">Punkt początkowy *</label>
-                <input type="text" id="name" class="form-control search-slt" #search formControlName="name"  [(ngModel)]="startDataName" required placeholder="Podaj punkt początkowy">
+                <input type="text" id="name" class="form-control search-slt" #search formControlName="name" [(ngModel)]="startDataName" required placeholder="Podaj punkt początkowy">
                 <div *ngIf="name.invalid && (name.dirty || name.touched)"class="text-danger">
                   <div *ngIf="name.errors.required" class="mt-1">Pole wymagane</div>
                 </div>
@@ -52,7 +52,7 @@
         <ul class="list-group list-group-flush" id="list">
           <li class="list-group-item" id="{{ 'listItem' + i }}" *ngFor="let local of localsByPage; index as i " [style.background-color]="getBackgroundColor(local)">
             <!-- Custom content-->
-            <div class="media d-flex align-items-center"  >
+            <div class="media d-flex align-items-center">
 
               <img src={{local.image}}  class="mr-3 square-image" alt="...">
 

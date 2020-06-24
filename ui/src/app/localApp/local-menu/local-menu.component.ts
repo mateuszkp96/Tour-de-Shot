@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {WebLocalService} from '../../services/web-local.service';
 import {MenuService} from '../../services/menu.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -13,6 +13,9 @@ import * as fromLocalLogin from '../../state/localLogin.reducer';
 import * as localLoginActions from '../../state/localLogin.actions';
 import {Store, select} from '@ngrx/store';
 import {LocalLoginService} from 'src/app/services/local-login.service';
+import {CategoryHeaderAddModalComponent} from '../category-header-add-modal/category-header-add-modal.component';
+import {CategoryHeaderModifyModalComponent} from '../category-header-modify-modal/category-header-modify-modal.component';
+import {ProductService} from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-local-menu',
@@ -21,7 +24,7 @@ import {LocalLoginService} from 'src/app/services/local-login.service';
 })
 export class LocalMenuComponent implements OnInit {
 
-  localId: number = null
+  @Input() localId: number
   local: LocalDetailed
   productToAdd: Product
   tree: TreeComponent
@@ -34,8 +37,11 @@ export class LocalMenuComponent implements OnInit {
     private modalService: NgbModal,
     public dialog: MatDialog,
     private store: Store<fromLocalLogin.AppState>,
-    private localLoginService: LocalLoginService
+    private localLoginService: LocalLoginService,
+    private productService: ProductService,
+    private route: ActivatedRoute,
   ) {
+    /*
     this.store.pipe(select(fromLocalLogin.getLocalId)).subscribe(
       async id => {
         if (id) {
@@ -44,11 +50,15 @@ export class LocalMenuComponent implements OnInit {
           this.getLocal(this.localId)    //todo: changing to appropriate local
         }
       });
+
+     */
   }
 
 
   ngOnInit(): void {
-    this.localId = this.localLoginService.getIdValue()
+    //  this.localId = this.localLoginService.getIdValue()
+ //   this.localId = Number(this.route.snapshot.params.id);
+    console.log(this.localId)
 
     if (this.localId) {
       this.getLocal(this.localId)
@@ -56,8 +66,9 @@ export class LocalMenuComponent implements OnInit {
     this.productToAdd = new Product()
     this.isCollapsed = false
 
-    console.log( this.localId)
+    console.log(this.localId)
   }
+
 
   getLocal(id: number) {
     this.webLocalService.getLocalById(id).then(local =>
@@ -69,17 +80,23 @@ export class LocalMenuComponent implements OnInit {
       this.local.menu = menu)
   }
 
-  onAddProductClick() {
+  onAddProductClick(orderNumber: number, categoryHeader: string) {
     const dialogRef = this.dialog.open(ProductAddModalComponent);
-    //console.log(this.local)
+    dialogRef.componentInstance.orderNumber = orderNumber
+    dialogRef.componentInstance.categoryHeader = categoryHeader
+
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
       this.getLocalMenu(this.localId)
     });
   }
 
-  removeProduct(product: Product) {
-    console.log("Product remove")
+  onDeleteProduct(product: Product, orderNumber: number) {
+    console.log("Delete product")
+    console.log(product.name)
+
+    this.productService.deleteProduct(this.localId, orderNumber, product.productId).then(() =>
+      this.getLocalMenu(this.localId))
   }
 
   modifyProduct(product: Product, i: number, j: number) {
@@ -94,4 +111,38 @@ export class LocalMenuComponent implements OnInit {
   }
 
 
+  onAddCategoryHeaderClick() {
+    console.log("Add Category Header")
+    const dialogRef = this.dialog.open(CategoryHeaderAddModalComponent);
+    dialogRef.componentInstance.localId = this.localId
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Dialog close");
+      this.getLocalMenu(this.localId)
+    });
+  }
+
+  onModifyCategoryHeader(item: any) {
+    console.log("Add Category Header")
+    const dialogRef = this.dialog.open(CategoryHeaderModifyModalComponent);
+    dialogRef.componentInstance.categoryHeader = item.categoryHeader
+    dialogRef.componentInstance.localId = this.localId
+    dialogRef.componentInstance.orderNumber = item.orderNumber
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("Dialog close");
+      this.getLocalMenu(this.localId)
+    });
+  }
+
+  onDeleteCategoryHeader(orderNumber: number) {
+    console.log("Delete Category Header")
+    this.menuService.deleteCategoryHeader(this.localId, orderNumber).then(() =>
+      this.getLocalMenu(this.localId))
+  }
+
+  onBackClick() {
+    this.router.navigate(['locals']);
+  }
 }

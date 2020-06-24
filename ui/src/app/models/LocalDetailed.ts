@@ -11,7 +11,7 @@ export interface LocalDetailed {
   coordinates: Coordinates;
   address: Address;
   image: string    // change image type
-  localCategories: Array<String>
+  localCategories: Array<string>
   priceCategory: number
   openingHours: OpeningHours
   website: string

@@ -42,7 +42,7 @@
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button type="button" class="btn btn-outline-primary btn-sm" (click)="saveProduct()"><b>Zapisz</b></button>
+    <button [disabled]="productModifyForm.invalid" type="button" class="btn btn-outline-primary btn-sm" (click)="saveProduct()"><b>Zapisz</b></button>
     <button mat-type="button" class="btn btn-outline-primary btn-sm" (click)="onCloseClicked()"><b>Anuluj</b></button>
   </mat-dialog-actions>
 </div>

@@ -24,12 +24,15 @@ export class LocalService {
   private filteredByDistLocalsListValues: Local[] = [];
   local: Local;
   localsList: Local[]
-  summaryProductList: Array<{name: any, price: number, i: number, j:number, quantity: number}> = [];
+  summaryProductList: Array<{ name: any, price: number, i: number, j: number, quantity: number }> = [];
   totalCost: number = 0;
   orderNumber = 0;
   private checkedCategories = new Subject<string[]>();
   currentCheckedCategories = this.checkedCategories.asObservable();
   userHistoryToAdd = InitUserHistoryToAdd
+  checkedLocalsByDrinkChose: number[] = []
+
+  currentCostForLocal: Array<{ localId: number, price: number }> = [];
 
 
   constructor(private webLocalService: WebLocalService) {
@@ -74,15 +77,15 @@ export class LocalService {
     return this.checkedLocalsIdListValues;
   }
 
-  updateSummaryProductList(selectedProduct, method, i, j){
+  updateSummaryProductList(selectedProduct, method, i, j) {
     const name = selectedProduct.name
     const price = selectedProduct.price
     let quantity;
     const productExistInSummary = this.summaryProductList.find(el => el.name === name);
 
-    switch(method){
+    switch (method) {
       case "add":
-        if(!productExistInSummary){
+        if (!productExistInSummary) {
           quantity = 1
           this.summaryProductList.push({name, price, i, j, quantity})
         } else {
@@ -91,7 +94,7 @@ export class LocalService {
         console.log(this.summaryProductList)
         break
       case "remove":
-        if(!productExistInSummary){
+        if (!productExistInSummary) {
           console.log('Brak itemu')
         } else {
           productExistInSummary.quantity -= 1;
@@ -121,6 +124,18 @@ export class LocalService {
             userHistoryToAddItem.products.push(userHistoryToAddProduct)
             this.userHistoryToAdd.items.push(userHistoryToAddItem)
             console.log(this.userHistoryToAdd.items)
+
+            //sprawdzenie czy lokal jest na liście zaznaczonych lokali
+            switch (this.checkedLocalsIdListValues.indexOf(localId)) {
+              case -1:
+                this.checkedLocalsIdListValues.push(localId);
+                this.updateCheckedLocalsIdList(this.checkedLocalsIdListValues)
+                break;
+              default:
+                console.log("Loal juz zaznaczony")
+                break;
+            }
+
             break
 
           default:
@@ -169,6 +184,11 @@ export class LocalService {
                 if (localExist.products.length == 0) {
                   const index = this.userHistoryToAdd.items.indexOf(localExist)
                   this.userHistoryToAdd.items.splice(index, 1);
+                  //trzeba usunac tez lokal z listy lokali
+                  const indexInChecked = this.checkedLocalsIdListValues.indexOf(localId)
+                  this.checkedLocalsIdListValues.splice(indexInChecked, 1);
+                  this.updateCheckedLocalsIdList(this.checkedLocalsIdListValues)
+
                 }
                 console.log((this.userHistoryToAdd.items))
                 this.totalCost -= selectedProduct.price
@@ -193,10 +213,12 @@ export class LocalService {
     return this.userHistoryToAdd
   }
 
-  updateCheckedCategories(currentCheckedCategories
-                            :
-                            string[]
-  ) {
+  getUserHistoryToAddForLocal(localId: number) {
+    return this.userHistoryToAdd.items.find(item => item.localId === localId)
+  }
+
+
+  updateCheckedCategories(currentCheckedCategories: string[]) {
     this.checkedCategories.next(currentCheckedCategories)
   }
 
@@ -204,4 +226,33 @@ export class LocalService {
     return this.currentCheckedCategories
   }
 
+  updateCurrentCostForLocal(localId: number, currentCost: number) {
+    const localExist = this.currentCostForLocal.find(item => item.localId === localId)
+    switch (localExist) {
+      case undefined:
+        const price = currentCost
+        this.currentCostForLocal.push({localId, price})
+        break;
+      default:
+        localExist.price = currentCost
+        break;
+    }
+
+    console.log("this.currentcost")
+    console.log(this.currentCostForLocal)
+
+  }
+
+  getCurrentCostForLocal(localId: number) {
+    let localExist = this.currentCostForLocal.find(item => item.localId === localId)
+    switch (localExist) {
+      case undefined:
+        return 0
+        break;
+      default:
+        return localExist.price
+        break;
+
+    }
+  }
 }

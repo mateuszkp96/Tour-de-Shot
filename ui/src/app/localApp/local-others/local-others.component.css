@@ -1,0 +1,51 @@
+.container{
+  padding-top: 30px;
+  margin-left: 0;
+  min-height: 600px;
+}
+
+.btn-primary{
+  right: 0;
+  margin: 0;
+}
+strong{
+  font-size: 22px !important;
+}
+
+.btn{
+  margin-left: 5px;
+  margin-right: 0;
+  alignment: right;
+  height: 32px;
+}
+.category-header-btn{
+  height: 90% !important;
+}
+
+.hr{
+  padding: 0;
+  margin: 0;
+}
+
+.add-button{
+  margin-top: 5px;
+  padding: 0;
+}
+
+.under-menu{
+  height: 20px;
+}
+
+.collapse{
+  collapse: false !important;
+
+}
+.card-header{
+  padding: 0;
+  margin-top: 2px;
+}
+span{
+  margin:0  !important;
+  padding: 0;
+  font-size: 14px!important;
+}

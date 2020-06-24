@@ -17,6 +17,9 @@ import { LocalComponent } from './localApp/local/local.component';
 import { LocalMenuComponent } from './localApp/local-menu/local-menu.component';
 import { LocalSettingsComponent } from './localApp/local-settings/local-settings.component';
 import { AccountHistoryComponent } from '../app/account/account-history/account-history.component';
+import { LocalAddComponent } from './localApp/local-add/local-add.component';
+import { YourLocalsListComponent } from './localApp/your-locals-list/your-locals-list.component';
+import { LocalOthersComponent } from './localApp/local-others/local-others.component';
 
 const routes: Routes = [
 
@@ -38,10 +41,17 @@ const routes: Routes = [
   },
   {path: 'route', component: RouteComponent},
   {path: 'map', component: MapComponent},
-  {path: 'local', component: LocalComponent},
-  {path: 'menu', component: LocalMenuComponent},
-  {path: 'informations', component: LocalInformationsComponent},
   {path: 'settings', component: LocalSettingsComponent},
+  {path: 'add-local', component: LocalAddComponent},
+  {path: 'locals', component: YourLocalsListComponent},
+  {
+    path: 'local/:id', component: LocalComponent,
+    children: [
+      {path: 'menu', component: LocalMenuComponent},
+      {path: 'informations', component: LocalInformationsComponent},
+      {path: 'others', component: LocalOthersComponent},
+    ]
+  },
 
 ];
 
@@ -53,4 +63,4 @@ export class AppRoutingModule {
 }
 
 export const routingComponents = [LoginComponent, RegisterComponent, HomeComponent, PrivacyComponent, ContactComponent, TeamComponent,
-  SearchComponent, LocalComponent, LocalMenuComponent, LocalInformationsComponent, LocalSettingsComponent]
+  SearchComponent, LocalComponent, LocalMenuComponent, LocalInformationsComponent, LocalSettingsComponent,LocalAddComponent,YourLocalsListComponent]

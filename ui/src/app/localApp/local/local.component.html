@@ -1,4 +1,30 @@
-<div class="container" *ngIf="local">
-  <h2><strong> {{local.name}}</strong></h2>
+<div class="container mx-auto mt-5 mb-5">
+  <div *ngIf="local" class="container mx-auto mt-5 mb-5">
+    <ul class="add-button list-inline d-flex justify-content-between mb-2 mt-2 ml-1 mr-0">
+      <div class="mb-4"><h2><strong>Szczegóły lokalu: {{local.name}}</strong></h2></div>
+      <ul class="add-button list-inline d-flex justify-content-end">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="onBackClick()"><b>Powrót do listy
+          lokali</b>
+        </button>
+      </ul>
+    </ul>
+    <mat-tab-group [backgroundColor]="backgroundColorToggle" >
+      <mat-tab label="Menu">
+        <div class="card shadow mb-4">
+          <app-local-menu [localId]="localId"></app-local-menu>
+        </div>
+      </mat-tab>
 
+      <mat-tab label="Dane kontaktowe">
+        <div class="card shadow mb-4">
+          <app-local-informations [localId]="localId"></app-local-informations>
+        </div>
+      </mat-tab>
+      <mat-tab label="Inne">
+        <div class="card shadow mb-4">
+          <app-local-others [localId]="localId" (onLocalDeleted)="localDeleted($event)"></app-local-others>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

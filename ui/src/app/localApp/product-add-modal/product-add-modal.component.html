@@ -1,53 +1,106 @@
-<div class="container">
-<h2 mat-dialog-title>Dodaj nowy produkt do menu</h2>
-<mat-dialog-content class="mat-typography">
-  <form>
-    <div class="form-group">
+<div *ngIf="categoryHeader" class="container">
+  <h2 mat-dialog-title>Dodaj nowy produkt do sekcji: {{categoryHeader}}</h2>
+  <mat-dialog-content class="mat-typography">
+
+
+    <form class="form-group">
+
       <div class="input-group mt-3">
         <div class="input-group-prepend">
           <span class="input-group-text">Kategoria</span>
         </div>
         <app-local-tree (onCategoryChecked)="categoryChecked($event)"></app-local-tree>
       </div>
+      <div class="valid">
+        <div *ngIf="categoryInvalid"
+             class="text-danger">
+          <ul class="list-inline d-flex justify-content-end mt-1">
+            <div class="mt-1">Pole wymagane</div>
+          </ul>
+        </div>
+      </div>
+
       <div class="input-group mt-3">
         <div class="input-group-prepend">
           <span class="input-group-text">Nazwa</span>
         </div>
-        <input class="input-class" type="text" [(ngModel)]="productToAdd.name" placeholder="" name="name">
+        <input class="input-class" type="text" [(ngModel)]="productToAdd.name" placeholder=""
+                name="name">
       </div>
-      <div class="input-group mt-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Opis</span>
+      <div class="valid">
+        <div *ngIf="nameInvalid"
+             class="text-danger">
+          <ul class="list-inline d-flex justify-content-end mt-1">
+            <div class="mt-1">Pole wymagane</div>
+          </ul>
         </div>
-        <input class="input-class" type="text" [(ngModel)]="productToAdd.description" placeholder="" name="description">
       </div>
-
-        <div class="input-group mt-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Składniki</span>
-          </div>
-          <div class="aParent">
-          <div  class= "ingredient" *ngFor="let ingredient of productToAdd.ingredients; let i = index; trackBy: trackByFn">
-              <input class="input-class" type="text" [(ngModel)]="productToAdd.ingredients[i]" [ngModelOptions]="{standalone: true}" placeholder="" [name]="productToAdd.ingredients[i]">
-            <button *ngIf="i==0" type="button" class="btn btn-outline-primary btn-sm" (click)="onAddIngredientClick()"><i class="fas fa-plus"></i></button>
-            <button *ngIf="i>0" type="button" class="btn btn-outline-primary btn-sm" (click)="onDeleteIngredientClick(i)"><i class="fas fa-minus"></i></button>
-          </div>
-         </div>
-        </div>
-
 
       <div class="input-group mt-3">
         <div class="input-group-prepend">
           <span class="input-group-text">Cena</span>
         </div>
-        <input class="input-class" type="text" [(ngModel)]="productToAdd.price" placeholder="" name="price">
+        <input class="input-class" type="text" [(ngModel)]="productToAdd.price"
+               placeholder="" name="price">
       </div>
-    </div>
-  </form>
+      <div class="valid">
+        <div *ngIf="priceInvalid"
+             class="text-danger">
+          <ul class="list-inline d-flex justify-content-end mt-1">
+            <div class="mt-1">Pole wymagane</div>
+          </ul>
+        </div>
+      </div>
 
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button type="button" class="btn btn-outline-primary btn-sm" (click)="saveProduct()"><b>Dodaj</b></button>
-  <button mat-type="button" class="btn btn-outline-primary btn-sm" [mat-dialog-close]="true"><b>Anuluj</b></button>
-</mat-dialog-actions>
+      <div class="input-group mt-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Składniki</span>
+        </div>
+        <div class="aParent">
+          <div class="ingredient"
+               *ngFor="let ingredient of productToAdd.ingredients; let i = index; trackBy: trackByFn">
+            <input class="input-class" type="text"  [(ngModel)]="productToAdd.ingredients[i]"
+                   placeholder="" [name]="productToAdd.ingredients[i]"  [ngModelOptions]="{standalone: true}">
+            <button *ngIf="i==0" type="button" class="btn btn-outline-primary btn-sm"
+                    (click)="onAddIngredientClick()"><i class="fas fa-plus"></i></button>
+            <button *ngIf="i>0" type="button" class="btn btn-outline-primary btn-sm"
+                    (click)="onDeleteIngredientClick(i)"><i class="fas fa-minus"></i></button>
+          </div>
+          <div class="valid">
+            <div *ngIf="ingredientsInvalid"
+                 class="text-danger">
+              <ul class="list-inline d-flex justify-content-end mt-1">
+                <div class="mt-1">Pole wymagane</div>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="input-group mt-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Opis</span>
+        </div>
+        <input class="input-class" type="text" [(ngModel)]="productToAdd.description"
+               placeholder=""
+               name="description">
+      </div>
+      <div class="valid">
+        <div *ngIf="descriptionInvalid"
+             class="text-danger">
+          <ul class="list-inline d-flex justify-content-end mt-1">
+            <div class="mt-1">Pole wymagane</div>
+          </ul>
+        </div>
+      </div>
+    </form>
+
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="button" class="btn btn-outline-primary btn-sm"
+            (click)="saveProduct()"><b>Dodaj</b></button>
+    <button mat-type="button" class="btn btn-outline-primary btn-sm" [mat-dialog-close]="true"><b>Anuluj</b></button>
+  </mat-dialog-actions>
 </div>
