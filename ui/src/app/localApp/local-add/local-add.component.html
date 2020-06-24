@@ -6,26 +6,28 @@
         <ul class="list-group ml-3">
 
           <li class="list-group-item">
-            <div class="input-group mt-2 mb-2 ">
+            <div class="input-group mt-3 mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-bookmark mr-2"></i>Nazwa:</span>
               </div>
+              <div>
               <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.name" placeholder=""
                      name="localToAdd.name" id="inputLocalName">
-            </div>
-            <div class="valid justify-content-end mt-1">
-              <div *ngIf="!localToAdd.name && buttonSaveClicked"
-                   class="text-danger">
-                <ul class="list-inline d-flex justify-content-end mt-1">
-                  <div class="mt-1">Pole wymagane</div>
-                </ul>
-              </div>
+                     <div class="valid justify-content-end mt-1">
+                      <div *ngIf="!localToAdd.name && buttonSaveClicked"
+                           class="text-danger">
+                        <ul class="list-inline d-flex justify-content-end mt-1">
+                          <div class="mt-1">Pole wymagane</div>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
             </div>
           </li>
 
 
           <li class="list-group-item">
-            <div class="input-group mt-2 mb-2">
+            <div class="input-group mt-3 mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-list-alt mr-2"></i>Kategoria lokalu:</span>
               </div>
@@ -39,139 +41,153 @@
                           (click)="onDeleteCategoryClick(i)"><i class="fas fa-minus"></i></button>
                   <button [disabled]="isDisable" *ngIf="i==0" class="btn btn-outline-primary btn-sm"
                           (click)="onAddCategoryClick()"><i class="fas fa-plus"></i></button>
+                  <div class="valid">
+                    <div *ngIf="!localToAdd.localCategories[0] && buttonSaveClicked"
+                          class="text-danger">
+                      <ul class="list-inline d-flex justify-content-end mt-1">
+                        <div class="mt-1">Pole wymagane</div>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="valid">
-              <div *ngIf="!localToAdd.localCategories[0] && buttonSaveClicked"
-                   class="text-danger">
-                <ul class="list-inline d-flex justify-content-end mt-1">
-                  <div class="mt-1">Pole wymagane</div>
-                </ul>
-              </div>
-            </div>
+
           </li>
 
 
           <li class="list-group-item">
-            <div class="input-group mt-2 mb-2">
+            <div class="input-group mt-3 mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-usd mr-2"></i>Kategoria cenowa:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" type="number" [(ngModel)]="localToAdd.priceCategory"
-                     id="inputLocalCategory" name="localToAdd.priceCategory">
-            </div>
-            <div class="valid">
-              <div *ngIf="!localToAdd.priceCategory && buttonSaveClicked"
-                   class="text-danger">
-                <ul class="list-inline d-flex justify-content-end mt-1">
-                  <div class="mt-1">Pole wymagane</div>
-                </ul>
-              </div>
+              <div>
+                <input [disabled]="isDisable" class="input-class" type="number" [(ngModel)]="localToAdd.priceCategory"
+                      id="inputLocalCategory" name="localToAdd.priceCategory">
+                <div class="valid">
+                  <div *ngIf="!localToAdd.priceCategory && buttonSaveClicked"
+                      class="text-danger">
+                    <ul class="list-inline d-flex justify-content-end mt-1">
+                      <div class="mt-1">Pole wymagane</div>
+                    </ul>
+                  </div>
+                </div>
+                </div>
             </div>
           </li>
 
 
           <li class="list-group-item">
-            <div class="input-group mt-2 mb-2">
+            <div class="input-group mt-3 mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-map-marker-alt mr-2"></i>Adres:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" #address type="text"
-                     [(ngModel)]="localToAdd.address.street"
-                     placeholder="" name="localToAdd.address.street" id="inputLocalAddressStreet">
-            </div>
-            <div class="valid">
-              <div *ngIf="!localToAdd.address.street && buttonSaveClicked"
-                   class="text-danger">
-                <ul class="list-inline d-flex justify-content-end mt-1">
-                  <div class="mt-1">Pole wymagane</div>
-                </ul>
+              <div>
+                <input [disabled]="isDisable" class="input-class" #address type="text"
+                      [(ngModel)]="localToAdd.address.street"
+                      placeholder="" name="localToAdd.address.street" id="inputLocalAddressStreet">
+                <div class="valid">
+                  <div *ngIf="!localToAdd.address.street && buttonSaveClicked"
+                    class="text-danger">
+                    <ul class="list-inline d-flex justify-content-end mt-1">
+                      <div class="mt-1">Pole wymagane</div>
+                    </ul>
+                  </div>
+              </div>
               </div>
             </div>
+
           </li>
 
 
           <li class="list-group-item">
-            <div class="input-group mt-2 mb-2">
+            <div class="input-group mt-3 mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fas fa-globe mr-2"></i>Strona internetowa:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.website"
-                     placeholder=""
-                     name="localToAdd.website" id="inputLocalWebsite">
-            </div>
-            <div class="valid">
-              <div *ngIf="!localToAdd.website && buttonSaveClicked"
-                   class="text-danger">
-                <ul class="list-inline d-flex justify-content-end mt-1">
-                  <div class="mt-1">Pole wymagane</div>
-                </ul>
+              <div>
+                <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.website"
+                      placeholder=""
+                      name="localToAdd.website" id="inputLocalWebsite">
+                <div class="valid">
+                  <div *ngIf="!localToAdd.website && buttonSaveClicked"
+                        class="text-danger">
+                    <ul class="list-inline d-flex justify-content-end mt-1">
+                      <div class="mt-1">Pole wymagane</div>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </li>
 
 
           <li class="list-group-item">
-            <div class="input-group mt-2 mb-2">
+            <div class="input-group mt-3 mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope mr-2"></i>Email:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.contact.email"
-                     placeholder="" name="localToAdd.contact.email" id="inputLocalEmail">
-            </div>
-            <div class="valid">
-              <div *ngIf="!localToAdd.contact.email && buttonSaveClicked"
-                   class="text-danger">
-                <ul class="list-inline d-flex justify-content-end mt-1">
-                  <div class="mt-1">Pole wymagane</div>
-                </ul>
+              <div>
+                <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.contact.email"
+                      placeholder="" name="localToAdd.contact.email" id="inputLocalEmail">
+                <div class="valid">
+                  <div *ngIf="!localToAdd.contact.email && buttonSaveClicked"
+                        class="text-danger">
+                    <ul class="list-inline d-flex justify-content-end mt-1">
+                      <div class="mt-1">Pole wymagane</div>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </li>
 
 
           <li class="list-group-item">
-            <div class="input-group mt-2 mb-2">
+            <div class="input-group mt-3 mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fas fa-phone mr-2"></i>Telefon:</span>
               </div>
-              <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.contact.phoneNumber"
-                     placeholder="" name="localToAdd.contact.phoneNumber" id="inputLocalPhoneNumber">
-            </div>
-            <div class="valid">
-              <div *ngIf="!localToAdd.contact.phoneNumber && buttonSaveClicked"
-                   class="text-danger">
-                <ul class="list-inline d-flex justify-content-end mt-1">
-                  <div class="mt-1">Pole wymagane</div>
-                </ul>
+              <div>
+                <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.contact.phoneNumber"
+                      placeholder="" name="localToAdd.contact.phoneNumber" id="inputLocalPhoneNumber">
+                <div class="valid">
+                  <div *ngIf="!localToAdd.contact.phoneNumber && buttonSaveClicked"
+                        class="text-danger">
+                    <ul class="list-inline d-flex justify-content-end mt-1">
+                      <div class="mt-1">Pole wymagane</div>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </li>
 
           <div>
             <div class="list-group-item">
-              <div class="input-group mt-2 mb-2">
+              <div class="input-group mt-3 mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fas fa-image mr-2"></i>Zdjęcie:</span>
                 </div>
-                <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.image"
-                       placeholder=""
-                       name="localToAdd.image" id="inputLocalImage">
-              </div>
-              <div class="valid">
-                <div *ngIf="!localToAdd.image && buttonSaveClicked"
-                     class="text-danger">
-                  <ul class="list-inline d-flex justify-content-end mt-1">
-                    <div class="mt-1">Pole wymagane</div>
-                  </ul>
+                <div>
+                  <input [disabled]="isDisable" class="input-class" type="text" [(ngModel)]="localToAdd.image"
+                        placeholder=""
+                        name="localToAdd.image" id="inputLocalImage">
+                  <div class="valid">
+                    <div *ngIf="!localToAdd.image && buttonSaveClicked"
+                        class="text-danger">
+                      <ul class="list-inline d-flex justify-content-end mt-1">
+                        <div class="mt-1">Pole wymagane</div>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <li class="list-group-item">
-            <div class="input-group mt-2 mb-2">
+            <div class="input-group mt-3 mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fas fa-clock mr-2"></i>Godziny otwarcia:</span>
               </div>
@@ -211,12 +227,16 @@
       </div>
 
     </div>
-    <ul *ngIf="isDisable==false" class="list-inline d-flex justify-content-end mt-2">
-      <button [disabled]="localAddForm.invalid" type="button" class="btn btn-outline-primary btn-sm"
-              (click)="onSaveClick()"><b>Zapisz</b></button>
-      <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCancelClick()"><b>Anuluj</b>
-      </button>
-    </ul>
+    <div class="row">
+      <div class="col-lg-8 d-flex justify-content-end">
+        <ul *ngIf="isDisable==false" class="list-inline mt-2">
+        <button [disabled]="localAddForm.invalid" type="button" class="btn btn-outline-primary btn-sm "
+                (click)="onSaveClick()"><b>Zapisz</b></button>
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="onCancelClick()"><b>Anuluj</b>
+        </button>
+      </ul>
+      </div>
+  </div>
   </div>
 
 </div>

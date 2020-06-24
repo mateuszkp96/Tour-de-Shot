@@ -26,7 +26,8 @@ export class JwtInterceptor implements HttpInterceptor {
               private authService: AuthService,
               private router: Router,
               private http: HttpClient) {
-    this.authService.authState.subscribe(authState => this.idToken = authState.idToken)
+   this.authService.authState.subscribe(authState => this.idToken = authState.idToken)
+
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

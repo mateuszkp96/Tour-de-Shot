@@ -35,44 +35,44 @@ export const InitOpeningHoursToAdd: OpeningHoursToAdd =
       {
         orderNumber: 0,
         dayOfWeek: 1,
-        openTime: "00:00",
-        closeTime: "00:00"
+        openTime: "08:00",
+        closeTime: "22:00"
       },
       {
         orderNumber: 1,
         dayOfWeek: 2,
-        openTime: "00:00",
-        closeTime: "00:00"
+        openTime: "08:00",
+        closeTime: "22:00"
       },
       {
         orderNumber: 2,
         dayOfWeek: 3,
-        openTime: "00:00",
-        closeTime: "00:00"
+        openTime: "08:00",
+        closeTime: "22:00"
       },
       {
         orderNumber: 3,
         dayOfWeek: 4,
-        openTime: "00:00",
-        closeTime: "00:00"
+        openTime: "08:00",
+        closeTime: "22:00"
       },
       {
         orderNumber: 4,
         dayOfWeek: 5,
-        openTime: "00:00",
-        closeTime: "00:00"
+        openTime: "08:00",
+        closeTime: "22:00"
       },
       {
         orderNumber: 5,
         dayOfWeek: 6,
-        openTime: "00:00",
-        closeTime:"00:00"
+        openTime: "08:00",
+        closeTime:"22:00"
       },
       {
         orderNumber: 6,
         dayOfWeek: 7,
-        openTime: "00:00",
-        closeTime: "00:00"
+        openTime: "08:00",
+        closeTime: "22:00"
       }
     ]
   }
