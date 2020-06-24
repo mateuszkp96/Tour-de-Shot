@@ -15,7 +15,7 @@ export class NavComponent implements OnInit {
   appTitle = 'Tour de Shot';
   public user: SocialUser;
   public loggedIn: boolean;
-  public displayUserView: boolean;
+  public displayUserView = this.userService.getUserView();
   public href: string = "";
 
   @Output()
@@ -32,12 +32,12 @@ export class NavComponent implements OnInit {
       this.user = user;
       this.loggedIn = (user != null);
     });
-    this.href = this.router.url;
+    /* this.href = this.router.url;
     if (this.href === '/startLocal'){
       this.userService.setUserView(false);
       this.displayUserView = this.userService.getUserView();
     }
-    this.displayUserView = this.userService.getUserView();
+    this.displayUserView = this.userService.getUserView(); */
   }
 
   toggleBtnClicked() {

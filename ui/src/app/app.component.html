@@ -3,11 +3,11 @@
     (toggleBtnClickedEmmiter)="onToggleBtnClicked()"></app-sign-in-nav> -->
 
 <div class="row">
-  <div class="col-lg-2"  id="side-menu-bar" *ngIf="userChecked && user">
+  <div class="col-lg-2"  id="side-menu-bar" *ngIf="userChecked && user && displayUserView">
     <app-side-nav></app-side-nav>
   </div>
 
-  <div class="col-lg-2"  id="local-side-menu-bar" *ngIf="userChecked && !user && localLoggedIn">
+  <div class="col-lg-2"  id="local-side-menu-bar" *ngIf="userChecked && user && localLoggedIn && !displayUserView">
     <app-local-side-nav></app-local-side-nav>
   </div>
 

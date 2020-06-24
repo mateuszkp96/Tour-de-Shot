@@ -6,6 +6,7 @@ import * as fromLocalLogin from '../app/state/localLogin.reducer';
 import * as localLoginActions from '../app/state/localLogin.actions';
 import { HttpClient } from '@angular/common/http';
 import decode from 'jwt-decode';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,8 @@ export class AppComponent implements OnInit {
   public user: SocialUser;
   public loggedIn = true;
   public userChecked = false;
+  public displayUserView: boolean;
+  public href: string = "";
 
   // hardcoded yet
   public localLoggedIn: boolean;
@@ -31,7 +34,8 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private store: Store<fromLocalLogin.AppState>,
-    public http: HttpClient
+    public http: HttpClient,
+    public userService: UserService
   ) {
   }
 
@@ -44,14 +48,24 @@ export class AppComponent implements OnInit {
       this.user = user;
       this.loggedIn = (user != null);
       if (this.user) {
-       // this.router.navigate(['/search']);
+        this.router.navigate(['/search']);
       } else {
         //this.router.navigate(['']);
       }
       console.log("logged in from app");
       console.log(this.loggedIn);
 
+      this.href = this.router.url;
+      if (this.href === '/startLocal'){
+        this.userService.setUserView(false);
+        this.displayUserView = this.userService.getUserView();
+      }
+      this.displayUserView = this.userService.getUserView();
+
+      console.log(this.displayUserView)
+
     });
+
 
 
     this.store.pipe(select(fromLocalLogin.getLocalLoggedIn)).subscribe(
@@ -61,7 +75,7 @@ export class AppComponent implements OnInit {
           this.localLoggedIn = loggedIn; // hardcoded here yet
         }
       });
-    
+
   }
 
 
