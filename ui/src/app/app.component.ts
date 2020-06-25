@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   public user: SocialUser;
   public loggedIn = true;
   public userChecked = false;
-  public displayUserView: boolean
+  public displayUserView: boolean 
   public href: string = "";
 
   // hardcoded yet
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("Button Zaloguj not active yet")
+    //console.log("Button Zaloguj not active yet")
 
     this.authService.authState.subscribe((user) => {
       this.userChecked = true;
@@ -52,8 +52,8 @@ export class AppComponent implements OnInit {
       } else {
         //this.router.navigate(['']);
       }
-      console.log("logged in from app");
-      console.log(this.loggedIn);
+      //console.log("logged in from app");
+      //console.log(this.loggedIn);
 
       this.href = this.router.url;
       if (this.href === '/startLocal'){
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
       }
       this.displayUserView = this.userService.getUserView();
 
-      console.log(this.displayUserView)
+      //console.log(this.displayUserView)
 
     });
 
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
     this.store.pipe(select(fromLocalLogin.getLocalLoggedIn)).subscribe(
       async loggedIn => {
         if (loggedIn) {
-          console.log("From app loggedIn" + loggedIn)
+          //console.log("From app loggedIn" + loggedIn)
           this.localLoggedIn = loggedIn;
         }
       });
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
 
   onToggleBtnClicked() {
     document.getElementById("side-menu-bar").classList.toggle("menuHidden");
-    console.log("open");
+    //console.log("open");
   }
 
 

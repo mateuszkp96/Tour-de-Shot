@@ -29,12 +29,12 @@ export class RegisterComponent implements OnInit {
   }
 
   signInWithGoogle(): void {
-    console.log("loguje sie");
+    //console.log("loguje sie");
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
       (res) => {
-
+        this.userService.registration()
         if(this.displayUserView === true) {
-          console.log("U are logged in!");
+          //console.log("U are logged in!");
           this.loggedIn = true;
           this.router.navigate(['/search']);
         } else {
@@ -44,14 +44,13 @@ export class RegisterComponent implements OnInit {
         }
 
       });
-      console.log('logged')
-    this.userService.registration()
+      //console.log('logged')
   }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
+      //console.log(this.user);
       this.loggedIn = (user != null);
     });
   }

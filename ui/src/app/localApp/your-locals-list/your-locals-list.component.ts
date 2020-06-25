@@ -16,9 +16,9 @@ import * as localLoginActions from '../../state/localLogin.actions';
 export class YourLocalsListComponent implements OnInit {
 
   yourLocalsList: Local[] = []
-  numberOfPages: number = 1
+  numberOfPages: number
   pageNumber = 1
-  pageSize = 7
+  pageSize = 5
   userId: number
 
   constructor(private userService: UserService,
@@ -32,21 +32,23 @@ export class YourLocalsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new localLoginActions.SelectLocalLoggedIn(true));
-    this.getYourLocalsList()
+    this.getYourLocalsList(this.pageNumber, this.pageSize)
   }
 
-  onChangePage($event, pageNumber, pageSize) {
-    console.log("On change page")
-  }
-
-  getYourLocalsList() {
-
+  getYourLocalsList(page:number, pageSize:number) {
+/*
     this.userService.getYourLocalsList().then(locals => {
         this.yourLocalsList = locals['content'] as Local[]
         console.log(this.yourLocalsList)
       })
+*/
+    this.userService.getYourLocalsListByPage(page-1,pageSize).then(locals => {
+      this.yourLocalsList = locals['content'] as Local[]
+      //console.log( this.numberOfPages = locals['totalElements'])
+this.numberOfPages = this.numberOfPages = locals['totalElements']
 
-
+      //console.log(this.yourLocalsList)
+    })
 /*
     this.webLocalServie.getLocalsByPage(this.pageNumber-1,this.pageSize).then(locals => {
       this.yourLocalsList = locals['content'] as Local[]
@@ -57,10 +59,16 @@ export class YourLocalsListComponent implements OnInit {
 
   }
 
+  async onChangePage(event, page, pageSize) {
+    this.pageNumber = page;
+// await this.getLocalsByPage(page, pageSize);
+    await this.getYourLocalsList(page, pageSize)
+
+
+  }
 
   onAddLocalClick(){
     this.router.navigate(['add-local'])
-
 
   }
   onDetailsClick(localId: number){

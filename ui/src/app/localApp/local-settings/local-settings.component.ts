@@ -24,7 +24,7 @@ export class LocalSettingsComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmLocalDeleteModalComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("Dialog close");
+      //console.log("Dialog close");
     });
   }
 }

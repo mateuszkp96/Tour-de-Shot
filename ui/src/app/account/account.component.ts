@@ -20,7 +20,7 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
+      //console.log(this.user);
       this.loggedIn = (user != null);
     });
   }

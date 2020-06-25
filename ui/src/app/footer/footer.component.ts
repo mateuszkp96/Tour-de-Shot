@@ -26,7 +26,7 @@ export class FooterComponent implements OnInit {
     const dialogRef = this.dialog.open(AccountPrivacyComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      //console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -34,7 +34,7 @@ export class FooterComponent implements OnInit {
     const dialogRef = this.dialog.open(CookiesPolicyComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      //console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -42,7 +42,7 @@ export class FooterComponent implements OnInit {
     const dialogRef = this.dialog.open(ContactComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      //console.log(`Dialog result: ${result}`);
     });
   }
 

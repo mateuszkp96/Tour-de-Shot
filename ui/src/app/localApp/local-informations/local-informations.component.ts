@@ -44,7 +44,7 @@ export class LocalInformationsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(document.getElementById("inputLocalAddressStreet"))
+    //console.log(document.getElementById("inputLocalAddressStreet"))
   }
 
   getLocal(id: number) {

@@ -23,7 +23,7 @@ export class AccountGeneralComponent implements OnInit {
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
+      //console.log(this.user);
       this.loggedIn = (user != null);
     });
   }
@@ -36,7 +36,7 @@ export class AccountGeneralComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteAccountComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+     // console.log(`Dialog result: ${result}`);
     });
   }
 

@@ -31,8 +31,8 @@ export class LocalTreeComponent implements OnInit {
       this.productCategoryList = data as object[]
       this.categories = this.productCategoryList;
 
-      console.log("productCategoryList")
-      console.log(this.productCategoryList)
+      //console.log("productCategoryList")
+      //console.log(this.productCategoryList)
       // maps the appropriate column to fields property
 
       this.field = {dataSource: this.categories, id: 'id', parentID: 'parentId', text: 'name', hasChildren: 'hasChild'};

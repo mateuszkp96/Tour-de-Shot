@@ -59,7 +59,7 @@ export class LocalMenuComponent implements OnInit {
   ngOnInit(): void {
     //  this.localId = this.localLoginService.getIdValue()
     //   this.localId = Number(this.route.snapshot.params.id);
-    console.log(this.localId)
+    //console.log(this.localId)
 
     if (this.localId) {
       this.getLocal(this.localId)

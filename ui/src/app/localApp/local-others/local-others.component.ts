@@ -26,7 +26,7 @@ export class LocalOthersComponent implements OnInit {
   onDeleteLocalClick() {
    // this.webLocalService.deleteLocalById(this.localId)
     this.webLocalService.deleteLocalById(this.localId).then(() => {
-      console.log("LOCAL " + this.localId + " DELETED")
+      //console.log("LOCAL " + this.localId + " DELETED")
       this.onLocalDeleted.emit(true)
       this.router.navigate(['locals'])
     });

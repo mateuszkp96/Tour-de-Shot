@@ -28,8 +28,8 @@ export class JwtInterceptor implements HttpInterceptor {
               private http: HttpClient) {
     this.authService.authState.subscribe(authState => {
         this.idToken = authState.idToken
-        console.log("this.idToken")
-        console.log(this.idToken)
+        //console.log("this.idToken")
+        //console.log(this.idToken)
       }
     )
 
@@ -39,7 +39,7 @@ export class JwtInterceptor implements HttpInterceptor {
     if (this.authService.authState) {
       this.authService.authState.subscribe(authState => {
         this.idToken = authState.idToken
-        console.log("idToken in jwt set")
+        //console.log("idToken in jwt set")
       });
     }
 

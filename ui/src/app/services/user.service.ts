@@ -31,9 +31,12 @@ export class UserService {
 
   getYourLocalsList(): Promise<any> {
     return this.http.get(this.LOCAL_API_URL + '/user-local').toPromise()
-
   }
 
+  getYourLocalsListByPage(page: number, pageSize): Promise<any> {
+    return this.http.get(this.LOCAL_API_URL + '/user-local?page=' + page + '&pageSize=' + pageSize).toPromise()
+  }
+  
   setUserView (option) {
     return this.displayUserView = option;
   }

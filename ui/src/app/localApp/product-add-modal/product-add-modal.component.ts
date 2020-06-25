@@ -59,25 +59,25 @@ export class ProductAddModalComponent implements OnInit {
 
   onAddIngredientClick() {
     this.productToAdd.ingredients.push("")
-    console.log(this.productToAdd.ingredients)
+    //console.log(this.productToAdd.ingredients)
   }
 
   onDeleteIngredientClick(id: number) {
     this.productToAdd.ingredients.splice(id, 1);
-    console.log(this.productToAdd.ingredients)
+    //console.log(this.productToAdd.ingredients)
   }
 
   categoryChecked(event: string[]) {
-    console.log("Category checked from local menu")
+    //console.log("Category checked from local menu")
     this.productsCategoryId = event
-    console.log(this.productsCategoryId)
+   // console.log(this.productsCategoryId)
     this.productToAdd.categoryId = parseInt(this.productsCategoryId[0])
     this.productAddForm.get('ingredients')
   }
 
   saveProduct() {
-    console.log("this.productToAdd.ingredients[0]")
-   console.log(this.productToAdd.ingredients[0].length)
+   // console.log("this.productToAdd.ingredients[0]")
+   //console.log(this.productToAdd.ingredients[0].length)
     this.buttonSaveClicked = true
 
     if (this.productToAdd.categoryId == null)
@@ -104,7 +104,7 @@ export class ProductAddModalComponent implements OnInit {
       this.priceInvalid = false
 
     if (!this.descriptionInvalid && !this.ingredientsInvalid && !this.nameInvalid && !this.categoryInvalid&& !this.priceInvalid){
-      console.log(this.productToAdd.ingredients)
+      //console.log(this.productToAdd.ingredients)
       this.productService.addProduct(this.localId, this.orderNumber, this.productToAdd)
       this.dialogRef.close()
     }

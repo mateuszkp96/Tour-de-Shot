@@ -91,15 +91,15 @@ export class LocalService {
         } else {
           productExistInSummary.quantity += 1;
         }
-        console.log(this.summaryProductList)
+        //console.log(this.summaryProductList)
         break
       case "remove":
         if (!productExistInSummary) {
-          console.log('Brak itemu')
+          //console.log('Brak itemu')
         } else {
           productExistInSummary.quantity -= 1;
         }
-        console.log(this.summaryProductList)
+        //console.log(this.summaryProductList)
         break
     }
   }
@@ -123,7 +123,7 @@ export class LocalService {
             userHistoryToAddItem.orderNumber = this.orderNumber
             userHistoryToAddItem.products.push(userHistoryToAddProduct)
             this.userHistoryToAdd.items.push(userHistoryToAddItem)
-            console.log(this.userHistoryToAdd.items)
+            //console.log(this.userHistoryToAdd.items)
 
             //sprawdzenie czy lokal jest na liście zaznaczonych lokali
             switch (this.checkedLocalsIdListValues.indexOf(localId)) {
@@ -132,7 +132,7 @@ export class LocalService {
                 this.updateCheckedLocalsIdList(this.checkedLocalsIdListValues)
                 break;
               default:
-                console.log("Loal juz zaznaczony")
+                //console.log("Loal juz zaznaczony")
                 break;
             }
 
@@ -148,18 +148,18 @@ export class LocalService {
                 userHistoryToAddProduct.productId = selectedProduct.productId
                 userHistoryToAddProduct.quantity = 1
                 localExist.products.push(userHistoryToAddProduct)
-                console.log((this.userHistoryToAdd.items))
+                //console.log((this.userHistoryToAdd.items))
 
                 break;
               default:
                 //console.log("Jest już ten produkt")
                 let product = localExist.products.find(product => product.productId === selectedProduct.productId).quantity += 1
-                console.log((this.userHistoryToAdd.items))
+                //console.log((this.userHistoryToAdd.items))
                 break;
             }
         }
         this.totalCost += selectedProduct.price
-        console.log("TOTAL COST: " + this.totalCost)
+        //console.log("TOTAL COST: " + this.totalCost)
         break;
       case "remove":
         switch (localExist) {
@@ -190,9 +190,9 @@ export class LocalService {
                   this.updateCheckedLocalsIdList(this.checkedLocalsIdListValues)
 
                 }
-                console.log((this.userHistoryToAdd.items))
+                //console.log((this.userHistoryToAdd.items))
                 this.totalCost -= selectedProduct.price
-                console.log("TOTAL COST: " + this.totalCost)
+                //console.log("TOTAL COST: " + this.totalCost)
                 break;
             }
             break;
@@ -238,8 +238,8 @@ export class LocalService {
         break;
     }
 
-    console.log("this.currentcost")
-    console.log(this.currentCostForLocal)
+    //console.log("this.currentcost")
+    //console.log(this.currentCostForLocal)
 
   }
 

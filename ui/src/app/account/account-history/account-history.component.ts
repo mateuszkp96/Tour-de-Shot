@@ -27,7 +27,7 @@ export class AccountHistoryComponent implements OnInit {
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
+      //console.log(this.user);
       this.loggedIn = (user != null);
     });
 
@@ -38,6 +38,6 @@ export class AccountHistoryComponent implements OnInit {
   }
 
   onChangePage($event) {
-    console.log("On change page event")
+    //console.log("On change page event")
   }
 }

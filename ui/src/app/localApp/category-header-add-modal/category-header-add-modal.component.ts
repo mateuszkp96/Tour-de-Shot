@@ -39,8 +39,8 @@ export class CategoryHeaderAddModalComponent implements OnInit {
     this.btnSaveClicked = true
 
     if (this.category.categoryHeader && this.category.orderNumber) {
-      console.log("saveCategoryHeader")
-      console.log(this.category)
+      //console.log("saveCategoryHeader")
+      //console.log(this.category)
       this.menuService.addCategoryHeader(this.localId, this.category)
       this.dialogRef.close()
     }
