@@ -252,7 +252,6 @@ export class LocalService {
       default:
         return localExist.price
         break;
-
     }
   }
 }

@@ -41,7 +41,6 @@ export class WebLocalService {
         response['openingHours'] = []
       } )
     );
-
   }
 
 

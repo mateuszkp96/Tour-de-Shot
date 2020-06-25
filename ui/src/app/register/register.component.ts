@@ -40,6 +40,7 @@ export class RegisterComponent implements OnInit {
 
       });
       console.log('logged')
+    this.userService.registration()
   }
 
   ngOnInit() {

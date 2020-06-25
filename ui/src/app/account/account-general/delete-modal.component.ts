@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-delete-user',
@@ -8,7 +9,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 export class DeleteAccountComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DeleteAccountComponent,
-  public dialogRef: MatDialogRef<DeleteAccountComponent>){
+  public dialogRef: MatDialogRef<DeleteAccountComponent>,
+              private userService: UserService){
 
 
   }
@@ -22,6 +24,7 @@ export class DeleteAccountComponent implements OnInit {
 
   onYesClick(): void {
     this.dialogRef.close();
+    this.userService.deactivation()
   }
 
 }
