@@ -62,8 +62,3 @@ spec:
                 configMapKeyRef:
                   name: history-config
                   key: APP_URL_LOCAL
-#            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-#              valueFrom:
-#                secretKeyRef:
-#                  name: history-secret-conf
-#                  key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI

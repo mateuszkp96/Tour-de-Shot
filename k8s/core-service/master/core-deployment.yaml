@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: core-master
-          image: mateusz43211/tourdeshot:core_1.19
+          image: mateusz43211/tourdeshot:core_1.20
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -71,8 +71,3 @@ spec:
                   key: APP_CORS_ALLOWEDORIGINS_1
             - name: SERVER_SERVLET_CONTEXTPATH
               value: /api
-#            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-#              valueFrom:
-#                secretKeyRef:
-#                  name: core-secret-conf
-#                  key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
