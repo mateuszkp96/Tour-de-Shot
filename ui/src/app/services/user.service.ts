@@ -28,8 +28,8 @@ export class UserService {
 
   }
 
-  getYourLocalsList(userId: number): Promise<any> {
-    return this.http.get(this.LOCAL_API_URL + '/user-local' + userId).toPromise()
+  getYourLocalsList(): Promise<any> {
+    return this.http.get(this.LOCAL_API_URL + '/user-local').toPromise()
 
   }
 
@@ -40,4 +40,13 @@ export class UserService {
   getUserView () {
     return this.displayUserView;
   }
+  
+  registration(): Promise<any> {
+    return this.http.get(this.LOCAL_API_URL + '/registration').toPromise()
+  }
+
+  deactivation(): Promise<any> {
+    return this.http.get(this.LOCAL_API_URL + '/deactivation').toPromise()
+  }
+  
 }

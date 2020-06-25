@@ -20,7 +20,7 @@ export class ProductService {
 
   deleteProduct(localId: number, orderNumber: number, productId: number): Promise<any> {
     return this.http.delete(this.LOCAL_API_URL + '/product?localId=' + localId + "&orderNumber=" + orderNumber + "&productId=" + productId).toPromise();
-
+    
   }
 
 }

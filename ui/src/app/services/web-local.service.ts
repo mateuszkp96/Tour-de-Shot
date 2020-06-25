@@ -41,7 +41,6 @@ export class WebLocalService {
         response['openingHours'] = []
       } )
     );
-
   }
 
 
@@ -74,7 +73,7 @@ export class WebLocalService {
     return this.http.put(this.LOCAL_API_URL + '/local/' + localId, localToModify).toPromise();
   }
 
-  addLocal(ownerId: number, localToAdd: LocalToAdd): Promise<any>{
-    return this.http.post(this.LOCAL_API_URL + '/local/' + ownerId, localToAdd).toPromise();
+  addLocal(localToAdd: LocalToAdd): Promise<any>{
+    return this.http.post(this.LOCAL_API_URL + '/local', localToAdd).toPromise();
   }
 }
