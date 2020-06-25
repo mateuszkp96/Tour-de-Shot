@@ -5,7 +5,7 @@ metadata:
   labels:
     app: user-master
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: user-master
@@ -79,8 +79,8 @@ spec:
                 secretKeyRef:
                   name: user-secret-conf
                   key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_USER_APP_CLIENT_SECRET
-            - name: APP_URL_REDIRECT
-              valueFrom:
-                configMapKeyRef:
-                  name: user-config
-                  key: APP_URL_REDIRECT
+#            - name: APP_URL_REDIRECT
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: user-config
+#                  key: APP_URL_REDIRECT
