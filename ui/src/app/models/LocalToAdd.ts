@@ -85,6 +85,6 @@ export const InitLocalToAdd: LocalToAdd = {
   openingHours: InitOpeningHoursToAdd,
   localCategories: [""],
   website: "",
-  priceCategory: 0,
+  priceCategory: 1,
 }
 

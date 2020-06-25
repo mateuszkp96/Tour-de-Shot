@@ -105,8 +105,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.localService.getCheckedLocalsIdList()
       .subscribe(mymessage => {
         this.checkedLocalsIdList = mymessage;
-        console.log("CHECKED LOCALS ID")
-        console.log(this.checkedLocalsIdList)
+        //console.log("CHECKED LOCALS ID")
+        //console.log(this.checkedLocalsIdList)
         this.loadCheckedLocalsMarkers();
         this.drawRoute();
       });
@@ -275,8 +275,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     }
 
-    console.log("ROUTE ID")
-    console.log(this.destinationsId)
+    //console.log("ROUTE ID")
+    //console.log(this.destinationsId)
   }
 
 

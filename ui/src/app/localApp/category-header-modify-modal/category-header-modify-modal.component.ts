@@ -36,7 +36,7 @@ export class CategoryHeaderModifyModalComponent implements OnInit {
 
 
   saveCategoryHeader() {
-    console.log("ModifyCategoryHeader")
+    //console.log("ModifyCategoryHeader")
     this.category.categoryHeader = this.categoryHeader
     this.category.orderNumber = this.orderNumber
     this.menuService.updateCategoryHeader(this.localId, this.category)   // service to send to backend
@@ -44,7 +44,7 @@ export class CategoryHeaderModifyModalComponent implements OnInit {
   }
 
   onCloseClicked() {
-    console.log(this.category)
+    //console.log(this.category)
     this.dialogRef.close()
   }
 

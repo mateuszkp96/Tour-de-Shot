@@ -39,16 +39,16 @@ export class ModalComponent implements OnInit {
     this.local.openingHours.schedule.sort((a, b) => a.orderNumber - (b.orderNumber));
 
     this.getUserHistoryForLocal = this.localService.getUserHistoryToAddForLocal(this.local.id)
-    console.log("this.getUserHistoryForLocal")
-    console.log(this.getUserHistoryForLocal)
+    //console.log("this.getUserHistoryForLocal")
+    //console.log(this.getUserHistoryForLocal)
 
     this.currentCost = this.localService.getCurrentCostForLocal(this.local.id)
   }
 
 
   addProductToSummary(product, method: string, i, j) {
-    console.log(product)
-    console.log(method)
+    //console.log(product)
+    //console.log(method)
     this.localService.updateSummaryProductListHistory(this.local.id, product, method)
     this.localService.updateSummaryProductList(product, method, i, j)
     const currenDrinkstArray = this.localService.getSummaryProductListValues();
@@ -60,7 +60,7 @@ export class ModalComponent implements OnInit {
 
   removeProductFromSummary(product, method: string, i, j) {
     this.localService.updateSummaryProductListHistory(this.local.id, product, method)
-    console.log(i + '' + j)
+    //console.log(i + '' + j)
     this.localService.updateSummaryProductList(product, method, i, j);
     const currenDrinkstArray = this.localService.getSummaryProductListValues();
     let index = currenDrinkstArray.findIndex(x => x.i === i && x.j === j);

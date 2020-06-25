@@ -56,7 +56,7 @@ export class RouteComponent implements AfterViewInit {
 
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
+      //console.log(this.user);
       this.loggedIn = (user != null);
     });
 
@@ -69,10 +69,10 @@ export class RouteComponent implements AfterViewInit {
     this.checkedLocalsIdList = this.localService.getCheckedLocalsIdListValues();
     this.localService.updateCheckedLocalsIdList(this.checkedLocalsIdList);
 
-    console.log("summary product list")
-    console.log(this.localService.getSummaryProductListValues())
+   // console.log("summary product list")
+   // console.log(this.localService.getSummaryProductListValues())
 
-    console.log(this.historyName)
+   // console.log(this.historyName)
   }
 
 
@@ -87,9 +87,9 @@ export class RouteComponent implements AfterViewInit {
 
   onAddToHistoryClick() {
     this.userHisotryToAdd.name = this.historyName
-    console.log(this.user.id)
-    console.log("HISTORY TO ADD")
-    console.log(this.userHisotryToAdd)
+    //console.log(this.user.id)
+   // console.log("HISTORY TO ADD")
+   // console.log(this.userHisotryToAdd)
     this.userHistoryService.addUserHistory(this.userHisotryToAdd)
     this.historyName = ""
   }

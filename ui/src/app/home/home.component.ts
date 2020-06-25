@@ -39,8 +39,8 @@ export class HomeComponent implements OnInit {
 
   onRegisterClick() {
     //How read values from environment, TODO - remove it
-    console.log("LOCAL API URL: " + environment.localApiUrl)
-    console.log("USER API URL: " + environment.userApiUrl)
+    //console.log("LOCAL API URL: " + environment.localApiUrl)
+    //console.log("USER API URL: " + environment.userApiUrl)
     this.router.navigate(['register']);
   }
 
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
   openConfirmationDialog(){
     const dialogRef = this.dialog.open(ConfirmationComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      //console.log(`Dialog result: ${result}`);
     });
   }
 }

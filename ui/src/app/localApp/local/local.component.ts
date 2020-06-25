@@ -47,7 +47,7 @@ export class LocalComponent implements OnInit {
   }
 
   localDeleted(event: string[]) {
-    console.log("Local deleted")
+    //console.log("Local deleted")
     //this.localService.updateCheckedCategories(event)
   }
 }

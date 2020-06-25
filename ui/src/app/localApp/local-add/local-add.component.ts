@@ -108,12 +108,12 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
     if (this.localToAdd.localCategories.length > 1) {
       this.localToAdd.localCategories.splice(id, 1);
     }
-    console.log(this.localToAdd.localCategories)
+    //console.log(this.localToAdd.localCategories)
   }
 
   onAddCategoryClick() {
     this.localToAdd.localCategories.push("")
-    console.log(this.localToAdd.localCategories)
+    //console.log(this.localToAdd.localCategories)
   }
 
   trackByFn(index: any, item: any) {
@@ -152,17 +152,18 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
   }
 
   onPriceCategoryChanged(event) {
-    console.log(this.localToAdd.priceCategory)
+    //console.log(this.localToAdd.priceCategory)
     this.localToAdd.priceCategory = event.currentTarget.valueOf().value.replace(/\D/g, '');
-    console.log(this.localToAdd.priceCategory)
+    //console.log(this.localToAdd.priceCategory)
 
   }
 
   onSaveClick() {
     this.buttonSaveClicked = true
-    console.log("LOCAL TO ADD")
-    console.log(this.localToAdd)
+    //console.log("LOCAL TO ADD")
+    //console.log(this.localToAdd)
     this.webLocalService.addLocal(this.localToAdd)
+    this.router.navigate(['locals'])
 
     //this.getLocal(this.localId)
     //this.isDisable = true

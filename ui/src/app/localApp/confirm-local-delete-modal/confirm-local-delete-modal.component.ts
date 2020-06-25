@@ -4,6 +4,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {LocalService} from 'src/app/services/local.service';
 import {Local} from 'protractor/built/driverProviders';
 import {Router} from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-confirm-local-delete-modal',
@@ -21,24 +23,26 @@ export class ConfirmLocalDeleteModalComponent implements OnInit {
     private localService: LocalService,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmLocalDeleteModalComponent,
     private dialogRef: MatDialogRef<ConfirmLocalDeleteModalComponent>,
+    private userService: UserService,
+    private authService: AuthService
   ) {
   }
 
   ngOnInit(): void {
-    this.localId = 4;
   }
-
 
   onConfirmClick() {
-    console.log("For testing deleted was local 4, it works")
-    this.deleteLocal(this.localId)
-  }
+    this.userService.deactivation()
+    this.dialogRef.close()
+    this.userService.setLocalLoggedIn(false)
+    this.authService.signOut().then(
+      (res) => {
+        this.router.navigate(['/startLocal']);
+      }
+    );
 
-  deleteLocal(id: number) {
-    this.webLocalService.deleteLocalById(id).then(() => {
-      this.dialogRef.close()
-      this.router.navigate(['']);
-    });
+
+
   }
 
 }

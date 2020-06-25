@@ -33,8 +33,8 @@ export class TreeComponent implements OnInit {
       this.productCategoryList = data as object[]
       this.categories = this.productCategoryList;
 
-      console.log("productCategoryList")
-      console.log(this.productCategoryList)
+      //console.log("productCategoryList")
+      //console.log(this.productCategoryList)
       // maps the appropriate column to fields property
       let field: object = {
         dataSource: this.productCategoryList,

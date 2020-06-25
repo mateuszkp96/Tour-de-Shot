@@ -46,9 +46,13 @@ export class MenuService {
   deleteCategoryHeader(localId: number, orderNumber: number): Promise<any> {
     return this.http.delete(this.LOCAL_API_URL + '/menu/' + localId + '?orderNumber=' + orderNumber).toPromise();
   }
-  
+
   deleteProduct(localId: number, orderNumber: number, productId: number) {
     return this.http.delete(this.LOCAL_API_URL + '/product?localId=' + localId + '&orderNumber=' + orderNumber + '&productId=' + productId).toPromise();
 
+  }
+
+  addEmptyMenu(localId: number): Promise<any>{
+    return this.http.post(this.LOCAL_API_URL + '/menu/' + localId, {}).toPromise();
   }
 }

@@ -13,10 +13,10 @@ export class MapLoaderService {
     if (!MapLoaderService.promise) { // load once
       MapLoaderService.promise = new Promise((resolve) => {
         window['__onGapiLoaded'] = (ev) => {
-          console.log('gapi loaded')
+          //console.log('gapi loaded')
           resolve(window.gapi);
         }
-        console.log('loading..')
+        //console.log('loading..')
         const node = document.createElement('script');
         node.src = "https://maps.googleapis.com/maps/api/js?key==AIzaSyBrAcHs0kAcdeefzPzIefUED4HnBotZJNE&callback=initMap"
 
