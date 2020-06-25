@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: user-master
-          image: mateusz43211/tourdeshot:user_1.19
+          image: mateusz43211/tourdeshot:user_1.22
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -80,4 +80,7 @@ spec:
                   name: user-secret-conf
                   key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_USER_APP_CLIENT_SECRET
             - name: APP_URL_REDIRECT
-              value: http://34.89.60.247.xip.io/search
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: APP_URL_REDIRECT
