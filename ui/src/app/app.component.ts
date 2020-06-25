@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   public user: SocialUser;
   public loggedIn = true;
   public userChecked = false;
-  public displayUserView: boolean;
+  public displayUserView: boolean
   public href: string = "";
 
   // hardcoded yet
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
       this.user = user;
       this.loggedIn = (user != null);
       if (this.user) {
-        this.router.navigate(['/search']);
+      //  this.router.navigate(['/search']);
       } else {
         //this.router.navigate(['']);
       }
@@ -72,9 +72,11 @@ export class AppComponent implements OnInit {
       async loggedIn => {
         if (loggedIn) {
           console.log("From app loggedIn" + loggedIn)
-          this.localLoggedIn = loggedIn; // hardcoded here yet
+          this.localLoggedIn = loggedIn;
         }
       });
+
+    //this.localLoggedIn = this.userService.getLocalLoggedIn()
 
   }
 

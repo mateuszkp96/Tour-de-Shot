@@ -29,6 +29,7 @@ export class LocalMenuComponent implements OnInit {
   productToAdd: Product
   tree: TreeComponent
   isCollapsed: boolean
+  menuIsEmpty: boolean = false
 
   constructor(
     private router: Router,
@@ -57,7 +58,7 @@ export class LocalMenuComponent implements OnInit {
 
   ngOnInit(): void {
     //  this.localId = this.localLoginService.getIdValue()
- //   this.localId = Number(this.route.snapshot.params.id);
+    //   this.localId = Number(this.route.snapshot.params.id);
     console.log(this.localId)
 
     if (this.localId) {
@@ -71,19 +72,27 @@ export class LocalMenuComponent implements OnInit {
 
 
   getLocal(id: number) {
-    this.webLocalService.getLocalById(id).then(local =>
-      this.local = local)
+    this.webLocalService.getLocalById(id).then(local => {
+      this.local = local
+      if (!this.local.menu)
+        this.menuIsEmpty = true
+    });
   }
 
   getLocalMenu(id: number) {
-    this.menuService.getMenu(id).then(menu =>
-      this.local.menu = menu)
+    this.menuService.getMenu(id).then(menu => {
+      this.local.menu = menu
+      if (this.local.menu.items.length == 0)
+        this.menuIsEmpty = true
+    });
   }
 
   onAddProductClick(orderNumber: number, categoryHeader: string) {
     const dialogRef = this.dialog.open(ProductAddModalComponent);
     dialogRef.componentInstance.orderNumber = orderNumber
     dialogRef.componentInstance.categoryHeader = categoryHeader
+    dialogRef.componentInstance.localId = this.local.id
+
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -144,5 +153,11 @@ export class LocalMenuComponent implements OnInit {
 
   onBackClick() {
     this.router.navigate(['locals']);
+  }
+
+  onCreateMenuClick(){
+    this.menuService.addEmptyMenu(this.localId)
+    this.menuIsEmpty = false
+    this.getLocal(this.localId)
   }
 }

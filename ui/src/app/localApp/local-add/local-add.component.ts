@@ -163,6 +163,7 @@ export class LocalAddComponent implements OnInit, AfterViewInit {
     console.log("LOCAL TO ADD")
     console.log(this.localToAdd)
     this.webLocalService.addLocal(this.localToAdd)
+    this.router.navigate(['locals'])
 
     //this.getLocal(this.localId)
     //this.isDisable = true

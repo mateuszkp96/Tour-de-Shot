@@ -1,5 +1,7 @@
 <div class="container">
-  <div *ngIf="local" class="menu col-lg-12 mb-5">
+  <button *ngIf="menuIsEmpty" type="button" class="btn btn-outline-primary btn-sm" (click)="onCreateMenuClick()"><b>Utwórz menu</b></button>
+
+  <div *ngIf="local && local.menu" class="menu col-lg-12 mb-5">
     <ul class="add-button list-inline d-flex justify-content-end">
       <button type="button" class="btn btn-outline-primary btn-sm" (click)="onAddCategoryHeaderClick()"><b>Dodaj nową
         sekcję</b></button>

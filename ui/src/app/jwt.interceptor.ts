@@ -26,11 +26,23 @@ export class JwtInterceptor implements HttpInterceptor {
               private authService: AuthService,
               private router: Router,
               private http: HttpClient) {
-   this.authService.authState.subscribe(authState => this.idToken = authState.idToken)
+    this.authService.authState.subscribe(authState => {
+        this.idToken = authState.idToken
+        console.log("this.idToken")
+        console.log(this.idToken)
+      }
+    )
 
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.authService.authState) {
+      this.authService.authState.subscribe(authState => {
+        this.idToken = authState.idToken
+        console.log("idToken in jwt set")
+      });
+    }
+
     request = request.clone({
       setHeaders: {
         Authorization: `Bearer ${this.idToken}`
@@ -44,10 +56,10 @@ export class JwtInterceptor implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
 
-       // if (err.status === 401) {
-       //   this.userAuth.collectFailedRequest(request);
-          //this.router.navigate(['']);
-       // }
+        // if (err.status === 401) {
+        //   this.userAuth.collectFailedRequest(request);
+        //this.router.navigate(['']);
+        // }
       }
     }));
   }

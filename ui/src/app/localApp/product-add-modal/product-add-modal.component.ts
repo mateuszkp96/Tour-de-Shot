@@ -20,7 +20,7 @@ export class ProductAddModalComponent implements OnInit {
   @Input() orderNumber: number
   productCategories: ProductCategory[]
   productsCategoryId: string[]
-  localId: number
+  @Input() localId: number
   productAddForm: FormGroup;
   categoryInvalid: boolean = false
   nameInvalid: boolean = false

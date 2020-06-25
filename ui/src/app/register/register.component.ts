@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService, SocialUser } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
 import { UserService } from '../services/user.service';
+import { Store } from '@ngrx/store';
+import * as fromLocalLogin from '../state/localLogin.reducer';
+import * as localLoginActions from '../state/localLogin.actions';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +22,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    public userService: UserService
+    public userService: UserService,
+    private store: Store<fromLocalLogin.AppState>,
   ) {
 
   }
@@ -35,6 +39,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/search']);
         } else {
           this.loggedIn = true;
+          this.userService.setLocalLoggedIn(true)
           this.router.navigate(['locals']);
         }
 
