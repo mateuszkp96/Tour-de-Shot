@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak-deployment
+  namespace: default
+  labels:
+    app: keycloak-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak-master
+  template:
+    metadata:
+      labels:
+        app: keycloak-master
+    spec:
+      containers:
+        - name: keycloak-master
+          image: quay.io/keycloak/keycloak:10.0.2
+          volumeMounts:
+            - name: keycloak-realm-volume
+              mountPath: /tmp/init
+          env:
+            - name: KEYCLOAK_USER
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-secret-conf
+                  key: KEYCLOAK_USER
+            - name: KEYCLOAK_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-secret-conf
+                  key: KEYCLOAK_PASSWORD
+            - name: KEYCLOAK_IMPORT
+              value: /tmp/init/realm-export-master.json
+            - name: PROXY_ADDRESS_FORWARDING
+              value: "true"
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: https
+              containerPort: 8443
+          readinessProbe:
+            httpGet:
+              path: /auth/realms/master
+              port: 8080
+      volumes:
+        - name: keycloak-realm-volume
+          configMap:
+            name: keycloak-master-realm-config

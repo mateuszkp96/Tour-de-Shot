@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongo-pvc
+  name: mongo-history-pvc
 spec:
   accessModes:
     - ReadWriteOnce
@@ -14,60 +14,60 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
-    app: mongo
-  name: mongo
+    app: mongo-history
+  name: mongo-history
 spec:
-  serviceName: mongo
+  serviceName: mongo-history
   replicas: 1
   selector:
     matchLabels:
-      app: mongo
+      app: mongo-history
   template:
     metadata:
       labels:
-        app: mongo
+        app: mongo-history
     spec:
       containers:
-        - name: mongo
+        - name: mongo-history
           image: mongo:4.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 27017
           volumeMounts:
-            - name: mongo-storage
+            - name: mongo-history-storage
               mountPath: /data/db
-            - name: entrypoint
+            - name: mongo-history-entrypoint-volume
               mountPath: /docker-entrypoint-initdb.d
           env:
-            - name: MONGODB_TDS_CORE_DBNAME
+            - name: MONGODB_TDS_DBNAME
               valueFrom:
                 configMapKeyRef:
-                  name: mongo-core-config
-                  key: MONGODB_TDS_CORE_DBNAME
-            - name: MONGODB_TDS_CORE_ROLE
+                  name: mongo-history-config
+                  key: MONGODB_TDS_DBNAME
+            - name: MONGODB_TDS_ROLE
               valueFrom:
                 configMapKeyRef:
-                  name: mongo-core-config
-                  key: MONGODB_TDS_CORE_ROLE
-            - name: MONGODB_TDS_CORE_USERNAME
+                  name: mongo-history-config
+                  key: MONGODB_TDS_ROLE
+            - name: MONGODB_TDS_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: mongo-core
+                  name: mongo-history
                   key: db-username
-            - name: MONGODB_TDS_CORE_PWD
+            - name: MONGODB_TDS_PWD
               valueFrom:
                 secretKeyRef:
-                  name: mongo-core
+                  name: mongo-history
                   key: db-password
           resources:
             limits:
-              memory: "1Gi"
-              cpu: "200m"
+              memory: "256Mi"
+              cpu: "50m"
       volumes:
-        - name: mongo-storage
+        - name: mongo-history-storage
           persistentVolumeClaim:
-            claimName: mongo-pvc
-        - name: entrypoint
+            claimName: mongo-history-pvc
+        - name: mongo-history-entrypoint-volume
           configMap:
-            name: mongo-entrypoint
+            name: mongo-history-entrypoint
 

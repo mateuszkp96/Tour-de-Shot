@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-master-deployment
+  labels:
+    app: user-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-master
+  template:
+    metadata:
+      labels:
+        app: user-master
+    spec:
+      containers:
+        - name: user-master
+          image: mateusz43211/tourdeshot:user_1.22
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          env:
+            - name: SERVER_PORT
+              value: '8080'
+            - name: SPRING_DATA_MONGODB_HOST
+              value: mongo-user
+            - name: SPRING_DATA_MONGODB_PORT
+              value: '27017'
+            - name: SPRING_DATA_MONGODB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-user-config
+                  key: MONGODB_TDS_DBNAME
+            - name: SPRING_DATA_MONGODB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-user
+                  key: db-username
+            - name: SPRING_DATA_MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-user
+                  key: db-password
+            - name: SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-user-config
+                  key: MONGODB_TDS_DBNAME
+            - name: APP_CORS_ALLOWEDORIGINS_0
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: APP_CORS_ALLOWEDORIGINS_0
+            - name: APP_CORS_ALLOWEDORIGINS_1
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: APP_CORS_ALLOWEDORIGINS_1
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_USER_APP_PROVIDER_ISSUER_URI
+              valueFrom:
+                secretKeyRef:
+                  name: user-secret-conf
+                  key: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_USER_APP_PROVIDER_ISSUER_URI
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_USER_APP_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: user-secret-conf
+                  key: SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_USER_APP_CLIENT_SECRET
+            - name: APP_URL_REDIRECT
+              valueFrom:
+                configMapKeyRef:
+                  name: user-config
+                  key: APP_URL_REDIRECT

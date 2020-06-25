@@ -5,5 +5,5 @@ metadata:
     app: mongo-core-config
   name: mongo-core-config
 data:
-  MONGODB_TDS_CORE_DBNAME: tds
-  MONGODB_TDS_CORE_ROLE: readWrite
+  MONGODB_TDS_DBNAME: tds
+  MONGODB_TDS_ROLE: readWrite

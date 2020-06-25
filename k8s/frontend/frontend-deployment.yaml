@@ -16,10 +16,13 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: mateusz43211/tourdeshot:frontend_latest
-          imagePullPolicy: Always
+          image: mateusz43211/tourdeshot:frontend_1.22
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: frontend-nginx-volume
+              mountPath: /etc/nginx/conf.d
           env:
             - name: GOOGLE_AUTH_PROVIDER
               valueFrom:
@@ -27,6 +30,26 @@ spec:
                   name: frontend-conf
                   key: google-auth-provider
             - name: LOCAL_API_URL
-              value: https://tourdeshot.teamg.com
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: LOCAL_API_URL
             - name: USER_API_URL
-              value: https://tourdeshot.teamg.com
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: USER_API_URL
+            - name: HISTORY_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: HISTORY_API_URL
+            - name: KEYCLOAK_LOGIN_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: KEYCLOAK_LOGIN_URL
+      volumes:
+        - name: frontend-nginx-volume
+          configMap:
+            name: frontend-nginx-conf

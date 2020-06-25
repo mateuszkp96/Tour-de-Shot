@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-core-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: mongo-core
+  name: mongo-core
+spec:
+  serviceName: mongo-core
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-core
+  template:
+    metadata:
+      labels:
+        app: mongo-core
+    spec:
+      containers:
+        - name: mongo-core
+          image: mongo:4.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-core-storage
+              mountPath: /data/db
+            - name: mongo-core-entrypoint-volume
+              mountPath: /docker-entrypoint-initdb.d
+          env:
+            - name: MONGODB_TDS_DBNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-core-config
+                  key: MONGODB_TDS_DBNAME
+            - name: MONGODB_TDS_ROLE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-core-config
+                  key: MONGODB_TDS_ROLE
+            - name: MONGODB_TDS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-core
+                  key: db-username
+            - name: MONGODB_TDS_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-core
+                  key: db-password
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "50m"
+      volumes:
+        - name: mongo-core-storage
+          persistentVolumeClaim:
+            claimName: mongo-core-pvc
+        - name: mongo-core-entrypoint-volume
+          configMap:
+            name: mongo-core-entrypoint
+

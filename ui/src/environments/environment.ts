@@ -9,7 +9,7 @@ export const environment = {
   historyApiUrl: window["env"]["historyApiUrl"] || "default",
   googleAuthProvider: window["env"]["googleAuthProvider"] || "default",
   debug: window["env"]["debug"] || false,
-  googleMapsKey: window["env"]["googleMapsKey"] || "default"
+  keycloakLoginUrl: window["env"]["keycloakLoginUrl"] || "default"
 };
 
 /*
