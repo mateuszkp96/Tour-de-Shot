@@ -86,7 +86,7 @@ jobs:
         run:  mkdir -p app/${{ matrix.module }}/build/dependency && (cd app/${{ matrix.module }}/build/dependency; jar -xf ../libs/*.jar)
 
       - name: Publish to DockerHub module ${{ matrix.module }}
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: mateusz43211/tourdeshot
           username: ${{ secrets.DOCKER_USERNAME }}
